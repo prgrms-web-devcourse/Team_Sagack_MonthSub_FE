@@ -6,7 +6,7 @@ module.exports = {
   },
   extends: ['airbnb', 'prettier'],
   rules: {
-    'react/function-component-definition': 'arrow-function',
+    'react/function-component-definition': 'off',
     'object-curly-newline': 0,
     'import/extensions': ['off'],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
