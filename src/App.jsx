@@ -1,6 +1,6 @@
 import React from 'react';
 
-const App = function () {
+const App = () => {
   return <div>안녕</div>;
 };
 
