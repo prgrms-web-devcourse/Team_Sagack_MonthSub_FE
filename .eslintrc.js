@@ -19,5 +19,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/forbid-prop-types': 'off',
     'react/no-children-prop': 'off',
+    'react/jsx-props-no-spreading': ['off'],
+
   },
 };
