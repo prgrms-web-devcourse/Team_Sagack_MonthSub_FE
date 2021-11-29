@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ width, height, disabled, type, onChange }) => {
+const Input = ({ name, width, height, disabled, type, onChange }) => {
   const [data, setData] = useState('');
 
   const handleChange = e => {
@@ -12,6 +12,7 @@ const Input = ({ width, height, disabled, type, onChange }) => {
 
   return (
     <input
+      name={name}
       width={width}
       height={height}
       disabled={disabled}
@@ -25,6 +26,7 @@ const Input = ({ width, height, disabled, type, onChange }) => {
 export default Input;
 
 Input.defaultProps = {
+  name: '',
   width: 0,
   height: 0,
   disabled: false,
@@ -33,6 +35,7 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
+  name: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,

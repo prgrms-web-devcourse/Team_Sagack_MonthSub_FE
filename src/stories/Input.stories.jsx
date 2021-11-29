@@ -5,6 +5,10 @@ export default {
   title: 'Component/Input',
   component: Input,
   argTypes: {
+    name: {
+      defaultValue: '',
+      control: 'string',
+    },
     width: {
       defaultValue: 200,
       control: { type: 'range', min: 200, max: 600 },
