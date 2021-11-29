@@ -1,10 +1,5 @@
 import React from 'react';
-import Input from '@components/commons/Input';
 
-const App = () => (
-  <div>
-    <Input type="date" />
-  </div>
-);
+const App = () => <div>안녕!</div>;
 
 export default App;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Input = ({ width, height, disabled, type, onChange }) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState('');
 
   const handleChange = e => {
     const { value } = e.target;
