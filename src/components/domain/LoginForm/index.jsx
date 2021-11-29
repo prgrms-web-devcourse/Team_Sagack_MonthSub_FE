@@ -1,15 +1,17 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import useform from '../../../hooks/useform';
+import { useForm } from '@hooks';
+import Input from '../../commons/Input';
 
 const LoginForm = ({ onSubmit }) => {
-  const { values, errors, handleChange, handleSubmit } = useform({
+  const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       id: '',
       password: '',
     },
     onSubmit: async () => {
-      await onSubmit();
+      onSubmit && (await onSubmit());
     },
     validate: ({ id, password }) => {
       const newErrors = {};
@@ -19,34 +21,41 @@ const LoginForm = ({ onSubmit }) => {
     },
   });
 
-  console.log(values, errors);
-
   return (
     <form onSubmit={handleSubmit}>
       <h1>Login</h1>
-      <label htmlFor="login_id">아이디</label>
-      <input
-        id="login_id"
-        type="text"
+      <Input
         name="id"
+        value={values.id}
+        type="text"
         placeholder="아이디"
         onChange={handleChange}
       />
-      <label htmlFor="login_password">비밀번호</label>
-      <input
-        id="login_password"
-        type="password"
+      <ErrorMessage>{errors.id}&nbsp;</ErrorMessage>
+      <Input
         name="password"
+        value={values.password}
+        type="password"
         placeholder="비밀번호"
         onChange={handleChange}
       />
+      <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
       <button type="submit">submit</button>
     </form>
   );
 };
 
-export default LoginForm;
+LoginForm.defaultProps = {
+  onSubmit: () => {},
+};
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 };
+
+export default LoginForm;
+
+const ErrorMessage = styled.span`
+  margin: 16px 0;
+  color: red;
+`;
