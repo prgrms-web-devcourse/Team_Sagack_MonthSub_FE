@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled'
 
-// eslint-disable-next-line react/prop-types
-const Button = ({ type, width, height, disabled, onClick }) => (
+const Button = ({ type, width, height, disabled, onClick, children }) => (
     <StyledButton
       type={type}
       width={width}
@@ -11,7 +10,7 @@ const Button = ({ type, width, height, disabled, onClick }) => (
       disabled={disabled}
       onClick={onClick}
     >
-      버튼
+      {children}
     </StyledButton>
   );
 
@@ -22,7 +21,8 @@ Button.defaultProps = {
   width: 0,
   height: 0,
   disabled: false,
-  onClick: () => {},
+  onClick: () => { },
+  children: 'text',
 };
 
 Button.propTypes = {
@@ -31,11 +31,11 @@ Button.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  children: PropTypes.string,
 };
 
 const StyledButton = styled.button`
   type: button;
-  border-radius: 1rem;
-  border: 1px solid bl1ack;
-  psdding: 10px;
+  border: 0.0625rem solid #000;
+  padding: 0.5rem;
 `;
