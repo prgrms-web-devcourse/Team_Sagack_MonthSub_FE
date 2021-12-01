@@ -21,7 +21,14 @@ Wrapper.propTypes = {
 };
 
 const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  max-width: ${props => props.width || '71.25rem'};
+  margin: 0 auto;
   text-align: center;
   border: 2px #000000 solid;
-  width: ${props => props.width || '71.25rem'};
 `;
