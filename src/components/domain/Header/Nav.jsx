@@ -9,6 +9,8 @@ const Nav = ({ maxWidth, items, ...props }) => (
   </StyledNav>
 );
 
+export default Nav;
+
 Nav.defaultProps = {
   maxWidth: '350px',
 };
@@ -17,8 +19,6 @@ Nav.propTypes = {
   maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   items: PropTypes.array.isRequired,
 };
-
-export default Nav;
 
 const StyledNav = styled.nav`
   width: 100%;

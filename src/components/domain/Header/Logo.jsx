@@ -15,6 +15,8 @@ const Logo = ({ src, alt, onClick, ...props }) => {
   );
 };
 
+export default Logo;
+
 Logo.defaultProps = {
   src: '',
   alt: 'Logo',
@@ -26,5 +28,3 @@ Logo.propTypes = {
   alt: PropTypes.string,
   onClick: PropTypes.func,
 };
-
-export default Logo;
