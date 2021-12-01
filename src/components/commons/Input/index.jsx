@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ name, width, height, disabled, type, onChange }) => {
-  const [data, setData] = useState('');
-
-  const handleChange = e => {
-    const { value } = e.target;
-    setData(value);
-    onChange && onChange(value);
-  };
-
-  return (
-    <input
-      name={name}
-      width={width}
-      height={height}
-      disabled={disabled}
-      value={data || ''}
-      type={type}
-      onChange={handleChange}
-    />
-  );
-};
-
+const Input = ({
+  name,
+  width,
+  height,
+  disabled,
+  value,
+  type,
+  placeholder,
+  onChange,
+}) => (
+  <input
+    name={name}
+    width={width}
+    height={height}
+    disabled={disabled}
+    value={value}
+    type={type}
+    placeholder={placeholder}
+    onChange={onChange}
+  />
+);
 export default Input;
 
 Input.defaultProps = {
@@ -31,6 +30,7 @@ Input.defaultProps = {
   height: 0,
   disabled: false,
   type: 'text',
+  placeholder: '',
   onChange: () => {},
 };
 
@@ -39,6 +39,8 @@ Input.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
+  value: PropTypes.string.isRequired,
   type: PropTypes.string,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func,
 };
