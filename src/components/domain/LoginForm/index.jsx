@@ -10,8 +10,8 @@ const LoginForm = ({ onSubmit }) => {
       id: '',
       password: '',
     },
-    onSubmit: async () => {
-      onSubmit && (await onSubmit());
+    onSubmit: async data => {
+      onSubmit && (await onSubmit(data));
     },
     validate: ({ id, password }) => {
       const newErrors = {};
