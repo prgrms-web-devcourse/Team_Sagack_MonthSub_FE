@@ -45,6 +45,8 @@ const LoginForm = ({ onSubmit }) => {
   );
 };
 
+export default LoginForm;
+
 LoginForm.defaultProps = {
   onSubmit: () => {},
 };
@@ -52,8 +54,6 @@ LoginForm.defaultProps = {
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
-
-export default LoginForm;
 
 const ErrorMessage = styled.span`
   margin: 16px 0;
