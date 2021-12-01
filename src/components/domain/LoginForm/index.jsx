@@ -15,20 +15,20 @@ const LoginForm = ({ onSubmit }) => {
     },
     validate: ({ id, password }) => {
       const newErrors = {};
-      if (!id) newErrors.id = 'id를 입력해주세요!';
-      if (!password) newErrors.password = '비밀번호를 입력해주세요!';
+      if (!id) newErrors.id = '아이디를 입력해주세요.';
+      if (!password) newErrors.password = '비밀번호를 입력해주세요.';
       return newErrors;
     },
   });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
+    <Form onSubmit={handleSubmit}>
+      <H1>Login</H1>
       <Input
         name="id"
         value={values.id}
         type="text"
-        placeholder="아이디"
+        placeholder="아이디를 입력해주세요."
         onChange={handleChange}
       />
       <ErrorMessage>{errors.id}&nbsp;</ErrorMessage>
@@ -36,12 +36,12 @@ const LoginForm = ({ onSubmit }) => {
         name="password"
         value={values.password}
         type="password"
-        placeholder="비밀번호"
+        placeholder="비밀번호를 입력해주세요."
         onChange={handleChange}
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
       <button type="submit">submit</button>
-    </form>
+    </Form>
   );
 };
 
@@ -55,7 +55,20 @@ LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
+const H1 = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+`;
+
 const ErrorMessage = styled.span`
-  margin: 16px 0;
+  margin: 0.2rem 0 0.5rem 0;
   color: red;
+  font-size: 0.5rem;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 `;
