@@ -11,6 +11,7 @@ const Input = ({
   type,
   placeholder,
   onChange,
+  ...props
 }) => (
   <StyledInput
     name={name}
@@ -21,12 +22,12 @@ const Input = ({
     type={type}
     placeholder={placeholder}
     onChange={onChange}
+    {...props}
   />
 );
 export default Input;
 
 Input.defaultProps = {
-  name: '',
   width: 'auto',
   height: 'auto',
   disabled: false,
@@ -36,7 +37,7 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
@@ -50,4 +51,5 @@ const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
+  padding: 0.2rem;
 `;
