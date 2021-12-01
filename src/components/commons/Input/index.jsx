@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
 
 const Input = ({
   name,
@@ -11,7 +12,7 @@ const Input = ({
   placeholder,
   onChange,
 }) => (
-  <input
+  <StyledInput
     name={name}
     width={width}
     height={height}
@@ -26,8 +27,8 @@ export default Input;
 
 Input.defaultProps = {
   name: '',
-  width: 0,
-  height: 0,
+  width: 'auto',
+  height: 'auto',
   disabled: false,
   type: 'text',
   placeholder: '',
@@ -44,3 +45,9 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
 };
+
+const StyledInput = styled.input`
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) =>
+    typeof height === 'number' ? `${height}px` : height};
+`;
