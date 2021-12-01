@@ -11,13 +11,13 @@ import {
   PurchaseHistoryPage,
   PurchasePage,
   SearchPage,
-  SerizeDetailPage,
-  SerizeListPage,
+  SeriesDetailPage,
+  SeriesListPage,
   SignInPage,
   SignUpPage,
   WriteArticlePage,
   WriteListPage,
-  WriteSerizePage,
+  WriteSeriesPage,
   NotFoundPage,
 } from '@pages';
 
@@ -34,13 +34,13 @@ const App = () => (
       <Route path="/info/purchase" element={<PurchaseHistoryPage />} />
       <Route path="/purchase" element={<PurchasePage />} />
       <Route path="/search" element={<SearchPage />} />
-      <Route path="/serize/:id" element={<SerizeDetailPage />} />
-      <Route path="/serizes" element={<SerizeListPage />} />
+      <Route path="/series/:id" element={<SeriesDetailPage />} />
+      <Route path="/series" element={<SeriesListPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/article/write" element={<WriteArticlePage />} />
       <Route path="/writes" element={<WriteListPage />} />
-      <Route path="/serizle/write" element={<WriteSerizePage />} />
+      <Route path="/series/write" element={<WriteSeriesPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   </BrowserRouter>
