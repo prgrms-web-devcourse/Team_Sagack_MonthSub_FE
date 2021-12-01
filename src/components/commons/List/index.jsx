@@ -10,12 +10,14 @@ const List = ({
   horizen,
   justifyContent,
   alignItems,
+  ...props
 }) => (
   <StyledList
     width={width}
     direction={horizen}
     justifyContent={justifyContent}
     alignItems={alignItems}
+    {...props}
   >
     {items &&
       items.map(item => (
