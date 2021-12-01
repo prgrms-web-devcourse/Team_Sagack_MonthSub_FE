@@ -22,6 +22,8 @@ module.exports = {
     'react/jsx-props-no-spreading': ['off'],
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
-    'no-unused-expressions': 'off'
+    'no-unused-expressions': 'off',
+    'no-shadow': 'off', 
+    'no-restricted-syntax': 'off' 
   },
 };
