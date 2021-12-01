@@ -5,7 +5,11 @@ import { List } from '@components';
 
 const UserModal = ({ maxWidth, items, visible, ...props }) => (
   <StyledDiv maxwidth={maxWidth} visible={visible} {...props}>
-    <List items={items} />
+    <List>
+      <li>마이페이지</li>
+      <li>관심 시리즈</li>
+      <li>로그아웃</li>
+    </List>
   </StyledDiv>
 );
 
