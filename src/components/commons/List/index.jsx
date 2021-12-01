@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const List = ({
   width,
+  height,
   color,
   fontSize,
   items,
@@ -14,6 +15,7 @@ const List = ({
 }) => (
   <StyledList
     width={width}
+    height={height}
     direction={horizen}
     justifyContent={justifyContent}
     alignItems={alignItems}
@@ -30,15 +32,17 @@ const List = ({
 
 List.defaultProps = {
   width: '100%',
+  height: '100%',
   color: 'inherit',
   fontSize: 'inherit',
   horizen: false,
   justifyContent: 'flex-start',
-  alignItems: 'flex-start',
+  alignItems: 'center',
 };
 
 List.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string,
   fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   items: PropTypes.array.isRequired,
@@ -50,7 +54,9 @@ List.propTypes = {
 export default List;
 
 const StyledList = styled.ul`
-  width: ${({ width }) => width};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) =>
+    typeof height === 'number' ? `${height}px` : height};
   display: flex;
   flex-direction: ${({ direction }) => (direction ? 'row' : 'column')};
   justify-content: ${({ justifyContent }) => justifyContent};

@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { List } from '@components';
 
-const Nav = ({ maxWidth, items }) => (
-  <StyledNav maxwidth={maxWidth}>
+const Nav = ({ maxWidth, items, ...props }) => (
+  <StyledNav maxwidth={maxWidth} {...props}>
     <List items={items} horizen justifyContent="space-between" />
   </StyledNav>
 );
@@ -23,5 +23,4 @@ export default Nav;
 const StyledNav = styled.nav`
   width: 100%;
   max-width: ${({ maxwidth }) => maxwidth};
-  background-color: aliceblue;
 `;

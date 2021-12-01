@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Logo = ({ src, alt, onClick }) => {
+const Logo = ({ src, alt, onClick, ...props }) => {
   const handleLogoClick = () => {
     onClick && onClick();
   };
 
   return (
-    <h1>
+    <h1 {...props}>
       <a href="/" onClick={handleLogoClick}>
         <img src={src} alt={alt} />
       </a>

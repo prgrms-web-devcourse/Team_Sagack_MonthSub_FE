@@ -5,7 +5,7 @@ import { List } from '@components';
 
 const UserModal = ({ maxWidth, items, visible, ...props }) => (
   <StyledDiv maxwidth={maxWidth} visible={visible} {...props}>
-    <List items={items} alignItems="center" />
+    <List items={items} />
   </StyledDiv>
 );
 
