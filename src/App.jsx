@@ -18,6 +18,7 @@ import {
   WriteArticlePage,
   WriteListPage,
   WriteSerizePage,
+  NotFoundPage,
 } from '@pages';
 
 const App = () => (
@@ -40,6 +41,7 @@ const App = () => (
       <Route path="/article/write" element={<WriteArticlePage />} />
       <Route path="/writes" element={<WriteListPage />} />
       <Route path="/serizle/write" element={<WriteSerizePage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   </BrowserRouter>
 );

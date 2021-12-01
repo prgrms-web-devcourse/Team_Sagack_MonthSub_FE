@@ -15,3 +15,4 @@ export { default as SignUpPage } from './SignUpPage';
 export { default as WriteArticlePage } from './WriteArticlePage';
 export { default as WriteListPage } from './WriteListPage';
 export { default as WriteSerizePage } from './WriteSerizePage';
+export { default as NotFoundPage } from './NotFoundPage';
