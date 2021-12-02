@@ -1,5 +1,10 @@
 import React from 'react';
+import { Wrapper, SeriesForm } from '@components';
 
-const WriteSeriesPage = () => <div />;
+const WriteSeriesPage = () => (
+  <Wrapper>
+    <SeriesForm />
+  </Wrapper>
+);
 
 export default WriteSeriesPage;
