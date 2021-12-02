@@ -11,19 +11,24 @@ const Input = ({
   type,
   placeholder,
   onChange,
+  title,
   ...props
 }) => (
-  <StyledInput
-    name={name}
-    width={width}
-    height={height}
-    disabled={disabled}
-    value={value}
-    type={type}
-    placeholder={placeholder}
-    onChange={onChange}
-    {...props}
-  />
+  <>
+    <Title style={{ display: title ? 'block' : 'none' }}>{title}</Title>
+    <StyledInput
+      name={name}
+      width={width}
+      height={height}
+      disabled={disabled}
+      value={value}
+      type={type}
+      title={title}
+      placeholder={placeholder}
+      onChange={onChange}
+      {...props}
+    />
+  </>
 );
 export default Input;
 
@@ -33,10 +38,12 @@ Input.defaultProps = {
   disabled: false,
   type: 'text',
   placeholder: '',
+  title: '',
   onChange: () => {},
 };
 
 Input.propTypes = {
+  title: PropTypes.string,
   name: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -52,4 +59,8 @@ const StyledInput = styled.input`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   padding: 0.2rem;
+`;
+
+const Title = styled.h1`
+  margin-bottom: 0.3rem;
 `;
