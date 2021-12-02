@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from '@components/domain/Header';
+import { Route, Switch } from 'react-router-dom';
 import {
   ArticleDetailPage,
   ChannelPage,
@@ -22,7 +23,7 @@ import {
 } from '@pages';
 
 const App = () => (
-  <BrowserRouter>
+  <Header>
     <Switch>
       <Route exact path="/">
         <HomePage />
@@ -79,7 +80,7 @@ const App = () => (
         <NotFoundPage />
       </Route>
     </Switch>
-  </BrowserRouter>
+  </Header>
 );
 
 export default App;
