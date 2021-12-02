@@ -1,37 +1,40 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { useForm } from '@hooks';
-import Input from '../../commons/Input';
+import { useSignInForm } from '@hooks';
+import Input from '@components/commons/Input';
+import validationEmail from '@utils/validation';
 
-const LoginForm = ({ onSubmit }) => {
-  const { values, errors, handleChange, handleSubmit } = useForm({
+const SignInForm = ({ onSubmit }) => {
+  const { values, errors, handleChange, handleSignInSubmit } = useSignInForm({
     initialValues: {
-      id: '',
+      email: '',
       password: '',
     },
+    // 여기서 벨류는 e-mail password
     onSubmit: async value => {
       onSubmit && (await onSubmit(value));
     },
-    validate: ({ id, password }) => {
+    validate: ({ email, password }) => {
       const newErrors = {};
-      if (!id) newErrors.id = 'id를 입력해주세요!';
-      if (!password) newErrors.password = '비밀번호를 입력해주세요!';
+      if (!email) newErrors.id = '이메일을 입력해주세요.';
+      if (!password) newErrors.password = '비밀번호를 입력해주세요.';
+      if (!validationEmail(email)) newErrors.id = '잘못된 이메일 형식입니다.';
       return newErrors;
     },
   });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSignInSubmit}>
       <h1>Login</h1>
       <Input
         name="id"
-        value={values.id}
+        value={values.email}
         type="text"
         placeholder="아이디"
         onChange={handleChange}
       />
-      <ErrorMessage>{errors.id}&nbsp;</ErrorMessage>
+      <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
       <Input
         name="password"
         value={values.password}
@@ -45,13 +48,13 @@ const LoginForm = ({ onSubmit }) => {
   );
 };
 
-export default LoginForm;
+export default SignInForm;
 
-LoginForm.defaultProps = {
+SignInForm.defaultProps = {
   onSubmit: () => {},
 };
 
-LoginForm.propTypes = {
+SignInForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
