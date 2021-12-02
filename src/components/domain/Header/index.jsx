@@ -2,23 +2,25 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useToggle } from '@hooks';
 import { Button } from '@components';
+import { useHistory } from 'react-router-dom';
 import Input from '../../commons/Input';
 import Nav from './Nav';
 import Logo from './Logo';
 import UserModal from './UserModal';
 
 const Header = () => {
+  const history = useHistory();
   const [state, toggle] = useToggle();
-  const handleClickSearch = () => {
-    console.log('검색페이지로 넘어감');
-  };
+  // const handleClickSearch = () => {
+  //   console.log('검색페이지로 넘어감');
+  // };
   return (
     <StyledHeader>
       <Logo />
       <Nav items={['Home', '연재하기', '내 채널']} />
       <SearchBox>
         <Input name="search" />
-        <span type="button" onClick={handleClickSearch}>
+        <span type="button" onClick={history.push('/search')}>
           검색 아이콘
         </span>
       </SearchBox>

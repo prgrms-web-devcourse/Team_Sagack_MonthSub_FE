@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {
   ArticleDetailPage,
   ChannelPage,
@@ -23,26 +23,62 @@ import {
 
 const App = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/article/:id" element={<ArticleDetailPage />} />
-      <Route path="/channel/:id" element={<ChannelPage />} />
-      <Route path="/edit/article/:id" element={<EditArticlePage />} />
-      <Route path="/edit/my" element={<EditMyInfoPage />} />
-      <Route path="/channel/my" element={<MyChannelPage />} />
-      <Route path="/info/my" element={<MyInfoPage />} />
-      <Route path="/info/purchase" element={<PurchaseHistoryPage />} />
-      <Route path="/purchase" element={<PurchasePage />} />
-      <Route path="/search" element={<SearchPage />} />
-      <Route path="/series/:id" element={<SeriesDetailPage />} />
-      <Route path="/series" element={<SeriesListPage />} />
-      <Route path="/signin" element={<SignInPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/article/write" element={<WriteArticlePage />} />
-      <Route path="/writes" element={<WriteListPage />} />
-      <Route path="/series/write" element={<WriteSeriesPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <Switch>
+      <Route exact path="/">
+        <HomePage />
+      </Route>
+      <Route exact path="/article/:id">
+        <ArticleDetailPage />
+      </Route>
+      <Route exact path="/channel/:id">
+        <ChannelPage />
+      </Route>
+      <Route exact path="/edit/article/:id">
+        <EditArticlePage />
+      </Route>
+      <Route exact path="/edit/my">
+        <EditMyInfoPage />
+      </Route>
+      <Route exact path="/channel/my">
+        <MyChannelPage />
+      </Route>
+      <Route exact path="/info/my">
+        <MyInfoPage />
+      </Route>
+      <Route exact path="/info/purchase">
+        <PurchaseHistoryPage />
+      </Route>
+      <Route exact path="/purchase">
+        <PurchasePage />
+      </Route>
+      <Route exact path="/search">
+        <SearchPage />
+      </Route>
+      <Route exact path="/series/:id">
+        <SeriesDetailPage />
+      </Route>
+      <Route exact path="/series">
+        <SeriesListPage />
+      </Route>
+      <Route exact path="/signin">
+        <SignInPage />
+      </Route>
+      <Route exact path="/signup">
+        <SignUpPage />
+      </Route>
+      <Route exact path="/article/write">
+        <WriteArticlePage />
+      </Route>
+      <Route exact path="/writes">
+        <WriteListPage />
+      </Route>
+      <Route exact path="/series/write">
+        <WriteSeriesPage />
+      </Route>
+      <Route exact path="*">
+        <NotFoundPage />
+      </Route>
+    </Switch>
   </BrowserRouter>
 );
 
