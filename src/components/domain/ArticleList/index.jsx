@@ -36,7 +36,7 @@ const ArticleContainer = styled.div`
 
   > div {
     &:nth-child(1) {
-      width: 80px;
+      width: 5rem;
     }
 
     &:nth-child(2) {
@@ -44,7 +44,7 @@ const ArticleContainer = styled.div`
     }
 
     &:nth-child(3) {
-      width: 120px;
+      width: 7.5rem;
       text-align: right;
     }
   }

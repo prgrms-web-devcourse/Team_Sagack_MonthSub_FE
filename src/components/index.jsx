@@ -6,7 +6,6 @@ export { default as TextArea } from './commons/TextArea';
 export { default as Input } from './commons/Input';
 export { default as Wrapper } from './commons/Wrapper';
 export { default as Header } from './domain/Header';
-export { default as SeriesForm } from './domain/SeriesForm';
 export { default as Category } from './domain/Category';
 export { default as Editor } from './domain/Editor';
 export { default as Select } from './commons/Select';
