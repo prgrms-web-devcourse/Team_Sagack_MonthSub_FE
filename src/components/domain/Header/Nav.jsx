@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { List } from '@components';
 
 const Nav = ({ maxWidth, items, ...props }) => (
-  <StyledNav maxwidth={maxWidth} {...props}>
+  <StyledNav maxWidth={maxWidth} {...props}>
     <List horizen justifyContent="space-between">
       <li>Home</li>
       <li>구독 모집</li>
@@ -16,7 +16,7 @@ const Nav = ({ maxWidth, items, ...props }) => (
 export default Nav;
 
 Nav.defaultProps = {
-  maxWidth: '350px',
+  maxWidth: '21.825rem',
 };
 
 Nav.propTypes = {
@@ -26,5 +26,5 @@ Nav.propTypes = {
 
 const StyledNav = styled.nav`
   width: 100%;
-  max-width: ${({ maxwidth }) => maxwidth};
+  max-width: ${({ maxWidth }) => maxWidth};
 `;
