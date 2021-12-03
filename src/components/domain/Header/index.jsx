@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { useToggle } from '@hooks';
 import { BrowserRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Input from '../../commons/Input';
 import Nav from './Nav';
 import Logo from './Logo';
 import UserModal from './UserModal';
@@ -67,10 +66,15 @@ const StyledHeader = styled.header`
 
 const StyledUserModal = styled(UserModal)`
   position: absolute;
-  top: 20px;
+  top: 1.25rem;
   right: 0;
 `;
 
 const SearchBox = styled.div``;
+
+const SearchBoxButton = styled.button`
+  width: 8rem;
+  border: 0.0625rem solid gray;
+`;
 
 const Utils = styled.div``;

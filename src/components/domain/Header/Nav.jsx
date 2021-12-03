@@ -5,7 +5,7 @@ import { List } from '@components';
 import { Link } from 'react-router-dom';
 
 const Nav = ({ maxWidth, items, ...props }) => (
-  <StyledNav maxwidth={maxWidth} {...props}>
+  <StyledNav maxWidth={maxWidth} {...props}>
     <List horizen justifyContent="space-between">
       <li>
         <Link to="/">Home</Link>
@@ -23,7 +23,7 @@ const Nav = ({ maxWidth, items, ...props }) => (
 export default Nav;
 
 Nav.defaultProps = {
-  maxWidth: '350px',
+  maxWidth: '21.825rem',
 };
 
 Nav.propTypes = {
@@ -33,5 +33,5 @@ Nav.propTypes = {
 
 const StyledNav = styled.nav`
   width: 100%;
-  max-width: ${({ maxwidth }) => maxwidth};
+  max-width: ${({ maxWidth }) => maxWidth};
 `;
