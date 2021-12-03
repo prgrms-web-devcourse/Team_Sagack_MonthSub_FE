@@ -85,7 +85,7 @@ const ViewContainer = styled.div`
     display: flex;
     align-details: center;
 
-    > span:nth-child(1) {
+    > span:nth-of-type(1) {
       display: inline-block;
       width: 1.875rem;
       height: 1.875rem;
@@ -99,12 +99,12 @@ const ViewContainer = styled.div`
     display: flex;
     margin-bottom: 3.125rem;
 
-    > div:nth-child(1) {
+    > div:nth-of-type(1) {
       width: 70%;
       padding-right: 1.875rem;
     }
 
-    > div:nth-child(2) {
+    > div:nth-of-type(2) {
       flex-grow: 1;
     }
     
@@ -134,7 +134,7 @@ const ViewContainer = styled.div`
       &-block {
         margin-bottom: 1.25rem;
 
-        > div:nth-child(1) {
+        > div:nth-of-type(1) {
           font-weight: bold;
           font-size: 1.125rem;
           margin-bottom: 0.3125rem;

@@ -7,9 +7,9 @@ const CommentList = ({ list, ...props }) => (
   <div { ...props }>
     {
       list.map(item => 
-        <CommentWrapper>
-          <UserInfo nickname={item.nickname} />
-          <div className="commentUnder">
+        <CommentWrapper key={ item.commentId }>
+          <UserInfo nickname={ item.nickname } />
+          <div className='commentUnder'>
             <div>
               { item.text }
             </div>

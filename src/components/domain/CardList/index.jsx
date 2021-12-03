@@ -1,19 +1,24 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const CardList = ({ list, ...props }) => (
   <CardContainer {...props}>
     {
       list.map(item =>
-        <Card>
-          <div>img</div>
+        <Card key={ item.seriesId }>
+          <div>
+            <Link to={`/series/${ item.seriesId }`}>img</Link>
+          </div>
           <div>
             <div>
               <div>{ item.nickname }</div>
               <div>Likes</div>
             </div>
-            <div className="title">{ item.title }</div>
+            <div className="title">
+              <Link to={`/series/${ item.seriesId }`}>{ item.title }</Link>
+            </div>
             <div>
               <div>{ item.category }</div>
               <div>{ item.subscribe_start_date } ~ { item.subscribe_end_date }</div>
@@ -49,7 +54,7 @@ const CardContainer = styled.div`
   웹에서는 한줄에 4개, 타블렛에선 3개, 모바일에선 2개처럼 컨텐츠의 갯수를
   반응형으로 구현할 경우 contentsMaxCount에 변화를 주면 된다.
 
-  nth-child을 사용해 맥스 컨텐츠의 배수(flex-end에 닿는 컨텐츠)에는 마진을 적용하지 않는다.
+  nth-of-type을 사용해 맥스 컨텐츠의 배수(flex-end에 닿는 컨텐츠)에는 마진을 적용하지 않는다.
 */
 const margin = '1.875rem';
 const contentsMaxCount = 4;
@@ -60,16 +65,16 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
 
-  &:nth-child(${contentsMaxCount}n) {
+  &:nth-of-type(${contentsMaxCount}n) {
     margin-right: 0;
   }
   
-  > div:nth-child(1) {
+  > div:nth-of-type(1) {
     height: 11rem;
     background-color: #aaaaaa;
   }
   
-  > div:nth-child(2) {
+  > div:nth-of-type(2) {
     flex-grow: 1;
     font-size: 0.875rem;
     color: #4b4b4b;
@@ -87,6 +92,10 @@ const Card = styled.div`
     .title {
       font-size: 1rem;
       color: black;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
