@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useToggle } from '@hooks';
-import { Button } from '@components';
 import { BrowserRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Input from '../../commons/Input';
 import Nav from './Nav';
 import Logo from './Logo';
 import UserModal from './UserModal';
+
+const logo = require('./logo.svg');
 
 const Header = ({ children }) => {
   const [state, toggle] = useToggle();
@@ -18,7 +19,7 @@ const Header = ({ children }) => {
   return (
     <BrowserRouter>
       <StyledHeader>
-        <Logo />
+        <Logo src={logo.default} alt="미리보기" />
         <Nav items={['Home', '연재하기', '내 채널']} />
         <SearchBox>
           <Input name="search" />
@@ -27,7 +28,7 @@ const Header = ({ children }) => {
           </Link>
         </SearchBox>
         <Utils>
-          <Button type="button">글쓰기 버튼</Button>
+          <Link to="/writes">글쓰기 버튼</Link>
           <span type="button" onClick={toggle}>
             사람 아이콘
           </span>
@@ -54,12 +55,14 @@ Header.propTypes = {
 export default Header;
 
 const StyledHeader = styled.header`
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 5rem;
+  padding: 0 3rem;
+  top: 0;
 `;
 
 const StyledUserModal = styled(UserModal)`
