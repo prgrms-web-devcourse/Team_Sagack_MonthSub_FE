@@ -23,7 +23,16 @@ const useSessionStorage = (key, initialValue) => {
     }
   };
 
-  return [storedValue, setValue];
+  const removeValue = key => {
+    try {
+      setStoredValue('');
+      sessionStorage.removeItem(key);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { storedValue, setValue, removeValue };
 };
 
 export default useSessionStorage;

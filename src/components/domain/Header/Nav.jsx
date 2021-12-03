@@ -5,7 +5,11 @@ import { List } from '@components';
 
 const Nav = ({ maxWidth, items, ...props }) => (
   <StyledNav maxwidth={maxWidth} {...props}>
-    <List items={items} horizen justifyContent="space-between" />
+    <List horizen justifyContent="space-between">
+      <li>Home</li>
+      <li>구독 모집</li>
+      <li>내 채널</li>
+    </List>
   </StyledNav>
 );
 

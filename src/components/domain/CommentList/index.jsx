@@ -22,12 +22,14 @@ const CommentList = ({ list, ...props }) => (
 );
 
 CommentList.defaultProps = {
-  list: '',
+  list: [],
 }
 
 CommentList.propTypes = {
-  list: PropTypes.node,
+  list: PropTypes.array,
 }
+
+export default CommentList;
 
 const CommentWrapper = styled.div`
   border-bottom: 0.0625rem solid #bdbdbd;
@@ -37,5 +39,3 @@ const CommentWrapper = styled.div`
     padding-left: 0.9375rem;
   }
 `;
-
-export default CommentList;

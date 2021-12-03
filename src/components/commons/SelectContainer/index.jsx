@@ -23,6 +23,7 @@ SelectContainer.propTypes = {
   children: PropTypes.node,
 }
 
+export default SelectContainer;
 
 const SortWrapper = styled.div`
   width: 100%;
@@ -38,5 +39,3 @@ const SortWrapper = styled.div`
     margin-right: 0;
   }
 `;
-
-export default SelectContainer;

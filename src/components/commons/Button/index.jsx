@@ -10,6 +10,8 @@ const Button = ({
   circle,
   onClick,
   children,
+  name,
+  value,
   ...props
 }) => (
   <StyledButton
@@ -18,6 +20,8 @@ const Button = ({
     height={height}
     disabled={disabled}
     circle={circle}
+    name={name}
+    value={value}
     onClick={onClick}
     {...props}
   >
@@ -28,12 +32,14 @@ const Button = ({
 export default Button;
 
 Button.defaultProps = {
-  type: '',
+  type: 'button',
   width: 'auto',
   height: 'auto',
   disabled: false,
   circle: false,
   onClick: () => {},
+  name: '',
+  value: '',
   children: 'text',
 };
 
@@ -45,6 +51,8 @@ Button.propTypes = {
   circle: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
 };
 
 const StyledButton = styled.button`

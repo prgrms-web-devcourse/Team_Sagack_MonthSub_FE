@@ -1,15 +1,16 @@
 import React from 'react';
 import Wrapper from '@components/commons/Wrapper';
-import LoginForm from '@components/domain/LoginForm';
+import SignInForm from '@components/domain/SignInForm';
 
 const SignInPage = () => {
-  const handleSubmit = () => {
+  const handleSubmit = value => {
     // TODO: 로그인 api 호출해야합니다.
+    console.log(value);
   };
 
   return (
     <Wrapper width="71.25rem">
-      <LoginForm onSubmit={handleSubmit} />
+      <SignInForm onSubmit={handleSubmit} />
     </Wrapper>
   );
 };

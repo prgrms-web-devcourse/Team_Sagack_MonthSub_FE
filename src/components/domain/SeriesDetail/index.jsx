@@ -63,11 +63,11 @@ const SeriesDetail = ({ detail }) => (
 );
 
 SeriesDetail.defaultProps = {
-  detail: '',
+  detail: {},
 }
 
 SeriesDetail.propTypes = {
-  detail: PropTypes.node,
+  detail: PropTypes.object,
 }
 
 export default SeriesDetail;

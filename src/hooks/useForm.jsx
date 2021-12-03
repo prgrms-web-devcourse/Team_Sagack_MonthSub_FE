@@ -8,14 +8,15 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
   const handleChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    console.log(values);
   };
 
   const handleSubmit = async e => {
     setIsLoading(true);
     e.preventDefault();
     const newErrors = validate(values);
-    if (Object.keys(newErrors).length === 0) {
-      await onSubmit();
+    if (!newErrors || Object.keys(newErrors).length === 0) {
+      await onSubmit(values);
     }
     setErrors(newErrors);
     setIsLoading(false);
