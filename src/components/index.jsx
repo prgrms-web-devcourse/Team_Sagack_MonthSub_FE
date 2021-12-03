@@ -7,7 +7,7 @@ export { default as Input } from './commons/Input';
 export { default as Wrapper } from './commons/Wrapper';
 export { default as Radio } from './commons/Radio/ButtonRadio';
 export { default as Header } from './domain/Header';
-export { default as LoginForm } from './domain/LoginForm';
+export { default as SignInForm } from './domain/SignInForm';
 export { default as SeriesForm } from './domain/SeriesForm';
 export { default as Category } from './domain/Category';
 export { default as SeriesEditor } from './domain/SeriesEditor';
