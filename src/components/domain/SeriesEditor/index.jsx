@@ -3,39 +3,46 @@ import { Input, TextArea } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const Editor = ({ value, onChange, ...props }) => {
-  const handleInputChange = () => {
-    onChange && onChange();
+const SeriesEditor = ({ value, onChange, ...props }) => {
+  const handleInputChange = e => {
+    onChange && onChange(e);
   };
   return (
     <StyledSection {...props}>
       <StyledInput
         width="100%"
         name="title"
-        value={value}
+        // value={value}
         onChange={handleInputChange}
       />
       <TextArea
         width="100%"
+        height="3rem"
+        name="introduceText"
+        // value={value}
+        onInput={handleInputChange}
+      />
+      <TextArea
+        width="100%"
         height="10rem"
-        name="description"
-        value={value}
-        onChange={handleInputChange}
+        name="introduceSentence"
+        // value={value}
+        onInput={handleInputChange}
       />
     </StyledSection>
   );
 };
 
-Editor.defaultProps = {
+SeriesEditor.defaultProps = {
   onChange: () => {},
 };
 
-Editor.propTypes = {
+SeriesEditor.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
 };
 
-export default Editor;
+export default SeriesEditor;
 
 const StyledSection = styled.section`
   display: flex;

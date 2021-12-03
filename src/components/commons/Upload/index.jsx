@@ -11,7 +11,7 @@ const InputFile = ({ children, name, accept, value, onChange, ...props }) => {
     const changedFile = files[0];
     setFile(changedFile);
     if (onChange) {
-      onChange(changedFile);
+      onChange(e);
     }
   };
 
