@@ -1,37 +1,37 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { useSignInForm } from '@hooks';
+import { useForm } from '@hooks';
 import Input from '@components/commons/Input';
 import validationEmail from '@utils/validation';
 
 const SignInForm = ({ onSubmit }) => {
-  const { values, errors, handleChange, handleSignInSubmit } = useSignInForm({
+  const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
       password: '',
     },
-    // 여기서 벨류는 e-mail password
-    onSubmit: async value => {
-      onSubmit && (await onSubmit(value));
+    onSubmit: async data => {
+      onSubmit && (await onSubmit(data));
     },
     validate: ({ email, password }) => {
       const newErrors = {};
-      if (!email) newErrors.id = '이메일을 입력해주세요.';
+      if (!email) newErrors.email = '이메일을 입력해주세요.';
+      else if (!validationEmail(email))
+        newErrors.email = '잘못된 이메일 형식입니다.';
       if (!password) newErrors.password = '비밀번호를 입력해주세요.';
-      if (!validationEmail(email)) newErrors.id = '잘못된 이메일 형식입니다.';
       return newErrors;
     },
   });
 
   return (
-    <form onSubmit={handleSignInSubmit}>
+    <form onSubmit={handleSubmit}>
       <h1>Login</h1>
       <Input
-        name="id"
+        name="email"
         value={values.email}
         type="text"
-        placeholder="아이디"
+        placeholder="아이디를 입력해주세요."
         onChange={handleChange}
       />
       <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
@@ -39,7 +39,7 @@ const SignInForm = ({ onSubmit }) => {
         name="password"
         value={values.password}
         type="password"
-        placeholder="비밀번호"
+        placeholder="비밀번호를 입력해주세요."
         onChange={handleChange}
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
@@ -48,8 +48,6 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
-export default SignInForm;
-
 SignInForm.defaultProps = {
   onSubmit: () => {},
 };
@@ -57,6 +55,8 @@ SignInForm.defaultProps = {
 SignInForm.propTypes = {
   onSubmit: PropTypes.func,
 };
+
+export default SignInForm;
 
 const ErrorMessage = styled.span`
   margin: 16px 0;
