@@ -17,12 +17,14 @@ const ArticleList = ({ list, ...props }) => (
 );
 
 ArticleList.defaultProps = {
-  list: '',
+  list: [],
 }
 
 ArticleList.propTypes = {
-  list: PropTypes.node,
+  list: PropTypes.array,
 }
+
+export default ArticleList;
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -34,7 +36,7 @@ const ArticleContainer = styled.div`
 
   > div {
     &:nth-child(1) {
-      width: 80px;
+      width: 5rem;
     }
 
     &:nth-child(2) {
@@ -42,10 +44,8 @@ const ArticleContainer = styled.div`
     }
 
     &:nth-child(3) {
-      width: 120px;
+      width: 7.5rem;
       text-align: right;
     }
   }
 `;
-
-export default ArticleList;

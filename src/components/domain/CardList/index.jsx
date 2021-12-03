@@ -26,11 +26,11 @@ const CardList = ({ list, ...props }) => (
 );
 
 CardList.defaultProps = {
-  list: '',
+  list: [],
 }
 
 CardList.propTypes = {
-  list: PropTypes.node,
+  list: PropTypes.array,
 }
 
 export default CardList;
@@ -51,12 +51,12 @@ const CardContainer = styled.div`
 
   nth-child을 사용해 맥스 컨텐츠의 배수(flex-end에 닿는 컨텐츠)에는 마진을 적용하지 않는다.
 */
-const margin = '30px';
+const margin = '1.875rem';
 const contentsMaxCount = 4;
 const Card = styled.div`
   width: calc((100% - (${margin} * ${contentsMaxCount - 1})) / ${contentsMaxCount});
   margin-right: ${margin};
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
 

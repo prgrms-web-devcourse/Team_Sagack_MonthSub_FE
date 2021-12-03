@@ -52,7 +52,7 @@ const SeriesDetail = ({ detail }) => (
           <Button
             width="100%"
             height="3.125rem"
-            font-size="26px"
+            font-size="1.5rem"
           >
             결제하기
           </Button>

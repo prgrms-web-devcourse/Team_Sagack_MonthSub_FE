@@ -29,7 +29,7 @@ Select.propTypes = {
 const StyledSelect = styled.select`
   width: 10rem;
   height: 1.875rem;
-  border: 1px solid #041b2d;
+  border: 0.0625rem solid #041b2d;
 `;
 
 export default Select;

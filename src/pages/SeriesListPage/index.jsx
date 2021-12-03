@@ -5,7 +5,7 @@ import {
   Select,
   CardList,
 } from '@components';
-import dummy from '../../dummys/seriesList.json'
+import dummy from './seriesList.json'
 
 // Select value이름이 api 정렬 요청 키워드
 const SeriesListPage = () => (
