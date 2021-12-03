@@ -10,12 +10,12 @@ const Logo = ({ src, alt, ...props }) => (
   </h1>
 );
 
-export default Logo;
-
 Logo.defaultProps = {
   src: '',
   alt: 'Logo',
 };
+
+export default Logo;
 
 Logo.propTypes = {
   src: PropTypes.string,

@@ -18,13 +18,13 @@ const UserModal = ({ maxWidth, items, visible, onClick, ...props }) => (
   </StyledDiv>
 );
 
-export default UserModal;
-
 UserModal.defaultProps = {
   maxWidth: '200px',
   visible: false,
   onClick: () => {},
 };
+
+export default UserModal;
 
 UserModal.propTypes = {
   maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
