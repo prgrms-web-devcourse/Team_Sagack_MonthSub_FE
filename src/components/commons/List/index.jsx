@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
 const List = ({
+  children,
   width,
   height,
   color,
   fontSize,
-  items,
   horizen,
   justifyContent,
   alignItems,
@@ -21,12 +21,7 @@ const List = ({
     alignItems={alignItems}
     {...props}
   >
-    {items &&
-      items.map(item => (
-        <StyledItem color={color} fontSize={fontSize}>
-          {item}
-        </StyledItem>
-      ))}
+    {children}
   </StyledList>
 );
 
@@ -41,11 +36,11 @@ List.defaultProps = {
 };
 
 List.propTypes = {
+  children: PropTypes.node.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string,
   fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  items: PropTypes.array.isRequired,
   horizen: PropTypes.bool,
   justifyContent: PropTypes.string,
   alignItems: PropTypes.string,
@@ -61,10 +56,4 @@ const StyledList = styled.ul`
   flex-direction: ${({ direction }) => (direction ? 'row' : 'column')};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
-`;
-
-const StyledItem = styled.li`
-  color: ${({ color }) => color};
-  font-size: ${({ fontSize }) => fontSize};
-  cursor: pointer;
 `;
