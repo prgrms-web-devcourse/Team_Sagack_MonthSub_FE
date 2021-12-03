@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useToggle } from '@hooks';
 import { Button } from '@components';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Input from '../../commons/Input';
 import Nav from './Nav';
@@ -11,6 +11,10 @@ import UserModal from './UserModal';
 
 const Header = ({ children }) => {
   const [state, toggle] = useToggle();
+  const handleClick = () => {
+    // apis/auth/signout api 호출해야합니다.
+    console.log('signout!');
+  };
   return (
     <BrowserRouter>
       <StyledHeader>
@@ -18,7 +22,9 @@ const Header = ({ children }) => {
         <Nav items={['Home', '연재하기', '내 채널']} />
         <SearchBox>
           <Input name="search" />
-          <span type="button">검색 아이콘</span>
+          <Link to="/search">
+            <span type="button">검색 아이콘</span>
+          </Link>
         </SearchBox>
         <Utils>
           <Button type="button">글쓰기 버튼</Button>
@@ -30,6 +36,7 @@ const Header = ({ children }) => {
         <StyledUserModal
           items={['마이페이지', '관심 시리즈', '로그아웃']}
           visible={state}
+          onClick={handleClick}
         />
       </StyledHeader>
       {children}

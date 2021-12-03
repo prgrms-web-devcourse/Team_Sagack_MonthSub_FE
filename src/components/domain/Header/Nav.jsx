@@ -2,13 +2,20 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { List } from '@components';
+import { Link } from 'react-router-dom';
 
 const Nav = ({ maxWidth, items, ...props }) => (
   <StyledNav maxwidth={maxWidth} {...props}>
     <List horizen justifyContent="space-between">
-      <li>Home</li>
-      <li>구독 모집</li>
-      <li>내 채널</li>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/series">구독 모집</Link>
+      </li>
+      <li>
+        <Link to="/channel/my">내 채널</Link>
+      </li>
     </List>
   </StyledNav>
 );
