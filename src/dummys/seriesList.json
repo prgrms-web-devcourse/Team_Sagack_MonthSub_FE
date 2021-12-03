@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "httpMethod": "GET",
+  "statusCode": 200,
+  "data": [
+    {
+      "seriesId": "1",
+      "nickname": "노래하는 원숭이",
+      "thumbnail": "",
+      "title": "원숭이의 모집글",
+      "subscribe_start_date":"2021-12-12",
+      "subscribe_end_date":"2021-12-31",
+      "subscribe_status" : "모집중", 
+      "category": "novel"
+    },
+    {
+      "seriesId": "2",
+      "nickname": "허균",
+      "thumbnail": "",
+      "title": "허균의 모집글",
+      "subscribe_start_date":"2021-12-15",
+      "subscribe_end_date":"2021-12-25",
+      "subscribe_status" : "모집중", 
+      "category": "essay"
+    },
+    {
+      "seriesId": "1",
+      "nickname": "노래하는 원숭이",
+      "thumbnail": "",
+      "title": "원숭이의 모집글",
+      "subscribe_start_date":"2021-12-12",
+      "subscribe_end_date":"2021-12-31",
+      "subscribe_status" : "모집중", 
+      "category": "novel"
+    },
+    {
+      "seriesId": "2",
+      "nickname": "허균",
+      "thumbnail": "",
+      "title": "허균의 모집글",
+      "subscribe_start_date":"2021-12-15",
+      "subscribe_end_date":"2021-12-25",
+      "subscribe_status" : "모집중", 
+      "category": "essay"
+    },
+    {
+      "seriesId": "1",
+      "nickname": "노래하는 원숭이",
+      "thumbnail": "",
+      "title": "원숭이의 모집글",
+      "subscribe_start_date":"2021-12-12",
+      "subscribe_end_date":"2021-12-31",
+      "subscribe_status" : "모집중", 
+      "category": "novel"
+    },
+    {
+      "seriesId": "2",
+      "nickname": "허균",
+      "thumbnail": "",
+      "title": "허균의 모집글",
+      "subscribe_start_date":"2021-12-15",
+      "subscribe_end_date":"2021-12-25",
+      "subscribe_status" : "모집중", 
+      "category": "essay"
+    },
+    {
+      "seriesId": "1",
+      "nickname": "노래하는 원숭이",
+      "thumbnail": "",
+      "title": "원숭이의 모집글",
+      "subscribe_start_date":"2021-12-12",
+      "subscribe_end_date":"2021-12-31",
+      "subscribe_status" : "모집중", 
+      "category": "novel"
+    }
+  ]
+}
