@@ -1,30 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const Logo = ({ src, alt, onClick, ...props }) => {
-  const handleLogoClick = () => {
-    onClick && onClick();
-  };
-
-  return (
-    <h1 {...props}>
-      <a href="/" onClick={handleLogoClick}>
-        <img src={src} alt={alt} />
-      </a>
-    </h1>
-  );
-};
-
-export default Logo;
+const Logo = ({ src, alt, ...props }) => (
+  <h1 {...props}>
+    <Link to="/">
+      <img src={src} alt={alt} />
+    </Link>
+  </h1>
+);
 
 Logo.defaultProps = {
   src: '',
   alt: 'Logo',
-  onClick: () => {},
 };
+
+export default Logo;
 
 Logo.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
-  onClick: PropTypes.func,
 };

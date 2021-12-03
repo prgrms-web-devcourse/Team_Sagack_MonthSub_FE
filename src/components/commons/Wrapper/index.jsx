@@ -26,4 +26,5 @@ const StyledDiv = styled.div`
   max-width: ${props => props.width || '71.25rem'};
   margin: 0 auto;
   border: 2px #000000 solid;
+  padding-top: 5rem;
 `;
