@@ -25,6 +25,6 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-shadow': 'off', 
     'no-restricted-syntax': 'off',
-    'jsx-a11y/no-noninteractive-element-interactions': 'off '
+    'jsx-a11y/no-noninteractive-element-interactions': 'off'
   },
 };
