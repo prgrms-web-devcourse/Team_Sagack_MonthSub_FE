@@ -7,7 +7,7 @@ import {
   ArticleList,
   CommentList
 } from '@components';
-import dummy from '../../dummys/seriesDetail.json';
+import dummy from './seriesDetail.json';
 
 const SeriesDetailPage = () => {
   const commentList = [

@@ -52,7 +52,7 @@ const SeriesDetail = ({ detail }) => (
           <Button
             width="100%"
             height="3.125rem"
-            font-size="26px"
+            font-size="1.5rem"
           >
             결제하기
           </Button>
@@ -63,11 +63,11 @@ const SeriesDetail = ({ detail }) => (
 );
 
 SeriesDetail.defaultProps = {
-  detail: '',
+  detail: {},
 }
 
 SeriesDetail.propTypes = {
-  detail: PropTypes.node,
+  detail: PropTypes.object,
 }
 
 export default SeriesDetail;
