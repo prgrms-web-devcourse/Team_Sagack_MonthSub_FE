@@ -16,7 +16,7 @@ const List = ({
   <StyledList
     width={width}
     height={height}
-    direction={horizen}
+    horizen={horizen}
     justifyContent={justifyContent}
     alignItems={alignItems}
     {...props}
@@ -53,7 +53,7 @@ const StyledList = styled.ul`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   display: flex;
-  flex-direction: ${({ direction }) => (direction ? 'row' : 'column')};
+  flex-direction: ${({ horizen }) => (horizen ? 'row' : 'column')};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
 `;

@@ -4,7 +4,6 @@ import { useToggle } from '@hooks';
 import { Button } from '@components';
 import { BrowserRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Input from '../../commons/Input';
 import Nav from './Nav';
 import Logo from './Logo';
 import UserModal from './UserModal';
@@ -17,8 +16,9 @@ const Header = ({ children }) => {
         <Logo />
         <Nav items={['Home', '연재하기', '내 채널']} />
         <SearchBox>
-          <Input name="search" />
-          <span type="button">검색 아이콘</span>
+          <SearchBoxButton type="button">
+            <span type="button">검색 아이콘</span>
+          </SearchBoxButton>
         </SearchBox>
         <Utils>
           <Button type="button">글쓰기 버튼</Button>
@@ -57,10 +57,15 @@ const StyledHeader = styled.header`
 
 const StyledUserModal = styled(UserModal)`
   position: absolute;
-  top: 20px;
+  top: 1.25rem;
   right: 0;
 `;
 
 const SearchBox = styled.div``;
+
+const SearchBoxButton = styled.button`
+  width: 8rem;
+  border: 0.0625rem solid gray;
+`;
 
 const Utils = styled.div``;
