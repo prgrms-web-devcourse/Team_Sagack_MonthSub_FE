@@ -7,7 +7,6 @@ export { default as Input } from './commons/Input';
 export { default as Wrapper } from './commons/Wrapper';
 export { default as Header } from './domain/Header';
 export { default as Category } from './domain/Category';
-export { default as Editor } from './domain/Editor';
 export { default as Select } from './commons/Select';
 export { default as SelectContainer } from './commons/SelectContainer';
 export { default as CardList } from './domain/CardList';

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Editor, Input, Upload } from '@components';
+import { SeriesEditor, Input, Upload } from '@components';
 
 const SeriesForm = () => (
   <form>
-    <Editor />
+    <SeriesEditor />
     <Upload>
       {file => <button type="button">{file ? file.name : 'Click me'}</button>}
     </Upload>

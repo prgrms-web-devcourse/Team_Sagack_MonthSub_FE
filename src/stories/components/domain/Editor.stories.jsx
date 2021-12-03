@@ -1,9 +1,9 @@
 import React from 'react';
-import { Editor } from '@components';
+import { SeriesEditor } from '@components';
 
 export default {
-  title: 'Component/domain/Editor',
-  component: Editor,
+  title: 'Component/domain/SeriesEditor',
+  component: SeriesEditor,
 };
 
-export const Default = () => <Editor />;
+export const Default = () => <SeriesEditor />;
