@@ -208,6 +208,6 @@ const WriteSeriesPage = () => {
 export default WriteSeriesPage;
 
 const ErrorMessage = styled.span`
-  margin: 16px 0;
+  margin: 1rem 0;
   color: red;
 `;

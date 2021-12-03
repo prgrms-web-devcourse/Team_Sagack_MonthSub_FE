@@ -38,13 +38,13 @@ Category.propTypes = {
 export default Category;
 
 const Label = styled.label`
-  width: 100px;
+  width: 6.25rem;
   padding: 0.5rem;
   border: 0.0625rem solid #000;
   cursor: pointer;
   user-select: none;
   border-radius: 50px;
-  margin: 0 10px;
+  margin: 0 0.625rem;
   text-align: center;
 `;
 
