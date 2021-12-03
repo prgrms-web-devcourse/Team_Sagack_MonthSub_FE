@@ -24,6 +24,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-unused-expressions': 'off',
     'no-shadow': 'off', 
-    'no-restricted-syntax': 'off' 
+    'no-restricted-syntax': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off '
   },
 };
