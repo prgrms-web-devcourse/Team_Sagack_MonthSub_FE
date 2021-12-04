@@ -25,9 +25,11 @@ const SignInForm = ({ onSubmit }) => {
   });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
+    <Form onSubmit={handleSubmit}>
+      <H1>Login</H1>
       <Input
+        width="100%"
+        height="2rem"
         name="email"
         value={values.email}
         type="text"
@@ -36,6 +38,8 @@ const SignInForm = ({ onSubmit }) => {
       />
       <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
       <Input
+        width="100%"
+        height="2rem"
         name="password"
         value={values.password}
         type="password"
@@ -43,8 +47,8 @@ const SignInForm = ({ onSubmit }) => {
         onChange={handleChange}
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
-      <button type="submit">submit</button>
-    </form>
+      <Button type="submit">submit</Button>
+    </Form>
   );
 };
 
@@ -59,6 +63,25 @@ SignInForm.propTypes = {
 export default SignInForm;
 
 const ErrorMessage = styled.span`
-  margin: 16px 0;
+  margin: 100rem 0;
   color: red;
+`;
+
+const H1 = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 4rem;
+`;
+
+const Form = styled.form`
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 2rem;
+  outline: 0;
+  border: 0;
 `;

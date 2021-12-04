@@ -55,12 +55,14 @@ Input.propTypes = {
 };
 
 const StyledInput = styled.input`
-  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
-    typeof height === 'number' ? `${height}px` : height};
+    typeof height === 'number' ? `${height}rem` : height};
   padding: 0.2rem;
+  border: 0;
 `;
 
 const Title = styled.h1`
   margin-bottom: 0.3rem;
+  font-weight: 700;
 `;

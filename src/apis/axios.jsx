@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { getCookie, checkCookie } from '@/apis/token';
+import Crypto from 'crypto-js';
 
 export const instance = axios.create({});
-const { REACT_APP_API_END_POINT } = process.env;
+const { REACT_APP_API_END_POINT, REACT_APP_SECRET_KEY } = process.env;
 
 /*
 url: api end_point
@@ -11,11 +11,13 @@ isForm: formdata인지 아닌지 -> 이건 테스트 해봐야해요! (default: 
 */
 
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${Crypto.AES.encrypt(
+          sessionStorage.getItem('authorization'),
+          REACT_APP_SECRET_KEY,
+        )}`
       : '',
   };
 
@@ -40,11 +42,13 @@ export const POST = async ({
   data,
   isJsonType = false,
 }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${Crypto.AES.encrypt(
+          sessionStorage.getItem('authorization'),
+          REACT_APP_SECRET_KEY,
+        )}`
       : '',
   };
 
@@ -72,11 +76,13 @@ export const PUT = async ({
   data,
   isJsonType = false,
 }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${Crypto.AES.encrypt(
+          sessionStorage.getItem('authorization'),
+          REACT_APP_SECRET_KEY,
+        )}`
       : '',
   };
 
@@ -102,15 +108,13 @@ export const DELETE = async ({
   data,
   isJsonType = false,
 }) => {
-  if (!checkCookie('Authorization')) {
-    return new Error('인증되지 않은 사용자입니다. 로그인 해주세요.');
-  }
-
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${Crypto.AES.encrypt(
+          sessionStorage.getItem('authorization'),
+          REACT_APP_SECRET_KEY,
+        )}`
       : '',
   };
 

@@ -1,23 +1,27 @@
 import React from 'react';
 import Wrapper from '@components/commons/Wrapper';
 import SignInForm from '@components/domain/SignInForm';
-import { useHistory } from 'react-router-dom';
 import { useSessionStorage } from '@hooks';
-import data from './dummy';
+import Crypto from 'crypto-js';
+import { postSignIn } from '../../apis/auth.jsx';
+
+const { REACT_APP_SECRET_KEY } = process.env;
 
 const SignInPage = () => {
-  const history = useHistory();
+  // const history = useHistory();
+
   const { setValue } = useSessionStorage('authorization', '');
-  const handleSubmit = values => {
-    // TODO: 로그인 api 호출해야합니다. reponse.data.token에 토큰 존재!
-    const { email, password } = values;
-    data.map(item => {
-      if (item.email === email && item.password === password) {
-        setValue(`${email}${password}`);
-        history.push('/');
-      }
-      return item;
-    });
+
+  const handleSubmit = async values => {
+    const res = await postSignIn(values);
+    if (res.statusCode === 200) {
+      const secretToken = Crypto.AES.encrypt(
+        res.data.token,
+        REACT_APP_SECRET_KEY,
+      ).toString();
+      setValue(secretToken);
+      console.log(res.data.token);
+    }
   };
 
   return (
