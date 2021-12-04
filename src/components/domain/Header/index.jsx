@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useToggle, useSessionStorage } from '@hooks';
 import { BrowserRouter, Link } from 'react-router-dom';
-import { Input } from '@components';
 import PropTypes from 'prop-types';
 import { Input } from '@components';
 import Nav from './Nav';
