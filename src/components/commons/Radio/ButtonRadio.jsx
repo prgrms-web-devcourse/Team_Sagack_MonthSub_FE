@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { List } from '@components';
 
-const Category = ({ onChange, names = [] }) => {
+const ButtonRadio = ({ onChange, names = [], disabled }) => {
   const handleChange = e => {
     onChange && onChange(e);
   };
@@ -11,12 +11,13 @@ const Category = ({ onChange, names = [] }) => {
     <div>
       <List horizen justifyContent="center">
         {names.map(name => (
-          <Label>
+          <Label key={name}>
             <StyledRadioInput
               type="radio"
               name="category"
               value={name}
               onChange={handleChange}
+              disabled={disabled}
             />
             {name}
           </Label>
@@ -26,16 +27,18 @@ const Category = ({ onChange, names = [] }) => {
   );
 };
 
-Category.defaultProps = {
+ButtonRadio.defaultProps = {
   onChange: () => {},
+  disabled: false,
 };
 
-Category.propTypes = {
+ButtonRadio.propTypes = {
   onChange: PropTypes.func,
   names: PropTypes.array.isRequired,
+  disabled: PropTypes.bool,
 };
 
-export default Category;
+export default ButtonRadio;
 
 const Label = styled.label`
   width: 6.25rem;

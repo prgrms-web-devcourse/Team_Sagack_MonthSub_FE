@@ -15,4 +15,5 @@ export { default as SignUpPage } from './SignUpPage';
 export { default as WriteArticlePage } from './WriteArticlePage';
 export { default as WriteListPage } from './WriteListPage';
 export { default as WriteSeriesPage } from './WriteSeriesPage';
+export { default as UpdateSeriesPage } from './UpdateSeriesPage';
 export { default as NotFoundPage } from './NotFoundPage';

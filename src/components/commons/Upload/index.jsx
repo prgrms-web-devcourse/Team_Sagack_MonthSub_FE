@@ -2,7 +2,15 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const InputFile = ({ children, name, accept, value, onChange, ...props }) => {
+const InputFile = ({
+  children,
+  name,
+  accept,
+  value,
+  onChange,
+  disabled,
+  ...props
+}) => {
   const [file, setFile] = useState(value);
   const inputRef = useRef(null);
 
@@ -27,6 +35,7 @@ const InputFile = ({ children, name, accept, value, onChange, ...props }) => {
         name={name}
         accept={accept}
         onChange={handleFileChange}
+        disabled={disabled && disabled}
       />
       {typeof children === 'function' ? children(file) : children}
     </div>
@@ -38,17 +47,19 @@ export default InputFile;
 InputFile.defaultProps = {
   children: '',
   name: '',
-  accept: 0,
+  accept: '.jpg, .png, .jpeg',
   value: '',
+  disabled: false,
   onChange: () => {},
 };
 
 InputFile.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
   name: PropTypes.string,
   accept: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 const Input = styled.input`

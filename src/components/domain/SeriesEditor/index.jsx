@@ -3,7 +3,7 @@ import { Input, TextArea } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const SeriesEditor = ({ value, onChange, ...props }) => {
+const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
   const handleInputChange = e => {
     onChange && onChange(e);
   };
@@ -12,22 +12,25 @@ const SeriesEditor = ({ value, onChange, ...props }) => {
       <StyledInput
         width="100%"
         name="title"
-        // value={value}
+        value={value.title}
         onChange={handleInputChange}
+        disabled={disabled && disabled}
       />
       <TextArea
         width="100%"
         height="3rem"
         name="introduceText"
-        // value={value}
+        value={value.introduceText}
         onInput={handleInputChange}
+        disabled={disabled && disabled}
       />
       <TextArea
         width="100%"
         height="10rem"
         name="introduceSentence"
-        // value={value}
+        value={value.introduceSentence}
         onInput={handleInputChange}
+        disabled={disabled && disabled}
       />
     </StyledSection>
   );
@@ -35,11 +38,13 @@ const SeriesEditor = ({ value, onChange, ...props }) => {
 
 SeriesEditor.defaultProps = {
   onChange: () => {},
+  disabled: false,
 };
 
 SeriesEditor.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.object.isRequired,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default SeriesEditor;
