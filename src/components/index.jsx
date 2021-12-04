@@ -19,5 +19,4 @@ export { default as ArticleList } from './domain/ArticleList';
 export { default as CommentList } from './domain/CommentList';
 export { default as Radio } from './commons/Radio/ButtonRadio';
 export { default as SignInForm } from './domain/SignInForm';
-export { default as SeriesForm } from './domain/SeriesForm';
 export { default as SeriesEditor } from './domain/SeriesEditor';
