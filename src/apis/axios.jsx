@@ -1,23 +1,17 @@
 import axios from 'axios';
-import { getCookie, checkCookie } from '@/apis/token';
+// import Crypto from 'crypto-js';
 
 export const instance = axios.create({});
 const { REACT_APP_API_END_POINT } = process.env;
 
-/*
-url: api end_point
-isAuth: header에 JWT 토큰이 필요한지?
-isForm: formdata인지 아닌지 -> 이건 테스트 해봐야해요! (default: 'Content-Type': 'application/json;charset=utf-8')
-*/
-
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -28,7 +22,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -40,13 +34,13 @@ export const POST = async ({
   data,
   isJsonType = false,
 }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -60,7 +54,7 @@ export const POST = async ({
       throw new Error('API 호출에 실패 했습니다.');
     }
 
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -72,13 +66,13 @@ export const PUT = async ({
   data,
   isJsonType = false,
 }) => {
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -90,7 +84,7 @@ export const PUT = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -102,17 +96,13 @@ export const DELETE = async ({
   data,
   isJsonType = false,
 }) => {
-  if (!checkCookie('Authorization')) {
-    return new Error('인증되지 않은 사용자입니다. 로그인 해주세요.');
-  }
-
-  instance.defaults.headers.common.Authorization = getCookie('Authorization');
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${instance.defaults.headers.common.Authorization}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -124,7 +114,7 @@ export const DELETE = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
