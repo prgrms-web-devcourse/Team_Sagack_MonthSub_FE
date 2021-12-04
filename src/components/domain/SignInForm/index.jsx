@@ -29,7 +29,7 @@ const SignInForm = ({ onSubmit }) => {
       <H1>Login</H1>
       <Input
         width="100%"
-        height="2rem"
+        height="2.5rem"
         name="email"
         value={values.email}
         type="text"
@@ -39,7 +39,7 @@ const SignInForm = ({ onSubmit }) => {
       <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
       <Input
         width="100%"
-        height="2rem"
+        height="2.5rem"
         name="password"
         value={values.password}
         type="password"
@@ -47,7 +47,7 @@ const SignInForm = ({ onSubmit }) => {
         onChange={handleChange}
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
-      <Button type="submit">submit</Button>
+      <Button type="submit">로그인</Button>
     </Form>
   );
 };
@@ -63,25 +63,37 @@ SignInForm.propTypes = {
 export default SignInForm;
 
 const ErrorMessage = styled.span`
-  margin: 100rem 0;
   color: red;
+  font-size: 0.75rem;
 `;
 
 const H1 = styled.h1`
   font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 4rem;
 `;
 
 const Form = styled.form`
   width: 60%;
   height: 100%;
+  padding: 10rem 0;
   margin: 0 auto;
   text-align: center;
 `;
 
 const Button = styled.button`
   width: 100%;
-  height: 2rem;
+  height: 2.5rem;
   outline: 0;
   border: 0;
+  background-color: #041b1d;
+  color: #ffffff;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #ffb15c;
+    color: #041b1d;
+  }
 `;

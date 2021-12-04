@@ -59,10 +59,20 @@ const StyledInput = styled.input`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
   padding: 0.2rem;
-  border: 0;
+  border: #041b1d 0.063rem;
+  background-color: #ffffff;
+  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  &:focus {
+    background-color: #ffffff;
+    border: #041b1d 0.063rem;
+    box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  }
+  margin: 1rem 0 0.5rem 0;
 `;
 
 const Title = styled.h1`
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   font-weight: 700;
 `;

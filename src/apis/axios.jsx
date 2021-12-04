@@ -22,7 +22,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -54,7 +54,7 @@ export const POST = async ({
       throw new Error('API 호출에 실패 했습니다.');
     }
 
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -84,7 +84,7 @@ export const PUT = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -114,7 +114,7 @@ export const DELETE = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
