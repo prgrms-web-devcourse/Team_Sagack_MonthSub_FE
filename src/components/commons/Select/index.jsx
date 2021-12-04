@@ -9,21 +9,23 @@ const Select = ({ name, onChange, options, ...props }) => (
     {...props}
   >
     {
-      options.map(option => <option value={option.value}>{option.text}</option>)
+      options.map(option =>
+        <option key={option.value} value={option.value}>{option.text}</option>
+      )
     }
   </StyledSelect>
 );
 
 Select.defaultProps = {
-  name: "",
+  name: '',
   onChange: () => { },
-  options: '',
+  options: {},
 }
 
 Select.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
-  options: PropTypes.node,
+  options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 const StyledSelect = styled.select`

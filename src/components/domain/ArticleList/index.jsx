@@ -6,7 +6,7 @@ const ArticleList = ({ list, ...props }) => (
   <div { ...props }>
     {
       list.map(item =>
-        <ArticleContainer>
+        <ArticleContainer key={ item.round }>
           <div>{ item.round }</div>
           <div className="title">{ item.title }</div>
           <div>{ item.date }</div>
@@ -35,15 +35,15 @@ const ArticleContainer = styled.div`
   border-bottom: 0.0625rem solid #bdbdbd;
 
   > div {
-    &:nth-child(1) {
+    &:nth-of-type(1) {
       width: 5rem;
     }
 
-    &:nth-child(2) {
+    &:nth-of-type(2) {
       flex-grow: 1;
     }
 
-    &:nth-child(3) {
+    &:nth-of-type(3) {
       width: 7.5rem;
       text-align: right;
     }
