@@ -1,25 +1,17 @@
 import axios from 'axios';
-import Crypto from 'crypto-js';
+// import Crypto from 'crypto-js';
 
 export const instance = axios.create({});
-const { REACT_APP_API_END_POINT, REACT_APP_SECRET_KEY } = process.env;
-
-/*
-url: api end_point
-isAuth: header에 JWT 토큰이 필요한지?
-isForm: formdata인지 아닌지 -> 이건 테스트 해봐야해요! (default: 'Content-Type': 'application/json;charset=utf-8')
-*/
+const { REACT_APP_API_END_POINT } = process.env;
 
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${Crypto.AES.encrypt(
-          sessionStorage.getItem('authorization'),
-          REACT_APP_SECRET_KEY,
-        )}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -45,12 +37,10 @@ export const POST = async ({
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${Crypto.AES.encrypt(
-          sessionStorage.getItem('authorization'),
-          REACT_APP_SECRET_KEY,
-        )}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -79,12 +69,10 @@ export const PUT = async ({
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${Crypto.AES.encrypt(
-          sessionStorage.getItem('authorization'),
-          REACT_APP_SECRET_KEY,
-        )}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({
@@ -111,12 +99,10 @@ export const DELETE = async ({
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${Crypto.AES.encrypt(
-          sessionStorage.getItem('authorization'),
-          REACT_APP_SECRET_KEY,
-        )}`
+      ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
 
   try {
     const response = await axios({

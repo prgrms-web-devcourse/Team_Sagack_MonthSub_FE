@@ -2,10 +2,10 @@ import React from 'react';
 import Wrapper from '@components/commons/Wrapper';
 import SignInForm from '@components/domain/SignInForm';
 import { useSessionStorage } from '@hooks';
-import Crypto from 'crypto-js';
+// import Crypto from 'crypto-js';
 import { postSignIn } from '../../apis/auth.jsx';
 
-const { REACT_APP_SECRET_KEY } = process.env;
+// const { REACT_APP_SECRET_KEY } = process.env;
 
 const SignInPage = () => {
   // const history = useHistory();
@@ -15,11 +15,7 @@ const SignInPage = () => {
   const handleSubmit = async values => {
     const res = await postSignIn(values);
     if (res.statusCode === 200) {
-      const secretToken = Crypto.AES.encrypt(
-        res.data.token,
-        REACT_APP_SECRET_KEY,
-      ).toString();
-      setValue(secretToken);
+      setValue(res.data.token);
       console.log(res.data.token);
     }
   };
