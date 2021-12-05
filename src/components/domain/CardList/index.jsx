@@ -8,8 +8,8 @@ import { Icons, Image } from '@components'
 const CardList = ({ list, ...props }) => (
     <CardContainer {...props}>
       {
-        list.map((item) =>
-          <Card key={item.series.id}>
+        list.map(( item ) =>
+          <Card key={ item.series.id }>
             {
               item.subscribe.status === 'SUBSCRIPTION_AVAILABLE' ?
                 <SubscribeStatusDiv>
@@ -20,21 +20,21 @@ const CardList = ({ list, ...props }) => (
               </SubscribeStatusDiv>
             }
             <div className='card-imageArea'>
-              <Link to={`/series/${item.series.id}`}>
-                <Image src={item.series.thumbnail } width='100%' height='100%' />
+              <Link to={`/series/${ item.series.id }`}>
+                <Image src={ item.series.thumbnail } width='100%' height='100%' />
               </Link>
             </div>
             <div className='card-textArea'>
               <div>
                 <div>{ item.writer.nickname }</div>
-                <div className='card-Likes'>
+                <div className='card-likes'>
                   <Icons.Like fontSize='1rem' />
-                  {item.series.likes} Likes
+                  { item.series.likes } Likes
                 </div>
               </div>
               <div className="title">
                 <Link to={`/series/${item.series.id}`}>
-                  {item.series.title}
+                  { item.series.title }
                 </Link>
               </div>
               <div>
@@ -49,8 +49,8 @@ const CardList = ({ list, ...props }) => (
                 <div>
                   {
                     item.subscribe.status === 'SUBSCRIPTION_AVAILABLE' ?
-                      `모집마감 ~ ${item.subscribe.endDate}` :
-                      `연재종료 ~ ${item.series.endDate}`
+                      `모집마감 ~ ${ item.subscribe.endDate }` :
+                      `연재종료 ~ ${ item.series.endDate }`
                   }
                 </div>
               </div>
@@ -90,14 +90,14 @@ const CardContainer = styled.div`
 const margin = '1.875rem';
 const contentsMaxCount = 4;
 const Card = styled.div`
-  width: calc((100% - (${margin} * ${contentsMaxCount - 1})) / ${contentsMaxCount});
-  margin-right: ${margin};
+  width: calc((100% - (${ margin } * ${ contentsMaxCount - 1 })) / ${ contentsMaxCount });
+  margin-right: ${ margin };
   margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
 
-  &:nth-of-type(${contentsMaxCount}n) {
+  &:nth-of-type(${ contentsMaxCount }n) {
     margin-right: 0;
   }
   
@@ -116,14 +116,14 @@ const Card = styled.div`
       flex-direction: column;
       justify-content: space-between;
 
-      .card-Likes {
+      .card-likes {
         font-size: 1.125rem;
       }
 
       .category {
         height: 1.5625rem;
         padding: 0.625rem;
-        background: white;
+        background: #ffffff;
         border-radius: 1.25rem;
         display: flex;
         align-items: center;
@@ -143,7 +143,7 @@ const Card = styled.div`
       
       .title {
         font-size: 1.125rem;
-        color: black;
+        color: #000000;
         line-height: 1.5rem;
         flex-grow: 1;
   
