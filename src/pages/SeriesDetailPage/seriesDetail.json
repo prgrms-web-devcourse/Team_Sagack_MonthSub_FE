@@ -4,8 +4,8 @@
   "statusCode": 200,
   "data": {
     "seriesId": "1",
-    "nickname": "다함께 차차차",
     "thumbnail": "",
+    "nickname": "다함께 차차차",
     "title": "과거의 명곡과 최신 유행곡을 비교해보는 월간 칼럼",
     "subscribe_start_date":"2021-12-01",
     "subscribe_end_date":"2021-12-31",
