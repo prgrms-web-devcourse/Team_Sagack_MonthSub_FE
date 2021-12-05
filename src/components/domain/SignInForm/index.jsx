@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
 import Input from '@components/commons/Input';
 import validationEmail from '@utils/validation';
+import { Link } from 'react-router-dom';
 
 const SignInForm = ({ onSubmit }) => {
   const { values, errors, handleChange, handleSubmit } = useForm({
@@ -26,7 +27,7 @@ const SignInForm = ({ onSubmit }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <H1>Login</H1>
+      <H1>로그인</H1>
       <Input
         width="100%"
         height="2.5rem"
@@ -48,6 +49,10 @@ const SignInForm = ({ onSubmit }) => {
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
       <Button type="submit">로그인</Button>
+      <Span>
+        <Link to="/">아이디 찾기</Link>
+        <Link to="signup">회원가입하기</Link>
+      </Span>
     </Form>
   );
 };
@@ -96,4 +101,12 @@ const Button = styled.button`
     background-color: #ffb15c;
     color: #041b1d;
   }
+`;
+
+const Span = styled.span`
+  margin: 1rem auto;
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
 `;
