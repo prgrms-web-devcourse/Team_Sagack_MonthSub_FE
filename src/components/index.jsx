@@ -1,3 +1,5 @@
+export { default as Icons } from './commons/Icon';
+export { default as Image } from './commons/Image';
 export { default as List } from './commons/List';
 export { default as Modal } from './commons/Modal';
 export { default as Button } from './commons/Button';
