@@ -11,44 +11,40 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import axios from 'axios';
-// import GET from '../../apis/axios';
 
 const UpdateSeriesPage = () => {
   const [file, setFile] = useState();
+  const [initialValues, setInitialValues] = useState({});
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, errors } = useForm({
-    initialValues: {
-      title: '',
-      introduceText: '',
-      introduceSentence: '',
-      price: 0,
-      subscribeStartDate: '',
-      subscribeEndDate: '',
-      seriesStartDate: '',
-      seriesEndDate: '',
-      category: '',
-      uploadTime: '',
-      articleCount: 0,
-    },
+    dep: initialValues,
     onSubmit: async values => {
       const request = {
-        nickname: 'yoon',
+        writeId: values.writeId,
         title: values.title,
         introduceText: values.introduceText,
         introduceSentence: values.introduceSentence,
         uploadDate: checkedInputs,
+        uploadTime: values.uploadTime,
       };
+
+      function jsonBlob(obj) {
+        return new Blob([JSON.stringify(obj)], {
+          type: 'application/json',
+        });
+      }
 
       const formData = new FormData();
       formData.append('thumbnail', file);
-      formData.append('request', JSON.stringify(request));
+      formData.append('request', jsonBlob(request));
 
       try {
         const response = await axios({
-          method: 'post',
-          url: `http://52.79.51.188:8080/series/users/4`,
+          method: 'put',
+          url: `http://52.79.51.188:8080/series/35`,
           headers: {
-            Authorization: '',
+            Authorization:
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoibW9udGhzdWIiLCJleHAiOjE2Mzg2OTc0OTgsImlhdCI6MTYzODY5Mzg5OCwidXNlcm5hbWUiOiJ1c2VyMSJ9.FLrQYlVxU9ejdtic9bgmBX5l-5jEPQfny83F2Bd0FpOuq18ZGYDBq3CHy3PsOH2YW7Y9hvqlO6KOW8w6IRdxNA',
             'Content-Type': 'multipart/form-data',
           },
           data: formData,
@@ -62,13 +58,13 @@ const UpdateSeriesPage = () => {
         return error;
       }
     },
-    validate: request => {
+    validate: values => {
       const newErrors = {};
-      for (const key in request) {
-        if (!request[key]) {
+      for (const key in values) {
+        if (!values[key]) {
           newErrors.empty = `${key}의 값을 입력해주세요!`;
-        } else if (!file) {
-          newErrors.thumbnail = '이미지를 업로드해주세요!';
+        } else if (checkedInputs.length === 0) {
+          newErrors.day = '요일을 선택해주세요!';
         }
       }
       return newErrors;
@@ -76,11 +72,49 @@ const UpdateSeriesPage = () => {
   });
 
   useEffect(() => {
-    // const init = async () => {
-    //   const writtenSerizeContent = await GET();
-    // };
-  });
+    const init = async () => {
+      try {
+        const response = await axios({
+          method: 'get',
+          url: `http://52.79.51.188:8080/series/7`,
+          headers: {
+            Authorization: '',
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        });
+        if (response.status >= 400) {
+          throw new Error('API 호출에 실패 했습니다.');
+        }
+        const seriesData = response.data.data.series;
+        const uploadData = response.data.data.upload;
+        const subscribeData = response.data.data.subscribe;
+        // console.log(response.data.data);
+        // console.log(seriesData);
+        // console.log(uploadData);
+        // console.log(subscribeData);
+        setInitialValues({
+          writeId: response.data.data.writer.id,
+          title: seriesData.title,
+          introduceText: seriesData.introduceText,
+          introduceSentence: seriesData.introduceSentence,
+          price: seriesData.price,
+          subscribeStartDate: subscribeData.startDate,
+          subscribeEndDate: subscribeData.endDate,
+          seriesStartDate: seriesData.startDate,
+          seriesEndDate: seriesData.endDate,
+          category: response.data.data.category,
+          uploadTime: uploadData.time,
+          articleCount: seriesData.articleCount,
+        });
+        setCheckedInputs(uploadData.date);
 
+        return response;
+      } catch (error) {
+        return error;
+      }
+    };
+    init();
+  }, []);
   const handleChangefile = file => {
     file && setFile(file);
   };
@@ -93,22 +127,6 @@ const UpdateSeriesPage = () => {
     }
   };
 
-  const createLaterDate = (currentDate, n) => {
-    const arr = currentDate.split('-');
-    const laterDate = new Date(
-      Number(arr[0]),
-      Number(arr[1]) - 1,
-      Number(arr[2]),
-    );
-    laterDate.setDate(laterDate.getDate() + n);
-    const year = laterDate.getFullYear();
-    const month = laterDate.getMonth() + 1;
-    const date = laterDate.getDate();
-    return `${year}-${month >= 10 ? month : `0${month}`}-${
-      date >= 10 ? date : `0${date}`
-    }`;
-  };
-
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
@@ -117,36 +135,39 @@ const UpdateSeriesPage = () => {
         <Radio
           names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
+          disabled
         />
-        <SeriesEditor onChange={handleChange} value={values} />
+        <SeriesEditor onChange={handleChange} value={values || ''} />
         <Upload name="thumbnail" onChange={handleChangefile}>
           <button type="button">Click me</button>
+          <span>{file ? file.name : ''}</span>
         </Upload>
         <div>
           <h1>구독료</h1>
           <Input
             type="number"
-            value={values.price}
+            value={values.price || ''}
             name="price"
             onChange={handleChange}
             min={0}
+            disabled
           />
         </div>
         <div>
           <h1> 모집 기간</h1>
           <Input
             type="date"
-            value={values.subscribeStartDate}
+            value={values.subscribeStartDate || ''}
             name="subscribeStartDate"
             onChange={handleChange}
+            disabled
           />
           <Input
             type="date"
-            value={values.subscribeEndDate}
+            value={values.subscribeEndDate || ''}
             name="subscribeEndDate"
             onChange={handleChange}
-            disabled={!values.subscribeStartDate}
-            min={createLaterDate(values.subscribeStartDate, 1)}
+            disabled
           />
         </div>
         <div>
@@ -154,35 +175,34 @@ const UpdateSeriesPage = () => {
           <Input
             type="date"
             name="seriesStartDate"
-            value={values.seriesStartDate}
+            value={values.seriesStartDate || ''}
             onChange={handleChange}
-            disabled={!values.subscribeEndDate}
-            min={createLaterDate(values.subscribeEndDate, 1)}
+            disabled
           />
           <Input
             type="date"
             name="seriesEndDate"
-            value={values.seriesEndDate}
+            value={values.seriesEndDate || ''}
             onChange={handleChange}
-            disabled={!values.seriesStartDate}
-            min={createLaterDate(values.seriesStartDate, 1)}
+            disabled
           />
         </div>
         <Input
           type="time"
           name="uploadTime"
-          value={values.uploadTime}
+          value={values.uploadTime || ''}
           title="연재시간"
           onChange={handleChange}
+          disabled
         />
         <Input
-          type="range"
+          type="number"
           name="articleCount"
-          value={values.articleCount}
+          value={values.articleCount || 0}
           title="총 회차"
           onChange={handleChange}
           min={1}
-          max={100}
+          disabled
         />
         {values.articleCount}
         <div>

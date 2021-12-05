@@ -20,3 +20,4 @@ export { default as CommentList } from './domain/CommentList';
 export { default as Radio } from './commons/Radio/ButtonRadio';
 export { default as SignInForm } from './domain/SignInForm';
 export { default as SeriesEditor } from './domain/SeriesEditor';
+export { default as Image } from './commons/Image';

@@ -19,7 +19,7 @@ const ButtonRadio = ({ onChange, names = [], disabled }) => {
               onChange={handleChange}
               disabled={disabled}
             />
-            {name}
+            <div>{name}</div>
           </Label>
         ))}
       </List>
@@ -53,4 +53,7 @@ const Label = styled.label`
 
 const StyledRadioInput = styled.input`
   display: none;
+  &:checked + div {
+    color: blue;
+  }
 `;

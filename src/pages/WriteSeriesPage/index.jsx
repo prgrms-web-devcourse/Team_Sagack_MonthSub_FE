@@ -38,19 +38,23 @@ const WriteSeriesPage = () => {
         price: Number(values.price),
       };
 
+      function jsonBlob(obj) {
+        return new Blob([JSON.stringify(obj)], {
+          type: 'application/json',
+        });
+      }
+
       const formData = new FormData();
       formData.append('thumbnail', file);
-      formData.append('request', JSON.stringify(request));
+      formData.append('request', jsonBlob(request));
 
       try {
-        for (const value of formData.values()) {
-          console.log(value);
-        }
         const response = await axios({
           method: 'post',
-          url: `http://52.79.51.188:8080/series/users/4`,
+          url: `http://52.79.51.188:8080/series`,
           headers: {
-            Authorization: '',
+            Authorization:
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoibW9udGhzdWIiLCJleHAiOjE2Mzg2OTc0OTgsImlhdCI6MTYzODY5Mzg5OCwidXNlcm5hbWUiOiJ1c2VyMSJ9.FLrQYlVxU9ejdtic9bgmBX5l-5jEPQfny83F2Bd0FpOuq18ZGYDBq3CHy3PsOH2YW7Y9hvqlO6KOW8w6IRdxNA',
             'Content-Type': 'multipart/form-data',
           },
           data: formData,
@@ -64,18 +68,21 @@ const WriteSeriesPage = () => {
         return error;
       }
     },
-    validate: request => {
+    validate: values => {
       const newErrors = {};
-      for (const key in request) {
-        if (!request[key]) {
+      for (const key in values) {
+        if (!values[key]) {
           newErrors.empty = `${key}의 값을 입력해주세요!`;
         } else if (!file) {
           newErrors.thumbnail = '이미지를 업로드해주세요!';
+        } else if (checkedInputs.length === 0) {
+          newErrors.day = '요일을 선택해주세요!';
         }
       }
       return newErrors;
     },
   });
+  console.log(file);
 
   const handleSelectDays = (checked, value) => {
     if (checked) {
@@ -109,6 +116,7 @@ const WriteSeriesPage = () => {
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
       <ErrorMessage>{errors.thumbnail}</ErrorMessage>
+      <ErrorMessage>{errors.day}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Radio
           names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
@@ -117,6 +125,7 @@ const WriteSeriesPage = () => {
         <SeriesEditor onChange={handleChange} value={values} />
         <Upload name="thumbnail" onChange={handleChangefile}>
           <button type="button">Click me</button>
+          <span>{file ? file.name : ''}</span>
         </Upload>
         <div>
           <h1>구독료</h1>
@@ -172,13 +181,12 @@ const WriteSeriesPage = () => {
           onChange={handleChange}
         />
         <Input
-          type="range"
+          type="number"
           name="articleCount"
           value={values.articleCount}
           title="총 회차"
           onChange={handleChange}
           min={1}
-          max={100}
         />
         {values.articleCount}
         <div>

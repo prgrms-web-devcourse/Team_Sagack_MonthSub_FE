@@ -34,6 +34,7 @@ const InputFile = ({
         accept={accept}
         onChange={handleFileChange}
         disabled={disabled && disabled}
+        value={value}
       />
       {children}
     </div>
@@ -46,7 +47,6 @@ InputFile.defaultProps = {
   children: '',
   name: '',
   accept: '.jpg, .png, .jpeg',
-  value: '',
   disabled: false,
   onChange: () => {},
 };
@@ -55,7 +55,7 @@ InputFile.propTypes = {
   children: PropTypes.node,
   name: PropTypes.string,
   accept: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
