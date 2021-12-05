@@ -6,7 +6,7 @@ const { REACT_APP_API_END_POINT } = process.env;
 
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   const headers = {
-    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8’' }),
+    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
@@ -27,6 +27,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
     return error;
   }
 };
+
 export const POST = async ({
   url,
   isAuth = false,
@@ -48,6 +49,7 @@ export const POST = async ({
       headers,
       data,
     });
+
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
@@ -57,6 +59,7 @@ export const POST = async ({
     return error;
   }
 };
+
 export const PUT = async ({
   url,
   isAuth = false,
@@ -86,6 +89,7 @@ export const PUT = async ({
     return error;
   }
 };
+
 export const DELETE = async ({
   url,
   isAuth = false,
@@ -115,4 +119,5 @@ export const DELETE = async ({
     return error;
   }
 };
+
 export default { GET, POST, PUT, DELETE };

@@ -13,11 +13,11 @@ import { useForm } from '@hooks';
 import axios from 'axios';
 
 const WriteSeriesPage = () => {
+  const [file, setFile] = useState();
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, errors } = useForm({
     initialValues: {
       title: '',
-      thumbnail: '',
       introduceText: '',
       introduceSentence: '',
       price: 0,
@@ -30,26 +30,22 @@ const WriteSeriesPage = () => {
       articleCount: 0,
     },
     onSubmit: async values => {
-      const requestData = {
-        thumbnail: values.thumbnail, // values.thumbnail ? values.thumbnail : 디폴트 이미지 파일명
-        request: {
-          nickname: 'yoon',
-          title: values.title,
-          introduceSentence: values.introduceSentence,
-          introduceText: values.introduceText,
-          subscribeStartDate: values.subscribeStartDate,
-          subscribeEndDate: values.subscribeEndDate,
-          seriesStartDate: values.seriesStartDate,
-          seriesEndDate: values.seriesEndDate,
-          category: values.category,
-          uploadDate: checkedInputs,
-          uploadTime: values.uploadTime,
-          articleCount: Number(values.articleCount),
-          price: Number(values.price),
-        },
+      const request = {
+        ...values,
+        nickname: 'yoon',
+        uploadDate: checkedInputs,
+        articleCount: Number(values.articleCount),
+        price: Number(values.price),
       };
+
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+      formData.append('request', JSON.stringify(request));
+
       try {
-        console.log(requestData);
+        for (const value of formData.values()) {
+          console.log(value);
+        }
         const response = await axios({
           method: 'post',
           url: `http://52.79.51.188:8080/series/users/4`,
@@ -57,22 +53,24 @@ const WriteSeriesPage = () => {
             Authorization: '',
             'Content-Type': 'multipart/form-data',
           },
-          data: requestData,
+          data: formData,
         });
-        // if (response.status >= 400) {
-        //   throw new Error('API 호출에 실패 했습니다.');
-        // }
-        console.log(response);
+        if (response.status >= 400) {
+          throw new Error('API 호출에 실패 했습니다.');
+        }
+        console.log(response.data);
         return response.data;
       } catch (error) {
         return error;
       }
     },
-    validate: values => {
+    validate: request => {
       const newErrors = {};
-      for (const key in values) {
-        if (!values[key]) {
-          newErrors.empty = '값을 모두 입력해야합니다!';
+      for (const key in request) {
+        if (!request[key]) {
+          newErrors.empty = `${key}의 값을 입력해주세요!`;
+        } else if (!file) {
+          newErrors.thumbnail = '이미지를 업로드해주세요!';
         }
       }
       return newErrors;
@@ -85,6 +83,10 @@ const WriteSeriesPage = () => {
     } else {
       setCheckedInputs(checkedInputs.filter(el => el !== value));
     }
+  };
+
+  const handleChangefile = file => {
+    file && setFile(file);
   };
 
   const createLaterDate = (currentDate, n) => {
@@ -106,13 +108,14 @@ const WriteSeriesPage = () => {
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
+      <ErrorMessage>{errors.thumbnail}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Radio
           names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
         />
         <SeriesEditor onChange={handleChange} value={values} />
-        <Upload name="thumbnail" onChange={handleChange}>
+        <Upload name="thumbnail" onChange={handleChangefile}>
           <button type="button">Click me</button>
         </Upload>
         <div>
@@ -174,12 +177,15 @@ const WriteSeriesPage = () => {
           value={values.articleCount}
           title="총 회차"
           onChange={handleChange}
+          min={1}
+          max={100}
         />
         {values.articleCount}
         <div>
           <h1>연재 요일</h1>
           <CheckBox
             labels={['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']}
+            checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
         </div>

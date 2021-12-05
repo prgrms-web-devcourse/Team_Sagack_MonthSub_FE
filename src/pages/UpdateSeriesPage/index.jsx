@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import {
   Wrapper,
@@ -7,41 +7,83 @@ import {
   Upload,
   Button,
   Radio,
+  CheckBox,
 } from '@components';
 import { useForm } from '@hooks';
+import axios from 'axios';
+// import GET from '../../apis/axios';
 
 const UpdateSeriesPage = () => {
+  const [file, setFile] = useState();
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, errors } = useForm({
     initialValues: {
-      id: 1,
-      thumbnail: 'adf.png',
-      title: '일간이슬아',
-      introduceText: '안녕안ㄴ연연연연ㅇ녕ㄴ연연',
-      introduceSentence: 'ㄴㅇ랑ㄴ라ㅣㅁㅇ나린ㅁ라이날밍라민알밍나림낭ㄹㅇㄴ',
-      price: 10000,
-      subscribeStartDate: '2021-01-22',
-      subscribeEndDate: '2021-02-23',
-      seriesStartDate: '2021-03-23',
-      seriesEndDate: '2021-04-23',
-      articleCount: 10,
-      category: 'poem',
-      date: ['mon', 'fri'],
-      uploadTime: '20:00',
+      title: '',
+      introduceText: '',
+      introduceSentence: '',
+      price: 0,
+      subscribeStartDate: '',
+      subscribeEndDate: '',
+      seriesStartDate: '',
+      seriesEndDate: '',
+      category: '',
+      uploadTime: '',
+      articleCount: 0,
     },
-    onSubmit: async () => {
-      console.log({ ...values, date: values.date.split(' ') });
+    onSubmit: async values => {
+      const request = {
+        nickname: 'yoon',
+        title: values.title,
+        introduceText: values.introduceText,
+        introduceSentence: values.introduceSentence,
+        uploadDate: checkedInputs,
+      };
+
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+      formData.append('request', JSON.stringify(request));
+
+      try {
+        const response = await axios({
+          method: 'post',
+          url: `http://52.79.51.188:8080/series/users/4`,
+          headers: {
+            Authorization: '',
+            'Content-Type': 'multipart/form-data',
+          },
+          data: formData,
+        });
+        if (response.status >= 400) {
+          throw new Error('API 호출에 실패 했습니다.');
+        }
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        return error;
+      }
     },
-    validate: values => {
+    validate: request => {
       const newErrors = {};
-      for (const key in values) {
-        if (!values[key]) {
-          newErrors.empty = '값을 모두 입력해야합니다!';
+      for (const key in request) {
+        if (!request[key]) {
+          newErrors.empty = `${key}의 값을 입력해주세요!`;
+        } else if (!file) {
+          newErrors.thumbnail = '이미지를 업로드해주세요!';
         }
       }
       return newErrors;
     },
   });
+
+  useEffect(() => {
+    // const init = async () => {
+    //   const writtenSerizeContent = await GET();
+    // };
+  });
+
+  const handleChangefile = file => {
+    file && setFile(file);
+  };
 
   const handleSelectDays = (checked, value) => {
     if (checked) {
@@ -51,20 +93,34 @@ const UpdateSeriesPage = () => {
     }
   };
 
+  const createLaterDate = (currentDate, n) => {
+    const arr = currentDate.split('-');
+    const laterDate = new Date(
+      Number(arr[0]),
+      Number(arr[1]) - 1,
+      Number(arr[2]),
+    );
+    laterDate.setDate(laterDate.getDate() + n);
+    const year = laterDate.getFullYear();
+    const month = laterDate.getMonth() + 1;
+    const date = laterDate.getDate();
+    return `${year}-${month >= 10 ? month : `0${month}`}-${
+      date >= 10 ? date : `0${date}`
+    }`;
+  };
+
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
+      <ErrorMessage>{errors.thumbnail}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Radio
           names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
-          disabled
         />
         <SeriesEditor onChange={handleChange} value={values} />
-        <Upload name="thumbnail" onChange={handleChange}>
-          {file => (
-            <button type="button">{file ? file.name : 'Click me'}</button>
-          )}
+        <Upload name="thumbnail" onChange={handleChangefile}>
+          <button type="button">Click me</button>
         </Upload>
         <div>
           <h1>구독료</h1>
@@ -73,24 +129,24 @@ const UpdateSeriesPage = () => {
             value={values.price}
             name="price"
             onChange={handleChange}
-            disabled
+            min={0}
           />
         </div>
         <div>
-          <h1>연재 기간</h1>
+          <h1> 모집 기간</h1>
           <Input
             type="date"
             value={values.subscribeStartDate}
             name="subscribeStartDate"
             onChange={handleChange}
-            disabled
           />
           <Input
             type="date"
             value={values.subscribeEndDate}
             name="subscribeEndDate"
             onChange={handleChange}
-            disabled
+            disabled={!values.subscribeStartDate}
+            min={createLaterDate(values.subscribeStartDate, 1)}
           />
         </div>
         <div>
@@ -100,14 +156,16 @@ const UpdateSeriesPage = () => {
             name="seriesStartDate"
             value={values.seriesStartDate}
             onChange={handleChange}
-            disabled
+            disabled={!values.subscribeEndDate}
+            min={createLaterDate(values.subscribeEndDate, 1)}
           />
           <Input
             type="date"
             name="seriesEndDate"
             value={values.seriesEndDate}
             onChange={handleChange}
-            disabled
+            disabled={!values.seriesStartDate}
+            min={createLaterDate(values.seriesStartDate, 1)}
           />
         </div>
         <Input
@@ -116,7 +174,6 @@ const UpdateSeriesPage = () => {
           value={values.uploadTime}
           title="연재시간"
           onChange={handleChange}
-          disabled
         />
         <Input
           type="range"
@@ -124,89 +181,17 @@ const UpdateSeriesPage = () => {
           value={values.articleCount}
           title="총 회차"
           onChange={handleChange}
-          disabled
+          min={1}
+          max={100}
         />
         {values.articleCount}
         <div>
           <h1>연재 요일</h1>
-          <Input
-            type="checkbox"
-            name="date"
-            id="mon"
-            value={checkedInputs}
-            onChange={e => {
-              if (checkedInputs[0] === 'mon') e.target.checked === true;
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
+          <CheckBox
+            labels={['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']}
+            checkedInputs={checkedInputs}
+            onChange={handleSelectDays}
           />
-          월
-          <Input
-            type="checkbox"
-            name="date"
-            id="tue"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          화
-          <Input
-            type="checkbox"
-            name="date"
-            id="wen"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          수
-          <Input
-            type="checkbox"
-            name="date"
-            id="thu"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          목
-          <Input
-            type="checkbox"
-            name="date"
-            id="fri"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          금
-          <Input
-            type="checkbox"
-            name="date"
-            id="sat"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          토
-          <Input
-            type="checkbox"
-            name="date"
-            id="sun"
-            value={checkedInputs}
-            onChange={e => {
-              handleSelectDays(e.target.checked, e.target.id);
-              handleChange(e);
-            }}
-          />
-          일
         </div>
         <Button type="submit">제출</Button>
       </form>
