@@ -68,6 +68,9 @@ const StyledHeader = styled.header`
   height: 5rem;
   padding: 0 3rem;
   top: 0;
+  background-color: white;
+  border-bottom: 0.0625rem solid #ffb15c;
+  z-index: 1;
 `;
 
 const StyledUserModal = styled(UserModal)`
