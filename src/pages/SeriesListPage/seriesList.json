@@ -4,44 +4,114 @@
   "statusCode": 200,
   "data": [
     {
-      "seriesId": "1",
-      "nickname": "다함께 차차차",
-      "thumbnail": "",
-      "title": "과거의 명곡과 최신 유행곡을 비교해보는 월간 칼럼",
-      "subscribe_start_date":"2021-12-01",
-      "subscribe_end_date":"2021-12-31",
-      "subscribe_status" : "모집중",
-      "category": "critique"
+      "series": {
+        "id": 1,
+        "thumbnail": "",
+        "title": "모집 공고 제목 1",
+        "introduceSentence": "소개문장",
+        "startDate": "2022-01-01",
+        "endDate": "2022-01-10",
+        "articleCount": 15,
+        "likes": 100
+      },
+      "subscribe": {
+        "startDate": "2021-12-01",
+        "endDate": "2021-12-03",
+        "status": "모집중"
+      },
+      "category": "poem",
+      "writer": {
+         "id": 1,
+         "nickname": "호식이"
+      }
     },
     {
-      "seriesId": "2",
-      "nickname": "야피",
-      "thumbnail": "",
-      "title": "나무는 나이 먹을 수록 단단해진다.",
-      "subscribe_start_date":"2021-11-01",
-      "subscribe_end_date":"2021-12-01",
-      "subscribe_status" : "연재중", 
-      "category": "novel"
+      "series": {
+        "id": 2,
+        "thumbnail": "",
+        "title": "모집 공고 제목 2",
+        "introduceSentence": "소개문장",
+        "startDate": "2022-01-01",
+        "endDate": "2022-01-10",
+        "articleCount": 15,
+        "likes": 100
+      },
+      "subscribe": {
+        "startDate": "2021-12-01",
+        "endDate": "2021-12-03",
+        "status": "연재중"
+      },
+      "category": "poem",
+      "writer": {
+         "id": 2,
+         "nickname": "두마리 치킨"
+      }
     },
     {
-      "seriesId": "3",
-      "nickname": "박예진",
-      "thumbnail": "",
-      "title": "나라는 사람의 삶을 들여다보자",
-      "subscribe_start_date":"2021-11-20",
-      "subscribe_end_date":"2021-12-01",
-      "subscribe_status" : "연재중", 
-      "category": "essay"
+      "series": {
+        "id": 3,
+        "thumbnail": "",
+        "title": "모집 공고 제목 3",
+        "introduceSentence": "소개문장",
+        "startDate": "2022-01-01",
+        "endDate": "2022-01-10",
+        "articleCount": 15,
+        "likes": 100
+      },
+      "subscribe": {
+        "startDate": "2021-12-01",
+        "endDate": "2021-12-03",
+        "status": "연재중"
+      },
+      "category": "poem",
+      "writer": {
+         "id": 3,
+         "nickname": "울집유리"
+      }
     },
     {
-      "seriesId": "4",
-      "nickname": "호기심좌",
-      "thumbnail": "",
-      "title": "희귀 직업을 가진 사람들의 인터뷰",
-      "subscribe_start_date":"2021-12-03",
-      "subscribe_end_date":"2021-12-23",
-      "subscribe_status" : "모집중", 
-      "category": "interview"
+      "series": {
+        "id": 4,
+        "thumbnail": "",
+        "title": "모집 공고 제목 4",
+        "introduceSentence": "소개문장",
+        "startDate": "2022-01-01",
+        "endDate": "2022-01-10",
+        "articleCount": 15,
+        "likes": 100
+      },
+      "subscribe": {
+        "startDate": "2021-12-01",
+        "endDate": "2021-12-03",
+        "status": "모집중"
+      },
+      "category": "poem",
+      "writer": {
+         "id": 4,
+         "nickname": "파하하김치"
+      }
+    },
+    {
+      "series": {
+        "id": 5,
+        "thumbnail": "",
+        "title": "모집 공고 제목 5",
+        "introduceSentence": "소개문장",
+        "startDate": "2022-01-01",
+        "endDate": "2022-01-10",
+        "articleCount": 15,
+        "likes": 100
+      },
+      "subscribe": {
+        "startDate": "2021-12-01",
+        "endDate": "2021-12-03",
+        "status": "연재중"
+      },
+      "category": "poem",
+      "writer": {
+         "id": 5,
+         "nickname": "오마미아"
+      }
     }
   ]
 }
