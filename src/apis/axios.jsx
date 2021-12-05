@@ -1,12 +1,9 @@
 import axios from 'axios';
+// import Crypto from 'crypto-js';
 
 export const instance = axios.create({});
 const { REACT_APP_API_END_POINT } = process.env;
-/*
-url: api end_point
-isAuth: header에 JWT 토큰이 필요한지?
-isForm: formdata인지 아닌지 -> 이건 테스트 해봐야해요! (default: ‘Content-Type’: ‘application/json;charset=utf-8’)
-*/
+
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8’' }),
@@ -14,6 +11,8 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
+
   try {
     const response = await axios({
       method: 'get',
@@ -23,7 +22,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -40,6 +39,8 @@ export const POST = async ({
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
+
   try {
     const response = await axios({
       method: 'post',
@@ -50,7 +51,8 @@ export const POST = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+
+    return response;
   } catch (error) {
     return error;
   }
@@ -67,6 +69,8 @@ export const PUT = async ({
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
+
   try {
     const response = await axios({
       method: 'put',
@@ -77,7 +81,7 @@ export const PUT = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }
@@ -94,6 +98,8 @@ export const DELETE = async ({
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
+  console.log(headers);
+
   try {
     const response = await axios({
       method: 'delete',
@@ -104,7 +110,7 @@ export const DELETE = async ({
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-    return response.data;
+    return response;
   } catch (error) {
     return error;
   }

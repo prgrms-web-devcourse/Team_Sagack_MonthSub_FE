@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import { List } from '@components';
 import { Link } from 'react-router-dom';
 
-const UserModal = ({ maxWidth, items, visible, onClick, ...props }) => (
+const UserModal = ({
+  maxWidth,
+  items,
+  visible,
+  onClick,
+  isSignIn,
+  ...props
+}) => (
   <StyledDiv maxwidth={maxWidth} visible={visible} {...props}>
     <List>
       <li>
@@ -13,7 +20,11 @@ const UserModal = ({ maxWidth, items, visible, onClick, ...props }) => (
       <li>
         <Link to="/">관심 시리즈</Link>
       </li>
-      <li onClick={onClick}>로그아웃</li>
+      {isSignIn ? (
+        <li onClick={onClick}>로그아웃</li>
+      ) : (
+        <Link to="/signin">로그인</Link>
+      )}
     </List>
   </StyledDiv>
 );
@@ -31,6 +42,7 @@ UserModal.propTypes = {
   items: PropTypes.array.isRequired,
   visible: PropTypes.bool,
   onClick: PropTypes.func,
+  isSignIn: PropTypes.string.isRequired,
 };
 
 const StyledDiv = styled.nav`

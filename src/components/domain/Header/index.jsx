@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useToggle } from '@hooks';
+import { useToggle, useSessionStorage } from '@hooks';
 import { BrowserRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Input } from '@components';
@@ -12,17 +12,21 @@ const logo = require('./logo.svg');
 
 const Header = ({ children }) => {
   const [state, toggle] = useToggle();
+  const { storedValue, removeValue } = useSessionStorage('authorization', '');
+
   const handleClick = () => {
+    console.log(storedValue); // 현재 token 값
     // apis/auth/signout api 호출해야합니다.
-    console.log('signout!');
+    removeValue('authorization');
   };
+
   return (
     <BrowserRouter>
       <StyledHeader>
         <Logo src={logo.default} alt="미리보기" />
         <Nav items={['Home', '연재하기', '내 채널']} />
         <SearchBox>
-          <Input name="search" />
+          <Input name="search" value="" />
           <Link to="/search">
             <span type="button">검색 아이콘</span>
           </Link>
@@ -38,6 +42,7 @@ const Header = ({ children }) => {
           items={['마이페이지', '관심 시리즈', '로그아웃']}
           visible={state}
           onClick={handleClick}
+          isSignIn={storedValue}
         />
       </StyledHeader>
       {children}
