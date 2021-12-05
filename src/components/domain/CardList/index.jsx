@@ -2,33 +2,64 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import convertCategory from '@utils/convertCategory';
+import { Icons, Image } from '@components'
 
 const CardList = ({ list, ...props }) => (
-  <CardContainer {...props}>
-    {
-      list.map(item =>
-        <Card key={ item.seriesId }>
-          <div>
-            <Link to={`/series/${ item.seriesId }`}>img</Link>
-          </div>
-          <div>
-            <div>
-              <div>{ item.nickname }</div>
-              <div>Likes</div>
+    <CardContainer {...props}>
+      {
+        list.map((item) =>
+          <Card key={item.series.id}>
+            {
+              item.subscribe.status === 'SUBSCRIPTION_AVAILABLE' ?
+                <SubscribeStatusDiv>
+                  <div className='available'>모집중</div>
+                </SubscribeStatusDiv> :
+                <SubscribeStatusDiv>
+                <div className='unAvailable'>연재중</div>
+              </SubscribeStatusDiv>
+            }
+            <div className='card-imageArea'>
+              <Link to={`/series/${item.series.id}`}>
+                <Image src={item.series.thumbnail } width='100%' height='100%' />
+              </Link>
             </div>
-            <div className="title">
-              <Link to={`/series/${ item.seriesId }`}>{ item.title }</Link>
+            <div className='card-textArea'>
+              <div>
+                <div>{ item.writer.nickname }</div>
+                <div className='card-Likes'>
+                  <Icons.Like fontSize='1rem' />
+                  {item.series.likes} Likes
+                </div>
+              </div>
+              <div className="title">
+                <Link to={`/series/${item.series.id}`}>
+                  {item.series.title}
+                </Link>
+              </div>
+              <div>
+                { item.series.introduceSentence }
+              </div>
+              <div>
+                <div className='category'>
+                  {
+                    convertCategory(item.category)
+                  }
+                </div>
+                <div>
+                  {
+                    item.subscribe.status === 'SUBSCRIPTION_AVAILABLE' ?
+                      `모집마감 ~ ${item.subscribe.endDate}` :
+                      `연재종료 ~ ${item.series.endDate}`
+                  }
+                </div>
+              </div>
             </div>
-            <div>
-              <div>{ item.category }</div>
-              <div>{ item.subscribe_start_date } ~ { item.subscribe_end_date }</div>
-            </div>
-          </div>
-        </Card>  
-      )
-    }
-  </CardContainer>
-);
+          </Card>
+        )
+      }
+    </CardContainer>
+  );
 
 CardList.defaultProps = {
   list: [],
@@ -64,43 +95,78 @@ const Card = styled.div`
   margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &:nth-of-type(${contentsMaxCount}n) {
     margin-right: 0;
   }
   
-  > div:nth-of-type(1) {
-    height: 11rem;
-    background-color: #aaaaaa;
-  }
-  
-  > div:nth-of-type(2) {
-    flex-grow: 1;
-    font-size: 0.875rem;
-    color: #4b4b4b;
-    padding: 0.875rem;
-    background-color: #eaeaea;
-    
-    > div {
-      margin-bottom: 0.875rem;
+  .card {
+    &-imageArea {
+      height: 11rem;
+      background-color: #bdbdbd;
     }
-    
-    > div:last-child {
-      margin-bottom: 0;
-    }
-    
-    .title {
-      font-size: 1rem;
-      color: black;
+    &-textArea {
+      flex-grow: 1;
+      font-size: 0.875rem;
+      color: #4b4b4b;
+      padding: 0.875rem;
+      background-color: rgba(255, 177, 92, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
-      &:hover {
-        text-decoration: underline;
+      .card-Likes {
+        font-size: 1.125rem;
+      }
+
+      .category {
+        height: 1.5625rem;
+        padding: 0.625rem;
+        background: white;
+        border-radius: 1.25rem;
+        display: flex;
+        align-items: center;
+        border: 0.0625rem solid #ffb15c;
+      }
+      
+      > div {
+        margin-bottom: 0.875rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      > div:last-child {
+        margin-bottom: 0;
+      }
+      
+      .title {
+        font-size: 1.125rem;
+        color: black;
+        line-height: 1.5rem;
+        flex-grow: 1;
+  
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
+`;
 
-  > div > div {
-    display: flex;
-    justify-content: space-between;
+const SubscribeStatusDiv = styled.div`
+  position: absolute;
+  top: 0;
+  right: -0.625rem;
+  
+  > * {
+    padding: 0.625rem;
+  }
+  .available {
+    background-color: #ffb15c;
+  }
+  .unAvailable {
+    background-color: #ff8eb2;
   }
 `;
