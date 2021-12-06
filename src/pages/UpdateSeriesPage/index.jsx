@@ -11,9 +11,10 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import axios from 'axios';
+// import { PUT } from '../../apis/axios';
 
 const UpdateSeriesPage = () => {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [initialValues, setInitialValues] = useState({});
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, errors } = useForm({
@@ -38,23 +39,30 @@ const UpdateSeriesPage = () => {
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
 
+      for (const key of formData.keys()) {
+        console.log(key, formData[key]);
+      }
+      console.log(file, request);
+
       try {
         const response = await axios({
           method: 'put',
-          url: `http://52.79.51.188:8080/series/35`,
+          url: `http://52.79.51.188:8080/series/edit/32`,
           headers: {
             Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoibW9udGhzdWIiLCJleHAiOjE2Mzg2OTc0OTgsImlhdCI6MTYzODY5Mzg5OCwidXNlcm5hbWUiOiJ1c2VyMSJ9.FLrQYlVxU9ejdtic9bgmBX5l-5jEPQfny83F2Bd0FpOuq18ZGYDBq3CHy3PsOH2YW7Y9hvqlO6KOW8w6IRdxNA',
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc3MzY3NywiaWF0IjoxNjM4NzcwMDc3LCJ1c2VybmFtZSI6InVzZXIzIn0.1HfnbRPwMmvg7A-wAyXzj1_1anpyrBlorUmYVZl0t5v46_a-_O-jJQvzX77GXiHCy_RjXs4W-AdX6O5NJ7fe5A',
             'Content-Type': 'multipart/form-data',
           },
           data: formData,
         });
         if (response.status >= 400) {
+          console.log(response.status);
           throw new Error('API 호출에 실패 했습니다.');
         }
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
       } catch (error) {
+        console.log(error);
         return error;
       }
     },
@@ -65,12 +73,17 @@ const UpdateSeriesPage = () => {
           newErrors.empty = `${key}의 값을 입력해주세요!`;
         } else if (checkedInputs.length === 0) {
           newErrors.day = '요일을 선택해주세요!';
+        } else if (key === 'uploadDate') {
+          if (values[key].length !== checkedInputs.length) {
+            newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+          }
         }
       }
       return newErrors;
     },
   });
 
+  // console.log(checkedInputs);
   useEffect(() => {
     const init = async () => {
       try {
@@ -105,6 +118,7 @@ const UpdateSeriesPage = () => {
           category: response.data.data.category,
           uploadTime: uploadData.time,
           articleCount: seriesData.articleCount,
+          uploadDate: uploadData.date,
         });
         setCheckedInputs(uploadData.date);
 
@@ -115,6 +129,7 @@ const UpdateSeriesPage = () => {
     };
     init();
   }, []);
+
   const handleChangefile = file => {
     file && setFile(file);
   };
@@ -130,14 +145,14 @@ const UpdateSeriesPage = () => {
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
-      <ErrorMessage>{errors.thumbnail}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Radio
           names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
+          checkedButton={values.category}
           disabled
         />
-        <SeriesEditor onChange={handleChange} value={values || ''} />
+        <SeriesEditor onChange={handleChange} value={values} />
         <Upload name="thumbnail" onChange={handleChangefile}>
           <button type="button">Click me</button>
           <span>{file ? file.name : ''}</span>
@@ -193,7 +208,6 @@ const UpdateSeriesPage = () => {
           value={values.uploadTime || ''}
           title="연재시간"
           onChange={handleChange}
-          disabled
         />
         <Input
           type="number"
@@ -212,6 +226,7 @@ const UpdateSeriesPage = () => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
+          <ErrorMessage>{errors.day || errors.dayLength}</ErrorMessage>
         </div>
         <Button type="submit">제출</Button>
       </form>

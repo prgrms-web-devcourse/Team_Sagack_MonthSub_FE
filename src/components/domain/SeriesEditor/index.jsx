@@ -12,7 +12,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
       <StyledInput
         width="100%"
         name="title"
-        value={value.title}
+        value={value.title || ''}
         onChange={handleInputChange}
         disabled={disabled && disabled}
       />
@@ -20,7 +20,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
         width="100%"
         height="3rem"
         name="introduceText"
-        value={value.introduceText}
+        value={value.introduceText || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
       />
@@ -28,7 +28,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
         width="100%"
         height="10rem"
         name="introduceSentence"
-        value={value.introduceSentence}
+        value={value.introduceSentence || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
       />

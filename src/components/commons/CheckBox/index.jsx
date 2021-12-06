@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from '@components';
 
-const CheckBox = ({ labels, onChange }) => {
+const CheckBox = ({ labels, onChange, checkedInputs }) => {
   const handleChange = e => {
     onChange && onChange(e.target.checked, e.target.id);
   };
@@ -16,6 +16,7 @@ const CheckBox = ({ labels, onChange }) => {
             id={label}
             onChange={handleChange}
             value=""
+            checked={checkedInputs.includes(label)}
           />
           {label}
         </span>
@@ -24,13 +25,15 @@ const CheckBox = ({ labels, onChange }) => {
   );
 };
 
-export default CheckBox;
-
 CheckBox.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
+  checkedInputs: PropTypes.array,
 };
 
 CheckBox.defaultProps = {
   onChange: () => {},
+  checkedInputs: [],
 };
+
+export default CheckBox;

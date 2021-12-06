@@ -20,14 +20,14 @@ const WriteSeriesPage = () => {
       title: '',
       introduceText: '',
       introduceSentence: '',
-      price: 0,
+      price: '',
       subscribeStartDate: '',
       subscribeEndDate: '',
       seriesStartDate: '',
       seriesEndDate: '',
       category: '',
       uploadTime: '',
-      articleCount: 0,
+      articleCount: '',
     },
     onSubmit: async values => {
       const request = {
@@ -48,22 +48,26 @@ const WriteSeriesPage = () => {
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
 
+      for (const key of formData.keys()) {
+        console.log(key, formData[key]);
+      }
+
       try {
         const response = await axios({
           method: 'post',
           url: `http://52.79.51.188:8080/series`,
           headers: {
             Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoibW9udGhzdWIiLCJleHAiOjE2Mzg2OTc0OTgsImlhdCI6MTYzODY5Mzg5OCwidXNlcm5hbWUiOiJ1c2VyMSJ9.FLrQYlVxU9ejdtic9bgmBX5l-5jEPQfny83F2Bd0FpOuq18ZGYDBq3CHy3PsOH2YW7Y9hvqlO6KOW8w6IRdxNA',
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc3MzY3NywiaWF0IjoxNjM4NzcwMDc3LCJ1c2VybmFtZSI6InVzZXIzIn0.1HfnbRPwMmvg7A-wAyXzj1_1anpyrBlorUmYVZl0t5v46_a-_O-jJQvzX77GXiHCy_RjXs4W-AdX6O5NJ7fe5A',
             'Content-Type': 'multipart/form-data',
           },
           data: formData,
         });
+        console.log(response.status);
         if (response.status >= 400) {
           throw new Error('API 호출에 실패 했습니다.');
         }
-        console.log(response.data);
-        return response.data;
+        return response;
       } catch (error) {
         return error;
       }
@@ -82,7 +86,6 @@ const WriteSeriesPage = () => {
       return newErrors;
     },
   });
-  console.log(file);
 
   const handleSelectDays = (checked, value) => {
     if (checked) {

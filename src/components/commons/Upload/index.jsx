@@ -34,20 +34,18 @@ const InputFile = ({
         accept={accept}
         onChange={handleFileChange}
         disabled={disabled && disabled}
-        value={value}
       />
       {children}
     </div>
   );
 };
 
-export default InputFile;
-
 InputFile.defaultProps = {
   children: '',
   name: '',
   accept: '.jpg, .png, .jpeg',
   disabled: false,
+  value: '',
   onChange: () => {},
 };
 
@@ -55,10 +53,12 @@ InputFile.propTypes = {
   children: PropTypes.node,
   name: PropTypes.string,
   accept: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
+
+export default InputFile;
 
 const Input = styled.input`
   display: none;
