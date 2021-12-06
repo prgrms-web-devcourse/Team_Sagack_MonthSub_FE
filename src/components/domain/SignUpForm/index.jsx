@@ -98,7 +98,7 @@ SignUpForm.propTypes = {
 export default SignUpForm;
 
 const ErrorMessage = styled.span`
-  color: red;
+  color: #ff0000;
   font-size: 0.75rem;
 `;
 
@@ -124,7 +124,8 @@ const SubmitButton = styled.button`
   background-color: #041b1d;
   color: #ffffff;
   border-radius: 0.25rem;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   margin-top: 1rem;
 
   &:hover {
