@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { List } from '@components';
+import { List, Input } from '@components';
 
 const ButtonRadio = ({
   onChange,
@@ -24,11 +24,7 @@ const ButtonRadio = ({
               value={name}
               onChange={handleChange}
               disabled={disabled}
-              checked={
-                checkedButton
-                  ? checkedButton.toLowerCase() === name.toLowerCase()
-                  : null
-              }
+              checked={checkedButton.toLowerCase() === name.toLowerCase()}
             />
             <StyledButton circle>{name}</StyledButton>
           </Label>
@@ -55,7 +51,7 @@ export default ButtonRadio;
 
 const Label = styled.label``;
 
-const StyledRadioInput = styled.input`
+const StyledRadioInput = styled(Input)`
   display: none;
   &:checked + div {
     color: #ffb15c;

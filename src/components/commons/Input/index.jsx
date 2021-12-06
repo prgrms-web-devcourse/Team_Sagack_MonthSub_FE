@@ -39,6 +39,7 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   title: '',
+  value: '',
   onChange: () => {},
 };
 
@@ -48,7 +49,7 @@ Input.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,

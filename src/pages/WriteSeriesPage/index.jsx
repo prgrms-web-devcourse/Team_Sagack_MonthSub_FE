@@ -11,9 +11,7 @@ import {
   CheckBox,
 } from '@components';
 import { useForm } from '@hooks';
-import axios from 'axios';
-
-const { REACT_APP_API_END_POINT } = process.env;
+import { POST } from '../../apis/axios';
 
 const WriteSeriesPage = () => {
   const history = useHistory();
@@ -52,25 +50,13 @@ const WriteSeriesPage = () => {
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
 
-      try {
-        const response = await axios({
-          method: 'post',
-          url: `${REACT_APP_API_END_POINT}/series`,
-          headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc5NDY1MCwiaWF0IjoxNjM4NzkxMDUwLCJ1c2VybmFtZSI6InVzZXIzIn0.9VhBPmmFD4XLNbYA_BE2h4umn6-prDh3Lgvnp_s-t0pWEExClKUTISHTk4MTKX8CC2pjlVMzEIsp8lVfWbSpCg',
-            'Content-Type': 'multipart/form-data',
-          },
-          data: formData,
-        });
-        if (response.status >= 400) {
-          throw new Error('API 호출에 실패 했습니다.');
-        }
-        history.push(`/series/${response.data.data.seriesId}`);
-        return response;
-      } catch (error) {
-        return error;
-      }
+      const response = await POST({
+        url: '/series',
+        isAuth: true,
+        data: formData,
+      });
+
+      history.push(`/series/${response.data.data.seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -124,6 +110,7 @@ const WriteSeriesPage = () => {
           <Radio
             names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
             onChange={handleChange}
+            checkedButton={values.category}
           />
         </StyledSection>
         <StyledSection>

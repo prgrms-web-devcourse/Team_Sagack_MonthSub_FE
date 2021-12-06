@@ -11,9 +11,7 @@ import {
   CheckBox,
 } from '@components';
 import { useForm } from '@hooks';
-import axios from 'axios';
-
-const { REACT_APP_API_END_POINT } = process.env;
+import { GET, PUT } from '../../apis/axios';
 
 const UpdateSeriesPage = () => {
   const history = useHistory();
@@ -37,30 +35,17 @@ const UpdateSeriesPage = () => {
           type: 'application/json',
         });
       }
-
       const formData = new FormData();
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
 
-      try {
-        const response = await axios({
-          method: 'put',
-          url: `${REACT_APP_API_END_POINT}/series/edit/32`,
-          headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc5NDY1MCwiaWF0IjoxNjM4NzkxMDUwLCJ1c2VybmFtZSI6InVzZXIzIn0.9VhBPmmFD4XLNbYA_BE2h4umn6-prDh3Lgvnp_s-t0pWEExClKUTISHTk4MTKX8CC2pjlVMzEIsp8lVfWbSpCg',
-            'Content-Type': 'multipart/form-data',
-          },
-          data: formData,
-        });
-        if (response.status >= 400) {
-          throw new Error('API 호출에 실패 했습니다.');
-        }
-        history.push(`/series/${response.data.data.seriesId}`);
-        return response;
-      } catch (error) {
-        return error;
-      }
+      const response = await PUT({
+        url: '/series/edit/32',
+        isAuth: true,
+        data: formData,
+      });
+
+      history.push(`/series/${response.data.data.seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -81,42 +66,29 @@ const UpdateSeriesPage = () => {
 
   useEffect(() => {
     const init = async () => {
-      try {
-        const response = await axios({
-          method: 'get',
-          url: `${REACT_APP_API_END_POINT}/series/7`,
-          headers: {
-            Authorization: '',
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-        });
-        if (response.status >= 400) {
-          throw new Error('API 호출에 실패 했습니다.');
-        }
-        const seriesData = response.data.data.series;
-        const uploadData = response.data.data.upload;
-        const subscribeData = response.data.data.subscribe;
-        setInitialValues({
-          writeId: response.data.data.writer.id,
-          title: seriesData.title,
-          introduceText: seriesData.introduceText,
-          introduceSentence: seriesData.introduceSentence,
-          price: seriesData.price,
-          subscribeStartDate: subscribeData.startDate,
-          subscribeEndDate: subscribeData.endDate,
-          seriesStartDate: seriesData.startDate,
-          seriesEndDate: seriesData.endDate,
-          category: response.data.data.category,
-          uploadTime: uploadData.time,
-          articleCount: seriesData.articleCount,
-          uploadDate: uploadData.date,
-        });
-        setCheckedInputs(uploadData.date);
-
-        return response;
-      } catch (error) {
-        return error;
-      }
+      const response = await GET({
+        url: '/series/7',
+        isAuth: false,
+      });
+      const seriesData = response.data.data.series;
+      const uploadData = response.data.data.upload;
+      const subscribeData = response.data.data.subscribe;
+      setInitialValues({
+        writeId: response.data.data.writer.id,
+        title: seriesData.title,
+        introduceText: seriesData.introduceText,
+        introduceSentence: seriesData.introduceSentence,
+        price: seriesData.price,
+        subscribeStartDate: subscribeData.startDate,
+        subscribeEndDate: subscribeData.endDate,
+        seriesStartDate: seriesData.startDate,
+        seriesEndDate: seriesData.endDate,
+        category: response.data.data.category,
+        uploadTime: uploadData.time,
+        articleCount: seriesData.articleCount,
+        uploadDate: uploadData.date,
+      });
+      setCheckedInputs(uploadData.date);
     };
     init();
   }, []);
@@ -165,7 +137,7 @@ const UpdateSeriesPage = () => {
           <Title>구독료</Title>
           <StyledInput
             type="number"
-            value={values.price || 0}
+            value={values.price}
             name="price"
             onChange={handleChange}
             min={0}
@@ -176,7 +148,7 @@ const UpdateSeriesPage = () => {
           <Title> 모집 기간</Title>
           <StyledInput
             type="date"
-            value={values.subscribeStartDate || ''}
+            value={values.subscribeStartDate}
             name="subscribeStartDate"
             onChange={handleChange}
             disabled
@@ -184,7 +156,7 @@ const UpdateSeriesPage = () => {
           <Line>-</Line>
           <StyledInput
             type="date"
-            value={values.subscribeEndDate || ''}
+            value={values.subscribeEndDate}
             name="subscribeEndDate"
             onChange={handleChange}
             disabled
@@ -195,7 +167,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="date"
             name="seriesStartDate"
-            value={values.seriesStartDate || ''}
+            value={values.seriesStartDate}
             onChange={handleChange}
             disabled
           />
@@ -203,7 +175,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="date"
             name="seriesEndDate"
-            value={values.seriesEndDate || ''}
+            value={values.seriesEndDate}
             onChange={handleChange}
             disabled
           />
@@ -213,7 +185,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="time"
             name="uploadTime"
-            value={values.uploadTime || ''}
+            value={values.uploadTime}
             onChange={handleChange}
           />
         </StyledSection>
@@ -222,7 +194,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="number"
             name="articleCount"
-            value={values.articleCount || 0}
+            value={values.articleCount}
             onChange={handleChange}
             min={1}
             disabled
