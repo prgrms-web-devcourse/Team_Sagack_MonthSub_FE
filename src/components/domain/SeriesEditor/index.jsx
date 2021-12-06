@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, TextArea } from '@components';
+import { TextArea } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
@@ -9,28 +9,32 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
   };
   return (
     <StyledSection {...props}>
-      <StyledInput
+      <StyledTextArea
         width="100%"
+        height="2rem"
         name="title"
         value={value.title || ''}
-        onChange={handleInputChange}
+        onInput={handleInputChange}
         disabled={disabled && disabled}
+        placeholder="제목"
       />
-      <TextArea
+      <StyledTextArea
         width="100%"
         height="3rem"
         name="introduceText"
         value={value.introduceText || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
+        placeholder="소개"
       />
-      <TextArea
+      <StyledTextArea
         width="100%"
         height="10rem"
         name="introduceSentence"
         value={value.introduceSentence || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
+        placeholder="설명"
       />
     </StyledSection>
   );
@@ -54,6 +58,6 @@ const StyledSection = styled.section`
   flex-direction: column;
 `;
 
-const StyledInput = styled(Input)`
+const StyledTextArea = styled(TextArea)`
   margin-bottom: 0.5rem;
 `;
