@@ -15,6 +15,7 @@ import { GET, PUT } from '../../apis/axios';
 
 const UpdateSeriesPage = () => {
   const history = useHistory();
+  const [param, setParam] = useState('');
   const [file, setFile] = useState(null);
   const [initialValues, setInitialValues] = useState({});
   const [checkedInputs, setCheckedInputs] = useState([]);
@@ -40,7 +41,7 @@ const UpdateSeriesPage = () => {
       formData.append('request', jsonBlob(request));
 
       const response = await PUT({
-        url: '/series/edit/32',
+        url: `/series/edit/${param}`,
         isAuth: true,
         data: formData,
       });
@@ -66,9 +67,13 @@ const UpdateSeriesPage = () => {
   });
 
   useEffect(() => {
+    const currentUrlArr = window.location.pathname.split('/');
+    const param = currentUrlArr[currentUrlArr.length - 1];
+    setParam(param);
+
     const init = async () => {
       const response = await GET({
-        url: '/series/7',
+        url: `/series/${param}`,
         isAuth: false,
       });
       const seriesData = response.data.data.series;
