@@ -56,7 +56,8 @@ const WriteSeriesPage = () => {
         data: formData,
       });
 
-      history.push(`/series/${response.data.data.seriesId}`);
+      const { seriesId } = response.data.data;
+      history.push(`/series/${seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -127,6 +128,7 @@ const WriteSeriesPage = () => {
             <button type="button">File Select</button>
             <span>{file ? file.name : ''}</span>
           </StyledUpload>
+          <ErrorMessage>{errors.thumbnail}</ErrorMessage>
         </StyledSection>
         <StyledSection>
           <Title>구독료</Title>
@@ -202,6 +204,7 @@ const WriteSeriesPage = () => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
+          <ErrorMessage>{errors.day}</ErrorMessage>
         </StyledSection>
         <ButtonWrapper>
           <StyledButton
@@ -224,7 +227,7 @@ export default WriteSeriesPage;
 
 const ErrorMessage = styled.span`
   margin: 1rem 0;
-  color: red;
+  color: #ffb15c;
 `;
 
 const Line = styled.span`

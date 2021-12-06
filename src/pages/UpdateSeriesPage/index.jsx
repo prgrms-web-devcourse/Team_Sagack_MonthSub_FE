@@ -45,7 +45,8 @@ const UpdateSeriesPage = () => {
         data: formData,
       });
 
-      history.push(`/series/${response.data.data.seriesId}`);
+      const { seriesId } = response.data.data;
+      history.push(`/series/${seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -131,6 +132,7 @@ const UpdateSeriesPage = () => {
           >
             <button type="button">File Select</button>
             <span>{file ? file.name : ''}</span>
+            <ErrorMessage>{errors.thumbnail}</ErrorMessage>
           </StyledUpload>
         </StyledSection>
         <StyledSection>
@@ -207,6 +209,7 @@ const UpdateSeriesPage = () => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
+          <ErrorMessage>{errors.day}</ErrorMessage>
         </StyledSection>
         <ButtonWrapper>
           <StyledButton
@@ -229,7 +232,7 @@ export default UpdateSeriesPage;
 
 const ErrorMessage = styled.span`
   margin: 1rem 0;
-  color: red;
+  color: #ffb15c;
 `;
 
 const Line = styled.span`
