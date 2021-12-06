@@ -210,5 +210,5 @@ export default WriteSeriesPage;
 
 const ErrorMessage = styled.span`
   margin: 1rem 0;
-  color: red;
+  color: #ff0000;
 `;
