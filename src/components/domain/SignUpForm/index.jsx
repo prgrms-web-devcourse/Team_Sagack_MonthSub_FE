@@ -2,42 +2,76 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
-import Input from '@components/commons/Input';
+import { Input, Button } from '@components';
 import validationEmail from '@utils/validation';
-import { Link } from 'react-router-dom';
 
-const SignInForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
   const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
+      name: '',
       password: '',
+      nickname: '',
     },
     onSubmit: async data => {
       onSubmit && (await onSubmit(data));
     },
-    validate: ({ email, password }) => {
+    validate: ({ email, name, password, nickname }) => {
       const newErrors = {};
       if (!email) newErrors.email = '이메일을 입력해주세요.';
       else if (!validationEmail(email))
         newErrors.email = '잘못된 이메일 형식입니다.';
+
+      if (!name) newErrors.name = '이름을 입력해주세요.';
       if (!password) newErrors.password = '비밀번호를 입력해주세요.';
+      if (!nickname) newErrors.nickname = '닉네임을 입력해주세요.';
       return newErrors;
     },
   });
 
   return (
     <Form onSubmit={handleSubmit}>
-      <H1>로그인</H1>
+      <H1>회원가입</H1>
+      <Span>
+        <Input
+          width="78%"
+          height="2.5rem"
+          name="email"
+          value={values.email}
+          type="text"
+          placeholder="이메일을 입력해주세요."
+          onChange={handleChange}
+        />
+        <StyledButton type="button" width="20%" height="2.5rem">
+          확인
+        </StyledButton>
+      </Span>
+      <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
       <Input
         width="100%"
         height="2.5rem"
-        name="email"
-        value={values.email}
+        name="name"
+        value={values.name}
         type="text"
-        placeholder="아이디를 입력해주세요."
+        placeholder="이름을 입력해주세요."
         onChange={handleChange}
       />
-      <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
+      <ErrorMessage>{errors.name}&nbsp;</ErrorMessage>
+      <Span>
+        <Input
+          width="78%"
+          height="2.5rem"
+          name="nickname"
+          value={values.nickname}
+          type="text"
+          placeholder="닉네임을 입력해주세요."
+          onChange={handleChange}
+        />
+        <StyledButton type="button" width="20%" height="2.5rem">
+          확인
+        </StyledButton>
+      </Span>
+      <ErrorMessage>{errors.nickname}&nbsp;</ErrorMessage>
       <Input
         width="100%"
         height="2.5rem"
@@ -48,24 +82,20 @@ const SignInForm = ({ onSubmit }) => {
         onChange={handleChange}
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
-      <Button type="submit">로그인</Button>
-      <Span>
-        <Link to="/">아이디 찾기</Link>
-        <Link to="signup">회원가입하기</Link>
-      </Span>
+      <SubmitButton type="submit">회원가입</SubmitButton>
     </Form>
   );
 };
 
-SignInForm.defaultProps = {
+SignUpForm.defaultProps = {
   onSubmit: () => {},
 };
 
-SignInForm.propTypes = {
+SignUpForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-export default SignInForm;
+export default SignUpForm;
 
 const ErrorMessage = styled.span`
   color: #ff0000;
@@ -81,12 +111,12 @@ const H1 = styled.h1`
 const Form = styled.form`
   width: 60%;
   height: 100%;
-  padding: 10rem 0;
+  padding: 5rem 0;
   margin: 0 auto;
   text-align: center;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   width: 100%;
   height: 2.5rem;
   outline: 0;
@@ -105,9 +135,16 @@ const Button = styled.button`
 `;
 
 const Span = styled.span`
-  margin: 1rem auto;
-  width: 20%;
   display: flex;
-  justify-content: space-around;
-  font-size: 0.75rem;
+  justify-content: space-between;
+`;
+
+const StyledButton = styled(Button)`
+  margin: 1rem 0 0.5rem 0;
+  background-color: #ffb15c;
+  color: #041b1d;
+  &:hover {
+    background-color: #041b1d;
+    color: #ffffff;
+  }
 `;
