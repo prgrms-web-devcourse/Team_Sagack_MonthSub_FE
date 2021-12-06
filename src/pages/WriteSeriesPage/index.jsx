@@ -13,6 +13,8 @@ import {
 import { useForm } from '@hooks';
 import axios from 'axios';
 
+const { REACT_APP_API_END_POINT } = process.env;
+
 const WriteSeriesPage = () => {
   const history = useHistory();
   const [file, setFile] = useState();
@@ -53,7 +55,7 @@ const WriteSeriesPage = () => {
       try {
         const response = await axios({
           method: 'post',
-          url: `http://52.79.51.188:8080/series`,
+          url: `${REACT_APP_API_END_POINT}/series`,
           headers: {
             Authorization:
               'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc5NDY1MCwiaWF0IjoxNjM4NzkxMDUwLCJ1c2VybmFtZSI6InVzZXIzIn0.9VhBPmmFD4XLNbYA_BE2h4umn6-prDh3Lgvnp_s-t0pWEExClKUTISHTk4MTKX8CC2pjlVMzEIsp8lVfWbSpCg',

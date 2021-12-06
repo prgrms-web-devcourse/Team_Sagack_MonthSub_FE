@@ -13,6 +13,8 @@ import {
 import { useForm } from '@hooks';
 import axios from 'axios';
 
+const { REACT_APP_API_END_POINT } = process.env;
+
 const UpdateSeriesPage = () => {
   const history = useHistory();
   const [file, setFile] = useState(null);
@@ -43,7 +45,7 @@ const UpdateSeriesPage = () => {
       try {
         const response = await axios({
           method: 'put',
-          url: `http://52.79.51.188:8080/series/edit/32`,
+          url: `${REACT_APP_API_END_POINT}/series/edit/32`,
           headers: {
             Authorization:
               'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc5NDY1MCwiaWF0IjoxNjM4NzkxMDUwLCJ1c2VybmFtZSI6InVzZXIzIn0.9VhBPmmFD4XLNbYA_BE2h4umn6-prDh3Lgvnp_s-t0pWEExClKUTISHTk4MTKX8CC2pjlVMzEIsp8lVfWbSpCg',
@@ -82,7 +84,7 @@ const UpdateSeriesPage = () => {
       try {
         const response = await axios({
           method: 'get',
-          url: `http://52.79.51.188:8080/series/7`,
+          url: `${REACT_APP_API_END_POINT}/series/7`,
           headers: {
             Authorization: '',
             'Content-Type': 'application/json;charset=utf-8',
@@ -91,7 +93,6 @@ const UpdateSeriesPage = () => {
         if (response.status >= 400) {
           throw new Error('API 호출에 실패 했습니다.');
         }
-        history.push(`/series/${response.data.data.seriesId}`);
         const seriesData = response.data.data.series;
         const uploadData = response.data.data.upload;
         const subscribeData = response.data.data.subscribe;
