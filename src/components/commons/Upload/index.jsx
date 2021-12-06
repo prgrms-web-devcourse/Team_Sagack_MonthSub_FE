@@ -9,6 +9,7 @@ const InputFile = ({
   value,
   onChange,
   disabled,
+  isFile,
   ...props
 }) => {
   const inputRef = useRef(null);
@@ -47,6 +48,7 @@ InputFile.defaultProps = {
   disabled: false,
   value: '',
   onChange: () => {},
+  isFile: false,
 };
 
 InputFile.propTypes = {
@@ -56,6 +58,7 @@ InputFile.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  isFile: PropTypes.bool,
 };
 
 export default InputFile;

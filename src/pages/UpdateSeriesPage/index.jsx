@@ -164,7 +164,7 @@ const UpdateSeriesPage = () => {
           <Title>구독료</Title>
           <StyledInput
             type="number"
-            value={values.price}
+            value={values.price || 0}
             name="price"
             onChange={handleChange}
             min={0}
@@ -175,7 +175,7 @@ const UpdateSeriesPage = () => {
           <Title> 모집 기간</Title>
           <StyledInput
             type="date"
-            value={values.subscribeStartDate}
+            value={values.subscribeStartDate || ''}
             name="subscribeStartDate"
             onChange={handleChange}
             disabled
@@ -183,7 +183,7 @@ const UpdateSeriesPage = () => {
           <Line>-</Line>
           <StyledInput
             type="date"
-            value={values.subscribeEndDate}
+            value={values.subscribeEndDate || ''}
             name="subscribeEndDate"
             onChange={handleChange}
             disabled
@@ -194,7 +194,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="date"
             name="seriesStartDate"
-            value={values.seriesStartDate}
+            value={values.seriesStartDate || ''}
             onChange={handleChange}
             disabled
           />
@@ -202,7 +202,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="date"
             name="seriesEndDate"
-            value={values.seriesEndDate}
+            value={values.seriesEndDate || ''}
             onChange={handleChange}
             disabled
           />
@@ -212,7 +212,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="time"
             name="uploadTime"
-            value={values.uploadTime}
+            value={values.uploadTime || ''}
             onChange={handleChange}
           />
         </StyledSection>
@@ -221,7 +221,7 @@ const UpdateSeriesPage = () => {
           <StyledInput
             type="number"
             name="articleCount"
-            value={values.articleCount}
+            value={values.articleCount || 0}
             onChange={handleChange}
             min={1}
             disabled
