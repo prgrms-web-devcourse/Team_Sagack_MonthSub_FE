@@ -26,13 +26,17 @@ const CardList = ({ list, ...props }) => (
             </div>
             <div className='card-textArea'>
               <div>
-                <div>{ item.writer.nickname }</div>
+                <div className='card-userId'>
+                  <Link to={`/channel/${ item.writer.userId }`}>
+                    {item.writer.nickname}
+                  </Link>
+                </div>
                 <div className='card-likes'>
                   <Icons.Like fontSize='1rem' />
                   { item.series.likes } Likes
                 </div>
               </div>
-              <div className="title">
+              <div className="card-title">
                 <Link to={`/series/${item.series.id}`}>
                   { item.series.title }
                 </Link>
@@ -140,8 +144,14 @@ const Card = styled.div`
       > div:last-child {
         margin-bottom: 0;
       }
+
+      .card-userId {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
       
-      .title {
+      .card-title {
         font-size: 1.125rem;
         color: #000000;
         line-height: 1.5rem;

@@ -9,6 +9,7 @@ import {
   CommentList,
   Image
 } from '@components';
+import { Link } from 'react-router-dom';
 
 const SeriesDetail = ({ detail }) => {
   const commentList = [
@@ -23,15 +24,19 @@ const SeriesDetail = ({ detail }) => {
     <>
       <ViewContainer>
         <div className="imageWrapper">
-          <Image src={detail.series.thumbnail } width='100%' height='100%' />
+          <Image src={ detail.series.thumbnail } width='100%' height='100%' />
         </div>
         <div className="viewArticle">
           <div>
             <div className="viewArticle-title">{ detail.series.title }</div>
             <div className="viewArticle-info">
               <div className="userInfo">
-                <span />
-                <span>{ detail.writer.nickname }</span>
+                <Link to={`/channel/${detail.writer.userId}`}>
+                  <span>
+                    <Image src={ detail.writer.profileImage } width='100%' height='100%' />
+                  </span>
+                  <span>{ detail.writer.nickname }</span>
+                </Link>
               </div>
               <div>
                 <span>{ detail.series.likes }</span> Likes
@@ -41,7 +46,15 @@ const SeriesDetail = ({ detail }) => {
               { detail.series.introduceText }
             </div>
             <div className="viewArticle-edit">
-              <div>수정</div>
+              <Link to={ `/series-update/${ detail.series.id }` }>
+                <Button
+                  width="100%"
+                  height="3.125rem"
+                  font-size="1.5rem"
+                >
+                  수정하기
+                </Button>
+              </Link>
             </div>
           </div>
           <div>
@@ -76,13 +89,15 @@ const SeriesDetail = ({ detail }) => {
                 <div>구독료</div>
                 <div>{ detail.series.price } 원</div>
               </div>
-              <Button
-                width="100%"
-                height="3.125rem"
-                font-size="1.5rem"
-              >
-                결제하기
-              </Button>
+              <Link to='/purchase'>
+                <Button
+                  width="100%"
+                  height="3.125rem"
+                  font-size="1.5rem"
+                >
+                  결제하기
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -123,13 +138,14 @@ const ViewContainer = styled.div`
     display: flex;
     align-details: center;
 
-    > span:nth-of-type(1) {
+    span:nth-of-type(1) {
       display: inline-block;
       width: 1.875rem;
       height: 1.875rem;
       border-radius: 50%;
       background-color: grey;
       margin-right: 0.3125rem;
+      overflow: hidden;
     }
   }
 
