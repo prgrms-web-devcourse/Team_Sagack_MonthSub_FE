@@ -54,7 +54,7 @@ const UpdateSeriesPage = () => {
         if (response.status >= 400) {
           throw new Error('API 호출에 실패 했습니다.');
         }
-        history.push(`/series`);
+        history.push(`/series/${response.data.data.seriesId}`);
         return response;
       } catch (error) {
         return error;
