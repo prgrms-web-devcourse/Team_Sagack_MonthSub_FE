@@ -215,6 +215,7 @@ const UpdateSeriesPage = () => {
             onChange={handleSelectDays}
           />
           <ErrorMessage>{errors.day}</ErrorMessage>
+          <ErrorMessage>{errors.dayLength}</ErrorMessage>
         </StyledSection>
         <ButtonWrapper>
           <StyledButton
