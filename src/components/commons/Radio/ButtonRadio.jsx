@@ -1,15 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { List } from '@components';
+import { List, Input } from '@components';
 
-const ButtonRadio = ({ onChange, names = [], checkedButton, disabled }) => {
+const ButtonRadio = ({
+  onChange,
+  names = [],
+  checkedButton,
+  disabled,
+  ...props
+}) => {
   const handleChange = e => {
     onChange && onChange(e);
   };
   return (
-    <div>
-      <List horizen justifyContent="center">
+    <div {...props}>
+      <List horizen justifyContent="flex-start">
         {names.map(name => (
           <Label key={name}>
             <StyledRadioInput
@@ -18,13 +24,9 @@ const ButtonRadio = ({ onChange, names = [], checkedButton, disabled }) => {
               value={name}
               onChange={handleChange}
               disabled={disabled}
-              checked={
-                checkedButton
-                  ? checkedButton.toLowerCase() === name.toLowerCase()
-                  : null
-              }
+              checked={checkedButton.toLowerCase() === name.toLowerCase()}
             />
-            <div>{name}</div>
+            <StyledButton circle>{name}</StyledButton>
           </Label>
         ))}
       </List>
@@ -47,20 +49,27 @@ ButtonRadio.propTypes = {
 
 export default ButtonRadio;
 
-const Label = styled.label`
+const Label = styled.label``;
+
+const StyledRadioInput = styled(Input)`
+  display: none;
+  &:checked + div {
+    color: #ffb15c;
+  }
+`;
+
+const StyledButton = styled.div`
   width: 6.25rem;
-  padding: 0.5rem;
-  border: 0.0625rem solid #000;
+  padding: 0.3rem;
   cursor: pointer;
   user-select: none;
   border-radius: 50px;
-  margin: 0 0.625rem;
+  margin-right: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   text-align: center;
-`;
-
-const StyledRadioInput = styled.input`
-  display: none;
-  &:checked + div {
-    color: blue;
+  &:hover {
+    color: #ffb15c;
   }
 `;
