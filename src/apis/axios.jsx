@@ -11,7 +11,6 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
-  console.log(headers);
 
   try {
     const response = await axios({
@@ -40,7 +39,6 @@ export const POST = async ({
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
-  console.log(headers);
 
   try {
     const response = await axios({
@@ -50,10 +48,10 @@ export const POST = async ({
       data,
     });
 
+    console.log(response.status);
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
-
     return response;
   } catch (error) {
     return error;
@@ -66,14 +64,13 @@ export const PUT = async ({
   data,
   isJsonType = false,
 }) => {
+  console.log(url);
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization')}`
       : '',
   };
-  console.log(headers);
-
   try {
     const response = await axios({
       method: 'put',
@@ -82,10 +79,13 @@ export const PUT = async ({
       data,
     });
     if (response.status >= 400) {
+      console.log(response.status);
       throw new Error('API 호출에 실패 했습니다.');
     }
+    console.log(response);
     return response;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };

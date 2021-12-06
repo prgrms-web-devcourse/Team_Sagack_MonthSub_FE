@@ -1,17 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const InputFile = ({ children, name, accept, value, onChange, ...props }) => {
-  const [file, setFile] = useState(value);
+const InputFile = ({
+  children,
+  name,
+  accept,
+  value,
+  onChange,
+  disabled,
+  ...props
+}) => {
   const inputRef = useRef(null);
 
   const handleFileChange = e => {
     const { files } = e.target;
     const changedFile = files[0];
-    setFile(changedFile);
     if (onChange) {
-      onChange(e);
+      onChange(changedFile);
     }
   };
 
@@ -27,29 +33,32 @@ const InputFile = ({ children, name, accept, value, onChange, ...props }) => {
         name={name}
         accept={accept}
         onChange={handleFileChange}
+        disabled={disabled && disabled}
       />
-      {typeof children === 'function' ? children(file) : children}
+      {children}
     </div>
   );
 };
 
-export default InputFile;
-
 InputFile.defaultProps = {
   children: '',
   name: '',
-  accept: 0,
+  accept: '.jpg, .png, .jpeg',
+  disabled: false,
   value: '',
   onChange: () => {},
 };
 
 InputFile.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
   name: PropTypes.string,
   accept: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
+
+export default InputFile;
 
 const Input = styled.input`
   display: none;
