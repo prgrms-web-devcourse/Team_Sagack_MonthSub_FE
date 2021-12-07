@@ -90,7 +90,7 @@ const App = () => {
         <Route exact path="/series-write">
           <WriteSeriesPage />
         </Route>
-        <Route exact path="/series-update">
+        <Route exact path="/series-write/:id">
           <UpdateSeriesPage />
         </Route>
         <Route exact path="*">

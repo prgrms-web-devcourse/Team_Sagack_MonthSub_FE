@@ -59,7 +59,9 @@ const StyledButton = styled.button`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  border: 0.0625rem solid #000;
+  border: 0;
   border-radius: ${({ circle }) => (circle ? '50px' : '4px')};
   padding: 0.5rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
 `;

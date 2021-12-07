@@ -39,6 +39,7 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   title: '',
+  value: '',
   onChange: () => {},
   value: '',
   name: '',

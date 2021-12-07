@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { UserInfo } from '@components';
+import { UserProfile } from '@components';
 
 const CommentList = ({ list, ...props }) => (
   <div { ...props }>
     {
       list.map(item => 
         <CommentWrapper key={ item.commentId }>
-          <UserInfo nickname={ item.nickname } />
+          <UserProfile nickname={ item.nickname } />
           <div className='commentUnder'>
             <div>
               { item.text }
