@@ -112,12 +112,12 @@ const ChannelPage = () => {
 
         <PageSectionTitle text='구독한 시리즈' />
         <PageSectionContainer>
-          <CardList list={ dummy.data } />
+          <CardList />
         </PageSectionContainer>
 
         <PageSectionTitle text='생성한 시리즈' />
         <PageSectionContainer>
-          <CardList list={ dummy.data } />
+          <CardList />
         </PageSectionContainer>
       </Wrapper>
     </>
