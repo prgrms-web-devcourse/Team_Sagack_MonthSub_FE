@@ -8,7 +8,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization')}`
+      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
   };
 
@@ -36,7 +36,7 @@ export const POST = async ({
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization')}`
+      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
   };
 
@@ -48,7 +48,6 @@ export const POST = async ({
       data,
     });
 
-    console.log(response.status);
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
@@ -64,11 +63,10 @@ export const PUT = async ({
   data,
   isJsonType = false,
 }) => {
-  console.log(url);
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization')}`
+      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
   };
   try {
@@ -79,13 +77,10 @@ export const PUT = async ({
       data,
     });
     if (response.status >= 400) {
-      console.log(response.status);
       throw new Error('API 호출에 실패 했습니다.');
     }
-    console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -99,10 +94,9 @@ export const DELETE = async ({
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization')}`
+      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
   };
-  console.log(headers);
 
   try {
     const response = await axios({
