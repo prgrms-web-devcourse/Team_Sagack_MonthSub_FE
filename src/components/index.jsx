@@ -14,7 +14,7 @@ export { default as Select } from './commons/Select';
 export { default as SelectContainer } from './commons/SelectContainer';
 export { default as CardList } from './domain/CardList';
 export { default as SeriesDetail } from './domain/SeriesDetail';
-export { default as UserInfo } from './domain/UserInfo';
+export { default as UserProfile } from './domain/UserProfile';
 export { default as PageSectionContainer } from './domain/PageSectionContainer';
 export { default as PageSectionTitle } from './domain/PageSectionTitle';
 export { default as ArticleList } from './domain/ArticleList';
