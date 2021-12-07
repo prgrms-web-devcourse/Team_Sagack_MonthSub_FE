@@ -6,7 +6,7 @@ import {
   SeriesEditor,
   Input,
   Upload,
-  Button,
+  ConfirmCancleButtons,
   Radio,
   CheckBox,
 } from '@components';
@@ -206,18 +206,7 @@ const WriteSeriesPage = () => {
           />
           <ErrorMessage>{errors.day}</ErrorMessage>
         </StyledSection>
-        <ButtonWrapper>
-          <StyledButton
-            type="submit"
-            width="8rem"
-            onClick={() => history.goBack()}
-          >
-            취소
-          </StyledButton>
-          <StyledButton type="submit" width="8rem">
-            제출
-          </StyledButton>
-        </ButtonWrapper>
+        <ConfirmCancleButtons confirmName="제출" />
       </form>
     </Wrapper>
   );
@@ -266,22 +255,5 @@ const StyledUpload = styled(Upload)`
     &:hover {
       color: #ffb15c;
     }
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 0 1rem;
-  background-color: #fff;
-  color: #ffb15c;
-  border: 0.0625rem solid #ffb15c;
-  &:hover {
-    color: #fff;
-    background-color: #ffb15c;
   }
 `;
