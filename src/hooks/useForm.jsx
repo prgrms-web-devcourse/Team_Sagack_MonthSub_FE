@@ -7,6 +7,10 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
 
   useEffect(() => {
     dep && setValues(() => dep);
+    return () => {
+      setErrors({});
+      setIsLoading(false);
+    };
   }, [dep]);
 
   const handleChange = e => {

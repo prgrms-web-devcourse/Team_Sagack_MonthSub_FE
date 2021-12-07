@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
 import Input from '@components/commons/Input';
-import validationEmail from '@utils/validation';
+import validationEmail from '@utils/validationEmail';
 import { Link } from 'react-router-dom';
 
 const SignInForm = ({ onSubmit }) => {

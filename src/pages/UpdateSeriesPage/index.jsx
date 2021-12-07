@@ -42,7 +42,6 @@ const UpdateSeriesPage = () => {
       for (const key of formData.keys()) {
         console.log(key, formData[key]);
       }
-      console.log(file, request);
 
       try {
         const response = await axios({

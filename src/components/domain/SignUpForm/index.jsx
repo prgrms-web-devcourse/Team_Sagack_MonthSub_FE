@@ -1,30 +1,42 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
 import { Input, Button } from '@components';
-import validationEmail from '@utils/validation';
+import validationEmail from '@utils/validationEmail';
+import validationPassword from '@utils/validationPassword';
+import { useHistory } from 'react-router-dom';
+import { postSignUp } from '@apis/auth';
 
-const SignUpForm = ({ onSubmit }) => {
+const SignUpForm = () => {
+  const history = useHistory();
   const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
-      name: '',
+      userName: '',
       password: '',
-      nickname: '',
+      nickName: '',
     },
-    onSubmit: async data => {
-      onSubmit && (await onSubmit(data));
+    onSubmit: async requestData => {
+      const { data } = await postSignUp(requestData);
+
+      if (data.code === 'A005') alert('이미 가입된 이메일입니다.');
+      if (data.code === 'A006') alert('이미 가입된 닉네임입니다.');
+
+      !data.code && history.push('/');
     },
-    validate: ({ email, name, password, nickname }) => {
+    validate: ({ email, userName, password, nickName }) => {
       const newErrors = {};
       if (!email) newErrors.email = '이메일을 입력해주세요.';
       else if (!validationEmail(email))
         newErrors.email = '잘못된 이메일 형식입니다.';
 
-      if (!name) newErrors.name = '이름을 입력해주세요.';
+      if (!userName) newErrors.userName = '이름을 입력해주세요.';
       if (!password) newErrors.password = '비밀번호를 입력해주세요.';
-      if (!nickname) newErrors.nickname = '닉네임을 입력해주세요.';
+      else if (!validationPassword(password))
+        newErrors.password =
+          '비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 모두 포함해야 합니다';
+      if (!nickName) newErrors.nickName = '닉네임을 입력해주세요.';
       return newErrors;
     },
   });
@@ -50,19 +62,19 @@ const SignUpForm = ({ onSubmit }) => {
       <Input
         width="100%"
         height="2.5rem"
-        name="name"
-        value={values.name}
+        name="userName"
+        value={values.userName}
         type="text"
         placeholder="이름을 입력해주세요."
         onChange={handleChange}
       />
-      <ErrorMessage>{errors.name}&nbsp;</ErrorMessage>
+      <ErrorMessage>{errors.userName}&nbsp;</ErrorMessage>
       <Span>
         <Input
           width="78%"
           height="2.5rem"
-          name="nickname"
-          value={values.nickname}
+          name="nickName"
+          value={values.nickName}
           type="text"
           placeholder="닉네임을 입력해주세요."
           onChange={handleChange}
@@ -71,7 +83,7 @@ const SignUpForm = ({ onSubmit }) => {
           확인
         </StyledButton>
       </Span>
-      <ErrorMessage>{errors.nickname}&nbsp;</ErrorMessage>
+      <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
       <Input
         width="100%"
         height="2.5rem"
@@ -87,13 +99,13 @@ const SignUpForm = ({ onSubmit }) => {
   );
 };
 
-SignUpForm.defaultProps = {
-  onSubmit: () => {},
-};
+// SignUpForm.defaultProps = {
+//   onSubmit: () => {},
+// };
 
-SignUpForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
+// SignUpForm.propTypes = {
+//   onSubmit: PropTypes.func,
+// };
 
 export default SignUpForm;
 
