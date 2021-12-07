@@ -7,7 +7,6 @@ import {
   PageSectionContainer,
   CardList
 } from '@components'
-import dummy from './dummy.json';
 
 const ChannelPage = () => {
   console.log('임시 콘솔');
