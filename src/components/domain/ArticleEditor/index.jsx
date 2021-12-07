@@ -17,6 +17,7 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
         onChange={handleInputChange}
         disabled={disabled && disabled}
         placeholder="제목"
+        maxlength="300"
       />
       <StyledTextArea
         width="100%"
@@ -26,6 +27,7 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="내용"
+        maxlength="5000"
       />
     </StyledSection>
   );
