@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-// import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
-import { Input, Button } from '@components';
+import { Input } from '@components';
 import validationEmail from '@utils/validationEmail';
 import validationPassword from '@utils/validationPassword';
 import { useHistory } from 'react-router-dom';
@@ -46,7 +45,7 @@ const SignUpForm = () => {
       <H1>회원가입</H1>
       <Span>
         <Input
-          width="78%"
+          width="100%"
           height="2.5rem"
           name="email"
           value={values.email}
@@ -54,9 +53,6 @@ const SignUpForm = () => {
           placeholder="이메일을 입력해주세요."
           onChange={handleChange}
         />
-        <StyledButton type="button" width="20%" height="2.5rem">
-          확인
-        </StyledButton>
       </Span>
       <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
       <Input
@@ -71,7 +67,7 @@ const SignUpForm = () => {
       <ErrorMessage>{errors.userName}&nbsp;</ErrorMessage>
       <Span>
         <Input
-          width="78%"
+          width="100%"
           height="2.5rem"
           name="nickName"
           value={values.nickName}
@@ -79,9 +75,6 @@ const SignUpForm = () => {
           placeholder="닉네임을 입력해주세요."
           onChange={handleChange}
         />
-        <StyledButton type="button" width="20%" height="2.5rem">
-          확인
-        </StyledButton>
       </Span>
       <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
       <Input
@@ -98,14 +91,6 @@ const SignUpForm = () => {
     </Form>
   );
 };
-
-// SignUpForm.defaultProps = {
-//   onSubmit: () => {},
-// };
-
-// SignUpForm.propTypes = {
-//   onSubmit: PropTypes.func,
-// };
 
 export default SignUpForm;
 
@@ -149,14 +134,4 @@ const SubmitButton = styled.button`
 const Span = styled.span`
   display: flex;
   justify-content: space-between;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 1rem 0 0.5rem 0;
-  background-color: #ffb15c;
-  color: #041b1d;
-  &:hover {
-    background-color: #041b1d;
-    color: #ffffff;
-  }
 `;
