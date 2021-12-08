@@ -19,10 +19,14 @@ const SignUpForm = () => {
     onSubmit: async requestData => {
       const { data } = await postSignUp(requestData);
 
-      if (data.code === 'A005') alert('이미 가입된 이메일입니다.');
-      if (data.code === 'A006') alert('이미 가입된 닉네임입니다.');
+      const resErrors = {};
+      if (data.code === 'A005')
+        resErrors.resError = '이미 가입된 이메일입니다.';
+      if (data.code === 'A006')
+        resErrors.resError = '이미 가입된 닉네임입니다.';
 
       !data.code && history.push('/');
+      return resErrors;
     },
     validate: ({ email, userName, password, nickName }) => {
       const newErrors = {};
@@ -88,6 +92,7 @@ const SignUpForm = () => {
       />
       <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
       <SubmitButton type="submit">회원가입</SubmitButton>
+      <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
     </Form>
   );
 };
@@ -123,7 +128,7 @@ const SubmitButton = styled.button`
   border-radius: 0.25rem;
   box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-  margin-top: 1rem;
+  margin: 1rem 0 0.5rem 0;
 
   &:hover {
     background-color: #ffb15c;
