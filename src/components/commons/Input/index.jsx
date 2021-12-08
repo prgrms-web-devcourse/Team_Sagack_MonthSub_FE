@@ -41,11 +41,12 @@ Input.defaultProps = {
   title: '',
   value: '',
   onChange: () => {},
+  name: '',
 };
 
 Input.propTypes = {
   title: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
@@ -70,7 +71,7 @@ const StyledInput = styled.input`
     box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   }
-  margin: 1rem 0 0.5rem 0;
+  margin: 0.3rem 0;
 `;
 
 const Title = styled.h1`

@@ -30,7 +30,6 @@ const UpdateSeriesPage = () => {
         uploadDate: checkedInputs,
         uploadTime: values.uploadTime,
       };
-
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -39,13 +38,11 @@ const UpdateSeriesPage = () => {
       const formData = new FormData();
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
-
       const response = await PUT({
         url: `/series/edit/${param}`,
         isAuth: true,
         data: formData,
       });
-
       const { seriesId } = response.data.data;
       history.push(`/series/${seriesId}`);
     },
@@ -65,12 +62,10 @@ const UpdateSeriesPage = () => {
       return newErrors;
     },
   });
-
   useEffect(() => {
     const currentUrlArr = window.location.pathname.split('/');
     const param = currentUrlArr[currentUrlArr.length - 1];
     setParam(param);
-
     const init = async () => {
       const response = await GET({
         url: `/series/${param}`,
@@ -98,11 +93,9 @@ const UpdateSeriesPage = () => {
     };
     init();
   }, []);
-
   const handleChangefile = file => {
     file && setFile(file);
   };
-
   const handleSelectDays = (checked, value) => {
     if (checked) {
       setCheckedInputs([...checkedInputs, value]);
@@ -110,7 +103,6 @@ const UpdateSeriesPage = () => {
       setCheckedInputs(checkedInputs.filter(el => el !== value));
     }
   };
-
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
@@ -222,31 +214,24 @@ const UpdateSeriesPage = () => {
     </Wrapper>
   );
 };
-
 export default UpdateSeriesPage;
-
 const ErrorMessage = styled.span`
   margin: 1rem 0;
   color: #ffb15c;
 `;
-
 const Line = styled.span`
   padding: 0 0.3rem;
 `;
-
 const Title = styled.h1`
   margin-bottom: 1rem;
   font-weight: 700;
 `;
-
 const StyledInput = styled(Input)`
   margin-top: 0;
 `;
-
 const StyledSection = styled.section`
   margin-bottom: 3rem;
 `;
-
 const StyledUpload = styled(Upload)`
   display: flex;
   align-items: center;
@@ -258,7 +243,7 @@ const StyledUpload = styled(Upload)`
     border-radius: 50px;
     border: none;
     margin-right: 0.5rem;
-    color: ${({ isFile }) => (isFile ? '#ffb15c' : '#4b4b4b')};
+    color: ${({ isFile }) => (isFile ? '#FFB15C' : '#4B4B4B')};
     box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
     background-color: #fff;

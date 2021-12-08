@@ -36,6 +36,7 @@ const SeriesDetail = ({ detail }) => {
     },
   ];
 
+  
   return (
     <>
       <ViewContainer>
@@ -116,12 +117,10 @@ const SeriesDetail = ({ detail }) => {
           </div>
         </div>
       </ViewContainer>
-
       <PageSectionContainer>
         <PageSectionTitle text="연재 목록" />
         <ArticleList list={detail.articleList} />
       </PageSectionContainer>
-
       <PageSectionContainer>
         <PageSectionTitle text="댓글 목록" />
         <CommentList list={commentList} />
@@ -129,17 +128,13 @@ const SeriesDetail = ({ detail }) => {
     </>
   );
 };
-
 SeriesDetail.defaultProps = {
   detail: {},
 };
-
 SeriesDetail.propTypes = {
   detail: PropTypes.object,
 };
-
 export default SeriesDetail;
-
 const ViewContainer = styled.div`
   .imageWrapper {
     width: 100%;
@@ -147,11 +142,9 @@ const ViewContainer = styled.div`
     margin-bottom: 5rem;
     background-color: #bdbdbd;
   }
-
   .userInfo {
     display: flex;
     align-details: center;
-
     span:nth-of-type(1) {
       display: inline-block;
       width: 1.875rem;
@@ -162,44 +155,36 @@ const ViewContainer = styled.div`
       overflow: hidden;
     }
   }
-
   .viewArticle {
     display: flex;
     margin-bottom: 3.125rem;
-
     > div:nth-of-type(1) {
       width: 70%;
       padding-right: 1.875rem;
       display: flex;
       flex-direction: column;
     }
-
     > div:nth-of-type(2) {
       flex-grow: 1;
     }
-
     &-title {
       font-size: 2rem;
       margin-bottom: 0.9375rem;
       //background: rgba(255, 177, 92, 0.3);
     }
-
     &-info {
       display: flex;
       align-details: center;
       justify-content: space-between;
       margin-bottom: 0.9375rem;
     }
-
     &-text {
       line-height: 1.5rem;
       flex-grow: 1;
     }
-
     &-edit {
       display: flex;
       justify-content: flex-end;
-
       > div {
         width: 100px;
         display: flex;
@@ -211,15 +196,12 @@ const ViewContainer = styled.div`
         border-radius: 2.5rem;
       }
     }
-
     &-priceInfo {
       width: 100%;
       padding: 1.5625rem;
       background: rgba(255, 177, 92, 0.2);
-
       &-block {
         margin-bottom: 1.25rem;
-
         > div:nth-of-type(1) {
           font-weight: bold;
           font-size: 1.125rem;
