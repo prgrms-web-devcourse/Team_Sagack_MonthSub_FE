@@ -17,6 +17,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="제목"
+        maxlength="300"
       />
       <StyledTextArea
         width="100%"
@@ -26,6 +27,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="소개"
+        maxlength="300"
       />
       <StyledTextArea
         width="100%"
@@ -35,6 +37,7 @@ const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="설명"
+        maxlength="5000"
       />
     </StyledSection>
   );

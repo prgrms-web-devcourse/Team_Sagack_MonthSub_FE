@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
@@ -12,12 +12,14 @@ const InputFile = ({
   isFile,
   ...props
 }) => {
+  const [file, setFile] = useState(value);
   const inputRef = useRef(null);
 
   const handleFileChange = e => {
     const { files } = e.target;
     const changedFile = files[0];
     if (onChange) {
+      setFile(changedFile);
       onChange(changedFile);
     }
   };
@@ -36,7 +38,7 @@ const InputFile = ({
         onChange={handleFileChange}
         disabled={disabled && disabled}
       />
-      {children}
+      {typeof children === 'function' ? children(file) : children}
     </div>
   );
 };
@@ -52,7 +54,7 @@ InputFile.defaultProps = {
 };
 
 InputFile.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   name: PropTypes.string,
   accept: PropTypes.string,
   value: PropTypes.string,
