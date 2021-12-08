@@ -21,7 +21,7 @@ const CardList = ({ list, ...props }) => (
             }
             <div className='card-imageArea'>
               <Link to={`/series/${ item.series.id }`}>
-                <Image src={ item.series.thumbnail } width='100%' height='100%' />
+                <Image src={ item.series.thumbnail } width='100%' height='100%' alt={`cardThumb-${item.series.id}`} />
               </Link>
             </div>
             <div className='card-textArea'>
@@ -32,7 +32,7 @@ const CardList = ({ list, ...props }) => (
                   </Link>
                 </div>
                 <div className='card-likes'>
-                  <Icons.Like fontSize='1rem' />
+                  <Icons.Like />
                   { item.series.likes } Likes
                 </div>
               </div>

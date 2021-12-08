@@ -36,13 +36,11 @@ const SeriesDetail = ({ detail }) => {
     },
   ];
 
-  console.log(detail);
-
   return (
     <>
       <ViewContainer>
         <div className="imageWrapper">
-          <Image src={detail.series.thumbnail} width="100%" height="100%" />
+          <Image src={detail.series.thumbnail} width="100%" height="100%" alt='series-detail-image' />
         </div>
         <div className="viewArticle">
           <div>
@@ -55,6 +53,7 @@ const SeriesDetail = ({ detail }) => {
                       src={detail.writer.profileImage}
                       width="100%"
                       height="100%"
+                      alt='user-profile'
                     />
                   </span>
                   <span>{detail.writer.nickname}</span>

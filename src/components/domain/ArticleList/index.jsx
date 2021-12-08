@@ -2,24 +2,19 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const ArticleList = ({ list, ...props }) => {
-
-  console.log(list);
-
-  return (
-    <div { ...props }>
-      {
-        list.map(item =>
-          <ArticleContainer key={ item.articleId }>
-            <div>{ item.round }</div>
-            <div className="title">{ item.title }</div>
-            <div>날짜</div>
-          </ArticleContainer>
-        )
-      }
-    </div>
-  );
-};
+const ArticleList = ({ list, ...props }) => (
+  <div { ...props }>
+    {
+      list.map(item =>
+        <ArticleContainer key={ item.articleId }>
+          <div>{ item.round }</div>
+          <div className="title">{ item.title }</div>
+          <div>날짜</div>
+        </ArticleContainer>
+      )
+    }
+  </div>
+);
 
 ArticleList.defaultProps = {
   list: [],
