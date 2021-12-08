@@ -25,3 +25,4 @@ export { default as SeriesEditor } from './domain/SeriesEditor';
 export { default as SignUpForm } from './domain/SignUpForm';
 export { default as ConfirmCancleButtons } from './domain/ConfirmCancleButtons';
 export { default as ArticleEditor } from './domain/ArticleEditor';
+export { default as CardSlider } from './domain/CardSlider';
