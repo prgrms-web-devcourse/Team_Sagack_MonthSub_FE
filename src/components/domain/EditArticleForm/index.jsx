@@ -19,8 +19,6 @@ const EditArticleForm = ({ onSubmit }) => {
       content: '',
     },
     onSubmit: async data => {
-      console.log(values, file);
-
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
