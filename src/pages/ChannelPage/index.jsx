@@ -5,8 +5,10 @@ import {
   UserProfile,
   PageSectionTitle,
   PageSectionContainer,
-  CardList
+  CardList,
+  CardSlider,
 } from '@components'
+import dummy from '@dummys/cardListDummy.json';
 
 const ChannelPage = () => {
   console.log('임시 콘솔');
@@ -112,12 +114,12 @@ const ChannelPage = () => {
 
         <PageSectionTitle text='구독한 시리즈' />
         <PageSectionContainer>
-          <CardList />
+          <CardSlider list={dummy.data} />
         </PageSectionContainer>
 
         <PageSectionTitle text='생성한 시리즈' />
         <PageSectionContainer>
-          <CardList />
+          <CardList list={dummy.data} />
         </PageSectionContainer>
       </Wrapper>
     </>

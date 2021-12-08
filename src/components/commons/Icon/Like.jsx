@@ -9,7 +9,7 @@ const Like = ({ fontSize, color, ...props }) => (
 
 Like.defaultProps = {
   fontSize: 'inherit',
-  color: '#4b4b4b',
+  color: 'inherit',
 }
 
 Like.propTypes = {

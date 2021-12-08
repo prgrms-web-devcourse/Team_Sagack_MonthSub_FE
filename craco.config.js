@@ -11,6 +11,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@apis': path.resolve(__dirname, 'src/apis'),
+      '@dummys': path.resolve(__dirname, 'src/dummys'),
     },
   },
 };
