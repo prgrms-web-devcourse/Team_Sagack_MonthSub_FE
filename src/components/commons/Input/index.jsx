@@ -41,7 +41,6 @@ Input.defaultProps = {
   title: '',
   value: '',
   onChange: () => {},
-  value: '',
   name: '',
 };
 
