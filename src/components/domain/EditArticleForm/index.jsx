@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ConfirmCancleButtons, Upload, Image } from '@components';
+import { ConfirmCancleButtons, ImageUpload } from '@components';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ const EditArticleForm = ({ onSubmit }) => {
   const [file, setFile] = useState({});
   const {
     values,
-    // errors,
+    errors,
     // setValues,
     handleChange,
     handleSubmit,
@@ -19,6 +19,8 @@ const EditArticleForm = ({ onSubmit }) => {
       content: '',
     },
     onSubmit: async data => {
+      console.log(values, file);
+
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -31,7 +33,7 @@ const EditArticleForm = ({ onSubmit }) => {
 
       onSubmit && (await onSubmit(formData));
     },
-    validate: ({ values }) => {
+    validate: values => {
       const newErrors = {};
       if (!values.title) newErrors.title = '제목을 입력해주세요.';
       if (!values.content) newErrors.content = '내용을 입력해주세요.';
@@ -43,22 +45,13 @@ const EditArticleForm = ({ onSubmit }) => {
     file && setFile(file);
   };
 
-  console.log(values, file);
-
   return (
     <Form onSubmit={handleSubmit}>
-      <ArticleEditor onChange={handleChange} value={values} />
-      <div>
-        <UploadImage src="" alt="thumbnail" />
-        <Upload name="thumbnail" onChange={handleChangefile}>
-          {file => (
-            <div>
-              <button type="button">{file ? file.name : 'Click me'}</button>
-              <span>{file ? file.name : ''}</span>
-            </div>
-          )}
-        </Upload>
-      </div>
+      <Title>아티클 작성 </Title>
+      <StyledArticleEditor onChange={handleChange} value={values} />
+      <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
+      <Title>썸네일 선택</Title>
+      <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
       <Buttons confirmName="제출" />
     </Form>
   );
@@ -79,11 +72,19 @@ const Form = styled.form`
   margin: 0 auto;
 `;
 
+const StyledArticleEditor = styled(ArticleEditor)``;
+
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
 `;
 
-const UploadImage = styled(Image)`
-  width: 10rem;
-  height: 10rem;
+const Title = styled.h4`
+  margin-bottom: 1rem;
+  font-weight: 700;
+`;
+
+const ErrorMessage = styled.span`
+  display: block;
+  height: 3rem;
+  color: #ffb15c;
 `;
