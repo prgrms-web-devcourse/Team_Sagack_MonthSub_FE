@@ -7,6 +7,10 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
 
   useEffect(() => {
     dep && setValues(() => dep);
+    return () => {
+      setErrors({});
+      setIsLoading(false);
+    };
   }, [dep]);
 
   const handleChange = e => {
@@ -20,9 +24,12 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
     e.preventDefault();
     const newErrors = validate(values);
     if (!newErrors || Object.keys(newErrors).length === 0) {
-      await onSubmit(values);
-    }
-    setErrors(newErrors);
+      const resErrors = await onSubmit(values);
+      setErrors({
+        ...newErrors,
+        ...resErrors,
+      });
+    } else setErrors(newErrors);
     setIsLoading(false);
   };
 

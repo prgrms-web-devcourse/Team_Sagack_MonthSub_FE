@@ -15,8 +15,6 @@ const Header = ({ children }) => {
   const { storedValue, removeValue } = useSessionStorage('authorization', '');
 
   const handleClick = () => {
-    console.log(storedValue); // 현재 token 값
-    // apis/auth/signout api 호출해야합니다.
     removeValue('authorization');
   };
 

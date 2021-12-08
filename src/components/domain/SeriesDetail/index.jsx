@@ -36,8 +36,6 @@ const SeriesDetail = ({ detail }) => {
     },
   ];
 
-  console.log(detail);
-
   return (
     <>
       <ViewContainer>
@@ -68,7 +66,7 @@ const SeriesDetail = ({ detail }) => {
               {detail.series.introduceText}
             </div>
             <div className="viewArticle-edit">
-              <Link to={`/series-write/${detail.series.id}`}>
+              <Link to={`/series-update/${detail.series.id}`}>
                 <Button width="100%" height="3.125rem" font-size="1.5rem">
                   수정하기
                 </Button>
@@ -118,11 +116,12 @@ const SeriesDetail = ({ detail }) => {
         </div>
       </ViewContainer>
 
+
       <PageSectionContainer>
         <PageSectionTitle text="연재 목록" />
         <ArticleList list={detail.articleList} />
       </PageSectionContainer>
-
+      <PageSectionContainer>
       <PageSectionContainer>
         <PageSectionTitle text="댓글 목록" />
         <CommentList list={commentList} />

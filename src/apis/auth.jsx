@@ -21,3 +21,11 @@ export const postSignOut = async () =>
     params: {},
     isJsonType: false,
   });
+
+export const postSignUp = async data =>
+  POST({
+    url: '/users/signup',
+    data,
+    isAuth: false,
+    isJsonType: false,
+  });

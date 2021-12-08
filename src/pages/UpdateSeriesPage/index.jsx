@@ -39,7 +39,32 @@ const UpdateSeriesPage = () => {
       const formData = new FormData();
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
+      
+      for (const key of formData.keys()) {
+        console.log(key, formData[key]);
+      }
 
+      try {
+        const response = await axios({
+          method: 'put',
+          url: `http://52.79.51.188:8080/series/edit/32`,
+          headers: {
+            Authorization:
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc3MzY3NywiaWF0IjoxNjM4NzcwMDc3LCJ1c2VybmFtZSI6InVzZXIzIn0.1HfnbRPwMmvg7A-wAyXzj1_1anpyrBlorUmYVZl0t5v46_a-_O-jJQvzX77GXiHCy_RjXs4W-AdX6O5NJ7fe5A',
+            'Content-Type': 'multipart/form-data',
+          },
+          data: formData,
+        });
+        if (response.status >= 400) {
+          console.log(response.status);
+          throw new Error('API 호출에 실패 했습니다.');
+        }
+        console.log(response);
+        return response;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
       const response = await PUT({
         url: `/series/edit/${param}`,
         isAuth: true,
