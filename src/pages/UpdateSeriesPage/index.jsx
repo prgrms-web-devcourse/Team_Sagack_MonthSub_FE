@@ -30,7 +30,6 @@ const UpdateSeriesPage = () => {
         uploadDate: checkedInputs,
         uploadTime: values.uploadTime,
       };
-
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -39,38 +38,11 @@ const UpdateSeriesPage = () => {
       const formData = new FormData();
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
-      
-      for (const key of formData.keys()) {
-        console.log(key, formData[key]);
-      }
-
-      try {
-        const response = await axios({
-          method: 'put',
-          url: `http://52.79.51.188:8080/series/edit/32`,
-          headers: {
-            Authorization:
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FVVEhPUiJdLCJpc3MiOiJtb250aHN1YiIsImV4cCI6MTYzODc3MzY3NywiaWF0IjoxNjM4NzcwMDc3LCJ1c2VybmFtZSI6InVzZXIzIn0.1HfnbRPwMmvg7A-wAyXzj1_1anpyrBlorUmYVZl0t5v46_a-_O-jJQvzX77GXiHCy_RjXs4W-AdX6O5NJ7fe5A',
-            'Content-Type': 'multipart/form-data',
-          },
-          data: formData,
-        });
-        if (response.status >= 400) {
-          console.log(response.status);
-          throw new Error('API 호출에 실패 했습니다.');
-        }
-        console.log(response);
-        return response;
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
       const response = await PUT({
         url: `/series/edit/${param}`,
         isAuth: true,
         data: formData,
       });
-
       const { seriesId } = response.data.data;
       history.push(`/series/${seriesId}`);
     },
@@ -90,12 +62,10 @@ const UpdateSeriesPage = () => {
       return newErrors;
     },
   });
-
   useEffect(() => {
     const currentUrlArr = window.location.pathname.split('/');
     const param = currentUrlArr[currentUrlArr.length - 1];
     setParam(param);
-
     const init = async () => {
       const response = await GET({
         url: `/series/${param}`,
@@ -123,11 +93,9 @@ const UpdateSeriesPage = () => {
     };
     init();
   }, []);
-
   const handleChangefile = file => {
     file && setFile(file);
   };
-
   const handleSelectDays = (checked, value) => {
     if (checked) {
       setCheckedInputs([...checkedInputs, value]);
@@ -135,7 +103,6 @@ const UpdateSeriesPage = () => {
       setCheckedInputs(checkedInputs.filter(el => el !== value));
     }
   };
-
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
@@ -247,31 +214,24 @@ const UpdateSeriesPage = () => {
     </Wrapper>
   );
 };
-
 export default UpdateSeriesPage;
-
 const ErrorMessage = styled.span`
   margin: 1rem 0;
   color: #ffb15c;
 `;
-
 const Line = styled.span`
   padding: 0 0.3rem;
 `;
-
 const Title = styled.h1`
   margin-bottom: 1rem;
   font-weight: 700;
 `;
-
 const StyledInput = styled(Input)`
   margin-top: 0;
 `;
-
 const StyledSection = styled.section`
   margin-bottom: 3rem;
 `;
-
 const StyledUpload = styled(Upload)`
   display: flex;
   align-items: center;
@@ -283,7 +243,7 @@ const StyledUpload = styled(Upload)`
     border-radius: 50px;
     border: none;
     margin-right: 0.5rem;
-    color: ${({ isFile }) => (isFile ? '#ffb15c' : '#4b4b4b')};
+    color: ${({ isFile }) => (isFile ? '#FFB15C' : '#4B4B4B')};
     box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
     background-color: #fff;
