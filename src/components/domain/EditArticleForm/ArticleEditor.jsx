@@ -1,66 +1,71 @@
 import React from 'react';
-import { TextArea } from '@components';
+import { TextArea, Input } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const SeriesEditor = ({ value, onChange, disabled, ...props }) => {
+const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
   const handleInputChange = e => {
     onChange && onChange(e);
   };
   return (
     <StyledSection {...props}>
-      <StyledTextArea
+      <StyledInput
         width="100%"
         height="2rem"
         name="title"
-        value={value.title || ''}
-        onInput={handleInputChange}
+        value={value.title}
+        onChange={handleInputChange}
         disabled={disabled && disabled}
         placeholder="제목"
         maxlength="300"
       />
       <StyledTextArea
         width="100%"
-        height="3rem"
-        name="introduceText"
-        value={value.introduceText || ''}
+        height="100%"
+        name="content"
+        value={value.content}
         onInput={handleInputChange}
         disabled={disabled && disabled}
-        placeholder="소개"
-        maxlength="300"
-      />
-      <StyledTextArea
-        width="100%"
-        height="10rem"
-        name="introduceSentence"
-        value={value.introduceSentence || ''}
-        onInput={handleInputChange}
-        disabled={disabled && disabled}
-        placeholder="설명"
+        placeholder="내용"
         maxlength="5000"
       />
     </StyledSection>
   );
 };
 
-SeriesEditor.defaultProps = {
+ArticleEditor.defaultProps = {
   onChange: () => {},
   disabled: false,
 };
 
-SeriesEditor.propTypes = {
+ArticleEditor.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
 
-export default SeriesEditor;
+export default ArticleEditor;
 
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
+  height: 70vh;
+`;
+
+const StyledInput = styled(Input)`
+  border: 0.016rem solid #949494;
+  box-shadow: none;
+  &:focus {
+    box-shadow: none;
+    border: 0.016rem solid #949494;
+  }
 `;
 
 const StyledTextArea = styled(TextArea)`
+  border: 0.016rem solid #949494;
   margin-bottom: 0.5rem;
+  outline: none;
+  &[name='content'] {
+    flex-basis: 1;
+  }
 `;

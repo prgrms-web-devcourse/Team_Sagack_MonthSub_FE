@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input } from '@components';
 
@@ -7,10 +8,10 @@ const CheckBox = ({ labels, onChange, checkedInputs }) => {
     onChange && onChange(e.target.checked, e.target.id);
   };
   return (
-    <>
+    <Wrapper>
       {labels.map(label => (
-        <span key={label}>
-          <Input
+        <Checkbox key={label}>
+          <StyledInput
             type="checkbox"
             name="date"
             id={label}
@@ -18,10 +19,10 @@ const CheckBox = ({ labels, onChange, checkedInputs }) => {
             value=""
             checked={checkedInputs.includes(label)}
           />
-          {label}
-        </span>
+          <span>{label}</span>
+        </Checkbox>
       ))}
-    </>
+    </Wrapper>
   );
 };
 
@@ -37,3 +38,15 @@ CheckBox.defaultProps = {
 };
 
 export default CheckBox;
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const Checkbox = styled.div`
+  margin-right: 0.8rem;
+`;
+
+const StyledInput = styled(Input)`
+  margin-right: 0.2rem;
+`;

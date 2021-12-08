@@ -116,11 +116,12 @@ const SeriesDetail = ({ detail }) => {
         </div>
       </ViewContainer>
 
+
       <PageSectionContainer>
         <PageSectionTitle text="연재 목록" />
         <ArticleList list={detail.articleList} />
       </PageSectionContainer>
-
+      <PageSectionContainer>
       <PageSectionContainer>
         <PageSectionTitle text="댓글 목록" />
         <CommentList list={commentList} />

@@ -16,6 +16,7 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
   const handleChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    console.log(values);
   };
 
   const handleSubmit = async e => {
@@ -32,12 +33,29 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
     setIsLoading(false);
   };
 
+  const handleImageUpload = e => {
+    const { name, files } = e.target;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(files[0]);
+    fileReader.onload = () => {
+      setValues({
+        ...values,
+        [name]: {
+          file: files[0],
+          url: fileReader.result,
+        },
+      });
+    };
+  };
+
   return {
     values,
     errors,
     isLoading,
+    setValues,
     handleChange,
     handleSubmit,
+    handleImageUpload,
   };
 };
 export default useForm;
