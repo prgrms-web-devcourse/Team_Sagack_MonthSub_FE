@@ -96,10 +96,14 @@ const contentsMaxCount = 4;
 const Card = styled.div`
   width: calc((100% - (${ margin } * ${ contentsMaxCount - 1 })) / ${ contentsMaxCount });
   margin-right: ${ margin };
-  margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
+
+  &:nth-of-type(-n+4) {
+    margin-top: 0;
+  }
 
   &:nth-of-type(${ contentsMaxCount }n) {
     margin-right: 0;
@@ -168,7 +172,7 @@ const Card = styled.div`
 const SubscribeStatusDiv = styled.div`
   position: absolute;
   top: 0;
-  right: -0.625rem;
+  right: 0;
   
   > * {
     padding: 0.625rem;

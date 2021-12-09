@@ -5,9 +5,8 @@ import {
   UserProfile,
   PageSectionTitle,
   PageSectionContainer,
-  CardList,
   CardSlider,
-} from '@components'
+} from '@components';
 import dummy from '@dummys/cardListDummy.json';
 
 const ChannelPage = () => {
@@ -20,23 +19,22 @@ const ChannelPage = () => {
           <div>
             <UserProfile imageOnly />
           </div>
-          <div className='channel-introduce'>
+          <div className="channel-introduce">
             <div>
               <div>박예진</div>
-              <div className='writterTag'>작가</div>
+              <div className="writterTag">작가</div>
             </div>
             <div>
               저는 서울 성북구에 거주중이고 프론트엔드를 배우고 있습니다.
-              <br />
-              이 프로젝트에 참가하게 되어 기쁘게 생각합니다.
+              <br />이 프로젝트에 참가하게 되어 기쁘게 생각합니다.
             </div>
           </div>
           <div>
-            <div className='follows-wrap'>
+            <div className="follows-wrap">
               <div>32</div>
               팔로잉
             </div>
-            <div className='follows-wrap'>
+            <div className="follows-wrap">
               <div>100</div>
               팔로워
             </div>
@@ -45,66 +43,65 @@ const ChannelPage = () => {
       </ProfileWrapper>
 
       <Wrapper>
-        <PageSectionTitle text='팔로우 한 작가들' />
+        <PageSectionTitle text="팔로우 한 작가들" />
         <PageSectionContainer>
           <WriterContainer>
-            
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
             </WriterWrapper>
             <WriterWrapper>
-              <div className='channel-writer'>
+              <div className="channel-writer">
                 <div />
                 <div>닉네임</div>
               </div>
@@ -112,15 +109,12 @@ const ChannelPage = () => {
           </WriterContainer>
         </PageSectionContainer>
 
-        <PageSectionTitle text='구독한 시리즈' />
+        <PageSectionTitle text="구독한 시리즈" />
         <PageSectionContainer>
           <CardSlider list={dummy.data} />
         </PageSectionContainer>
 
-        <PageSectionTitle text='생성한 시리즈' />
-        <PageSectionContainer>
-          <CardList list={dummy.data} />
-        </PageSectionContainer>
+        <PageSectionTitle text="생성한 시리즈" />
       </Wrapper>
     </>
   );
@@ -132,7 +126,7 @@ const ProfileWrapper = styled.div`
   background-color: #eaeaea;
   margin-top: 5rem;
 `;
-  
+
 const ProfileContainer = styled.div`
   width: 71.25rem;
   height: 100%;
@@ -185,7 +179,7 @@ const ProfileContainer = styled.div`
     }
   }
 
-  .follows-wrap{
+  .follows-wrap {
     width: 3.75rem;
     height: 3.75rem;
     display: flex;
@@ -213,7 +207,7 @@ const WriterWrapper = styled.div`
     display: inline-block;
     text-align: center;
     padding-right: 1.78rem;
-    
+
     > div:nth-of-type(1) {
       background-color: #bdbdbd;
       width: 5.5rem;
