@@ -5,7 +5,6 @@ import {
   UserProfile,
   PageSectionTitle,
   PageSectionContainer,
-  CardList,
   CardSlider,
 } from '@components';
 import dummy from '@dummys/cardListDummy.json';
@@ -113,9 +112,6 @@ const ChannelPage = () => (
       </PageSectionContainer>
 
       <PageSectionTitle text="생성한 시리즈" />
-      <PageSectionContainer>
-        <CardList list={dummy.data} />
-      </PageSectionContainer>
     </Wrapper>
   </>
 );

@@ -12,6 +12,10 @@ body {
   overflow-y: scroll;
 }
 
+::selection {
+  background-color: #8effe1;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

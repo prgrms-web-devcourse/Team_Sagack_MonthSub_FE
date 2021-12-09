@@ -36,12 +36,16 @@ const SeriesDetail = ({ detail }) => {
     },
   ];
 
-  
   return (
     <>
       <ViewContainer>
         <div className="imageWrapper">
-          <Image src={detail.series.thumbnail} width="100%" height="100%" alt='series-detail-image' />
+          <Image
+            src={detail.series.thumbnail}
+            width="100%"
+            height="100%"
+            alt="series-detail-image"
+          />
         </div>
         <div className="viewArticle">
           <div>
@@ -54,7 +58,7 @@ const SeriesDetail = ({ detail }) => {
                       src={detail.writer.profileImage}
                       width="100%"
                       height="100%"
-                      alt='user-profile'
+                      alt="user-profile"
                     />
                   </span>
                   <span>{detail.writer.nickname}</span>
@@ -170,7 +174,6 @@ const ViewContainer = styled.div`
     &-title {
       font-size: 2rem;
       margin-bottom: 0.9375rem;
-      //background: rgba(255, 177, 92, 0.3);
     }
     &-info {
       display: flex;
