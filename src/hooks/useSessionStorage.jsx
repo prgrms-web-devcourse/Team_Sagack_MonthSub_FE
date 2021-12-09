@@ -6,7 +6,7 @@ const useSessionStorage = (key, initialValue) => {
       const item = sessionStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.error(error);
+      alert(error);
       return initialValue;
     }
   });
@@ -19,7 +19,7 @@ const useSessionStorage = (key, initialValue) => {
       setStoredValue(valueToStore);
       sessionStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.error(error);
+      alert(error);
     }
   };
 
@@ -28,7 +28,7 @@ const useSessionStorage = (key, initialValue) => {
       setStoredValue('');
       sessionStorage.removeItem(key);
     } catch (error) {
-      console.error(error);
+      alert(error);
     }
   };
 

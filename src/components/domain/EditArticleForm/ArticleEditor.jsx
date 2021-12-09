@@ -13,19 +13,21 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
         width="100%"
         height="2rem"
         name="title"
-        // value={value.title}
+        value={value.title}
         onChange={handleInputChange}
         disabled={disabled && disabled}
         placeholder="제목"
+        maxlength="300"
       />
       <StyledTextArea
         width="100%"
         height="100%"
         name="content"
-        // value={value.introduceSentence}
+        value={value.content}
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="내용"
+        maxlength="5000"
       />
     </StyledSection>
   );
