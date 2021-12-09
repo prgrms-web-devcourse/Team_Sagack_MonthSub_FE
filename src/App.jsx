@@ -28,42 +28,18 @@ const App = () => {
   return (
     <Header>
       <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/article/:id">
-          <ArticleDetailPage />
-        </Route>
-        <Route exact path="/channel/:id">
-          <ChannelPage />
-        </Route>
-        <Route exact path="/edit/article/:id">
-          <EditArticlePage />
-        </Route>
-        <Route exact path="/edit/my">
-          <EditMyInfoPage />
-        </Route>
-        <Route exact path="/channel/my">
-          <MyChannelPage />
-        </Route>
-        <Route exact path="/info/my">
-          <MyInfoPage />
-        </Route>
-        <Route exact path="/info/purchase">
-          <PurchaseHistoryPage />
-        </Route>
-        <Route exact path="/purchase">
-          <PurchasePage />
-        </Route>
-        <Route exact path="/search">
-          <SearchPage />
-        </Route>
-        <Route exact path="/series/:id">
-          <SeriesDetailPage />
-        </Route>
-        <Route exact path="/series">
-          <SeriesListPage />
-        </Route>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/article/:id" component={ArticleDetailPage} />
+        <Route exact path="/channel/:id" component={ChannelPage} />
+        <Route exact path="/edit/article/:id" component={EditArticlePage} />
+        <Route exact path="/edit/my" component={EditMyInfoPage} />
+        <Route exact path="/channel/my" component={MyChannelPage} />
+        <Route exact path="/info/my" component={MyInfoPage} />
+        <Route exact path="/info/purchase" component={PurchaseHistoryPage} />
+        <Route exact path="/purchase" component={PurchasePage} />
+        <Route exact path="/search" component={SearchPage} />
+        <Route exact path="/series/:id" component={SeriesDetailPage} />
+        <Route exact path="/series" component={SeriesListPage} />
         <Route exact path="/signin">
           {isAuth ? (
             <Redirect
@@ -78,24 +54,13 @@ const App = () => {
             <SignInPage />
           )}
         </Route>
-        <Route exact path="/signup">
-          <SignUpPage />
-        </Route>
-        <Route exact path="/article-write">
-          <WriteArticlePage />
-        </Route>
-        <Route exact path="/writes">
-          <WriteListPage />
-        </Route>
-        <Route exact path="/series-write">
-          <WriteSeriesPage />
-        </Route>
-        <Route exact path="/series-write/:id">
-          <UpdateSeriesPage />
-        </Route>
-        <Route exact path="*">
-          <NotFoundPage />
-        </Route>
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route exact path="/article-write" component={WriteArticlePage} />
+        <Route exact path="/article-write/:id" component={WriteArticlePage} />
+        <Route exact path="/writes" component={WriteListPage} />
+        <Route exact path="/series-write" component={WriteSeriesPage} />
+        <Route exact path="/series-write/:id" component={UpdateSeriesPage} />
+        <Route exact path="*" component={NotFoundPage} />
       </Switch>
     </Header>
   );
