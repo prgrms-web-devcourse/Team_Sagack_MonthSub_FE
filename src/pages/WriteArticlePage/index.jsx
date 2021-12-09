@@ -18,7 +18,6 @@ const WriteArticlePage = ({ match }) => {
       content: '',
     },
     onSubmit: async data => {
-      console.log(data, file);
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -28,8 +27,6 @@ const WriteArticlePage = ({ match }) => {
       const formData = new FormData();
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(data));
-
-      id ? console.log('put') : console.log('post');
     },
     validate: values => {
       const newErrors = {};
@@ -39,8 +36,7 @@ const WriteArticlePage = ({ match }) => {
     },
   });
 
-  const getArticleContent = async id => {
-    await console.log(id);
+  const getArticleContent = async () => {
     setValues({
       title: '안녕',
       content: '안녕하시요!!',
