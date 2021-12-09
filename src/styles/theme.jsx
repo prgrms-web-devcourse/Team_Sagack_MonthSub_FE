@@ -1,4 +1,4 @@
-const colors = {
+const color = {
   mainLight: '#ffefde',
   main: '#ffb15c',
   sub: '#041b2d',
@@ -17,11 +17,11 @@ const font = {
 };
 
 const style = {
-  boxShadow: '1px 3px 5px 1px rgba(0, 0, 0, 0.3)',
+  boxShadow: '0 0.125rem 0.3125rem 0 rgba(50, 50, 93, 0.2)',
 };
 
 const theme = {
-  colors,
+  color,
   font,
   style,
 };
