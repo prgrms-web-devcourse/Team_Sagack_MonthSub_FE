@@ -1,28 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Wrapper,
   SeriesEditor,
-  Input,
-  Upload,
+  ImageUpload,
   ConfirmCancleButtons,
   Radio,
   CheckBox,
+  Input,
 } from '@components';
 import { useForm } from '@hooks';
-import { GET, PUT } from '../../apis/axios';
+import { GET, PUT, POST } from '../../apis/axios';
 
-const UpdateSeriesPage = () => {
-  const history = useHistory();
-  const [param, setParam] = useState('');
+const UpdateSeriesPage = ({ match, history }) => {
+  const { id } = match.params;
   const [file, setFile] = useState(null);
-  const [initialValues, setInitialValues] = useState({});
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, handleChange, handleSubmit, errors } = useForm({
-    dep: initialValues,
+  const { values, setValues, handleChange, handleSubmit, errors } = useForm({
+    initialValues: {
+      title: '',
+      introduceText: '',
+      introduceSentence: '',
+      price: 0,
+      subscribeStartDate: '',
+      subscribeEndDate: '',
+      seriesStartDate: '',
+      seriesEndDate: '',
+      category: '',
+      uploadTime: '',
+      articleCount: 0,
+    },
+
     onSubmit: async values => {
-      const request = {
+      const PostData = {
+        ...values,
+        uploadDate: checkedInputs,
+        articleCount: Number(values.articleCount),
+        price: Number(values.price),
+      };
+
+      const PutData = {
         writeId: values.writeId,
         title: values.title,
         introduceText: values.introduceText,
@@ -30,6 +48,7 @@ const UpdateSeriesPage = () => {
         uploadDate: checkedInputs,
         uploadTime: values.uploadTime,
       };
+
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -37,14 +56,21 @@ const UpdateSeriesPage = () => {
       }
       const formData = new FormData();
       formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(request));
-      const response = await PUT({
-        url: `/series/edit/${param}`,
-        isAuth: true,
-        data: formData,
-      });
-      const { seriesId } = response.data.data;
-      history.push(`/series/${seriesId}`);
+      formData.append('request', jsonBlob(id ? PutData : PostData));
+
+      id
+        ? await PUT({
+            url: `/series/edit/${id}`,
+            isAuth: true,
+            data: formData,
+          })
+        : await POST({
+            url: '/series',
+            isAuth: true,
+            data: formData,
+          });
+
+      history.push(`/series/${id}`);
     },
     validate: values => {
       const newErrors = {};
@@ -62,40 +88,58 @@ const UpdateSeriesPage = () => {
       return newErrors;
     },
   });
+
+  const init = async id => {
+    const response = await GET({
+      url: `/series/${id}`,
+      isAuth: false,
+    });
+    const seriesData = response.data.data.series;
+    const uploadData = response.data.data.upload;
+    const subscribeData = response.data.data.subscribe;
+
+    setValues({
+      writeId: response.data.data.writer.id,
+      title: seriesData.title,
+      introduceText: seriesData.introduceText,
+      introduceSentence: seriesData.introduceSentence,
+      price: seriesData.price,
+      subscribeStartDate: subscribeData.startDate,
+      subscribeEndDate: subscribeData.endDate,
+      seriesStartDate: seriesData.startDate,
+      seriesEndDate: seriesData.endDate,
+      category: response.data.data.category,
+      uploadTime: uploadData.time,
+      articleCount: seriesData.articleCount,
+      uploadDate: uploadData.date,
+    });
+    setCheckedInputs(uploadData.date);
+  };
+
   useEffect(() => {
-    const currentUrlArr = window.location.pathname.split('/');
-    const param = currentUrlArr[currentUrlArr.length - 1];
-    setParam(param);
-    const init = async () => {
-      const response = await GET({
-        url: `/series/${param}`,
-        isAuth: false,
-      });
-      const seriesData = response.data.data.series;
-      const uploadData = response.data.data.upload;
-      const subscribeData = response.data.data.subscribe;
-      setInitialValues({
-        writeId: response.data.data.writer.id,
-        title: seriesData.title,
-        introduceText: seriesData.introduceText,
-        introduceSentence: seriesData.introduceSentence,
-        price: seriesData.price,
-        subscribeStartDate: subscribeData.startDate,
-        subscribeEndDate: subscribeData.endDate,
-        seriesStartDate: seriesData.startDate,
-        seriesEndDate: seriesData.endDate,
-        category: response.data.data.category,
-        uploadTime: uploadData.time,
-        articleCount: seriesData.articleCount,
-        uploadDate: uploadData.date,
-      });
-      setCheckedInputs(uploadData.date);
-    };
-    init();
+    id && init(id);
   }, []);
+
   const handleChangefile = file => {
     file && setFile(file);
   };
+
+  const createLaterDate = (currentDate, n) => {
+    const arr = currentDate.split('-');
+    const laterDate = new Date(
+      Number(arr[0]),
+      Number(arr[1]) - 1,
+      Number(arr[2]),
+    );
+    laterDate.setDate(laterDate.getDate() + n);
+    const year = laterDate.getFullYear();
+    const month = laterDate.getMonth() + 1;
+    const date = laterDate.getDate();
+    return `${year}-${month >= 10 ? month : `0${month}`}-${
+      date >= 10 ? date : `0${date}`
+    }`;
+  };
+
   const handleSelectDays = (checked, value) => {
     if (checked) {
       setCheckedInputs([...checkedInputs, value]);
@@ -113,7 +157,7 @@ const UpdateSeriesPage = () => {
             names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
             onChange={handleChange}
             checkedButton={values.category}
-            disabled
+            disabled={id}
           />
         </StyledSection>
         <StyledSection>
@@ -122,15 +166,7 @@ const UpdateSeriesPage = () => {
         </StyledSection>
         <StyledSection>
           <Title>이미지 업로드</Title>
-          <StyledUpload
-            name="thumbnail"
-            onChange={handleChangefile}
-            isFile={!!file}
-          >
-            <button type="button">File Select</button>
-            <span>{file ? file.name : ''}</span>
-            <ErrorMessage>{errors.thumbnail}</ErrorMessage>
-          </StyledUpload>
+          <ImageUpload onChange={handleChangefile} />
         </StyledSection>
         <StyledSection>
           <Title>구독료</Title>
@@ -140,7 +176,7 @@ const UpdateSeriesPage = () => {
             name="price"
             onChange={handleChange}
             min={0}
-            disabled
+            disabled={id}
           />
         </StyledSection>
         <StyledSection>
@@ -150,7 +186,7 @@ const UpdateSeriesPage = () => {
             value={values.subscribeStartDate}
             name="subscribeStartDate"
             onChange={handleChange}
-            disabled
+            disabled={id}
           />
           <Line>-</Line>
           <StyledInput
@@ -158,7 +194,8 @@ const UpdateSeriesPage = () => {
             value={values.subscribeEndDate}
             name="subscribeEndDate"
             onChange={handleChange}
-            disabled
+            disabled={id}
+            min={createLaterDate(values.subscribeStartDate, 1)}
           />
         </StyledSection>
         <StyledSection>
@@ -168,7 +205,8 @@ const UpdateSeriesPage = () => {
             name="seriesStartDate"
             value={values.seriesStartDate}
             onChange={handleChange}
-            disabled
+            disabled={id}
+            min={createLaterDate(values.subscribeEndDate, 1)}
           />
           <Line>-</Line>
           <StyledInput
@@ -176,7 +214,8 @@ const UpdateSeriesPage = () => {
             name="seriesEndDate"
             value={values.seriesEndDate}
             onChange={handleChange}
-            disabled
+            disabled={id}
+            min={createLaterDate(values.seriesStartDate, 1)}
           />
         </StyledSection>
         <StyledSection>
@@ -196,7 +235,7 @@ const UpdateSeriesPage = () => {
             value={values.articleCount}
             onChange={handleChange}
             min={1}
-            disabled
+            disabled={id}
           />
         </StyledSection>
         <StyledSection>
@@ -214,6 +253,12 @@ const UpdateSeriesPage = () => {
     </Wrapper>
   );
 };
+
+UpdateSeriesPage.propTypes = {
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
 export default UpdateSeriesPage;
 const ErrorMessage = styled.span`
   margin: 1rem 0;
@@ -231,25 +276,4 @@ const StyledInput = styled(Input)`
 `;
 const StyledSection = styled.section`
   margin-bottom: 3rem;
-`;
-const StyledUpload = styled(Upload)`
-  display: flex;
-  align-items: center;
-  button {
-    width: 6.25rem;
-    padding: 0.3rem;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 50px;
-    border: none;
-    margin-right: 0.5rem;
-    color: ${({ isFile }) => (isFile ? '#FFB15C' : '#4B4B4B')};
-    box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-    background-color: #fff;
-    text-align: center;
-    &:hover {
-      color: #ffb15c;
-    }
-  }
 `;

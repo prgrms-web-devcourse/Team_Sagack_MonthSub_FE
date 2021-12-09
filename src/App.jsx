@@ -18,7 +18,6 @@ import {
   SignUpPage,
   WriteArticlePage,
   WriteListPage,
-  WriteSeriesPage,
   UpdateSeriesPage,
   NotFoundPage,
 } from '@pages';
@@ -58,7 +57,7 @@ const App = () => {
         <Route exact path="/article-write" component={WriteArticlePage} />
         <Route exact path="/article-write/:id" component={WriteArticlePage} />
         <Route exact path="/writes" component={WriteListPage} />
-        <Route exact path="/series-write" component={WriteSeriesPage} />
+        <Route exact path="/series-write" component={UpdateSeriesPage} />
         <Route exact path="/series-write/:id" component={UpdateSeriesPage} />
         <Route exact path="*" component={NotFoundPage} />
       </Switch>
