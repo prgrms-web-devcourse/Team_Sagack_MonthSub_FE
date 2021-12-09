@@ -9,116 +9,112 @@ import {
 } from '@components';
 import dummy from '@dummys/cardListDummy.json';
 
-const ChannelPage = () => {
-  console.log('임시 콘솔');
-
-  return (
-    <>
-      <ProfileWrapper>
-        <ProfileContainer>
+const ChannelPage = () => (
+  <>
+    <ProfileWrapper>
+      <ProfileContainer>
+        <div>
+          <UserProfile imageOnly />
+        </div>
+        <div className="channel-introduce">
           <div>
-            <UserProfile imageOnly />
-          </div>
-          <div className="channel-introduce">
-            <div>
-              <div>박예진</div>
-              <div className="writterTag">작가</div>
-            </div>
-            <div>
-              저는 서울 성북구에 거주중이고 프론트엔드를 배우고 있습니다.
-              <br />이 프로젝트에 참가하게 되어 기쁘게 생각합니다.
-            </div>
+            <div>박예진</div>
+            <div className="writterTag">작가</div>
           </div>
           <div>
-            <div className="follows-wrap">
-              <div>32</div>
-              팔로잉
-            </div>
-            <div className="follows-wrap">
-              <div>100</div>
-              팔로워
-            </div>
+            저는 서울 성북구에 거주중이고 프론트엔드를 배우고 있습니다.
+            <br />이 프로젝트에 참가하게 되어 기쁘게 생각합니다.
           </div>
-        </ProfileContainer>
-      </ProfileWrapper>
+        </div>
+        <div>
+          <div className="follows-wrap">
+            <div>32</div>
+            팔로잉
+          </div>
+          <div className="follows-wrap">
+            <div>100</div>
+            팔로워
+          </div>
+        </div>
+      </ProfileContainer>
+    </ProfileWrapper>
 
-      <Wrapper>
-        <PageSectionTitle text="팔로우 한 작가들" />
-        <PageSectionContainer>
-          <WriterContainer>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-            <WriterWrapper>
-              <div className="channel-writer">
-                <div />
-                <div>닉네임</div>
-              </div>
-            </WriterWrapper>
-          </WriterContainer>
-        </PageSectionContainer>
+    <Wrapper>
+      <PageSectionTitle text="팔로우 한 작가들" />
+      <PageSectionContainer>
+        <WriterContainer>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+          <WriterWrapper>
+            <div className="channel-writer">
+              <div />
+              <div>닉네임</div>
+            </div>
+          </WriterWrapper>
+        </WriterContainer>
+      </PageSectionContainer>
 
-        <PageSectionTitle text="구독한 시리즈" />
-        <PageSectionContainer>
-          <CardSlider list={dummy.data} />
-        </PageSectionContainer>
+      <PageSectionTitle text="구독한 시리즈" />
+      <PageSectionContainer>
+        <CardSlider list={dummy.data} />
+      </PageSectionContainer>
 
-        <PageSectionTitle text="생성한 시리즈" />
-      </Wrapper>
-    </>
-  );
-};
+      <PageSectionTitle text="생성한 시리즈" />
+    </Wrapper>
+  </>
+);
 
 const ProfileWrapper = styled.div`
   width: 100%;
