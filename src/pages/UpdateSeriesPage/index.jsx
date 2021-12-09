@@ -151,23 +151,25 @@ const UpdateSeriesPage = ({ match, history }) => {
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
-        <StyledSection>
-          <Title>카테고리</Title>
-          <Radio
-            names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
-            onChange={handleChange}
-            checkedButton={values.category}
-            disabled={id}
-          />
-        </StyledSection>
-        <StyledSection>
-          <Title>시리즈 소개</Title>
-          <SeriesEditor onChange={handleChange} value={values} />
-        </StyledSection>
+        <Radio
+          names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+          onChange={handleChange}
+          checkedButton={values.category}
+          disabled={id}
+          title="카테고리"
+        />
+
+        <SeriesEditor
+          onChange={handleChange}
+          value={values}
+          title="시리즈 소개"
+        />
+
         <StyledSection>
           <Title>이미지 업로드</Title>
           <ImageUpload onChange={handleChangefile} />
         </StyledSection>
+
         <StyledSection>
           <Title>구독료</Title>
           <StyledInput
@@ -179,6 +181,7 @@ const UpdateSeriesPage = ({ match, history }) => {
             disabled={id}
           />
         </StyledSection>
+
         <StyledSection>
           <Title> 모집 기간</Title>
           <StyledInput
@@ -198,6 +201,7 @@ const UpdateSeriesPage = ({ match, history }) => {
             min={createLaterDate(values.subscribeStartDate, 1)}
           />
         </StyledSection>
+
         <StyledSection>
           <Title>연재 기간</Title>
           <StyledInput
@@ -218,6 +222,7 @@ const UpdateSeriesPage = ({ match, history }) => {
             min={createLaterDate(values.seriesStartDate, 1)}
           />
         </StyledSection>
+
         <StyledSection>
           <Title>연재 시간</Title>
           <StyledInput
@@ -227,8 +232,9 @@ const UpdateSeriesPage = ({ match, history }) => {
             onChange={handleChange}
           />
         </StyledSection>
+
         <StyledSection>
-          <Title>총 회차 </Title>
+          <Title>총 회차</Title>
           <StyledInput
             type="number"
             name="articleCount"
@@ -238,6 +244,7 @@ const UpdateSeriesPage = ({ match, history }) => {
             disabled={id}
           />
         </StyledSection>
+
         <StyledSection>
           <Title>연재 요일</Title>
           <CheckBox
@@ -248,6 +255,7 @@ const UpdateSeriesPage = ({ match, history }) => {
           <ErrorMessage>{errors.day}</ErrorMessage>
           <ErrorMessage>{errors.dayLength}</ErrorMessage>
         </StyledSection>
+
         <ConfirmCancleButtons confirmName="제출" />
       </form>
     </Wrapper>

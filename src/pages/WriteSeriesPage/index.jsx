@@ -11,6 +11,7 @@ import {
   CheckBox,
 } from '@components';
 import { useForm } from '@hooks';
+import calculateLaterDate from '@utils/calculateLaterDate ';
 import { POST } from '../../apis/axios';
 
 const WriteSeriesPage = () => {
@@ -86,38 +87,17 @@ const WriteSeriesPage = () => {
     file && setFile(file);
   };
 
-  const createLaterDate = (currentDate, n) => {
-    const arr = currentDate.split('-');
-    const laterDate = new Date(
-      Number(arr[0]),
-      Number(arr[1]) - 1,
-      Number(arr[2]),
-    );
-    laterDate.setDate(laterDate.getDate() + n);
-    const year = laterDate.getFullYear();
-    const month = laterDate.getMonth() + 1;
-    const date = laterDate.getDate();
-    return `${year}-${month >= 10 ? month : `0${month}`}-${
-      date >= 10 ? date : `0${date}`
-    }`;
-  };
-
   return (
     <Wrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
-        <StyledSection>
-          <Title>카테고리</Title>
-          <Radio
-            names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
-            onChange={handleChange}
-            checkedButton={values.category}
-          />
-        </StyledSection>
-        <StyledSection>
-          <Title>시리즈 소개</Title>
-          <SeriesEditor onChange={handleChange} value={values} />
-        </StyledSection>
+        <Radio
+          names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+          onChange={handleChange}
+          checkedButton={values.category}
+          title="카테고리"
+        />
+        <SeriesEditor onChange={handleChange} value={values} />
         <StyledSection>
           <Title>이미지 업로드</Title>
           <StyledUpload
@@ -155,7 +135,7 @@ const WriteSeriesPage = () => {
             name="subscribeEndDate"
             onChange={handleChange}
             disabled={!values.subscribeStartDate}
-            min={createLaterDate(values.subscribeStartDate, 1)}
+            min={calculateLaterDate(values.subscribeStartDate, 1)}
           />
         </StyledSection>
         <StyledSection>
@@ -166,7 +146,7 @@ const WriteSeriesPage = () => {
             value={values.seriesStartDate}
             onChange={handleChange}
             disabled={!values.subscribeEndDate}
-            min={createLaterDate(values.subscribeEndDate, 1)}
+            min={calculateLaterDate(values.subscribeEndDate, 1)}
           />
           <Line>-</Line>
           <StyledInput
@@ -175,7 +155,7 @@ const WriteSeriesPage = () => {
             value={values.seriesEndDate}
             onChange={handleChange}
             disabled={!values.seriesStartDate}
-            min={createLaterDate(values.seriesStartDate, 1)}
+            min={calculateLaterDate(values.seriesStartDate, 1)}
           />
         </StyledSection>
         <StyledSection>
