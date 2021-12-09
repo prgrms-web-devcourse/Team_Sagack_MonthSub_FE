@@ -5,12 +5,12 @@ import { CardList } from '@components';
 
 const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
   const howManyItemsAre = itemsCountOnRow * itemsCountOnCol;
-  // 출력할 list의 length / 한 슬라이드에 출력할 컨텐츠 정보(가로칸 * 세로줄) -1(인덱싱을 위한 개수-1)
   const lastSlideIndex = Math.ceil(list.length / howManyItemsAre) - 1;
   const slideNumber = useRef(0);
   const [slideSequence, setSlideSequence] = useState(0);
   const slideRef = useRef([]);
   const newList = [];
+  const slideFullRef = useRef(null);
 
   const divideList = () => {
     for (let i = 0; i <= list.length; i += 1) {
@@ -54,7 +54,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
   };
 
   useEffect(() => {
-    document.getElementById('slide').style.transform = `translateX(${
+    slideFullRef.current.style.transform = `translateX(${
       -100 * slideNumber.current
     }%)`;
   }, [slideSequence]);
@@ -62,7 +62,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
   return (
     <SlideContainer>
       <SlideWrapper>
-        <SlideFullArea id="slide">{slideSectionRender()}</SlideFullArea>
+        <SlideFullArea ref={slideFullRef}>{slideSectionRender()}</SlideFullArea>
       </SlideWrapper>
 
       <div
@@ -112,7 +112,6 @@ const SlideContainer = styled.div`
     border-radius: 3rem;
     color: #ffffff;
     background-color: #000000;
-    // box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -120,11 +119,11 @@ const SlideContainer = styled.div`
   }
 
   .handler-left {
-    left: -40px;
+    left: -2.5rem;
   }
 
   .handler-right {
-    right: -40px;
+    right: -2.5rem;
   }
 `;
 
