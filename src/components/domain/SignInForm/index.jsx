@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useForm } from '@hooks';
-import Input from '@components/commons/Input';
+import { Input, Wrapper } from '@components';
 import validationEmail from '@utils/validationEmail';
 import { Link } from 'react-router-dom';
 
@@ -26,34 +26,36 @@ const SignInForm = ({ onSubmit }) => {
   });
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <H1>로그인</H1>
-      <Input
-        width="100%"
-        height="2.5rem"
-        name="email"
-        value={values.email}
-        type="text"
-        placeholder="아이디를 입력해주세요."
-        onChange={handleChange}
-      />
-      <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
-      <Input
-        width="100%"
-        height="2.5rem"
-        name="password"
-        value={values.password}
-        type="password"
-        placeholder="비밀번호를 입력해주세요."
-        onChange={handleChange}
-      />
-      <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
-      <Button type="submit">로그인</Button>
-      <Span>
-        <Link to="/">아이디 찾기</Link>
-        <Link to="signup">회원가입하기</Link>
-      </Span>
-    </Form>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <H1>로그인</H1>
+        <Input
+          width="100%"
+          height="2.5rem"
+          name="email"
+          value={values.email}
+          type="text"
+          placeholder="아이디를 입력해주세요."
+          onChange={handleChange}
+        />
+        <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
+        <Input
+          width="100%"
+          height="2.5rem"
+          name="password"
+          value={values.password}
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+          onChange={handleChange}
+        />
+        <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
+        <Button type="submit">로그인</Button>
+        <Span>
+          <Link to="/">아이디 찾기</Link>
+          <Link to="signup">회원가입하기</Link>
+        </Span>
+      </Form>
+    </Wrapper>
   );
 };
 

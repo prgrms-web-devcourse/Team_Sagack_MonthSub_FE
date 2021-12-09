@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input } from '@components';
+import { Input, Wrapper } from '@components';
 import validationEmail from '@utils/validationEmail';
 import validationPassword from '@utils/validationPassword';
 import { useHistory } from 'react-router-dom';
@@ -45,55 +45,57 @@ const SignUpForm = () => {
   });
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <H1>회원가입</H1>
-      <Span>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <H1>회원가입</H1>
+        <Span>
+          <Input
+            width="100%"
+            height="2.5rem"
+            name="email"
+            value={values.email}
+            type="text"
+            placeholder="이메일을 입력해주세요."
+            onChange={handleChange}
+          />
+        </Span>
+        <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
         <Input
           width="100%"
           height="2.5rem"
-          name="email"
-          value={values.email}
+          name="userName"
+          value={values.userName}
           type="text"
-          placeholder="이메일을 입력해주세요."
+          placeholder="이름을 입력해주세요."
           onChange={handleChange}
         />
-      </Span>
-      <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
-      <Input
-        width="100%"
-        height="2.5rem"
-        name="userName"
-        value={values.userName}
-        type="text"
-        placeholder="이름을 입력해주세요."
-        onChange={handleChange}
-      />
-      <ErrorMessage>{errors.userName}&nbsp;</ErrorMessage>
-      <Span>
+        <ErrorMessage>{errors.userName}&nbsp;</ErrorMessage>
+        <Span>
+          <Input
+            width="100%"
+            height="2.5rem"
+            name="nickName"
+            value={values.nickName}
+            type="text"
+            placeholder="닉네임을 입력해주세요."
+            onChange={handleChange}
+          />
+        </Span>
+        <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
         <Input
           width="100%"
           height="2.5rem"
-          name="nickName"
-          value={values.nickName}
-          type="text"
-          placeholder="닉네임을 입력해주세요."
+          name="password"
+          value={values.password}
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
           onChange={handleChange}
         />
-      </Span>
-      <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
-      <Input
-        width="100%"
-        height="2.5rem"
-        name="password"
-        value={values.password}
-        type="password"
-        placeholder="비밀번호를 입력해주세요."
-        onChange={handleChange}
-      />
-      <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
-      <SubmitButton type="submit">회원가입</SubmitButton>
-      <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
-    </Form>
+        <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
+        <SubmitButton type="submit">회원가입</SubmitButton>
+        <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
+      </Form>
+    </Wrapper>
   );
 };
 
