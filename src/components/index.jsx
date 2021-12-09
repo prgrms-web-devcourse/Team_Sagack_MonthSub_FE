@@ -25,7 +25,6 @@ export { default as SeriesEditor } from './domain/SeriesEditor';
 export { default as EditMyInfoForm } from './domain/EditMyInfoForm';
 export { default as SignUpForm } from './domain/SignUpForm';
 export { default as ConfirmCancleButtons } from './domain/ConfirmCancleButtons';
-export { default as ArticleEditor } from './domain/EditArticleForm/ArticleEditor';
 export { default as CardSlider } from './domain/CardSlider';
-export { default as EditArticleForm } from './domain/EditArticleForm';
 export { default as ImageUpload } from './domain/ImageUpload';
+export { default as ArticleEditor } from './domain/ArticleEditor';
