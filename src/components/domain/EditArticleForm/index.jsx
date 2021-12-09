@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ConfirmCancleButtons, ImageUpload } from '@components';
 import { useForm } from '@hooks';
-import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
 import ArticleEditor from './ArticleEditor';
 
-const EditArticleForm = ({ onSubmit }) => {
+const EditArticleForm = ({ match }) => {
+  const { id } = match.params;
   const [file, setFile] = useState({});
-  const {
-    values,
-    errors,
-    // setValues,
-    handleChange,
-    handleSubmit,
-  } = useForm({
+  const { values, errors, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       content: '',
@@ -29,7 +24,7 @@ const EditArticleForm = ({ onSubmit }) => {
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(data));
 
-      onSubmit && (await onSubmit(formData));
+      id ? console.log('put') : console.log('post');
     },
     validate: values => {
       const newErrors = {};
@@ -38,6 +33,17 @@ const EditArticleForm = ({ onSubmit }) => {
       return newErrors;
     },
   });
+
+  const getArticleContent = async id => {
+    await console.log(id);
+    setValues({
+      title: '안녕',
+      content: '안녕하시요!!',
+    });
+  };
+  useEffect(() => {
+    id && getArticleContent(id);
+  }, []);
 
   const handleChangefile = file => {
     file && setFile(file);
@@ -55,12 +61,8 @@ const EditArticleForm = ({ onSubmit }) => {
   );
 };
 
-EditArticleForm.defaultProps = {
-  onSubmit: () => {},
-};
-
 EditArticleForm.propTypes = {
-  onSubmit: PropTypes.func,
+  match: PropTypes.object.isRequired,
 };
 
 export default EditArticleForm;
