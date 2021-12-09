@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
-const useForm = ({ initialValues, onSubmit, validate, dep }) => {
-  const [values, setValues] = useState(initialValues || dep);
+const useForm = ({ initialValues, onSubmit, validate }) => {
+  const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    dep && setValues(() => dep);
-    return () => {
+  useEffect(
+    () => () => {
       setErrors({});
       setIsLoading(false);
-    };
-  }, [dep]);
+    },
+    [],
+  );
 
   const handleChange = e => {
     const { name, value } = e.target;
