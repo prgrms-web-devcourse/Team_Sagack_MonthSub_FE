@@ -12,6 +12,8 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
       : '',
   };
 
+  console.log(headers);
+
   try {
     const response = await axios({
       method: 'get',
