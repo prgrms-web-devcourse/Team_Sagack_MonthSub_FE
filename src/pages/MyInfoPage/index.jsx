@@ -8,10 +8,10 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 const MyInfoPage = () => (
   <Wrapper>
     <Container>
-      <StyledLink to="/edit/my">
+      <StyledLink to="/my-edit">
         <StyledChromeReaderModeIcon />
       </StyledLink>
-      <StyledLink to="/info/purchase">
+      <StyledLink to="/purchase-info">
         <LocalAtmIcon />
       </StyledLink>
     </Container>

@@ -36,7 +36,7 @@ const UpdateSeriesPage = () => {
         });
       }
       const formData = new FormData();
-      formData.append('thumbnail', file);
+      // formData.append('thumbnail', file);
       formData.append('request', jsonBlob(request));
       const response = await PUT({
         url: `/series/edit/${param}`,
