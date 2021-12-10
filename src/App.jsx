@@ -43,7 +43,7 @@ const App = () => {
           {isAuth ? (
             <Redirect
               to={{
-                pathname: '/info/my',
+                pathname: '/my-info',
                 state: {
                   from: '/signin',
                 },
