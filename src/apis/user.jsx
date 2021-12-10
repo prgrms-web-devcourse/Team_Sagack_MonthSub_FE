@@ -1,17 +1,8 @@
-import axios from './axios';
+import { GET } from './axios';
 
-export const instance = axios.create({});
-
-export const getMyInfo = async () => {
-  instance.defaults.headers.common.Authorization =
-    sessionStorage.getItem('Authorization');
-  const response = await axios({
-    url: 'https://monthsub.com/users/me',
-    method: 'get',
-    headers: {
-      Authorization: `Bearer ${instance.defaults.headers.common.Authorization}`,
-    },
-    withCredentials: true,
+export const getMyInfo = async () =>
+  GET({
+    url: '/users/me',
+    isAuth: true,
+    isJsonType: false,
   });
-  alert(response);
-};
