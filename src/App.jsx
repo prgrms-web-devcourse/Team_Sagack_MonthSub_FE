@@ -28,22 +28,13 @@ const App = () => {
     // TODO: 생성 - write & 수정 - edit
     <Header>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/article/:id" component={ArticleDetailPage} />
-        <Route exact path="/channel/:id" component={ChannelPage} />
-        <Route exact path="/my-edit" component={EditMyInfoPage} />
-        <Route exact path="/my-channel" component={MyChannelPage} />
-        <Route exact path="/my-info" component={MyInfoPage} />
-        <Route exact path="/purchase-info" component={PurchaseHistoryPage} />
-        <Route exact path="/purchase" component={PurchasePage} />
-        <Route exact path="/search" component={SearchPage} />
-        <Route exact path="/series/:id" component={SeriesDetailPage} />
-        <Route exact path="/series" component={SeriesListPage} />
-        <Route exact path="/signin">
+        <Route path="/" exact component={HomePage} />
+        <Route path="/signup" exact component={SignUpPage} />
+        <Route path="/signin">
           {isAuth ? (
             <Redirect
               to={{
-                pathname: '/my-info',
+                pathname: '/my/info',
                 state: {
                   from: '/signin',
                 },
@@ -53,13 +44,22 @@ const App = () => {
             <SignInPage />
           )}
         </Route>
-        <Route exact path="/signup" component={SignUpPage} />
-        <Route exact path="/article-write" component={WriteArticlePage} />
-        <Route exact path="/article-write/:id" component={WriteArticlePage} />
-        <Route exact path="/my-series" component={WriteListPage} />
-        <Route exact path="/series-write" component={WriteSeriesPage} />
-        <Route exact path="/series-write/:id" component={UpdateSeriesPage} />
-        <Route exact path="*" component={NotFoundPage} />
+        <Route path="/my/info" exact component={MyInfoPage} />
+        <Route path="/my/edit" exact component={EditMyInfoPage} />
+        <Route path="/my/channel" exact component={MyChannelPage} />
+        <Route path="/channel/:id" exact component={ChannelPage} />
+        <Route path="/purchase" exact component={PurchasePage} />
+        <Route path="/purchase/info" exact component={PurchaseHistoryPage} />
+        <Route path="/search" exact component={SearchPage} />
+        <Route path="/writes" exact component={WriteListPage} />
+        <Route path="/series" exact component={SeriesListPage} />
+        <Route path="/series/write" exact component={WriteSeriesPage} />
+        <Route path="/series/:id" exact component={SeriesDetailPage} />
+        <Route path="/series/edit/:id" exact component={UpdateSeriesPage} />
+        <Route path="/article/write" exact component={WriteArticlePage} />
+        <Route path="/article/:id" exact component={ArticleDetailPage} />
+        <Route path="/article/edit/:id" exact component={WriteArticlePage} />
+        <Route path="*" component={NotFoundPage} />
       </Switch>
     </Header>
   );
