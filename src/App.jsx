@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import {
   ArticleDetailPage,
   ChannelPage,
-  EditArticlePage,
   EditMyInfoPage,
   HomePage,
   MyChannelPage,
@@ -25,16 +24,16 @@ import {
 const App = () => {
   const isAuth = sessionStorage.getItem('authorization');
   return (
+    // TODO: 생성 - write & 수정 - edit
     <Header>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/article/:id" component={ArticleDetailPage} />
         <Route exact path="/channel/:id" component={ChannelPage} />
-        <Route exact path="/edit/article/:id" component={EditArticlePage} />
-        <Route exact path="/edit/my" component={EditMyInfoPage} />
-        <Route exact path="/channel/my" component={MyChannelPage} />
-        <Route exact path="/info/my" component={MyInfoPage} />
-        <Route exact path="/info/purchase" component={PurchaseHistoryPage} />
+        <Route exact path="/my-edit" component={EditMyInfoPage} />
+        <Route exact path="/my-channel" component={MyChannelPage} />
+        <Route exact path="/my-info" component={MyInfoPage} />
+        <Route exact path="/purchase-info" component={PurchaseHistoryPage} />
         <Route exact path="/purchase" component={PurchasePage} />
         <Route exact path="/search" component={SearchPage} />
         <Route exact path="/series/:id" component={SeriesDetailPage} />
@@ -43,7 +42,7 @@ const App = () => {
           {isAuth ? (
             <Redirect
               to={{
-                pathname: '/info/my',
+                pathname: '/my-info',
                 state: {
                   from: '/signin',
                 },

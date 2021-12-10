@@ -65,7 +65,7 @@ const SignInPage = () => {
         <ErrorMessage>{errors.password}&nbsp;</ErrorMessage>
         <Button type="submit">로그인</Button>
         <Span>
-          <Link to="signup">회원가입하기</Link>
+          <Link to="/signup">회원가입하기</Link>
         </Span>
         <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
       </Form>
