@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { Title } from '@components';
 
 const Input = ({
   name,
@@ -15,7 +16,7 @@ const Input = ({
   ...props
 }) => (
   <>
-    <Title style={{ display: title ? 'block' : 'none' }}>{title}</Title>
+    <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <StyledInput
       name={name}
       width={width}
@@ -72,9 +73,4 @@ const StyledInput = styled.input`
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   }
   margin: 0.3rem 0;
-`;
-
-const Title = styled.h1`
-  margin-bottom: 0.2rem;
-  font-weight: 700;
 `;

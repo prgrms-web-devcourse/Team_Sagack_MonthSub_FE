@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const Wrapper = ({ children, width }) => (
-  <StyledDiv width={width}>{children}</StyledDiv>
+const Wrapper = ({ children, width, ...props }) => (
+  <StyledDiv width={width} {...props}>
+    {children}
+  </StyledDiv>
 );
 
 export default Wrapper;

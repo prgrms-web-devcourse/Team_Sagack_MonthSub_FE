@@ -27,3 +27,4 @@ export { default as CardSlider } from './domain/CardSlider';
 export { default as EditArticleForm } from './domain/EditArticleForm';
 export { default as ImageUpload } from './domain/ImageUpload';
 export { default as Title } from './commons/Title';
+export { default as Period } from './domain/Period';

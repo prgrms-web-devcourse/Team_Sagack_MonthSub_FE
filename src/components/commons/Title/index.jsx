@@ -56,7 +56,7 @@ Title.defaultProps = {
   h4: false,
   h5: false,
   h6: false,
-  marginBottom: '1rem',
+  marginBottom: '0.5rem',
   weight: 700,
   size: '1.125rem',
 };
