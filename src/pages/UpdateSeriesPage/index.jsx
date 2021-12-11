@@ -13,7 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import { GET, PUT, POST } from '../../apis/axios';
+import { GET, PUT } from '../../apis/axios';
 
 const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
@@ -35,14 +35,7 @@ const UpdateSeriesPage = ({ match, history }) => {
     },
 
     onSubmit: async values => {
-      const PostData = {
-        ...values,
-        uploadDate: checkedInputs,
-        articleCount: Number(values.articleCount),
-        price: Number(values.price),
-      };
-
-      const PutData = {
+      const requestData = {
         writeId: values.writeId,
         title: values.title,
         introduceText: values.introduceText,
@@ -56,23 +49,23 @@ const UpdateSeriesPage = ({ match, history }) => {
           type: 'application/json',
         });
       }
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(id ? PutData : PostData));
+      const jsonFormData = new FormData();
+      jsonFormData.append('request', jsonBlob(requestData));
 
-      const response = id
-        ? await PUT({
-            url: `/series/edit/${id}`,
-            isAuth: true,
-            data: formData,
-          })
-        : await POST({
-            url: '/series',
-            isAuth: true,
-            data: formData,
-          });
+      const putResponse = await PUT({
+        url: `/series/edit/${id}`,
+        isAuth: true,
+        data: jsonFormData,
+      });
 
-      response.success && history.push(`/series/${id}`);
+      if (file) {
+        const fileFormData = new FormData();
+        fileFormData.append('thumbnail', file);
+
+        // ImageApi호출
+      }
+
+      putResponse.status === 200 && history.push(`/series/${id}`);
     },
     validate: values => {
       const newErrors = {};
@@ -96,12 +89,12 @@ const UpdateSeriesPage = ({ match, history }) => {
       url: `/series/${id}`,
       isAuth: false,
     });
-    const seriesData = response.data.data.series;
-    const uploadData = response.data.data.upload;
-    const subscribeData = response.data.data.subscribe;
+    const seriesData = response.data.series;
+    const uploadData = response.data.upload;
+    const subscribeData = response.data.subscribe;
 
     setValues({
-      writeId: response.data.data.writer.id,
+      writeId: response.data.writer.id,
       title: seriesData.title,
       introduceText: seriesData.introduceText,
       introduceSentence: seriesData.introduceSentence,
@@ -110,7 +103,7 @@ const UpdateSeriesPage = ({ match, history }) => {
       subscribeEndDate: subscribeData.endDate,
       seriesStartDate: seriesData.startDate,
       seriesEndDate: seriesData.endDate,
-      category: response.data.data.category,
+      category: response.data.category,
       uploadTime: uploadData.time,
       articleCount: seriesData.articleCount,
       uploadDate: uploadData.date,
