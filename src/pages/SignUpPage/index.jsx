@@ -17,16 +17,12 @@ const SignUpPage = () => {
       nickName: '',
     },
     onSubmit: async requestData => {
-      const { data } = await postSignUp(requestData);
-
-      const resErrors = {};
-      if (data.code === 'A005')
-        resErrors.resError = '이미 가입된 이메일입니다.';
-      if (data.code === 'A006')
-        resErrors.resError = '이미 가입된 닉네임입니다.';
-
-      !data.code && history.push('/');
-      return resErrors;
+      try {
+        const { data } = await postSignUp(requestData);
+        data && history.push('/');
+      } catch (error) {
+        alert(error);
+      }
     },
     validate: ({ email, userName, password, nickName }) => {
       const newErrors = {};

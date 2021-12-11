@@ -15,19 +15,15 @@ const SignInPage = () => {
       password: '',
     },
     onSubmit: async requestData => {
-      const { data } = await postSignIn(values);
-
-      const resErrors = {};
-      if (data.code === 'A002')
-        resErrors.resError = '존재하지 않은 이메일입니다.';
-      if (data.code === 'A003')
-        resErrors.resError = '아이디 또는 비밀번호가 일치하지않습니다.';
-
-      if (data.statusCode === 200) {
-        setValue(data.data.token);
-        requestData.code || history.push('/');
+      try {
+        const response = await postSignIn(requestData);
+        if (response) {
+          setValue(response.data.token);
+          history.push('/');
+        }
+      } catch (error) {
+        alert(error);
       }
-      return resErrors;
     },
     validate: ({ email, password }) => {
       const newErrors = {};

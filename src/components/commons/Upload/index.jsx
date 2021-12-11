@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const InputFile = ({
+const Upload = ({
   children,
   name,
   accept,
@@ -43,7 +43,7 @@ const InputFile = ({
   );
 };
 
-InputFile.defaultProps = {
+Upload.defaultProps = {
   children: '',
   name: '',
   accept: '.jpg, .png, .jpeg',
@@ -53,7 +53,7 @@ InputFile.defaultProps = {
   isFile: false,
 };
 
-InputFile.propTypes = {
+Upload.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   name: PropTypes.string,
   accept: PropTypes.string,
@@ -63,7 +63,7 @@ InputFile.propTypes = {
   isFile: PropTypes.bool,
 };
 
-export default InputFile;
+export default Upload;
 
 const Input = styled.input`
   display: none;

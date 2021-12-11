@@ -23,26 +23,23 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
     e.preventDefault();
     const newErrors = validate(values);
     if (!newErrors || Object.keys(newErrors).length === 0) {
-      const resErrors = await onSubmit(values);
-      setErrors({
-        ...newErrors,
-        ...resErrors,
-      });
+      await onSubmit(values);
+      setErrors({ newErrors });
     } else setErrors(newErrors);
     setIsLoading(false);
   };
 
   const handleImageUpload = e => {
     const { name, files } = e.target;
+    const imageFile = files[0];
     const fileReader = new FileReader();
+
     fileReader.readAsDataURL(files[0]);
     fileReader.onload = () => {
       setValues({
         ...values,
-        [name]: {
-          file: files[0],
-          url: fileReader.result,
-        },
+        [name]: fileReader.result,
+        [`${name}File`]: imageFile,
       });
     };
   };
