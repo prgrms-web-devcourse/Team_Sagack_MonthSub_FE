@@ -13,7 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import { GET, PUT } from '../../apis/axios';
+import { getSeries, putSeries } from '../../apis/series';
 
 const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
@@ -52,11 +52,7 @@ const UpdateSeriesPage = ({ match, history }) => {
       const jsonFormData = new FormData();
       jsonFormData.append('request', jsonBlob(requestData));
 
-      const putResponse = await PUT({
-        url: `/series/edit/${id}`,
-        isAuth: true,
-        data: jsonFormData,
-      });
+      const putResponse = await putSeries(jsonFormData, id);
 
       if (file) {
         const fileFormData = new FormData();
@@ -85,10 +81,8 @@ const UpdateSeriesPage = ({ match, history }) => {
   });
 
   const init = async id => {
-    const response = await GET({
-      url: `/series/${id}`,
-      isAuth: false,
-    });
+    const response = await getSeries(id);
+
     const seriesData = response.data.series;
     const uploadData = response.data.upload;
     const subscribeData = response.data.subscribe;
@@ -112,6 +106,11 @@ const UpdateSeriesPage = ({ match, history }) => {
   };
 
   useEffect(() => {
+    const isLogin = sessionStorage.getItem('authorization');
+    if (!isLogin) {
+      alert('로그인이 필요한 서비스 입니다!');
+      history.goBack();
+    }
     id && init(id);
   }, []);
 

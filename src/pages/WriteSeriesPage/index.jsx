@@ -13,7 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import { POST } from '../../apis/axios';
+import { postSeries } from '../../apis/series';
 
 const WriteSeriesPage = ({ match, history }) => {
   const { id } = match.params;
@@ -52,11 +52,7 @@ const WriteSeriesPage = ({ match, history }) => {
       formData.append('thumbnail', file);
       formData.append('request', jsonBlob(requestData));
 
-      const response = await POST({
-        url: '/series',
-        isAuth: true,
-        data: formData,
-      });
+      const response = await postSeries(formData);
 
       response.status === 200 && history.push(`/series/${id}`);
     },
@@ -78,7 +74,11 @@ const WriteSeriesPage = ({ match, history }) => {
   });
 
   useEffect(() => {
-    // 토큰 가져와서 유무 따지기
+    const isLogin = sessionStorage.getItem('authorization');
+    if (!isLogin) {
+      alert('로그인이 필요한 서비스 입니다!');
+      history.goBack();
+    }
   }, []);
 
   const handleChangefile = file => {
@@ -180,7 +180,15 @@ const WriteSeriesPage = ({ match, history }) => {
         <Section>
           <CheckBox
             title="연재 요일"
-            labels={['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']}
+            labels={[
+              'monday',
+              'tuesday',
+              'wenday',
+              'thursday',
+              'friday',
+              'saturday',
+              'sunday',
+            ]}
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
