@@ -13,7 +13,11 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import { getSeries, putSeries } from '../../apis/series';
+import {
+  putSeries,
+  getSeriesDetail,
+  patchSeriesImage,
+} from '../../apis/series';
 
 const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
@@ -24,14 +28,14 @@ const UpdateSeriesPage = ({ match, history }) => {
       title: '',
       introduceText: '',
       introduceSentence: '',
-      price: 0,
+      price: '',
       subscribeStartDate: '',
       subscribeEndDate: '',
       seriesStartDate: '',
       seriesEndDate: '',
       category: '',
       uploadTime: '',
-      articleCount: 0,
+      articleCount: '',
     },
 
     onSubmit: async values => {
@@ -58,10 +62,13 @@ const UpdateSeriesPage = ({ match, history }) => {
         const fileFormData = new FormData();
         fileFormData.append('thumbnail', file);
 
-        // ImageApi호출
+        const patchResponse = await patchSeriesImage(fileFormData, id);
+        console.log(putResponse);
+        console.log(patchResponse);
       }
 
-      putResponse.status === 200 && history.push(`/series/${id}`);
+      console.log(putResponse);
+      // putResponse.status === 200 && history.push(`/series/${id}`);
     },
     validate: values => {
       const newErrors = {};
@@ -81,7 +88,7 @@ const UpdateSeriesPage = ({ match, history }) => {
   });
 
   const init = async id => {
-    const response = await getSeries(id);
+    const response = await getSeriesDetail(id);
 
     const seriesData = response.data.series;
     const uploadData = response.data.upload;
@@ -216,7 +223,15 @@ const UpdateSeriesPage = ({ match, history }) => {
         <Section>
           <CheckBox
             title="연재 요일"
-            labels={['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']}
+            labels={[
+              'monday',
+              'tuesday',
+              'wednesday',
+              'thursday',
+              'friday',
+              'saturday',
+              'sunday',
+            ]}
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />

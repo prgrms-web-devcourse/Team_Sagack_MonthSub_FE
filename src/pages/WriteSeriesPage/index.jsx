@@ -15,8 +15,7 @@ import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import { postSeries } from '../../apis/series';
 
-const WriteSeriesPage = ({ match, history }) => {
-  const { id } = match.params;
+const WriteSeriesPage = ({ history }) => {
   const [file, setFile] = useState(null);
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, errors } = useForm({
@@ -24,14 +23,14 @@ const WriteSeriesPage = ({ match, history }) => {
       title: '',
       introduceText: '',
       introduceSentence: '',
-      price: 0,
+      price: '',
       subscribeStartDate: '',
       subscribeEndDate: '',
       seriesStartDate: '',
       seriesEndDate: '',
       category: '',
       uploadTime: '',
-      articleCount: 0,
+      articleCount: '',
     },
 
     onSubmit: async values => {
@@ -53,8 +52,8 @@ const WriteSeriesPage = ({ match, history }) => {
       formData.append('request', jsonBlob(requestData));
 
       const response = await postSeries(formData);
-
-      response.status === 200 && history.push(`/series/${id}`);
+      const { seriesId } = response.data;
+      seriesId && history.push(`/series/${seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -183,7 +182,7 @@ const WriteSeriesPage = ({ match, history }) => {
             labels={[
               'monday',
               'tuesday',
-              'wenday',
+              'wednesday',
               'thursday',
               'friday',
               'saturday',
@@ -203,7 +202,6 @@ const WriteSeriesPage = ({ match, history }) => {
 };
 
 WriteSeriesPage.propTypes = {
-  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
