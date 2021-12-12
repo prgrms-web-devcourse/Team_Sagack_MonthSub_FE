@@ -13,11 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import {
-  putSeries,
-  getSeriesDetail,
-  patchSeriesImage,
-} from '../../apis/series';
+import { putSeries, getSeriesDetail, putSeriesImage } from '../../apis/series';
 import jsonBlob from '../../utils/createJsonBlob';
 
 const UpdateSeriesPage = ({ match, history }) => {
@@ -59,8 +55,7 @@ const UpdateSeriesPage = ({ match, history }) => {
           const fileFormData = new FormData();
           fileFormData.append('image', file);
 
-          console.log(file);
-          const patchResponse = await patchSeriesImage(fileFormData, id);
+          const patchResponse = await putSeriesImage(fileFormData, id);
           putResponse.status === 200 &&
             patchResponse.status === 200 &&
             history.push(`/series/${id}`);

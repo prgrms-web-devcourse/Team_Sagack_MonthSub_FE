@@ -98,7 +98,6 @@ export const PATCH = async ({
       : '',
   };
   try {
-    console.log(headers);
     const response = await axios({
       method: 'patch',
       url: `${REACT_APP_API_END_POINT}${url}`,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET, POST, PUT, PATCH } from './axios';
+import { GET, POST, PUT } from './axios';
 
 const { REACT_APP_API_END_POINT } = process.env;
 
@@ -47,8 +47,8 @@ export const putSeries = async (data, params) => {
   return response;
 };
 
-export const patchSeriesImage = async (data, params) => {
-  const response = await PATCH({
+export const putSeriesImage = async (data, params) => {
+  const response = await PUT({
     url: `/series/${params}/thumbnail`,
     isAuth: true,
     data,
