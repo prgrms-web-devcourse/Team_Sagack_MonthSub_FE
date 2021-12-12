@@ -75,7 +75,7 @@ const WriteSeriesPage = ({ history }) => {
     const isLogin = sessionStorage.getItem('authorization');
     if (!isLogin) {
       alert('로그인이 필요한 서비스 입니다!');
-      history.goBack();
+      history.push('/login');
     }
   }, []);
 

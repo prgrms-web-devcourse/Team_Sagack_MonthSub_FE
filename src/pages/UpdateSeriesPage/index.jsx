@@ -57,8 +57,9 @@ const UpdateSeriesPage = ({ match, history }) => {
 
         if (file) {
           const fileFormData = new FormData();
-          fileFormData.append('thumbnail', file);
+          fileFormData.append('image', file);
 
+          console.log(file);
           const patchResponse = await patchSeriesImage(fileFormData, id);
           putResponse.status === 200 &&
             patchResponse.status === 200 &&
@@ -116,7 +117,7 @@ const UpdateSeriesPage = ({ match, history }) => {
     const isLogin = sessionStorage.getItem('authorization');
     if (!isLogin) {
       alert('로그인이 필요한 서비스 입니다!');
-      history.goBack();
+      history.push('/login');
     }
     id && init(id);
   }, []);
