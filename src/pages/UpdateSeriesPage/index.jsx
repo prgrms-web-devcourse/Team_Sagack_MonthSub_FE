@@ -46,14 +46,11 @@ const UpdateSeriesPage = ({ match, history }) => {
           uploadTime: values.uploadTime,
         };
 
-        const jsonFormData = new FormData();
-        jsonFormData.append('request', jsonBlob(requestData));
-
-        const putResponse = await putSeries(jsonFormData, id);
+        const putResponse = await putSeries(jsonBlob(requestData), id);
 
         if (file) {
           const fileFormData = new FormData();
-          fileFormData.append('image', file);
+          fileFormData.append('thumbnail', file);
 
           const patchResponse = await putSeriesImage(fileFormData, id);
           putResponse.status === 200 &&

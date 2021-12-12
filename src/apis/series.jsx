@@ -43,6 +43,7 @@ export const putSeries = async (data, params) => {
     url: `/series/${params}/edit`,
     isAuth: true,
     data,
+    isJsonType: true,
   });
   return response;
 };
