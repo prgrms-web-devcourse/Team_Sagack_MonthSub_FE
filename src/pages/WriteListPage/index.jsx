@@ -22,7 +22,7 @@ const WriteListPage = () => {
         <Span>
           <H1>연재중인 시리즈</H1>
           <StyeldAddCircleOutlineIcon />
-          <Link to="series-write">새 시리즈 작성하기</Link>
+          <Link to="/series/write">새 시리즈 작성하기</Link>
         </Span>
         <CardList list={series} />
       </Container>
