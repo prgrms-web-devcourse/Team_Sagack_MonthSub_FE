@@ -1,50 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Wrapper,
   SeriesEditor,
-  Input,
-  Upload,
+  ImageUpload,
   ConfirmCancleButtons,
   Radio,
   CheckBox,
+  Input,
+  Period,
 } from '@components';
 import { useForm } from '@hooks';
-import { GET, PUT } from '../../apis/axios';
+import calculateLaterDate from '@utils/calculateLaterDate ';
+import { putSeries, getSeriesDetail, putSeriesImage } from '../../apis/series';
+import jsonBlob from '../../utils/createJsonBlob';
 
-const UpdateSeriesPage = () => {
-  const history = useHistory();
-  const [param, setParam] = useState('');
+const UpdateSeriesPage = ({ match, history }) => {
+  const { id } = match.params;
   const [file, setFile] = useState(null);
-  const [initialValues, setInitialValues] = useState({});
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, handleChange, handleSubmit, errors } = useForm({
-    dep: initialValues,
+  const { values, setValues, handleChange, handleSubmit, errors } = useForm({
+    initialValues: {
+      title: '',
+      introduceText: '',
+      introduceSentence: '',
+      price: '',
+      subscribeStartDate: '',
+      subscribeEndDate: '',
+      seriesStartDate: '',
+      seriesEndDate: '',
+      category: '',
+      uploadTime: '',
+      articleCount: '',
+    },
+
     onSubmit: async values => {
-      const request = {
-        writeId: values.writeId,
-        title: values.title,
-        introduceText: values.introduceText,
-        introduceSentence: values.introduceSentence,
-        uploadDate: checkedInputs,
-        uploadTime: values.uploadTime,
-      };
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
+      try {
+        const requestData = {
+          writeId: values.writeId,
+          title: values.title,
+          introduceText: values.introduceText,
+          introduceSentence: values.introduceSentence,
+          uploadDate: checkedInputs,
+          uploadTime: values.uploadTime,
+        };
+
+        const putResponse = await putSeries(jsonBlob(requestData), id);
+
+        if (file) {
+          const fileFormData = new FormData();
+          fileFormData.append('file', file);
+
+          const patchResponse = await putSeriesImage(fileFormData, id);
+          putResponse.status === 200 &&
+            patchResponse.status === 200 &&
+            history.push(`/series/${id}`);
+        } else {
+          putResponse.status === 200 && history.push(`/series/${id}`);
+        }
+      } catch (error) {
+        alert(error);
       }
-      const formData = new FormData();
-      // formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(request));
-      const response = await PUT({
-        url: `/series/edit/${param}`,
-        isAuth: true,
-        data: formData,
-      });
-      const { seriesId } = response.data.data;
-      history.push(`/series/${seriesId}`);
     },
     validate: values => {
       const newErrors = {};
@@ -62,40 +79,45 @@ const UpdateSeriesPage = () => {
       return newErrors;
     },
   });
+
+  const init = async id => {
+    const response = await getSeriesDetail(id);
+
+    const seriesData = response.data.series;
+    const uploadData = response.data.upload;
+    const subscribeData = response.data.subscribe;
+
+    setValues({
+      writeId: response.data.writer.id,
+      title: seriesData.title,
+      introduceText: seriesData.introduceText,
+      introduceSentence: seriesData.introduceSentence,
+      price: seriesData.price,
+      subscribeStartDate: subscribeData.startDate,
+      subscribeEndDate: subscribeData.endDate,
+      seriesStartDate: seriesData.startDate,
+      seriesEndDate: seriesData.endDate,
+      category: response.data.category,
+      uploadTime: uploadData.time,
+      articleCount: seriesData.articleCount,
+      uploadDate: uploadData.date,
+    });
+    setCheckedInputs(uploadData.date);
+  };
+
   useEffect(() => {
-    const currentUrlArr = window.location.pathname.split('/');
-    const param = currentUrlArr[currentUrlArr.length - 1];
-    setParam(param);
-    const init = async () => {
-      const response = await GET({
-        url: `/series/${param}`,
-        isAuth: false,
-      });
-      const seriesData = response.data.data.series;
-      const uploadData = response.data.data.upload;
-      const subscribeData = response.data.data.subscribe;
-      setInitialValues({
-        writeId: response.data.data.writer.id,
-        title: seriesData.title,
-        introduceText: seriesData.introduceText,
-        introduceSentence: seriesData.introduceSentence,
-        price: seriesData.price,
-        subscribeStartDate: subscribeData.startDate,
-        subscribeEndDate: subscribeData.endDate,
-        seriesStartDate: seriesData.startDate,
-        seriesEndDate: seriesData.endDate,
-        category: response.data.data.category,
-        uploadTime: uploadData.time,
-        articleCount: seriesData.articleCount,
-        uploadDate: uploadData.date,
-      });
-      setCheckedInputs(uploadData.date);
-    };
-    init();
+    const isLogin = sessionStorage.getItem('authorization');
+    if (!isLogin) {
+      alert('로그인이 필요한 서비스 입니다!');
+      history.push('/login');
+    }
+    id && init(id);
   }, []);
+
   const handleChangefile = file => {
     file && setFile(file);
   };
+
   const handleSelectDays = (checked, value) => {
     if (checked) {
       setCheckedInputs([...checkedInputs, value]);
@@ -104,152 +126,134 @@ const UpdateSeriesPage = () => {
     }
   };
   return (
-    <Wrapper>
+    <StyledWrapper styled={{ padding: '2rem 0' }}>
       <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
-        <StyledSection>
-          <Title>카테고리</Title>
+        <Section>
           <Radio
             names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
             onChange={handleChange}
             checkedButton={values.category}
-            disabled
+            disabled={!!id}
+            title="카테고리"
           />
-        </StyledSection>
-        <StyledSection>
-          <Title>시리즈 소개</Title>
-          <SeriesEditor onChange={handleChange} value={values} />
-        </StyledSection>
-        <StyledSection>
-          <Title>이미지 업로드</Title>
-          <StyledUpload
-            name="thumbnail"
-            onChange={handleChangefile}
-            isFile={!!file}
-          >
-            <button type="button">File Select</button>
-            <span>{file ? file.name : ''}</span>
-            <ErrorMessage>{errors.thumbnail}</ErrorMessage>
-          </StyledUpload>
-        </StyledSection>
-        <StyledSection>
-          <Title>구독료</Title>
-          <StyledInput
+        </Section>
+
+        <Section>
+          <SeriesEditor
+            onChange={handleChange}
+            value={values}
+            title="시리즈 소개"
+          />
+        </Section>
+
+        <Section>
+          <ImageUpload onChange={handleChangefile} title="이미지 업로드" />
+        </Section>
+
+        <Section>
+          <Input
+            title="구독료"
             type="number"
             value={values.price}
             name="price"
             onChange={handleChange}
             min={0}
-            disabled
+            disabled={!!id}
           />
-        </StyledSection>
-        <StyledSection>
-          <Title> 모집 기간</Title>
-          <StyledInput
-            type="date"
-            value={values.subscribeStartDate}
-            name="subscribeStartDate"
+        </Section>
+
+        <Section>
+          <Period
+            title="모집기간"
+            startName="subscribeStartDate"
+            startValue={values.subscribeStartDate}
+            startMin=""
+            endName="subscribeEndDate"
+            endValue={values.subscribeEndDate}
+            endMin={calculateLaterDate(values.subscribeStartDate, 1)}
             onChange={handleChange}
-            disabled
+            pageParam={id}
           />
-          <Line>-</Line>
-          <StyledInput
-            type="date"
-            value={values.subscribeEndDate}
-            name="subscribeEndDate"
+        </Section>
+
+        <Section>
+          <Period
+            title="연재기간"
+            startName="seriesStartDate"
+            startValue={values.seriesStartDate}
+            startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+            endName="seriesEndDate"
+            endValue={values.seriesEndDate}
+            endMin={calculateLaterDate(values.seriesStartDate, 1)}
             onChange={handleChange}
-            disabled
+            pageParam={id}
           />
-        </StyledSection>
-        <StyledSection>
-          <Title>연재 기간</Title>
-          <StyledInput
-            type="date"
-            name="seriesStartDate"
-            value={values.seriesStartDate}
-            onChange={handleChange}
-            disabled
-          />
-          <Line>-</Line>
-          <StyledInput
-            type="date"
-            name="seriesEndDate"
-            value={values.seriesEndDate}
-            onChange={handleChange}
-            disabled
-          />
-        </StyledSection>
-        <StyledSection>
-          <Title>연재 시간</Title>
-          <StyledInput
+        </Section>
+
+        <Section>
+          <Input
+            title="연재 시간"
             type="time"
             name="uploadTime"
             value={values.uploadTime}
             onChange={handleChange}
           />
-        </StyledSection>
-        <StyledSection>
-          <Title>총 회차 </Title>
-          <StyledInput
+        </Section>
+
+        <Section>
+          <Input
+            title="총 회차"
             type="number"
             name="articleCount"
             value={values.articleCount}
             onChange={handleChange}
             min={1}
-            disabled
+            disabled={!!id}
           />
-        </StyledSection>
-        <StyledSection>
-          <Title>연재 요일</Title>
+        </Section>
+
+        <Section>
           <CheckBox
-            labels={['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun']}
+            title="연재 요일"
+            labels={[
+              'monday',
+              'tuesday',
+              'wednesday',
+              'thursday',
+              'friday',
+              'saturday',
+              'sunday',
+            ]}
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
           <ErrorMessage>{errors.day}</ErrorMessage>
           <ErrorMessage>{errors.dayLength}</ErrorMessage>
-        </StyledSection>
+        </Section>
+
         <ConfirmCancleButtons confirmName="제출" />
       </form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
+
+UpdateSeriesPage.propTypes = {
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
 export default UpdateSeriesPage;
+
+const StyledWrapper = styled(Wrapper)`
+  padding: 9rem 0 4rem 0;
+`;
+
+const Section = styled.section`
+  margin-bottom: 3rem;
+`;
+
 const ErrorMessage = styled.span`
   margin: 1rem 0;
   color: #ffb15c;
-`;
-const Line = styled.span`
-  padding: 0 0.3rem;
-`;
-const Title = styled.h1`
-  margin-bottom: 1rem;
-  font-weight: 700;
-`;
-const StyledInput = styled(Input)`
-  margin-top: 0;
-`;
-const StyledSection = styled.section`
-  margin-bottom: 3rem;
-`;
-const StyledUpload = styled(Upload)`
-  display: flex;
-  align-items: center;
-  button {
-    width: 6.25rem;
-    padding: 0.3rem;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 50px;
-    border: none;
-    margin-right: 0.5rem;
-    color: ${({ isFile }) => (isFile ? '#FFB15C' : '#4B4B4B')};
-    box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-    background-color: #fff;
-    text-align: center;
-    &:hover {
-      color: #ffb15c;
-    }
-  }
 `;

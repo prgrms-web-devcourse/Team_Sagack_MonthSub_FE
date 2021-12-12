@@ -15,7 +15,7 @@ const UserModal = ({
   <StyledDiv maxwidth={maxWidth} visible={visible} {...props}>
     <List>
       <li>
-        <Link to="/my-info">마이페이지</Link>
+        <Link to="/my/info">마이페이지</Link>
       </li>
       <li>
         <Link to="/">관심 시리즈</Link>

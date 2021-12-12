@@ -26,7 +26,6 @@ import {
 const App = () => {
   const isAuth = sessionStorage.getItem('authorization');
   return (
-    // TODO: 생성 - write & 수정 - edit
     <Header>
       <Switch>
         <Route path="/" exact component={HomePage} />

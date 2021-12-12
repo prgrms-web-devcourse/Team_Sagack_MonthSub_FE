@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
-const useForm = ({ initialValues, onSubmit, validate, dep }) => {
-  const [values, setValues] = useState(initialValues || dep);
+const useForm = ({ initialValues, onSubmit, validate }) => {
+  const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    dep && setValues(() => dep);
-    return () => {
+  useEffect(
+    () => () => {
       setErrors({});
       setIsLoading(false);
-    };
-  }, [dep]);
+    },
+    [],
+  );
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -23,26 +23,23 @@ const useForm = ({ initialValues, onSubmit, validate, dep }) => {
     e.preventDefault();
     const newErrors = validate(values);
     if (!newErrors || Object.keys(newErrors).length === 0) {
-      const resErrors = await onSubmit(values);
-      setErrors({
-        ...newErrors,
-        ...resErrors,
-      });
+      await onSubmit(values);
+      setErrors({ newErrors });
     } else setErrors(newErrors);
     setIsLoading(false);
   };
 
   const handleImageUpload = e => {
     const { name, files } = e.target;
+    const imageFile = files[0];
     const fileReader = new FileReader();
+
     fileReader.readAsDataURL(files[0]);
     fileReader.onload = () => {
       setValues({
         ...values,
-        [name]: {
-          file: files[0],
-          url: fileReader.result,
-        },
+        [name]: fileReader.result,
+        [`${name}File`]: imageFile,
       });
     };
   };
