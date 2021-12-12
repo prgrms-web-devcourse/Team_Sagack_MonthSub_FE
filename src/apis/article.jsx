@@ -1,4 +1,4 @@
-import { GET, POST, PUT, PATCH } from './axios';
+import { GET, POST, PUT } from './axios';
 
 export const getArticleDetail = async ({ id }) => {
   const respones = GET({
@@ -28,8 +28,8 @@ export const putArticle = async (data, params) => {
   return response;
 };
 
-export const patchArticleImage = async (data, params) => {
-  const response = await PATCH({
+export const putArticleImage = async (data, params) => {
+  const response = await PUT({
     url: `/articles/${params}/thumbnail`,
     isAuth: true,
     data,

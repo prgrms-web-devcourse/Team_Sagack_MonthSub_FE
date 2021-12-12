@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import {
   getArticleDetail,
   putArticle,
-  patchArticleImage,
+  putArticleImage,
 } from '../../apis/article';
 
 const UpdateArticlePage = ({ match, history }) => {
@@ -25,7 +25,6 @@ const UpdateArticlePage = ({ match, history }) => {
       createdAt: '',
     },
     onSubmit: async values => {
-      console.log(file);
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -39,10 +38,16 @@ const UpdateArticlePage = ({ match, history }) => {
       const putResponse = await putArticle(jsonBlob(requestData), id);
 
       if (file) {
+        console.log(file);
         const fileFormData = new FormData();
-        fileFormData.append('image', file);
-        fileFormData.append('seriesId', Number(id));
-        const patchResponse = await patchArticleImage(fileFormData, id);
+        fileFormData.append('thumbnail', file);
+        fileFormData.append('seriesId', id);
+
+        for (const key of fileFormData.keys()) {
+          console.log(key, fileFormData[key]);
+        }
+
+        const patchResponse = await putArticleImage(fileFormData, id);
 
         putResponse.status === 200 &&
           patchResponse.status === 200 &&
@@ -89,7 +94,11 @@ const UpdateArticlePage = ({ match, history }) => {
         <StyledArticleEditor onChange={handleChange} value={values} />
         <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
         <Title>썸네일 선택</Title>
-        <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
+        <ImageUpload
+          onChange={handleChangefile}
+          valuename="thumbnail"
+          isFile={!!file}
+        />
         <Buttons confirmName="제출" />
       </Form>
     </Wrapper>
