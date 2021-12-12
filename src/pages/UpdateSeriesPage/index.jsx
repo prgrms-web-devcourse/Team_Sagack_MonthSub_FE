@@ -50,7 +50,7 @@ const UpdateSeriesPage = ({ match, history }) => {
 
         if (file) {
           const fileFormData = new FormData();
-          fileFormData.append('thumbnail', file);
+          fileFormData.append('file', file);
 
           const patchResponse = await putSeriesImage(fileFormData, id);
           putResponse.status === 200 &&

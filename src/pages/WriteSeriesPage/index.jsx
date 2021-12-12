@@ -44,7 +44,7 @@ const WriteSeriesPage = ({ history }) => {
         };
 
         const formData = new FormData();
-        formData.append('thumbnail', file);
+        formData.append('file', file);
         formData.append('request', jsonBlob(requestData));
 
         const response = await postSeries(formData);
