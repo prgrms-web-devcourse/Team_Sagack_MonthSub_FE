@@ -13,7 +13,7 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
         width="100%"
         height="2rem"
         name="title"
-        value={value.title}
+        value={value.title || ''}
         onChange={handleInputChange}
         disabled={disabled && disabled}
         placeholder="제목"
@@ -22,8 +22,8 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
       <StyledTextArea
         width="100%"
         height="100%"
-        name="content"
-        value={value.content}
+        name="contents"
+        value={value.contents || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="내용"
@@ -36,10 +36,11 @@ const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
 ArticleEditor.defaultProps = {
   onChange: () => {},
   disabled: false,
+  value: {},
 };
 
 ArticleEditor.propTypes = {
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
@@ -65,7 +66,7 @@ const StyledTextArea = styled(TextArea)`
   border: 0.016rem solid #949494;
   margin-bottom: 0.5rem;
   outline: none;
-  &[name='content'] {
+  &[name='contents'] {
     flex-basis: 1;
   }
 `;

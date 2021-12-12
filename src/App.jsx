@@ -16,6 +16,7 @@ import {
   SignInPage,
   SignUpPage,
   WriteArticlePage,
+  UpdateArticlePage,
   WriteListPage,
   WriteSeriesPage,
   UpdateSeriesPage,
@@ -56,9 +57,9 @@ const App = () => {
         <Route path="/series/write" exact component={WriteSeriesPage} />
         <Route path="/series/:id" exact component={SeriesDetailPage} />
         <Route path="/series/edit/:id" exact component={UpdateSeriesPage} />
+        <Route path="/article/edit/:id" exact component={UpdateArticlePage} />
         <Route path="/article/write" exact component={WriteArticlePage} />
         <Route path="/article/:id" exact component={ArticleDetailPage} />
-        <Route path="/article/edit/:id" exact component={WriteArticlePage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </Header>

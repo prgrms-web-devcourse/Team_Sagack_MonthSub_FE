@@ -8,19 +8,20 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { postArticles } from '../../apis/article';
+import { getArticleDetail } from '../../apis/article';
 
-const WriteArticlePage = ({ history }) => {
+const UpdateArticlePage = ({ match, history }) => {
+  const { id } = match.params;
   const [file, setFile] = useState({});
-  const { values, errors, handleChange, handleSubmit } = useForm({
+  const { values, errors, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       contents: '',
+      thumbnailKey: '',
+      createdAt: '',
     },
-
-    onSubmit: async values => {
-      console.log(values);
-      console.log(file);
+    onSubmit: async data => {
+      console.log(values, file);
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -28,20 +29,25 @@ const WriteArticlePage = ({ history }) => {
       }
 
       const formData = new FormData();
-      formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(values));
-
-      const response = await postArticles(formData);
-      console.log(response);
+      formData.append('request', jsonBlob(data));
     },
     validate: values => {
       const newErrors = {};
       if (!values.title) newErrors.title = '제목을 입력해주세요.';
       if (!values.contents) newErrors.contents = '내용을 입력해주세요.';
-      if (!file) newErrors.file = '이미지를 업로드 해주세요!';
       return newErrors;
     },
   });
+
+  const getArticleContent = async id => {
+    const { data } = await getArticleDetail({ id });
+    setValues({
+      title: data.title,
+      contents: data.contents,
+      thumbnailKey: data.thumbnailKey,
+      createdAt: data.createdAt,
+    });
+  };
 
   useEffect(() => {
     const isLogin = sessionStorage.getItem('authorization');
@@ -49,6 +55,7 @@ const WriteArticlePage = ({ history }) => {
       alert('로그인이 필요한 서비스 입니다!');
       history.push('/signin');
     }
+    id && getArticleContent(id);
   }, []);
 
   const handleChangefile = file => {
@@ -58,22 +65,27 @@ const WriteArticlePage = ({ history }) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>아티클 작성 </Title>
+        <Title>아티클 작성</Title>
         <StyledArticleEditor onChange={handleChange} value={values} />
-        <ErrorMessage>{errors.title || errors.contents}</ErrorMessage>
+        <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
         <Title>썸네일 선택</Title>
-        <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
+        <ImageUpload
+          onChange={handleChangefile}
+          valuename="thumbnail"
+          imageUrl={values.thumbnailKey}
+        />
         <Buttons confirmName="제출" />
       </Form>
     </Wrapper>
   );
 };
 
-WriteArticlePage.propTypes = {
+UpdateArticlePage.propTypes = {
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default WriteArticlePage;
+export default UpdateArticlePage;
 
 const Form = styled.form`
   width: 80%;
