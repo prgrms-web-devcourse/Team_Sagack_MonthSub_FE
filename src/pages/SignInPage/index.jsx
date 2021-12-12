@@ -16,9 +16,11 @@ const SignInPage = () => {
     },
     onSubmit: async requestData => {
       try {
-        const { data } = await postSignIn(requestData);
-        setValue(data.token);
-        history.push('/');
+        const response = await postSignIn(requestData);
+        if (response) {
+          setValue(response.data.token);
+          history.push('/');
+        }
       } catch (error) {
         alert(error);
       }
