@@ -18,8 +18,8 @@ const SignUpPage = () => {
     },
     onSubmit: async requestData => {
       try {
-        const { data } = await postSignUp(requestData);
-        data && history.push('/');
+        await postSignUp(requestData);
+        history.push('/signin');
       } catch (error) {
         alert(error);
       }

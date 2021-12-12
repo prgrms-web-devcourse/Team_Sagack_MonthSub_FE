@@ -72,7 +72,7 @@ const SeriesDetail = ({ detail }) => {
               {detail.series.introduceText}
             </div>
             <div className="viewArticle-edit">
-              <Link to={`/series-write/${detail.series.id}`}>
+              <Link to={`/series/edit/${detail.series.id}`}>
                 <Button width="100%" height="3.125rem" font-size="1.5rem">
                   수정하기
                 </Button>

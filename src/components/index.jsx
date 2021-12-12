@@ -22,7 +22,6 @@ export { default as CommentList } from './domain/CommentList';
 export { default as Radio } from './commons/Radio/ButtonRadio';
 export { default as SeriesEditor } from './domain/SeriesEditor';
 export { default as ConfirmCancleButtons } from './domain/ConfirmCancleButtons';
-export { default as ArticleEditor } from './domain/EditArticleForm/ArticleEditor';
 export { default as CardSlider } from './domain/CardSlider';
-export { default as EditArticleForm } from './domain/EditArticleForm';
 export { default as ImageUpload } from './domain/ImageUpload';
+export { default as ArticleEditor } from './domain/ArticleEditor';

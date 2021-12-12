@@ -30,7 +30,7 @@ const Header = ({ children }) => {
           </Link>
         </SearchBox>
         <Utils>
-          <Link to="/my-series">글쓰기 버튼</Link>
+          <Link to="/writes">글쓰기 버튼</Link>
           <span type="button" onClick={toggle}>
             사람 아이콘
           </span>
