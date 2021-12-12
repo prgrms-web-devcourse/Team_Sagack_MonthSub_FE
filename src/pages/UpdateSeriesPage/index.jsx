@@ -33,6 +33,7 @@ const UpdateSeriesPage = ({ match, history }) => {
       category: '',
       uploadTime: '',
       articleCount: '',
+      thumbnail: '',
     },
 
     onSubmit: async values => {
@@ -49,10 +50,10 @@ const UpdateSeriesPage = ({ match, history }) => {
         const textResponse = await putSeries(jsonBlob(request), id);
 
         if (file) {
-          const fileFormData = new FormData();
-          fileFormData.append('file', file);
+          const fileForm = new FormData();
+          fileForm.append('file', file);
 
-          const fileResponse = await putSeriesImage(fileFormData, id);
+          const fileResponse = await putSeriesImage(fileForm, id);
           textResponse.status === 200 &&
             fileResponse.status === 200 &&
             history.push(`/series/${id}`);
@@ -82,27 +83,25 @@ const UpdateSeriesPage = ({ match, history }) => {
 
   const init = async id => {
     const response = await getSeriesDetail(id);
-
-    const seriesData = response.data.series;
-    const uploadData = response.data.upload;
-    const subscribeData = response.data.subscribe;
+    const { series, upload, subscribe, category, writer } = response.data;
 
     setValues({
-      writeId: response.data.writer.id,
-      title: seriesData.title,
-      introduceText: seriesData.introduceText,
-      introduceSentence: seriesData.introduceSentence,
-      price: seriesData.price,
-      subscribeStartDate: subscribeData.startDate,
-      subscribeEndDate: subscribeData.endDate,
-      seriesStartDate: seriesData.startDate,
-      seriesEndDate: seriesData.endDate,
-      category: response.data.category,
-      uploadTime: uploadData.time,
-      articleCount: seriesData.articleCount,
-      uploadDate: uploadData.date,
+      writeId: writer.id,
+      title: series.title,
+      introduceText: series.introduceText,
+      introduceSentence: series.introduceSentence,
+      price: series.price,
+      subscribeStartDate: subscribe.startDate,
+      subscribeEndDate: subscribe.endDate,
+      seriesStartDate: series.startDate,
+      seriesEndDate: series.endDate,
+      category,
+      uploadTime: upload.time,
+      articleCount: series.articleCount,
+      uploadDate: upload.date,
+      thumbnail: series.thumbnail,
     });
-    setCheckedInputs(uploadData.date);
+    setCheckedInputs(upload.date);
   };
 
   useEffect(() => {
@@ -148,7 +147,11 @@ const UpdateSeriesPage = ({ match, history }) => {
         </Section>
 
         <Section>
-          <ImageUpload onChange={handleChangefile} title="이미지 업로드" />
+          <ImageUpload
+            onChange={handleChangefile}
+            title="이미지 업로드"
+            url={values.thumbnail}
+          />
         </Section>
 
         <Section>

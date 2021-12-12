@@ -3,27 +3,34 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Upload, Title } from '@components';
 
-const ImageUpload = ({ onChange, valuename, buttonName, circle, title }) => {
-  const [imageUrl, setImageUrl] = useState('');
+const ImageUpload = ({
+  onChange,
+  valuename,
+  buttonName,
+  circle,
+  title,
+  url,
+}) => {
+  const [fileImageUrl, setfileImageUrl] = useState('');
 
-  const getImageUrl = file => {
+  const getfileImageUrl = file => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
-      setImageUrl(fileReader.result);
+      setfileImageUrl(fileReader.result);
     };
   };
 
   const handleChangefile = file => {
     onChange && onChange(file);
-    file ? getImageUrl(file) : setImageUrl('');
+    file ? getfileImageUrl(file) : setfileImageUrl('');
   };
 
   return (
     <>
       <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <Container>
-        <UploadImage imageUrl={imageUrl} circle={circle} />
+        <UploadImage fileImageUrl={url || fileImageUrl} circle={circle} />
         <StyledUpload valuename={valuename} onChange={handleChangefile}>
           <button type="button">{buttonName}</button>
         </StyledUpload>
@@ -38,6 +45,7 @@ ImageUpload.defaultProps = {
   circle: false,
   buttonName: 'File Select',
   title: '',
+  url: '',
 };
 
 ImageUpload.propTypes = {
@@ -46,6 +54,7 @@ ImageUpload.propTypes = {
   circle: PropTypes.bool,
   buttonName: PropTypes.string,
   title: PropTypes.string,
+  url: PropTypes.string,
 };
 
 export default ImageUpload;
@@ -79,7 +88,7 @@ const StyledUpload = styled(Upload)`
 const UploadImage = styled.div`
   width: 100%;
   height: 10rem;
-  background-image: url(${({ imageUrl }) => imageUrl});
+  background-image: url(${({ fileImageUrl }) => fileImageUrl});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

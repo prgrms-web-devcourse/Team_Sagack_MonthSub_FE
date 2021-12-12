@@ -95,6 +95,7 @@ const UpdateArticlePage = ({ match, history }) => {
           title="썸네일 선택"
           onChange={handleChangefile}
           valuename="thumbnail"
+          url={values.thumbnailKey}
         />
         <Buttons confirmName="제출" />
       </Form>
