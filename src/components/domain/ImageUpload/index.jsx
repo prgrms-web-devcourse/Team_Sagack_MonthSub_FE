@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Upload } from '@components';
+import { Upload, Title } from '@components';
 
-const ImageUpload = ({ onChange, valuename, buttonName, circle }) => {
+const ImageUpload = ({ onChange, valuename, buttonName, circle, title }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   const getImageUrl = file => {
@@ -20,12 +20,15 @@ const ImageUpload = ({ onChange, valuename, buttonName, circle }) => {
   };
 
   return (
-    <Wrapper>
-      <UploadImage imageUrl={imageUrl} circle={circle} />
-      <StyledUpload valuename={valuename} onChange={handleChangefile}>
-        <button type="button">{buttonName}</button>
-      </StyledUpload>
-    </Wrapper>
+    <>
+      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      <Container>
+        <UploadImage imageUrl={imageUrl} circle={circle} />
+        <StyledUpload valuename={valuename} onChange={handleChangefile}>
+          <button type="button">{buttonName}</button>
+        </StyledUpload>
+      </Container>
+    </>
   );
 };
 
@@ -34,6 +37,7 @@ ImageUpload.defaultProps = {
   valuename: '',
   circle: false,
   buttonName: 'File Select',
+  title: '',
 };
 
 ImageUpload.propTypes = {
@@ -41,11 +45,12 @@ ImageUpload.propTypes = {
   valuename: PropTypes.string,
   circle: PropTypes.bool,
   buttonName: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default ImageUpload;
 
-const Wrapper = styled.div`
+const Container = styled.div`
   width: 10rem;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@ import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const WriteArticlePage = ({ match }) => {
+const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState({});
   const { values, errors, setValues, handleChange, handleSubmit } = useForm({
@@ -43,6 +43,11 @@ const WriteArticlePage = ({ match }) => {
     });
   };
   useEffect(() => {
+    const isLogin = sessionStorage.getItem('authorization');
+    if (!isLogin) {
+      alert('로그인이 필요한 서비스 입니다!');
+      history.goBack();
+    }
     id && getArticleContent(id);
   }, []);
 
@@ -66,6 +71,7 @@ const WriteArticlePage = ({ match }) => {
 
 WriteArticlePage.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default WriteArticlePage;

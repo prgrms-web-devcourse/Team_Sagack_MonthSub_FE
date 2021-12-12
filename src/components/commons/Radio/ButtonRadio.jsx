@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { List, Input } from '@components';
+import { List, Input, Title } from '@components';
 
 const ButtonRadio = ({
+  title,
   onChange,
   names = [],
   checkedButton,
@@ -15,6 +16,7 @@ const ButtonRadio = ({
   };
   return (
     <div {...props}>
+      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <List horizen justifyContent="flex-start">
         {names.map(name => (
           <Label key={name}>
@@ -38,6 +40,7 @@ ButtonRadio.defaultProps = {
   onChange: () => {},
   disabled: false,
   checkedButton: '',
+  title: '',
 };
 
 ButtonRadio.propTypes = {
@@ -45,6 +48,7 @@ ButtonRadio.propTypes = {
   names: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
   checkedButton: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default ButtonRadio;
