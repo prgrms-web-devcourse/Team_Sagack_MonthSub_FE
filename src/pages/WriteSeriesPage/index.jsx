@@ -92,7 +92,7 @@ const WriteSeriesPage = ({ history }) => {
   };
 
   return (
-    <StyledWrapper styled={{ padding: '2rem 0' }}>
+    <StyledWrapper>
       <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Section>

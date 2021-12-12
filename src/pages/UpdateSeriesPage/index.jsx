@@ -37,7 +37,7 @@ const UpdateSeriesPage = ({ match, history }) => {
 
     onSubmit: async values => {
       try {
-        const requestData = {
+        const request = {
           writeId: values.writeId,
           title: values.title,
           introduceText: values.introduceText,
@@ -46,18 +46,18 @@ const UpdateSeriesPage = ({ match, history }) => {
           uploadTime: values.uploadTime,
         };
 
-        const putResponse = await putSeries(jsonBlob(requestData), id);
+        const textResponse = await putSeries(jsonBlob(request), id);
 
         if (file) {
           const fileFormData = new FormData();
           fileFormData.append('file', file);
 
-          const patchResponse = await putSeriesImage(fileFormData, id);
-          putResponse.status === 200 &&
-            patchResponse.status === 200 &&
+          const fileResponse = await putSeriesImage(fileFormData, id);
+          textResponse.status === 200 &&
+            fileResponse.status === 200 &&
             history.push(`/series/${id}`);
         } else {
-          putResponse.status === 200 && history.push(`/series/${id}`);
+          textResponse.status === 200 && history.push(`/series/${id}`);
         }
       } catch (error) {
         alert(error);

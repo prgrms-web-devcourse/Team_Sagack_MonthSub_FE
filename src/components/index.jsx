@@ -20,7 +20,7 @@ export { default as PageSectionTitle } from './domain/PageSectionTitle';
 export { default as ArticleList } from './domain/ArticleList';
 export { default as CommentList } from './domain/CommentList';
 export { default as Radio } from './commons/Radio/ButtonRadio';
-export { default as SeriesEditor } from './domain/writeSeries/SeriesEditor';
+export { default as SeriesEditor } from './domain/SeriesEditor';
 export { default as ConfirmCancleButtons } from './domain/ConfirmCancleButtons';
 export { default as CardSlider } from './domain/CardSlider';
 export { default as ImageUpload } from './domain/ImageUpload';

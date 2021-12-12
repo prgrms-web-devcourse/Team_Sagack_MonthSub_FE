@@ -9,6 +9,7 @@ import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { postArticle } from '../../apis/article';
+import jsonBlob from '../../utils/createJsonBlob';
 
 const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
@@ -20,23 +21,21 @@ const WriteArticlePage = ({ match, history }) => {
     },
 
     onSubmit: async values => {
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
+      try {
+        const request = {
+          ...values,
+          seriesId: id,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('request', jsonBlob(request));
+
+        const response = await postArticle(formData);
+        response.status === 200 && history.push(`/articles/${id}`);
+      } catch (error) {
+        alert(error);
       }
-
-      const request = {
-        ...values,
-        seriesId: id,
-      };
-
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('request', jsonBlob(request));
-
-      const response = await postArticle(formData);
-      response.status === 200 && history.push(`/articles/${id}`);
     },
     validate: values => {
       const newErrors = {};
@@ -60,16 +59,22 @@ const WriteArticlePage = ({ match, history }) => {
   };
 
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>아티클 작성 </Title>
-        <StyledArticleEditor onChange={handleChange} value={values} />
+        <ArticleEditor
+          title="아티클 작성"
+          onChange={handleChange}
+          value={values}
+        />
         <ErrorMessage>{errors.title || errors.contents}</ErrorMessage>
-        <Title>썸네일 선택</Title>
-        <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
+        <ImageUpload
+          title="썸네일 선택"
+          onChange={handleChangefile}
+          valuename="thumbnail"
+        />
         <Buttons confirmName="제출" />
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
@@ -80,20 +85,17 @@ WriteArticlePage.propTypes = {
 
 export default WriteArticlePage;
 
+const StyledWrapper = styled(Wrapper)`
+  padding: 9rem 0 4rem 0;
+`;
+
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
 `;
 
-const StyledArticleEditor = styled(ArticleEditor)``;
-
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const Title = styled.h4`
-  margin-bottom: 1rem;
-  font-weight: 700;
 `;
 
 const ErrorMessage = styled.span`

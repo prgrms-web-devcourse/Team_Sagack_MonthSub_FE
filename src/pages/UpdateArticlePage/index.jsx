@@ -13,6 +13,7 @@ import {
   putArticle,
   putArticleImage,
 } from '../../apis/article';
+import jsonBlob from '../../utils/createJsonBlob';
 
 const UpdateArticlePage = ({ match, history }) => {
   const { id } = match.params;
@@ -25,30 +26,29 @@ const UpdateArticlePage = ({ match, history }) => {
       createdAt: '',
     },
     onSubmit: async values => {
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
-      }
-      const requestData = {
-        title: values.title,
-        contents: values.contents,
-      };
+      try {
+        const requestData = {
+          title: values.title,
+          contents: values.contents,
+        };
 
-      const putResponse = await putArticle(jsonBlob(requestData), id);
+        const textResponse = await putArticle(jsonBlob(requestData), id);
 
-      if (file) {
-        const fileFormData = new FormData();
-        fileFormData.append('file', file);
-        fileFormData.append('request', jsonBlob({ seriesId: id }));
+        if (file) {
+          const fileFormData = new FormData();
+          fileFormData.append('file', file);
+          fileFormData.append('request', jsonBlob({ seriesId: id }));
 
-        const patchResponse = await putArticleImage(fileFormData, id);
+          const fileResponse = await putArticleImage(fileFormData, id);
 
-        putResponse.status === 200 &&
-          patchResponse.status === 200 &&
-          history.push(`/articles/${id}`);
-      } else {
-        putResponse.status === 200 && history.push(`/articles/${id}`);
+          textResponse.status === 200 &&
+            fileResponse.status === 200 &&
+            history.push(`/articles/${id}`);
+        } else {
+          textResponse.status === 200 && history.push(`/articles/${id}`);
+        }
+      } catch (error) {
+        alert(error);
       }
     },
     validate: values => {
@@ -83,20 +83,22 @@ const UpdateArticlePage = ({ match, history }) => {
   };
 
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>아티클 작성</Title>
-        <StyledArticleEditor onChange={handleChange} value={values} />
-        <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
-        <Title>썸네일 선택</Title>
+        <ArticleEditor
+          title="아티클 작성"
+          onChange={handleChange}
+          value={values}
+        />
+        <ErrorMessage>{errors.title || errors.contents}</ErrorMessage>
         <ImageUpload
+          title="썸네일 선택"
           onChange={handleChangefile}
           valuename="thumbnail"
-          isFile={!!file}
         />
         <Buttons confirmName="제출" />
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
@@ -107,20 +109,17 @@ UpdateArticlePage.propTypes = {
 
 export default UpdateArticlePage;
 
+const StyledWrapper = styled(Wrapper)`
+  padding: 9rem 0 4rem 0;
+`;
+
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
 `;
 
-const StyledArticleEditor = styled(ArticleEditor)``;
-
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const Title = styled.h4`
-  margin-bottom: 1rem;
-  font-weight: 700;
 `;
 
 const ErrorMessage = styled.span`

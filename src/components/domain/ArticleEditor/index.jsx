@@ -1,35 +1,38 @@
 import React from 'react';
-import { TextArea, Input } from '@components';
+import { TextArea, Input, Title } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const ArticleEditor = ({ value, onChange, disabled, ...props }) => {
+const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
   const handleInputChange = e => {
     onChange && onChange(e);
   };
   return (
-    <StyledSection {...props}>
-      <StyledInput
-        width="100%"
-        height="2rem"
-        name="title"
-        value={value.title || ''}
-        onChange={handleInputChange}
-        disabled={disabled && disabled}
-        placeholder="제목"
-        maxlength="300"
-      />
-      <StyledTextArea
-        width="100%"
-        height="100%"
-        name="contents"
-        value={value.contents || ''}
-        onInput={handleInputChange}
-        disabled={disabled && disabled}
-        placeholder="내용"
-        maxlength="5000"
-      />
-    </StyledSection>
+    <>
+      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      <StyledSection {...props}>
+        <StyledInput
+          width="100%"
+          height="2rem"
+          name="title"
+          value={value.title || ''}
+          onChange={handleInputChange}
+          disabled={disabled && disabled}
+          placeholder="제목"
+          maxlength="300"
+        />
+        <StyledTextArea
+          width="100%"
+          height="100%"
+          name="contents"
+          value={value.contents || ''}
+          onInput={handleInputChange}
+          disabled={disabled && disabled}
+          placeholder="내용"
+          maxlength="5000"
+        />
+      </StyledSection>
+    </>
   );
 };
 
@@ -37,12 +40,14 @@ ArticleEditor.defaultProps = {
   onChange: () => {},
   disabled: false,
   value: {},
+  title: '',
 };
 
 ArticleEditor.propTypes = {
   value: PropTypes.object,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 export default ArticleEditor;
