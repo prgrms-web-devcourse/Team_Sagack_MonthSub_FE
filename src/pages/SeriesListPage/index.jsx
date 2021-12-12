@@ -4,7 +4,15 @@ import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
   const [list, setList] = useState([]);
-  useEffect(async () => setList(await getSeries()), []);
+
+  const getInitialData = async () => {
+    const response = await getSeries();
+    setList(response);
+  };
+
+  useEffect(() => {
+    getInitialData();
+  }, []);
 
   return (
     <Wrapper>

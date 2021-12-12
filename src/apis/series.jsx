@@ -8,7 +8,7 @@ export const getSeries = async () => {
   return response;
 };
 
-export const getSeriesDetail = async params => {
+export const getSeriesDetail = async ({ params }) => {
   const response = await GET({
     url: `/series/${params}`,
     isAuth: false,
@@ -43,5 +43,3 @@ export const putSeriesImage = async (data, params) => {
   });
   return response;
 };
-
-export default { getSeries, getSeriesDetail, postSeries, putSeriesImage };
