@@ -13,6 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
+import jsonBlob from '../../utils/createJsonBlob';
 import { postSeries } from '../../apis/series';
 
 const WriteSeriesPage = ({ history }) => {
@@ -34,26 +35,24 @@ const WriteSeriesPage = ({ history }) => {
     },
 
     onSubmit: async values => {
-      const requestData = {
-        ...values,
-        uploadDate: checkedInputs,
-        articleCount: Number(values.articleCount),
-        price: Number(values.price),
-      };
+      try {
+        const requestData = {
+          ...values,
+          uploadDate: checkedInputs,
+          articleCount: Number(values.articleCount),
+          price: Number(values.price),
+        };
 
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
+        const formData = new FormData();
+        formData.append('thumbnail', file);
+        formData.append('request', jsonBlob(requestData));
+
+        const response = await postSeries(formData);
+        const { seriesId } = response.data;
+        seriesId && history.push(`/series/${seriesId}`);
+      } catch (error) {
+        alert(error);
       }
-
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(requestData));
-
-      const response = await postSeries(formData);
-      const { seriesId } = response.data;
-      seriesId && history.push(`/series/${seriesId}`);
     },
     validate: values => {
       const newErrors = {};

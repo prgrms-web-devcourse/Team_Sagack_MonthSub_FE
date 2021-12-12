@@ -18,6 +18,7 @@ import {
   getSeriesDetail,
   patchSeriesImage,
 } from '../../apis/series';
+import jsonBlob from '../../utils/createJsonBlob';
 
 const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
@@ -39,36 +40,35 @@ const UpdateSeriesPage = ({ match, history }) => {
     },
 
     onSubmit: async values => {
-      const requestData = {
-        writeId: values.writeId,
-        title: values.title,
-        introduceText: values.introduceText,
-        introduceSentence: values.introduceSentence,
-        uploadDate: checkedInputs,
-        uploadTime: values.uploadTime,
-      };
+      try {
+        const requestData = {
+          writeId: values.writeId,
+          title: values.title,
+          introduceText: values.introduceText,
+          introduceSentence: values.introduceSentence,
+          uploadDate: checkedInputs,
+          uploadTime: values.uploadTime,
+        };
 
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
+        const jsonFormData = new FormData();
+        jsonFormData.append('request', jsonBlob(requestData));
+
+        const putResponse = await putSeries(jsonFormData, id);
+
+        if (file) {
+          const fileFormData = new FormData();
+          fileFormData.append('thumbnail', file);
+
+          const patchResponse = await patchSeriesImage(fileFormData, id);
+          putResponse.status === 200 &&
+            patchResponse.status === 200 &&
+            history.push(`/series/${id}`);
+        } else {
+          putResponse.status === 200 && history.push(`/series/${id}`);
+        }
+      } catch (error) {
+        alert(error);
       }
-      const jsonFormData = new FormData();
-      jsonFormData.append('request', jsonBlob(requestData));
-
-      const putResponse = await putSeries(jsonFormData, id);
-
-      if (file) {
-        const fileFormData = new FormData();
-        fileFormData.append('thumbnail', file);
-
-        const patchResponse = await patchSeriesImage(fileFormData, id);
-        console.log(putResponse);
-        console.log(patchResponse);
-      }
-
-      console.log(putResponse);
-      // putResponse.status === 200 && history.push(`/series/${id}`);
     },
     validate: values => {
       const newErrors = {};
