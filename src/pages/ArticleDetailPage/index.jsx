@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Image } from '@components';
+import { Wrapper } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams } from 'react-router-dom';
 
@@ -33,12 +33,6 @@ const ArticleDetailPage = () => {
 
   return (
     <Wrapper>
-      <Image
-        width="100%"
-        height="100%"
-        src={article.thumbnailKey}
-        alt="미리보기"
-      />
       <Container>
         <Title>{article.title}</Title>
         <Date>{article.createdAt}</Date>
@@ -71,5 +65,5 @@ const Container = styled.div`
   align-items: center;
   margin: 2rem 0;
   box-shadow: 0 0.25rem 0.25rem -0.25rem #c4c4c4;
-  padding: 0.25rem 0;
+  padding: 1rem 0;
 `;
