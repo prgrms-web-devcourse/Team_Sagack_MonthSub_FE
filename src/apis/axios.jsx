@@ -5,7 +5,7 @@ const { REACT_APP_API_END_POINT } = process.env;
 
 export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   const headers = {
-    ...(isJsonType && { 'Content-Type': 'multipart/form-data' }),
+    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
@@ -33,7 +33,7 @@ export const POST = async ({
   isJsonType = false,
 }) => {
   const headers = {
-    ...(isJsonType && { 'Content-Type': 'multipart/form-data' }),
+    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
@@ -62,7 +62,7 @@ export const PUT = async ({
   isJsonType = false,
 }) => {
   const headers = {
-    ...(isJsonType && { 'Content-Type': 'multipart/form-data' }),
+    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',
@@ -118,7 +118,7 @@ export const DELETE = async ({
   isJsonType = false,
 }) => {
   const headers = {
-    ...(isJsonType && { 'Content-Type': 'multipart/form-data' }),
+    ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     Authorization: isAuth
       ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
       : '',

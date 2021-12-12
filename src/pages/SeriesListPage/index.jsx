@@ -3,12 +3,16 @@ import { Wrapper, SelectContainer, Select, CardList } from '@components';
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
-  const [list, setList] = useState({});
-  useEffect(
-    async () => setList(await getSeries({ url: '/series/sort?sort=RECENT' })),
-    [],
-  );
-  const getList = list.data;
+  const [list, setList] = useState([]);
+
+  const getInitialData = async () => {
+    const response = await getSeries();
+    setList(response);
+  };
+
+  useEffect(() => {
+    getInitialData();
+  }, []);
 
   return (
     <Wrapper>
@@ -28,7 +32,7 @@ const SeriesListPage = () => {
           ]}
         />
       </SelectContainer>
-      <CardList list={getList} />
+      <CardList list={list.data} />
     </Wrapper>
   );
 };
