@@ -8,9 +8,10 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { postArticles } from '../../apis/article';
+import { postArticle } from '../../apis/article';
 
-const WriteArticlePage = ({ history }) => {
+const WriteArticlePage = ({ match, history }) => {
+  const { id } = match.params;
   const [file, setFile] = useState({});
   const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
@@ -21,18 +22,25 @@ const WriteArticlePage = ({ history }) => {
     onSubmit: async values => {
       console.log(values);
       console.log(file);
+
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
         });
       }
 
+      const request = {
+        ...values,
+        seriesId: id,
+      };
+
       const formData = new FormData();
       formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(values));
+      formData.append('request', jsonBlob(request));
+      console.log(values, file);
 
-      const response = await postArticles(formData);
-      console.log(response);
+      const response = await postArticle(formData);
+      response.status === 200 && history.push(`/articles/${id}`);
     },
     validate: values => {
       const newErrors = {};
@@ -70,6 +78,7 @@ const WriteArticlePage = ({ history }) => {
 };
 
 WriteArticlePage.propTypes = {
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

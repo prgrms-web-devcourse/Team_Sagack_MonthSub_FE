@@ -8,11 +8,15 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { getArticleDetail } from '../../apis/article';
+import {
+  getArticleDetail,
+  putArticle,
+  patchArticleImage,
+} from '../../apis/article';
 
 const UpdateArticlePage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState();
   const { values, errors, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
@@ -20,16 +24,32 @@ const UpdateArticlePage = ({ match, history }) => {
       thumbnailKey: '',
       createdAt: '',
     },
-    onSubmit: async data => {
-      console.log(values, file);
+    onSubmit: async values => {
+      console.log(file);
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
         });
       }
+      const requestData = {
+        title: values.title,
+        contents: values.contents,
+      };
 
-      const formData = new FormData();
-      formData.append('request', jsonBlob(data));
+      const putResponse = await putArticle(jsonBlob(requestData), id);
+
+      if (file) {
+        const fileFormData = new FormData();
+        fileFormData.append('image', file);
+        fileFormData.append('seriesId', Number(id));
+        const patchResponse = await patchArticleImage(fileFormData, id);
+
+        putResponse.status === 200 &&
+          patchResponse.status === 200 &&
+          history.push(`/articles/${id}`);
+      } else {
+        putResponse.status === 200 && history.push(`/articles/${id}`);
+      }
     },
     validate: values => {
       const newErrors = {};
@@ -69,11 +89,7 @@ const UpdateArticlePage = ({ match, history }) => {
         <StyledArticleEditor onChange={handleChange} value={values} />
         <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
         <Title>썸네일 선택</Title>
-        <ImageUpload
-          onChange={handleChangefile}
-          valuename="thumbnail"
-          imageUrl={values.thumbnailKey}
-        />
+        <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
         <Buttons confirmName="제출" />
       </Form>
     </Wrapper>
