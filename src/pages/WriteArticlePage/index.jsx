@@ -20,9 +20,6 @@ const WriteArticlePage = ({ match, history }) => {
     },
 
     onSubmit: async values => {
-      console.log(values);
-      console.log(file);
-
       function jsonBlob(obj) {
         return new Blob([JSON.stringify(obj)], {
           type: 'application/json',
@@ -35,9 +32,8 @@ const WriteArticlePage = ({ match, history }) => {
       };
 
       const formData = new FormData();
-      formData.append('thumbnail', file);
+      formData.append('file', file);
       formData.append('request', jsonBlob(request));
-      console.log(values, file);
 
       const response = await postArticle(formData);
       response.status === 200 && history.push(`/articles/${id}`);

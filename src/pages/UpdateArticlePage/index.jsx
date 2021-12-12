@@ -38,14 +38,9 @@ const UpdateArticlePage = ({ match, history }) => {
       const putResponse = await putArticle(jsonBlob(requestData), id);
 
       if (file) {
-        console.log(file);
         const fileFormData = new FormData();
-        fileFormData.append('thumbnail', file);
-        fileFormData.append('seriesId', id);
-
-        for (const key of fileFormData.keys()) {
-          console.log(key, fileFormData[key]);
-        }
+        fileFormData.append('file', file);
+        fileFormData.append('request', jsonBlob({ seriesId: id }));
 
         const patchResponse = await putArticleImage(fileFormData, id);
 
