@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import {
   Wrapper,
@@ -7,114 +7,170 @@ import {
   PageSectionContainer,
   CardSlider,
 } from '@components';
-import dummy from '@dummys/cardListDummy.json';
+import { getMyChannel, getChannel } from '@apis/channel';
+import { useParams } from 'react-router-dom';
 
-const ChannelPage = () => (
-  <>
-    <ProfileWrapper>
-      <ProfileContainer>
-        <div>
-          <UserProfile imageOnly />
-        </div>
-        <div className="channel-introduce">
-          <div>
-            <div>박예진</div>
-            <div className="writterTag">작가</div>
-          </div>
-          <div>
-            저는 서울 성북구에 거주중이고 프론트엔드를 배우고 있습니다.
-            <br />이 프로젝트에 참가하게 되어 기쁘게 생각합니다.
-          </div>
-        </div>
-        <div>
-          <div className="follows-wrap">
-            <div>32</div>
-            팔로잉
-          </div>
-          <div className="follows-wrap">
-            <div>100</div>
-            팔로워
-          </div>
-        </div>
-      </ProfileContainer>
-    </ProfileWrapper>
+const ChannelPage = () => {
+  const [data, setData] = useState({});
+  const { id } = useParams();
+  const thisRef = useRef();
 
-    <Wrapper>
-      <PageSectionTitle text="팔로우 한 작가들" />
-      <PageSectionContainer>
-        <WriterContainer>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-          <WriterWrapper>
-            <div className="channel-writer">
-              <div />
-              <div>닉네임</div>
-            </div>
-          </WriterWrapper>
-        </WriterContainer>
-      </PageSectionContainer>
+  const getInitialData = async () => {
+    thisRef.current = null;
 
-      <PageSectionTitle text="구독한 시리즈" />
-      <PageSectionContainer>
-        <CardSlider list={dummy.data} />
-      </PageSectionContainer>
+    if (id === 'my') {
+      const response = await getMyChannel();
+      thisRef.current = response;
+      setData(thisRef.current);
+    } else {
+      const response = await getChannel(id);
+      thisRef.current = response;
+      setData(thisRef.current);
+    }
+  };
 
-      <PageSectionTitle text="생성한 시리즈" />
-    </Wrapper>
-  </>
-);
+  const isEmpty = param => {
+    if (!param) {
+      return true;
+    }
+    return false;
+  };
+
+  const userStatus = () => {
+    if (thisRef.current.seriesPostList.length === 0) {
+      return '사용자';
+    }
+    return '작가';
+  };
+
+  useEffect(() => {
+    getInitialData();
+  }, [id]);
+
+  if (!isEmpty(thisRef.current)) {
+    return (
+      <>
+        <ProfileWrapper>
+          <ProfileContainer>
+            <div>
+              <UserProfile imageOnly src={data.user.profileImage} />
+            </div>
+            <div className="channel-introduce">
+              <div>
+                <div>{data.user.nickname}</div>
+                <div className="writterTag">{userStatus()}</div>
+              </div>
+              <div>{data.user.profileIntroduce}</div>
+            </div>
+            <div>
+              <div className="follows-wrap">
+                <div>32</div>
+                팔로잉
+              </div>
+              <div className="follows-wrap">
+                <div>100</div>
+                팔로워
+              </div>
+            </div>
+          </ProfileContainer>
+        </ProfileWrapper>
+
+        <Wrapper>
+          <PageSectionTitle text="팔로우 한 작가들" />
+          <PageSectionContainer>
+            <WriterContainer>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+              <WriterWrapper>
+                <div className="channel-writer">
+                  <div />
+                  <div>닉네임</div>
+                </div>
+              </WriterWrapper>
+            </WriterContainer>
+          </PageSectionContainer>
+
+          {id === 'my' ? (
+            <>
+              <PageSectionTitle text="관심 시리즈" />
+              <PageSectionContainer>
+                <CardSlider list={data.likeList} />
+              </PageSectionContainer>
+
+              <PageSectionTitle text="구독한 시리즈" />
+              <PageSectionContainer>
+                <CardSlider list={data.subscribeList} />
+              </PageSectionContainer>
+            </>
+          ) : null}
+          {userStatus() === '작가' ? (
+            <>
+              <PageSectionTitle text="생성한 시리즈" />
+              <PageSectionContainer>
+                <CardSlider list={data.seriesPostList} />
+              </PageSectionContainer>
+            </>
+          ) : null}
+        </Wrapper>
+      </>
+    );
+  }
+  return '';
+};
+
+export default ChannelPage;
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -213,5 +269,3 @@ const WriterWrapper = styled.div`
     }
   }
 `;
-
-export default ChannelPage;

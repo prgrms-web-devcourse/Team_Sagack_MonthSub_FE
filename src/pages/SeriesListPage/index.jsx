@@ -32,7 +32,7 @@ const SeriesListPage = () => {
           ]}
         />
       </SelectContainer>
-      <CardList list={list.data} />
+      <CardList list={list.seriesList} />
     </Wrapper>
   );
 };

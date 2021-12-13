@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { CardList } from '@components';
 
-const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
+const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => {
   const howManyItemsAre = itemsCountOnRow * itemsCountOnCol;
   const lastSlideIndex = Math.ceil(list.length / howManyItemsAre) - 1;
   const slideNumber = useRef(0);
@@ -22,7 +22,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
 
   divideList();
 
-  const slideSectionRender = useCallback(() => {
+  const slideSectionRender = () => {
     const result = [];
     for (let i = 0; i <= lastSlideIndex; i += 1) {
       result.push(
@@ -32,12 +32,13 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
             slideRef.current[i] = el;
           }}
         >
+          {children}
           <CardList list={newList[i]} />
         </SlideSectionArea>,
       );
     }
     return result;
-  }, []);
+  };
 
   const onIncrease = () => {
     if (slideNumber.current < lastSlideIndex) {
@@ -64,7 +65,6 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
       <SlideWrapper>
         <SlideFullArea ref={slideFullRef}>{slideSectionRender()}</SlideFullArea>
       </SlideWrapper>
-
       <div
         className="slide-handler handler-left"
         onClick={() => {
@@ -73,7 +73,6 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol }) => {
       >
         <div>&#60;</div>
       </div>
-
       <div
         className="slide-handler handler-right"
         onClick={() => {
@@ -90,12 +89,14 @@ CardSlider.defaultProps = {
   list: [],
   itemsCountOnRow: 4,
   itemsCountOnCol: 2,
+  children: '',
 };
 
 CardSlider.propTypes = {
   list: PropTypes.array,
   itemsCountOnRow: PropTypes.number,
   itemsCountOnCol: PropTypes.number,
+  children: PropTypes.node,
 };
 
 export default CardSlider;
