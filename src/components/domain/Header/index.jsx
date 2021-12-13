@@ -26,7 +26,7 @@ const Header = ({ children }) => {
             </SearchBox>
           </Link>
           <Link to="/writes">
-            <StyledButton width="6rem" circle>
+            <StyledButton width="6rem" circle isLogin={storedValue}>
               글쓰기
             </StyledButton>
           </Link>
@@ -100,5 +100,6 @@ const Utils = styled.div`
 `;
 
 const StyledButton = styled(Button)`
+  display: ${({ isLogin }) => (isLogin ? 'block' : 'none')};
   margin-right: 1.3rem;
 `;

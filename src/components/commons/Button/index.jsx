@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import theme from '../../../styles/theme';
 
 const Button = ({
   type,
@@ -60,24 +61,23 @@ const StyledButton = styled.button`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  border: 0.0625rem solid #ffb15c;
+  border: 0.0625rem solid ${theme.color.main};
   border-radius: 4px;
   padding: 0.5rem;
   margin: 0 1rem;
-  color: #ffb15c;
+  color: ${theme.color.main};
   background-color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: ${theme.color.main};
+    transition: all 200ms ease-out;
+  }
 
   ${({ circle }) =>
     circle &&
     css`
       border: none;
       border-radius: 50px;
-      box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-        0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+      box-shadow: ${theme.style.boxShadow};
     `}
-
-  &:hover {
-    color: #fff;
-    background-color: #ffb15c;
-  }
 `;
