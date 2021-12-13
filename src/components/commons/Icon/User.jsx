@@ -10,16 +10,16 @@ const User = ({ fontSize, color, ...props }) => (
 User.defaultProps = {
   fontSize: 'inherit',
   color: '#4b4b4b',
-}
+};
 
 User.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
-}
+};
 
 const StyledUserIcon = styled(PersonIcon)`
   color: ${({ color }) => color};
-  fontSize: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export default User;

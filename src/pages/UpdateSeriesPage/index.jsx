@@ -13,6 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
+import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { putSeries, getSeriesDetail, putSeriesImage } from '../../apis/series';
 import jsonBlob from '../../utils/createJsonBlob';
 
@@ -20,7 +21,7 @@ const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState(null);
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, setValues, handleChange, handleSubmit, errors } = useForm({
+  const { values, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       introduceText: '',
@@ -33,11 +34,12 @@ const UpdateSeriesPage = ({ match, history }) => {
       category: '',
       uploadTime: '',
       articleCount: '',
+      thumbnail: '',
     },
 
     onSubmit: async values => {
       try {
-        const requestData = {
+        const request = {
           writeId: values.writeId,
           title: values.title,
           introduceText: values.introduceText,
@@ -46,18 +48,24 @@ const UpdateSeriesPage = ({ match, history }) => {
           uploadTime: values.uploadTime,
         };
 
-        const putResponse = await putSeries(jsonBlob(requestData), id);
+        const textResponse = await putSeries({
+          data: jsonBlob(request),
+          params: id,
+        });
 
         if (file) {
-          const fileFormData = new FormData();
-          fileFormData.append('file', file);
+          const fileForm = new FormData();
+          fileForm.append('file', file);
 
-          const patchResponse = await putSeriesImage(fileFormData, id);
-          putResponse.status === 200 &&
-            patchResponse.status === 200 &&
+          const fileResponse = await putSeriesImage({
+            data: fileForm,
+            params: id,
+          });
+          textResponse.status === 200 &&
+            fileResponse.status === 200 &&
             history.push(`/series/${id}`);
         } else {
-          putResponse.status === 200 && history.push(`/series/${id}`);
+          textResponse.status === 200 && history.push(`/series/${id}`);
         }
       } catch (error) {
         alert(error);
@@ -67,50 +75,45 @@ const UpdateSeriesPage = ({ match, history }) => {
       const newErrors = {};
       for (const key in values) {
         if (!values[key]) {
-          newErrors.empty = `${key}의 값을 입력해주세요!`;
-        } else if (checkedInputs.length === 0) {
-          newErrors.day = '요일을 선택해주세요!';
-        } else if (key === 'uploadDate') {
-          if (values[key].length !== checkedInputs.length) {
-            newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-          }
+          newErrors.empty = `${convertSeriesInputName(key)}를 입력해주세요!`;
+          alert(`${convertSeriesInputName(key)}를 입력해주세요!`);
+          break;
         }
+      }
+      if (values.uploadDate.length !== checkedInputs.length) {
+        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+        alert('요일 수가 일치하지 않습니다!');
       }
       return newErrors;
     },
   });
 
   const init = async id => {
-    const response = await getSeriesDetail(id);
-
-    const seriesData = response.data.series;
-    const uploadData = response.data.upload;
-    const subscribeData = response.data.subscribe;
+    const response = await getSeriesDetail({
+      params: id,
+    });
+    const { series, upload, subscribe, category, writer } = response.data;
 
     setValues({
-      writeId: response.data.writer.id,
-      title: seriesData.title,
-      introduceText: seriesData.introduceText,
-      introduceSentence: seriesData.introduceSentence,
-      price: seriesData.price,
-      subscribeStartDate: subscribeData.startDate,
-      subscribeEndDate: subscribeData.endDate,
-      seriesStartDate: seriesData.startDate,
-      seriesEndDate: seriesData.endDate,
-      category: response.data.category,
-      uploadTime: uploadData.time,
-      articleCount: seriesData.articleCount,
-      uploadDate: uploadData.date,
+      writeId: writer.id,
+      title: series.title,
+      introduceText: series.introduceText,
+      introduceSentence: series.introduceSentence,
+      price: series.price,
+      subscribeStartDate: subscribe.startDate,
+      subscribeEndDate: subscribe.endDate,
+      seriesStartDate: series.startDate,
+      seriesEndDate: series.endDate,
+      category,
+      uploadTime: upload.time,
+      articleCount: series.articleCount,
+      uploadDate: upload.date,
+      thumbnail: series.thumbnail,
     });
-    setCheckedInputs(uploadData.date);
+    setCheckedInputs(upload.date);
   };
 
   useEffect(() => {
-    const isLogin = sessionStorage.getItem('authorization');
-    if (!isLogin) {
-      alert('로그인이 필요한 서비스 입니다!');
-      history.push('/login');
-    }
     id && init(id);
   }, []);
 
@@ -127,7 +130,6 @@ const UpdateSeriesPage = ({ match, history }) => {
   };
   return (
     <StyledWrapper styled={{ padding: '2rem 0' }}>
-      <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Section>
           <Radio
@@ -148,7 +150,11 @@ const UpdateSeriesPage = ({ match, history }) => {
         </Section>
 
         <Section>
-          <ImageUpload onChange={handleChangefile} title="이미지 업로드" />
+          <ImageUpload
+            onChange={handleChangefile}
+            title="이미지 업로드"
+            url={values.thumbnail}
+          />
         </Section>
 
         <Section>
@@ -228,8 +234,6 @@ const UpdateSeriesPage = ({ match, history }) => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
-          <ErrorMessage>{errors.day}</ErrorMessage>
-          <ErrorMessage>{errors.dayLength}</ErrorMessage>
         </Section>
 
         <ConfirmCancleButtons confirmName="제출" />
@@ -251,9 +255,4 @@ const StyledWrapper = styled(Wrapper)`
 
 const Section = styled.section`
   margin-bottom: 3rem;
-`;
-
-const ErrorMessage = styled.span`
-  margin: 1rem 0;
-  color: #ffb15c;
 `;

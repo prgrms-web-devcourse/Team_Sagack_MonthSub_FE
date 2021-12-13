@@ -10,16 +10,16 @@ const Home = ({ fontSize, color, ...props }) => (
 Home.defaultProps = {
   fontSize: 'inherit',
   color: '#4b4b4b',
-}
+};
 
 Home.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
-}
+};
 
 const StyledHomeIcon = styled(HomeIcon)`
   color: ${({ color }) => color};
-  fontSize: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export default Home;

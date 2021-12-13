@@ -13,6 +13,7 @@ export { default as SeriesListPage } from './SeriesListPage';
 export { default as SignInPage } from './SignInPage';
 export { default as SignUpPage } from './SignUpPage';
 export { default as WriteArticlePage } from './WriteArticlePage';
+export { default as UpdateArticlePage } from './UpdateArticlePage';
 export { default as WriteListPage } from './WriteListPage';
 export { default as WriteSeriesPage } from './WriteSeriesPage';
 export { default as UpdateSeriesPage } from './UpdateSeriesPage';

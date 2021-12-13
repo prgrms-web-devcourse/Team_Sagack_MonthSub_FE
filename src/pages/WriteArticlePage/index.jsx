@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ConfirmCancleButtons,
   ImageUpload,
@@ -8,64 +8,76 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { postArticle } from '../../apis/article';
+import jsonBlob from '../../utils/createJsonBlob';
 
 const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState({});
-  const { values, errors, setValues, handleChange, handleSubmit } = useForm({
+  const [file, setFile] = useState();
+  const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
-      content: '',
+      contents: '',
     },
-    onSubmit: async data => {
-      function jsonBlob(obj) {
-        return new Blob([JSON.stringify(obj)], {
-          type: 'application/json',
-        });
+
+    onSubmit: async values => {
+      if (!file) {
+        alert('이미지를 업로드 해주세요!');
+        return;
       }
 
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-      formData.append('request', jsonBlob(data));
+      try {
+        const request = {
+          ...values,
+          seriesId: id,
+        };
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('request', jsonBlob(request));
+
+        const response = await postArticle({
+          data: formData,
+        });
+        response.status === 200 && history.push(`/articles/${id}`);
+      } catch (error) {
+        alert(error);
+      }
     },
     validate: values => {
       const newErrors = {};
-      if (!values.title) newErrors.title = '제목을 입력해주세요.';
-      if (!values.content) newErrors.content = '내용을 입력해주세요.';
+      if (!values.title) {
+        newErrors.title = '제목을 입력해주세요.';
+        alert('제목을 입력해주세요');
+      }
+      if (!values.contents) {
+        newErrors.contents = '내용을 입력해주세요.';
+        alert('내용을 입력해주세요');
+      }
       return newErrors;
     },
   });
-
-  const getArticleContent = async () => {
-    setValues({
-      title: '안녕',
-      content: '안녕하시요!!',
-    });
-  };
-  useEffect(() => {
-    const isLogin = sessionStorage.getItem('authorization');
-    if (!isLogin) {
-      alert('로그인이 필요한 서비스 입니다!');
-      history.goBack();
-    }
-    id && getArticleContent(id);
-  }, []);
 
   const handleChangefile = file => {
     file && setFile(file);
   };
 
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>아티클 작성 </Title>
-        <StyledArticleEditor onChange={handleChange} value={values} />
-        <ErrorMessage>{errors.title || errors.content}</ErrorMessage>
-        <Title>썸네일 선택</Title>
-        <ImageUpload onChange={handleChangefile} valuename="thumbnail" />
+        <ArticleEditor
+          title="아티클 작성"
+          onChange={handleChange}
+          value={values}
+        />
+        <ImageUpload
+          title="썸네일 선택"
+          onChange={handleChangefile}
+          valuename="thumbnail"
+        />
         <Buttons confirmName="제출" />
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
@@ -76,24 +88,15 @@ WriteArticlePage.propTypes = {
 
 export default WriteArticlePage;
 
+const StyledWrapper = styled(Wrapper)`
+  padding: 9rem 0 4rem 0;
+`;
+
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
 `;
 
-const StyledArticleEditor = styled(ArticleEditor)``;
-
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const Title = styled.h4`
-  margin-bottom: 1rem;
-  font-weight: 700;
-`;
-
-const ErrorMessage = styled.span`
-  display: block;
-  height: 3rem;
-  color: #ffb15c;
 `;
