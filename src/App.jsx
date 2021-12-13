@@ -6,7 +6,6 @@ import {
   ChannelPage,
   EditMyInfoPage,
   HomePage,
-  MyChannelPage,
   MyInfoPage,
   PurchaseHistoryPage,
   PurchasePage,
@@ -46,7 +45,6 @@ const App = () => {
         </Route>
         <Route path="/my/info" exact component={MyInfoPage} />
         <Route path="/my/edit" exact component={EditMyInfoPage} />
-        <Route path="/my/channel" exact component={MyChannelPage} />
         <Route path="/channel/:id" exact component={ChannelPage} />
         <Route path="/purchase" exact component={PurchasePage} />
         <Route path="/purchase/info" exact component={PurchaseHistoryPage} />
