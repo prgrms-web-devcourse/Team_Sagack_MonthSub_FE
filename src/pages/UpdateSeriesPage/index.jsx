@@ -13,6 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
+import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { putSeries, getSeriesDetail, putSeriesImage } from '../../apis/series';
 import jsonBlob from '../../utils/createJsonBlob';
 
@@ -20,7 +21,7 @@ const UpdateSeriesPage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState(null);
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, setValues, handleChange, handleSubmit, errors } = useForm({
+  const { values, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       introduceText: '',
@@ -74,14 +75,14 @@ const UpdateSeriesPage = ({ match, history }) => {
       const newErrors = {};
       for (const key in values) {
         if (!values[key]) {
-          newErrors.empty = `${key}의 값을 입력해주세요!`;
-        } else if (checkedInputs.length === 0) {
-          newErrors.day = '요일을 선택해주세요!';
-        } else if (key === 'uploadDate') {
-          if (values[key].length !== checkedInputs.length) {
-            newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-          }
+          newErrors.empty = `${convertSeriesInputName(key)}를 입력해주세요!`;
+          alert(`${convertSeriesInputName(key)}를 입력해주세요!`);
+          break;
         }
+      }
+      if (values.uploadDate.length !== checkedInputs.length) {
+        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+        alert('요일 수가 일치하지 않습니다!');
       }
       return newErrors;
     },
@@ -134,7 +135,6 @@ const UpdateSeriesPage = ({ match, history }) => {
   };
   return (
     <StyledWrapper styled={{ padding: '2rem 0' }}>
-      <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Section>
           <Radio
@@ -239,8 +239,6 @@ const UpdateSeriesPage = ({ match, history }) => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
-          <ErrorMessage>{errors.day}</ErrorMessage>
-          <ErrorMessage>{errors.dayLength}</ErrorMessage>
         </Section>
 
         <ConfirmCancleButtons confirmName="제출" />
@@ -262,9 +260,4 @@ const StyledWrapper = styled(Wrapper)`
 
 const Section = styled.section`
   margin-bottom: 3rem;
-`;
-
-const ErrorMessage = styled.span`
-  margin: 1rem 0;
-  color: #ffb15c;
 `;

@@ -13,13 +13,14 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
-import jsonBlob from '../../utils/createJsonBlob';
+import jsonBlob from '@utils/createJsonBlob';
+import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '../../apis/series';
 
 const WriteSeriesPage = ({ history }) => {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState();
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, handleChange, handleSubmit, errors } = useForm({
+  const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       introduceText: '',
@@ -35,6 +36,16 @@ const WriteSeriesPage = ({ history }) => {
     },
 
     onSubmit: async values => {
+      if (!file) {
+        alert('이미지를 업로드 해주세요!');
+        return;
+      }
+
+      if (checkedInputs.length === 0) {
+        alert('요일을 선택해주세요!');
+        return;
+      }
+
       try {
         const requestData = {
           ...values,
@@ -60,14 +71,10 @@ const WriteSeriesPage = ({ history }) => {
       const newErrors = {};
       for (const key in values) {
         if (!values[key]) {
-          newErrors.empty = `${key}의 값을 입력해주세요!`;
+          newErrors.empty = `${convertSeriesInputName(key)}을 입력해주세요!`;
+          alert(`${convertSeriesInputName(key)}을 입력해주세요!`);
+          break;
         }
-      }
-      if (checkedInputs.length === 0) {
-        newErrors.day = '요일을 선택해주세요!';
-      }
-      if (!file) {
-        newErrors.file = '이미지를 업로드 해주세요!';
       }
       return newErrors;
     },
@@ -95,7 +102,6 @@ const WriteSeriesPage = ({ history }) => {
 
   return (
     <StyledWrapper>
-      <ErrorMessage>{errors.empty}</ErrorMessage>
       <form onSubmit={handleSubmit}>
         <Section>
           <Radio
@@ -116,7 +122,6 @@ const WriteSeriesPage = ({ history }) => {
 
         <Section>
           <ImageUpload onChange={handleChangefile} title="이미지 업로드" />
-          <ErrorMessage>{errors.file}</ErrorMessage>
         </Section>
 
         <Section>
@@ -192,8 +197,6 @@ const WriteSeriesPage = ({ history }) => {
             checkedInputs={checkedInputs}
             onChange={handleSelectDays}
           />
-          <ErrorMessage>{errors.day}</ErrorMessage>
-          <ErrorMessage>{errors.dayLength}</ErrorMessage>
         </Section>
 
         <ConfirmCancleButtons confirmName="제출" />
@@ -214,9 +217,4 @@ const StyledWrapper = styled(Wrapper)`
 
 const Section = styled.section`
   margin-bottom: 3rem;
-`;
-
-const ErrorMessage = styled.span`
-  margin: 1rem 0;
-  color: #ffb15c;
 `;

@@ -18,7 +18,7 @@ import jsonBlob from '../../utils/createJsonBlob';
 const UpdateArticlePage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState();
-  const { values, errors, setValues, handleChange, handleSubmit } = useForm({
+  const { values, setValues, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       contents: '',
@@ -59,8 +59,14 @@ const UpdateArticlePage = ({ match, history }) => {
     },
     validate: values => {
       const newErrors = {};
-      if (!values.title) newErrors.title = '제목을 입력해주세요.';
-      if (!values.contents) newErrors.contents = '내용을 입력해주세요.';
+      if (!values.title) {
+        newErrors.title = '제목을 입력해주세요.';
+        alert('제목을 입력해주세요.');
+      }
+      if (!values.contents) {
+        newErrors.contents = '내용을 입력해주세요.';
+        alert('내용을 입력해주세요.');
+      }
       return newErrors;
     },
   });
@@ -98,7 +104,6 @@ const UpdateArticlePage = ({ match, history }) => {
           onChange={handleChange}
           value={values}
         />
-        <ErrorMessage>{errors.title || errors.contents}</ErrorMessage>
         <ImageUpload
           title="썸네일 선택"
           onChange={handleChangefile}
@@ -129,10 +134,4 @@ const Form = styled.form`
 
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const ErrorMessage = styled.span`
-  display: block;
-  height: 3rem;
-  color: #ffb15c;
 `;

@@ -13,7 +13,7 @@ import jsonBlob from '../../utils/createJsonBlob';
 
 const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState();
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
@@ -21,6 +21,11 @@ const WriteArticlePage = ({ match, history }) => {
     },
 
     onSubmit: async values => {
+      if (!file) {
+        alert('이미지를 업로드 해주세요!');
+        return;
+      }
+
       try {
         const request = {
           ...values,
@@ -48,10 +53,6 @@ const WriteArticlePage = ({ match, history }) => {
       if (!values.contents) {
         newErrors.contents = '내용을 입력해주세요.';
         alert('내용을 입력해주세요');
-      }
-      if (!file) {
-        newErrors.file = '이미지를 업로드 해주세요!';
-        alert('이미지를 업로드 해주세요');
       }
       return newErrors;
     },
