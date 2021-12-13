@@ -14,9 +14,6 @@ const logo = require('./logo.svg');
 const Header = ({ children }) => {
   const { storedValue } = useSessionStorage('authorization', '');
 
-  // const handleClick = () => {
-  //   removeValue('authorization');
-
   return (
     <BrowserRouter>
       <StyledHeader>
@@ -29,9 +26,9 @@ const Header = ({ children }) => {
             </SearchBox>
           </Link>
           <Link to="/writes">
-            <Button width="6rem" circle>
+            <StyledButton width="6rem" circle>
               글쓰기
-            </Button>
+            </StyledButton>
           </Link>
           <Link to="/my/info">
             <Icons.User style={{ display: storedValue ? 'inline' : 'none' }} />
@@ -66,9 +63,13 @@ const StyledHeader = styled.header`
   height: 5rem;
   padding: 0 3rem;
   top: 0;
-  background-color: white;
-  border-bottom: 0.0625rem solid #ffb15c;
+  background-color: #fff;
+  border-bottom: 0.0625rem solid ${theme.color.main};
   z-index: 1;
+  a:hover {
+    color: ${theme.color.main};
+    transition: all 200ms ease-out;
+  }
 `;
 
 const StyledSearchIcon = styled(Icons.Search)`
@@ -96,4 +97,8 @@ const SearchBox = styled.div`
 const Utils = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const StyledButton = styled(Button)`
+  margin-right: 1.3rem;
 `;
