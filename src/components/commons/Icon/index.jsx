@@ -1,18 +1,25 @@
 import React from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import Like from './Like';
 import Home from './Home';
 import User from './User';
+import Search from './Search';
 
-const Icons = ({ fontSize, backgroundColor, isDisabled, onClick, ...props }) => (
+const Icons = ({
+  fontSize,
+  backgroundColor,
+  isDisabled,
+  onClick,
+  ...props
+}) => (
   <IconWrapper
-  fontSize={fontSize}
-  backgroundColor={backgroundColor}
-  isDisabled={isDisabled}
-  onClick={onClick}
-  {...props}
-   />
+    fontSize={fontSize}
+    backgroundColor={backgroundColor}
+    isDisabled={isDisabled}
+    onClick={onClick}
+    {...props}
+  />
 );
 
 const IconWrapper = styled.div`
@@ -34,10 +41,11 @@ Icons.defaultProps = {
   backgroundColor: 'transparent',
   isDisabled: false,
   onClick: () => {},
-}
+};
 
 Icons.Like = Like;
 Icons.Home = Home;
 Icons.User = User;
+Icons.Search = Search;
 
 export default Icons;

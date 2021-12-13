@@ -8,12 +8,12 @@ const ConfirmCancleButtons = ({ cancleName, confirmName, ...props }) => {
   const history = useHistory();
   return (
     <ButtonWrapper {...props}>
-      <StyledButton width="8rem" onClick={() => history.goBack()}>
+      <Button width="8rem" onClick={() => history.goBack()}>
         {cancleName}
-      </StyledButton>
-      <StyledButton type="submit" width="8rem">
+      </Button>
+      <Button type="submit" width="8rem">
         {confirmName}
-      </StyledButton>
+      </Button>
     </ButtonWrapper>
   );
 };
@@ -34,15 +34,4 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 0 1rem;
-  background-color: #fff;
-  color: #ffb15c;
-  border: 0.0625rem solid #ffb15c;
-  &:hover {
-    color: #fff;
-    background-color: #ffb15c;
-  }
 `;
