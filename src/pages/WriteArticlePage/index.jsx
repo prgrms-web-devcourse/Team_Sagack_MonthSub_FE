@@ -14,7 +14,7 @@ import jsonBlob from '../../utils/createJsonBlob';
 const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState({});
-  const { values, errors, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       title: '',
       contents: '',
@@ -31,7 +31,9 @@ const WriteArticlePage = ({ match, history }) => {
         formData.append('file', file);
         formData.append('request', jsonBlob(request));
 
-        const response = await postArticle(formData);
+        const response = await postArticle({
+          data: formData,
+        });
         response.status === 200 && history.push(`/articles/${id}`);
       } catch (error) {
         alert(error);
@@ -39,9 +41,18 @@ const WriteArticlePage = ({ match, history }) => {
     },
     validate: values => {
       const newErrors = {};
-      if (!values.title) newErrors.title = '제목을 입력해주세요.';
-      if (!values.contents) newErrors.contents = '내용을 입력해주세요.';
-      if (!file) newErrors.file = '이미지를 업로드 해주세요!';
+      if (!values.title) {
+        newErrors.title = '제목을 입력해주세요.';
+        alert('제목을 입력해주세요');
+      }
+      if (!values.contents) {
+        newErrors.contents = '내용을 입력해주세요.';
+        alert('내용을 입력해주세요');
+      }
+      if (!file) {
+        newErrors.file = '이미지를 업로드 해주세요!';
+        alert('이미지를 업로드 해주세요');
+      }
       return newErrors;
     },
   });
@@ -66,7 +77,6 @@ const WriteArticlePage = ({ match, history }) => {
           onChange={handleChange}
           value={values}
         />
-        <ErrorMessage>{errors.title || errors.contents}</ErrorMessage>
         <ImageUpload
           title="썸네일 선택"
           onChange={handleChangefile}
@@ -96,10 +106,4 @@ const Form = styled.form`
 
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const ErrorMessage = styled.span`
-  display: block;
-  height: 3rem;
-  color: #ffb15c;
 `;

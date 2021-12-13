@@ -32,14 +32,20 @@ const UpdateArticlePage = ({ match, history }) => {
           contents: values.contents,
         };
 
-        const textResponse = await putArticle(jsonBlob(requestData), id);
+        const textResponse = await putArticle({
+          data: jsonBlob(requestData),
+          params: id,
+        });
 
         if (file) {
           const fileFormData = new FormData();
           fileFormData.append('file', file);
           fileFormData.append('request', jsonBlob({ seriesId: id }));
 
-          const fileResponse = await putArticleImage(fileFormData, id);
+          const fileResponse = await putArticleImage({
+            data: fileFormData,
+            params: id,
+          });
 
           textResponse.status === 200 &&
             fileResponse.status === 200 &&
@@ -60,7 +66,9 @@ const UpdateArticlePage = ({ match, history }) => {
   });
 
   const getArticleContent = async id => {
-    const { data } = await getArticleDetail({ id });
+    const { data } = await getArticleDetail({
+      params: id,
+    });
     setValues({
       title: data.title,
       contents: data.contents,

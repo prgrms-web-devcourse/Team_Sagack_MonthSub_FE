@@ -1,45 +1,35 @@
 import { GET, POST, PUT } from './axios';
 
-export const getSeries = async () => {
-  const response = await GET({
+export const getSeries = async () =>
+  GET({
     url: `/series/sort?sort=RECENT`,
     isAuth: false,
   });
-  return response;
-};
 
-export const getSeriesDetail = async ({ params }) => {
-  const response = await GET({
+export const getSeriesDetail = async ({ params }) =>
+  GET({
     url: `/series/${params}`,
     isAuth: false,
   });
-  return response;
-};
 
-export const postSeries = async data => {
-  const response = await POST({
+export const postSeries = async ({ data }) =>
+  POST({
     url: '/series',
     isAuth: true,
     data,
   });
-  return response;
-};
 
-export const putSeries = async (data, params) => {
-  const response = await PUT({
+export const putSeries = async ({ data, params }) =>
+  PUT({
     url: `/series/${params}/edit`,
     isAuth: true,
     data,
     isJsonType: true,
   });
-  return response;
-};
 
-export const putSeriesImage = async (data, params) => {
-  const response = await PUT({
+export const putSeriesImage = async ({ data, params }) =>
+  PUT({
     url: `/series/${params}/thumbnail`,
     isAuth: true,
     data,
   });
-  return response;
-};

@@ -47,7 +47,9 @@ const WriteSeriesPage = ({ history }) => {
         formData.append('file', file);
         formData.append('request', jsonBlob(requestData));
 
-        const response = await postSeries(formData);
+        const response = await postSeries({
+          data: formData,
+        });
         const { seriesId } = response.data;
         seriesId && history.push(`/series/${seriesId}`);
       } catch (error) {

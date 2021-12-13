@@ -47,13 +47,19 @@ const UpdateSeriesPage = ({ match, history }) => {
           uploadTime: values.uploadTime,
         };
 
-        const textResponse = await putSeries(jsonBlob(request), id);
+        const textResponse = await putSeries({
+          data: jsonBlob(request),
+          params: id,
+        });
 
         if (file) {
           const fileForm = new FormData();
           fileForm.append('file', file);
 
-          const fileResponse = await putSeriesImage(fileForm, id);
+          const fileResponse = await putSeriesImage({
+            data: fileForm,
+            params: id,
+          });
           textResponse.status === 200 &&
             fileResponse.status === 200 &&
             history.push(`/series/${id}`);
@@ -82,7 +88,9 @@ const UpdateSeriesPage = ({ match, history }) => {
   });
 
   const init = async id => {
-    const response = await getSeriesDetail(id);
+    const response = await getSeriesDetail({
+      params: id,
+    });
     const { series, upload, subscribe, category, writer } = response.data;
 
     setValues({

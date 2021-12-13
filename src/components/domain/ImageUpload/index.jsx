@@ -30,7 +30,7 @@ const ImageUpload = ({
     <>
       <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <Container>
-        <UploadImage fileImageUrl={url || fileImageUrl} circle={circle} />
+        <UploadImage fileImageUrl={fileImageUrl || url} circle={circle} />
         <StyledUpload valuename={valuename} onChange={handleChangefile}>
           <button type="button">{buttonName}</button>
         </StyledUpload>
