@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {
@@ -79,14 +79,6 @@ const WriteSeriesPage = ({ history }) => {
       return newErrors;
     },
   });
-
-  useEffect(() => {
-    const isLogin = sessionStorage.getItem('authorization');
-    if (!isLogin) {
-      alert('로그인이 필요한 서비스 입니다!');
-      history.push('/login');
-    }
-  }, []);
 
   const handleChangefile = file => {
     file && setFile(file);
