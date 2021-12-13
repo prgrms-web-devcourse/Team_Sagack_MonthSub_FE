@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { CardList } from '@components';
@@ -40,19 +40,19 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => {
     return result;
   };
 
-  const onIncrease = () => {
+  const onIncrease = useCallback(() => {
     if (slideNumber.current < lastSlideIndex) {
       setSlideSequence(slideSequence + 1);
       slideNumber.current += 1;
     }
-  };
+  }, []);
 
-  const onDecrease = () => {
+  const onDecrease = useCallback(() => {
     if (slideNumber.current > 0) {
       setSlideSequence(slideSequence - 1);
       slideNumber.current -= 1;
     }
-  };
+  }, []);
 
   useEffect(() => {
     slideFullRef.current.style.transform = `translateX(${

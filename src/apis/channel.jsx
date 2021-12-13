@@ -1,19 +1,13 @@
 import { GET } from './axios';
 
-export const getMyChannel = async () => {
-  const response = await GET({
+export const getMyChannel = async () =>
+  GET({
     url: `/channel/me`,
     isAuth: true,
   });
 
-  return response.data;
-};
-
-export const getChannel = async id => {
-  const response = await GET({
+export const getChannel = async id =>
+  GET({
     url: `/channel/users/${id}/other`,
     isAuth: true,
   });
-
-  return response.data;
-};

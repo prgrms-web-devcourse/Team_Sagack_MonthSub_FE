@@ -13,42 +13,44 @@ import { useParams } from 'react-router-dom';
 const ChannelPage = () => {
   const [data, setData] = useState({});
   const { id } = useParams();
-  const thisRef = useRef();
+  const thisDataRef = useRef();
+  const isEmptyRef = useRef(true);
 
   const getInitialData = async () => {
-    thisRef.current = null;
+    thisDataRef.current = null;
 
     if (id === 'my') {
-      const response = await getMyChannel();
-      thisRef.current = response;
-      setData(thisRef.current);
+      const { data } = await getMyChannel();
+      thisDataRef.current = data;
+      setData(thisDataRef.current);
     } else {
-      const response = await getChannel(id);
-      thisRef.current = response;
-      setData(thisRef.current);
+      const { data } = await getChannel(id);
+      thisDataRef.current = data;
+      setData(thisDataRef.current);
     }
-  };
-
-  const isEmpty = param => {
-    if (!param) {
-      return true;
-    }
-    return false;
   };
 
   const userStatus = () => {
-    if (thisRef.current.seriesPostList.length === 0) {
+    if (thisDataRef.current.seriesPostList.length === 0) {
       return '사용자';
     }
     return '작가';
   };
 
+  const isEmpty = param => {
+    if (!param) {
+      isEmptyRef.current = true;
+    }
+    isEmptyRef.current = false;
+  };
+
   useEffect(() => {
     getInitialData();
+    isEmpty(data);
   }, [id]);
 
-  if (!isEmpty(thisRef.current)) {
-    return (
+  return (
+    !isEmptyRef.current && (
       <>
         <ProfileWrapper>
           <ProfileContainer>
@@ -165,9 +167,8 @@ const ChannelPage = () => {
           ) : null}
         </Wrapper>
       </>
-    );
-  }
-  return '';
+    )
+  );
 };
 
 export default ChannelPage;
