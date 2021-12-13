@@ -10,16 +10,16 @@ const Like = ({ fontSize, color, ...props }) => (
 Like.defaultProps = {
   fontSize: 'inherit',
   color: 'inherit',
-}
+};
 
 Like.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
-}
+};
 
 const StyledLikeIcon = styled(LikeIcon)`
   color: ${({ color }) => color};
-  fontSize: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export default Like;
