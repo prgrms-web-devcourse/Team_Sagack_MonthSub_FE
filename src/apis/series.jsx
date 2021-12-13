@@ -1,20 +1,16 @@
 import { GET, POST, PUT } from './axios';
 
-export const getSeries = async () => {
-  const response = await GET({
-    url: `/series/sort?sort=RECENT`,
+export const getSeries = async () =>
+  GET({
+    url: `/series/all?size=16`,
     isAuth: false,
   });
-  return response;
-};
 
-export const getSeriesDetail = async ({ params }) => {
-  const response = await GET({
+export const getSeriesDetail = async ({ params }) =>
+  GET({
     url: `/series/${params}`,
     isAuth: false,
   });
-  return response;
-};
 
 export const postSeries = async data => {
   const response = await POST({

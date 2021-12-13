@@ -6,8 +6,8 @@ const SeriesListPage = () => {
   const [list, setList] = useState([]);
 
   const getInitialData = async () => {
-    const response = await getSeries();
-    setList(response);
+    const { data } = await getSeries();
+    setList(data);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const SeriesListPage = () => {
           ]}
         />
       </SelectContainer>
-      <CardList list={list.data} />
+      <CardList list={list.seriesList} />
     </Wrapper>
   );
 };

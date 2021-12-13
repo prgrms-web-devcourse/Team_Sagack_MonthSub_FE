@@ -14,7 +14,7 @@ const Nav = ({ maxWidth, items, ...props }) => (
         <Link to="/series">구독 모집</Link>
       </li>
       <li>
-        <Link to="/my/channel">내 채널</Link>
+        <Link to="/channel/my">내 채널</Link>
       </li>
     </List>
   </StyledNav>

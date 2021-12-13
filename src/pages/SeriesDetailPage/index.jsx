@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Wrapper, SeriesDetail } from '@components';
 import { useParams } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
@@ -6,31 +6,32 @@ import { getSeriesDetail } from '@apis/series';
 const SeriesDetailPage = () => {
   const { id } = useParams();
   const [details, setDetails] = useState({});
+  const isEmptyRef = useRef(true);
 
   const getInitialData = async () => {
-    const response = await getSeriesDetail({ params: id });
-    setDetails(response);
+    const { data } = await getSeriesDetail({ params: id });
+    setDetails(data);
+  };
+
+  const isEmpty = param => {
+    if (!param) {
+      isEmptyRef.current = true;
+    }
+    isEmptyRef.current = false;
   };
 
   useEffect(() => {
     getInitialData();
+    isEmpty(details);
   }, []);
-  const getDetails = details.data;
 
-  function isEmpty(data) {
-    if (typeof data === 'undefined' || data === null || data === '')
-      return true;
-    return false;
-  }
-
-  if (isEmpty(getDetails) !== true) {
-    return (
+  return (
+    !isEmptyRef.current && (
       <Wrapper>
-        <SeriesDetail detail={getDetails} />
+        <SeriesDetail detail={details} />
       </Wrapper>
-    );
-  }
-  return '';
+    )
+  );
 };
 
 export default SeriesDetailPage;
