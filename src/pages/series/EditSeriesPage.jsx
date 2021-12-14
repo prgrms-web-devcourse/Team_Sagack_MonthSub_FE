@@ -14,7 +14,7 @@ import {
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
-import { putSeries, getSeriesDetail, putSeriesImage } from '@apis/series';
+import { putSeries, getSeriesDetail } from '@apis/series';
 import jsonBlob from '@utils/createJsonBlob';
 
 const EditSeriesPage = ({ match, history }) => {
@@ -47,26 +47,14 @@ const EditSeriesPage = ({ match, history }) => {
             uploadDate: checkedInputs,
             uploadTime: values.uploadTime,
           };
-
-          const textResponse = await putSeries({
-            data: jsonBlob(request),
+          const formData = new FormData();
+          formData.append('file', values.thumbnailFile);
+          formData.append('request', jsonBlob(request));
+          const response = await putSeries({
             id,
+            data: formData,
           });
-
-          if (values.thumbnailFile) {
-            const fileForm = new FormData();
-            fileForm.append('file', values.thumbnailFile);
-
-            const fileResponse = await putSeriesImage({
-              data: fileForm,
-              id,
-            });
-            textResponse.status === 200 &&
-              fileResponse.status === 200 &&
-              history.push(`/series/${id}`);
-          } else {
-            textResponse.status === 200 && history.push(`/series/${id}`);
-          }
+          response.status === 200 && history.push(`/series/${id}`);
         } catch (error) {
           alert(error);
         }

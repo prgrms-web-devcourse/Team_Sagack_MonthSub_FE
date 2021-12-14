@@ -41,7 +41,7 @@ const WriteSeriesPage = ({ history }) => {
       }
 
       try {
-        const requestData = {
+        const request = {
           ...values,
           uploadDate: checkedInputs,
           articleCount: Number(values.articleCount),
@@ -50,7 +50,7 @@ const WriteSeriesPage = ({ history }) => {
 
         const formData = new FormData();
         formData.append('file', values.thumbnailFile);
-        formData.append('request', jsonBlob(requestData));
+        formData.append('request', jsonBlob(request));
 
         const response = await postSeries({
           data: formData,

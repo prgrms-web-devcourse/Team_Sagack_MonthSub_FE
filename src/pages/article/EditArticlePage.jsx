@@ -8,7 +8,7 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { getArticleDetail, putArticle, putArticleImage } from '@apis/article';
+import { getArticleDetail, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
 
 const EditArticlePage = ({ match, history }) => {
@@ -24,32 +24,17 @@ const EditArticlePage = ({ match, history }) => {
       },
       onSubmit: async values => {
         try {
-          const requestData = {
+          const request = {
             title: values.title,
             contents: values.contents,
           };
-
-          const textResponse = await putArticle({
-            data: jsonBlob(requestData),
-            id,
+          const formData = new FormData();
+          formData.append('file', values.thumbnailFile);
+          formData.append('request', jsonBlob(request));
+          const response = await putArticle({
+            data: formData,
           });
-
-          if (values.thumbnailKeyFile) {
-            const fileFormData = new FormData();
-            fileFormData.append('file', values.thumbnailKeyFile);
-            fileFormData.append('request', jsonBlob({ seriesId: id }));
-
-            const fileResponse = await putArticleImage({
-              data: fileFormData,
-              id,
-            });
-
-            textResponse.status === 200 &&
-              fileResponse.status === 200 &&
-              history.push(`/article/${id}`);
-          } else {
-            textResponse.status === 200 && history.push(`/article/${id}`);
-          }
+          response.status === 200 && history.push(`/article/${id}`);
         } catch (error) {
           alert(error);
         }

@@ -56,7 +56,11 @@ const App = () => {
         <Route path="/series/edit/:id" exact component={EditSeriesPage} />
         <Route path="/article/write/:id" exact component={WriteArticlePage} />
         <Route path="/article/edit/:id" exact component={EditArticlePage} />
-        <Route path="/article/:id" exact component={ArticleDetailPage} />
+        <Route
+          path="/series/:seriesId/article/:articleId"
+          exact
+          component={ArticleDetailPage}
+        />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </Header>

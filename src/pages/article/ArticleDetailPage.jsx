@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import theme from '@styles/theme';
 
 const ArticleDetailPage = () => {
-  const { id } = useParams();
+  const { seriesId, articleId } = useParams();
   const [article, setArticle] = useState({
     title: '',
     contents: '',
@@ -14,9 +14,12 @@ const ArticleDetailPage = () => {
     createdAt: '',
   });
 
-  const getInitialData = async id => {
+  const getInitialData = async ({ seriesId, articleId }) => {
     try {
-      const { data } = await getArticleDetail({ id });
+      const { data } = await getArticleDetail({
+        data: seriesId,
+        id: articleId,
+      });
       setArticle({
         title: data.title,
         contents: data.contents,
@@ -29,7 +32,7 @@ const ArticleDetailPage = () => {
   };
 
   useEffect(() => {
-    getInitialData(id);
+    getInitialData({ seriesId, articleId });
   }, []);
 
   return (

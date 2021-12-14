@@ -5,6 +5,7 @@ import theme from '@styles/theme';
 import Like from './Like';
 import Home from './Home';
 import User from './User';
+import Search from './Search';
 
 const Icons = ({
   fontSize,
@@ -39,6 +40,7 @@ Icons.defaultProps = {
 Icons.Like = Like;
 Icons.Home = Home;
 Icons.User = User;
+Icons.Search = Search;
 
 export default Icons;
 

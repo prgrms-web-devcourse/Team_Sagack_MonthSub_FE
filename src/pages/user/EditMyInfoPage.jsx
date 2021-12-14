@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import { useForm } from '@hooks';
 import { Input, Wrapper, ImageUpload } from '@components';
 import { useHistory } from 'react-router-dom';
-import { getMyInfo, patchMyInfo, postMyProfileImage } from '@apis/user';
+import { getMyInfo, patchMyInfo } from '@apis/user';
 import theme from '@styles/theme';
+import jsonBlob from '@utils/createJsonBlob';
 
 const EditMyInfoPage = () => {
   const history = useHistory();
@@ -20,21 +21,24 @@ const EditMyInfoPage = () => {
       userName: '',
       nickName: '',
       profileIntroduce: '',
-      ProfileKey: '',
-      ProfileKeyFile: {
-        file: {},
-        url: '',
-      },
+      profileKeyUrl: '',
+      profileKeyFile: {},
     },
     onSubmit: async requestData => {
-      patchMyInfo({
-        nickName: requestData.nickName,
-        profileIntroduce: requestData.profileIntroduce,
-      });
-
       const formData = new FormData();
       formData.append('file', requestData.profileKeyFile);
-      postMyProfileImage(formData);
+      formData.append(
+        'request',
+        jsonBlob({
+          nickName: requestData.nickName,
+          profileIntroduce: requestData.profileIntroduce,
+        }),
+      );
+      try {
+        patchMyInfo(formData);
+      } catch (error) {
+        alert(error);
+      }
     },
     validate: ({ nickName }) => {
       const newErrors = {};
@@ -49,7 +53,7 @@ const EditMyInfoPage = () => {
       userName: data.userName,
       nickName: data.nickName,
       profileIntroduce: data.profileIntroduce,
-      profileKey: data.profileKey,
+      profileKeyUrl: data.profileKey,
     });
   };
 
@@ -63,7 +67,7 @@ const EditMyInfoPage = () => {
         <H1>내 정보 수정</H1>
         <ImageUpload
           onChange={handleImageUpload}
-          src={values.profileKey}
+          src={values.profileKeyUrl}
           name="profileKey"
           circle
           id="profileKey"
