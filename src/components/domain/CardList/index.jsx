@@ -19,12 +19,12 @@ const CardList = ({ list, ...props }) => (
           </SubscribeStatusDiv>
         )}
         <div className="card-imageArea">
-          <Link to={`/series/${item.seriesIdid}`}>
+          <Link to={`/series/${item.seriesId}`}>
             <Image
               src={item.thumbnail}
               width="100%"
               height="100%"
-              alt={`cardThumb-${item.seriesIdid}`}
+              alt={`cardThumb-${item.seriesId}`}
             />
           </Link>
         </div>
