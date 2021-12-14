@@ -15,10 +15,10 @@ import {
   SignInPage,
   SignUpPage,
   WriteArticlePage,
-  UpdateArticlePage,
+  EditArticlePage,
   WriteListPage,
   WriteSeriesPage,
-  UpdateSeriesPage,
+  EditSeriesPage,
   NotFoundPage,
 } from '@pages';
 
@@ -53,9 +53,9 @@ const App = () => {
         <Route path="/series" exact component={SeriesListPage} />
         <Route path="/series/write" exact component={WriteSeriesPage} />
         <Route path="/series/:id" exact component={SeriesDetailPage} />
-        <Route path="/series/edit/:id" exact component={UpdateSeriesPage} />
+        <Route path="/series/edit/:id" exact component={EditSeriesPage} />
         <Route path="/article/write/:id" exact component={WriteArticlePage} />
-        <Route path="/article/edit/:id" exact component={UpdateArticlePage} />
+        <Route path="/article/edit/:id" exact component={EditArticlePage} />
         <Route path="/article/:id" exact component={ArticleDetailPage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>

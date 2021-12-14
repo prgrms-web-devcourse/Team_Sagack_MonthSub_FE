@@ -1,22 +1,10 @@
 import React from 'react';
 import { Wrapper } from '@components';
 import styled from '@emotion/styled';
-// import { getSeries } from '@apis/series';
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const WriteListPage = () => (
-  // const [series, setSeries] = useState([]);
-
-  // const getInitialData = async () => {
-  //   const response = await getSeries({ url: '/series' });
-  //   setSeries(response);
-  // };
-
-  // useEffect(() => {
-  //   getInitialData();
-  // }, []);
-
   <Wrapper>
     <Container>
       <Span>

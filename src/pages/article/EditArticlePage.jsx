@@ -8,14 +8,10 @@ import {
 import { useForm } from '@hooks';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import {
-  getArticleDetail,
-  putArticle,
-  putArticleImage,
-} from '../../apis/article';
-import jsonBlob from '../../utils/createJsonBlob';
+import { getArticleDetail, putArticle, putArticleImage } from '@apis/article';
+import jsonBlob from '@utils/createJsonBlob';
 
-const UpdateArticlePage = ({ match, history }) => {
+const EditArticlePage = ({ match, history }) => {
   const { id } = match.params;
   const [file, setFile] = useState();
   const { values, setValues, handleChange, handleSubmit } = useForm({
@@ -111,12 +107,12 @@ const UpdateArticlePage = ({ match, history }) => {
   );
 };
 
-UpdateArticlePage.propTypes = {
+EditArticlePage.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default UpdateArticlePage;
+export default EditArticlePage;
 
 const StyledWrapper = styled(Wrapper)`
   padding: 9rem 0 4rem 0;
