@@ -1,12 +1,12 @@
 import { GET, POST, PUT } from './axios';
 
-export const getArticleDetail = async ({ params }) =>
+export const getArticleDetail = async ({ id }) =>
   GET({
-    url: `/articles/${params}`,
+    url: `/articles/${id}`,
     isAuth: true,
     isJsonType: false,
     data: {
-      seriesId: params,
+      seriesId: id,
     },
   });
 
@@ -17,17 +17,17 @@ export const postArticle = async ({ data }) =>
     data,
   });
 
-export const putArticle = async ({ data, params }) =>
+export const putArticle = async ({ data, id }) =>
   PUT({
-    url: `/articles/${params}`,
+    url: `/articles/${id}`,
     isAuth: true,
     data,
     isJsonType: true,
   });
 
-export const putArticleImage = async ({ data, params }) =>
+export const putArticleImage = async ({ data, id }) =>
   PUT({
-    url: `/articles/${params}/thumbnail`,
+    url: `/articles/${id}/thumbnail`,
     isAuth: true,
     data,
   });

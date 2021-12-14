@@ -32,6 +32,10 @@ const convertSeriesInputName = name => {
   if (name === 'articleCount') {
     return '총 회차';
   }
+
+  if (name === 'thumbnailFile') {
+    return '이미지';
+  }
 };
 
 export default convertSeriesInputName;

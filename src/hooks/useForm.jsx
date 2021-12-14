@@ -38,7 +38,7 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     fileReader.onload = () => {
       setValues({
         ...values,
-        [name]: fileReader.result,
+        [`${name}Url`]: fileReader.result,
         [`${name}File`]: imageFile,
       });
     };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ConfirmCancleButtons,
   ImageUpload,
@@ -13,15 +13,14 @@ import jsonBlob from '@utils/createJsonBlob';
 
 const WriteArticlePage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState();
-  const { values, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
     initialValues: {
       title: '',
       contents: '',
     },
 
     onSubmit: async values => {
-      if (!file) {
+      if (!values) {
         alert('이미지를 업로드 해주세요!');
         return;
       }
@@ -33,7 +32,7 @@ const WriteArticlePage = ({ match, history }) => {
         };
 
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', values.thumbnailFile);
         formData.append('request', jsonBlob(request));
 
         const response = await postArticle({
@@ -58,10 +57,6 @@ const WriteArticlePage = ({ match, history }) => {
     },
   });
 
-  const handleChangefile = file => {
-    file && setFile(file);
-  };
-
   return (
     <StyledWrapper>
       <Form onSubmit={handleSubmit}>
@@ -70,11 +65,7 @@ const WriteArticlePage = ({ match, history }) => {
           onChange={handleChange}
           value={values}
         />
-        <ImageUpload
-          title="썸네일 선택"
-          onChange={handleChangefile}
-          valuename="thumbnail"
-        />
+        <ImageUpload onChange={handleImageUpload} name="thumbnail" />
         <Buttons confirmName="제출" />
       </Form>
     </StyledWrapper>

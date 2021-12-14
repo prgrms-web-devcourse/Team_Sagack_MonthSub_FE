@@ -9,7 +9,7 @@ const SeriesDetailPage = () => {
   const isEmptyRef = useRef(true);
 
   const getInitialData = async () => {
-    const { data } = await getSeriesDetail({ params: id });
+    const { data } = await getSeriesDetail({ id });
     setDetails(data);
   };
 

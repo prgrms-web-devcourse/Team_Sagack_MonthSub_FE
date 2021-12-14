@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input, Image, Wrapper } from '@components';
+import { Input, Wrapper, ImageUpload } from '@components';
 import { useHistory } from 'react-router-dom';
 import { getMyInfo, patchMyInfo, postMyProfileImage } from '@apis/user';
-
-const DEFAULT_PROFILE_IMAGE =
-  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
 
 const EditMyInfoPage = () => {
   const history = useHistory();
@@ -63,20 +60,13 @@ const EditMyInfoPage = () => {
     <Wrapper>
       <Form onSubmit={handleSubmit}>
         <H1>내 정보 수정</H1>
-        <ProfileImage
-          src={values.profileKey || DEFAULT_PROFILE_IMAGE}
-          alt="미리보기"
-          width="30%"
-          height="30%"
-        />
-        <Input
-          name="profileKey"
-          width="100%"
-          height="2.5rem%"
-          type="file"
+        <ImageUpload
           onChange={handleImageUpload}
-          accept="image/*"
+          src={values.profileKey}
+          name="profileKey"
+          circle
           id="profileKey"
+          alt="미리보기"
         />
         <Label htmlFor="name">이름</Label>
         <Input
@@ -174,11 +164,11 @@ const ButtonContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ProfileImage = styled(Image)`
-  border-radius: 50%;
-  width: 10rem;
-  height: 10rem;
-`;
+// const ProfileImage = styled(Image)`
+//   border-radius: 50%;
+//   width: 10rem;
+//   height: 10rem;
+// `;
 
 const TextArea = styled.textarea`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};

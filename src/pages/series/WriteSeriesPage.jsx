@@ -18,9 +18,8 @@ import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '@apis/series';
 
 const WriteSeriesPage = ({ history }) => {
-  const [file, setFile] = useState();
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
     initialValues: {
       title: '',
       introduceText: '',
@@ -36,11 +35,6 @@ const WriteSeriesPage = ({ history }) => {
     },
 
     onSubmit: async values => {
-      if (!file) {
-        alert('이미지를 업로드 해주세요!');
-        return;
-      }
-
       if (checkedInputs.length === 0) {
         alert('요일을 선택해주세요!');
         return;
@@ -55,12 +49,13 @@ const WriteSeriesPage = ({ history }) => {
         };
 
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', values.thumbnailFile);
         formData.append('request', jsonBlob(requestData));
 
         const response = await postSeries({
           data: formData,
         });
+
         const { seriesId } = response.data;
         seriesId && history.push(`/series/${seriesId}`);
       } catch (error) {
@@ -79,10 +74,6 @@ const WriteSeriesPage = ({ history }) => {
       return newErrors;
     },
   });
-
-  const handleChangefile = file => {
-    file && setFile(file);
-  };
 
   const handleSelectDays = (checked, value) => {
     if (checked) {
@@ -103,7 +94,6 @@ const WriteSeriesPage = ({ history }) => {
             title="카테고리"
           />
         </Section>
-
         <Section>
           <SeriesEditor
             onChange={handleChange}
@@ -111,11 +101,9 @@ const WriteSeriesPage = ({ history }) => {
             title="시리즈 소개"
           />
         </Section>
-
         <Section>
-          <ImageUpload onChange={handleChangefile} title="이미지 업로드" />
+          <ImageUpload onChange={handleImageUpload} name="thumbnail" />
         </Section>
-
         <Section>
           <Input
             title="구독료"
@@ -126,7 +114,6 @@ const WriteSeriesPage = ({ history }) => {
             min={0}
           />
         </Section>
-
         <Section>
           <Period
             title="모집기간"
@@ -139,7 +126,6 @@ const WriteSeriesPage = ({ history }) => {
             onChange={handleChange}
           />
         </Section>
-
         <Section>
           <Period
             title="연재기간"
@@ -152,7 +138,6 @@ const WriteSeriesPage = ({ history }) => {
             onChange={handleChange}
           />
         </Section>
-
         <Section>
           <Input
             title="연재 시간"
@@ -162,7 +147,6 @@ const WriteSeriesPage = ({ history }) => {
             onChange={handleChange}
           />
         </Section>
-
         <Section>
           <Input
             title="총 회차"
@@ -173,7 +157,6 @@ const WriteSeriesPage = ({ history }) => {
             min={1}
           />
         </Section>
-
         <Section>
           <CheckBox
             title="연재 요일"
@@ -190,7 +173,6 @@ const WriteSeriesPage = ({ history }) => {
             onChange={handleSelectDays}
           />
         </Section>
-
         <ConfirmCancleButtons confirmName="제출" />
       </form>
     </StyledWrapper>

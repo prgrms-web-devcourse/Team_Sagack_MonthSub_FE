@@ -19,78 +19,78 @@ import jsonBlob from '@utils/createJsonBlob';
 
 const EditSeriesPage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState(null);
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, setValues, handleChange, handleSubmit } = useForm({
-    initialValues: {
-      title: '',
-      introduceText: '',
-      introduceSentence: '',
-      price: '',
-      subscribeStartDate: '',
-      subscribeEndDate: '',
-      seriesStartDate: '',
-      seriesEndDate: '',
-      category: '',
-      uploadTime: '',
-      articleCount: '',
-      thumbnail: '',
-    },
+  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
+    useForm({
+      initialValues: {
+        title: '',
+        introduceText: '',
+        introduceSentence: '',
+        price: '',
+        subscribeStartDate: '',
+        subscribeEndDate: '',
+        seriesStartDate: '',
+        seriesEndDate: '',
+        category: '',
+        uploadTime: '',
+        articleCount: '',
+        thumbnailUrl: '',
+      },
 
-    onSubmit: async values => {
-      try {
-        const request = {
-          writeId: values.writeId,
-          title: values.title,
-          introduceText: values.introduceText,
-          introduceSentence: values.introduceSentence,
-          uploadDate: checkedInputs,
-          uploadTime: values.uploadTime,
-        };
+      onSubmit: async values => {
+        try {
+          const request = {
+            writeId: values.writeId,
+            title: values.title,
+            introduceText: values.introduceText,
+            introduceSentence: values.introduceSentence,
+            uploadDate: checkedInputs,
+            uploadTime: values.uploadTime,
+          };
 
-        const textResponse = await putSeries({
-          data: jsonBlob(request),
-          params: id,
-        });
-
-        if (file) {
-          const fileForm = new FormData();
-          fileForm.append('file', file);
-
-          const fileResponse = await putSeriesImage({
-            data: fileForm,
-            params: id,
+          const textResponse = await putSeries({
+            data: jsonBlob(request),
+            id,
           });
-          textResponse.status === 200 &&
-            fileResponse.status === 200 &&
-            history.push(`/series/${id}`);
-        } else {
-          textResponse.status === 200 && history.push(`/series/${id}`);
+
+          if (values.thumbnailFile) {
+            const fileForm = new FormData();
+            fileForm.append('file', values.thumbnailFile);
+
+            const fileResponse = await putSeriesImage({
+              data: fileForm,
+              id,
+            });
+            textResponse.status === 200 &&
+              fileResponse.status === 200 &&
+              history.push(`/series/${id}`);
+          } else {
+            textResponse.status === 200 && history.push(`/series/${id}`);
+          }
+        } catch (error) {
+          alert(error);
         }
-      } catch (error) {
-        alert(error);
-      }
-    },
-    validate: values => {
-      const newErrors = {};
-      for (const key in values) {
-        if (!values[key]) {
-          newErrors.empty = `${convertSeriesInputName(key)}를 입력해주세요!`;
-          alert(`${convertSeriesInputName(key)}를 입력해주세요!`);
-          break;
+      },
+      validate: values => {
+        const newErrors = {};
+        for (const key in values) {
+          if (!values[key]) {
+            newErrors.empty = `${convertSeriesInputName(key)}를 입력해주세요!`;
+            alert(`${convertSeriesInputName(key)}를 입력해주세요!`);
+            break;
+          }
         }
-      }
-      if (values.uploadDate.length !== checkedInputs.length) {
-        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-        alert('요일 수가 일치하지 않습니다!');
-      }
-      return newErrors;
-    },
-  });
+        if (values.uploadDate.length !== checkedInputs.length) {
+          newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+          alert('요일 수가 일치하지 않습니다!');
+        }
+        return newErrors;
+      },
+    });
 
   const init = async id => {
     const response = await getSeriesDetail({
-      params: id,
+      id,
     });
     const { series, upload, subscribe, category, writer } = response.data;
 
@@ -108,7 +108,7 @@ const EditSeriesPage = ({ match, history }) => {
       uploadTime: upload.time,
       articleCount: series.articleCount,
       uploadDate: upload.date,
-      thumbnail: series.thumbnail,
+      thumbnailUrl: series.thumbnail,
     });
     setCheckedInputs(upload.date);
   };
@@ -116,10 +116,6 @@ const EditSeriesPage = ({ match, history }) => {
   useEffect(() => {
     id && init(id);
   }, []);
-
-  const handleChangefile = file => {
-    file && setFile(file);
-  };
 
   const handleSelectDays = (checked, value) => {
     if (checked) {
@@ -151,9 +147,9 @@ const EditSeriesPage = ({ match, history }) => {
 
         <Section>
           <ImageUpload
-            onChange={handleChangefile}
-            title="이미지 업로드"
-            url={values.thumbnail}
+            onChange={handleImageUpload}
+            name="thumbnail"
+            src={values.thumbnailUrl}
           />
         </Section>
 

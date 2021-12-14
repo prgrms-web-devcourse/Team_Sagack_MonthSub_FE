@@ -18,7 +18,6 @@ export const postSignOut = async () =>
   POST({
     url: '/logout',
     isAuth: false,
-    params: {},
     isJsonType: false,
   });
 

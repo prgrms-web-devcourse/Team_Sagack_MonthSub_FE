@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
@@ -9,20 +9,9 @@ const Upload = ({
   value,
   onChange,
   disabled,
-  isFile,
   ...props
 }) => {
-  const [file, setFile] = useState(value);
   const inputRef = useRef(null);
-
-  const handleFileChange = e => {
-    const { files } = e.target;
-    const changedFile = files[0];
-    if (onChange) {
-      setFile(changedFile);
-      onChange(changedFile);
-    }
-  };
 
   const handleChooseFile = () => {
     inputRef.current.click();
@@ -34,11 +23,12 @@ const Upload = ({
         type="file"
         ref={inputRef}
         name={name}
+        value={value}
         accept={accept}
-        onChange={handleFileChange}
+        onChange={onChange}
         disabled={disabled && disabled}
       />
-      {typeof children === 'function' ? children(file) : children}
+      {children}
     </div>
   );
 };
@@ -50,7 +40,6 @@ Upload.defaultProps = {
   disabled: false,
   value: '',
   onChange: () => {},
-  isFile: false,
 };
 
 Upload.propTypes = {
@@ -60,7 +49,6 @@ Upload.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
-  isFile: PropTypes.bool,
 };
 
 export default Upload;

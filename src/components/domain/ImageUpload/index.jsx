@@ -1,60 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Upload, Title } from '@components';
+import { Upload } from '@components';
 
-const ImageUpload = ({
-  onChange,
-  valuename,
-  buttonName,
-  circle,
-  title,
-  url,
-}) => {
-  const [fileImageUrl, setfileImageUrl] = useState('');
+const DEFAULT_PROFILE_IMAGE =
+  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
 
-  const getfileImageUrl = file => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      setfileImageUrl(fileReader.result);
-    };
-  };
-
-  const handleChangefile = file => {
-    onChange && onChange(file);
-    file ? getfileImageUrl(file) : setfileImageUrl('');
-  };
-
-  return (
-    <>
-      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
-      <Container>
-        <UploadImage fileImageUrl={fileImageUrl || url} circle={circle} />
-        <StyledUpload valuename={valuename} onChange={handleChangefile}>
-          <button type="button">{buttonName}</button>
-        </StyledUpload>
-      </Container>
-    </>
-  );
-};
+const ImageUpload = ({ onChange, buttonName, circle, src, name }) => (
+  <Container>
+    <UploadImage fileImageUrl={src || DEFAULT_PROFILE_IMAGE} circle={circle} />
+    <StyledUpload onChange={onChange} name={name}>
+      <button type="button">{buttonName}</button>
+    </StyledUpload>
+  </Container>
+);
 
 ImageUpload.defaultProps = {
   onChange: () => {},
-  valuename: '',
   circle: false,
   buttonName: 'File Select',
-  title: '',
-  url: '',
+  src: '',
+  name: '',
 };
 
 ImageUpload.propTypes = {
   onChange: PropTypes.func,
-  valuename: PropTypes.string,
   circle: PropTypes.bool,
   buttonName: PropTypes.string,
-  title: PropTypes.string,
-  url: PropTypes.string,
+  src: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default ImageUpload;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   ConfirmCancleButtons,
   ImageUpload,
@@ -13,64 +13,63 @@ import jsonBlob from '@utils/createJsonBlob';
 
 const EditArticlePage = ({ match, history }) => {
   const { id } = match.params;
-  const [file, setFile] = useState();
-  const { values, setValues, handleChange, handleSubmit } = useForm({
-    initialValues: {
-      title: '',
-      contents: '',
-      thumbnailKey: '',
-      createdAt: '',
-    },
-    onSubmit: async values => {
-      try {
-        const requestData = {
-          title: values.title,
-          contents: values.contents,
-        };
+  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
+    useForm({
+      initialValues: {
+        title: '',
+        contents: '',
+        createdAt: '',
+        thumbnailKey: '',
+        thumbnailKeyFile: {},
+      },
+      onSubmit: async values => {
+        try {
+          const requestData = {
+            title: values.title,
+            contents: values.contents,
+          };
 
-        const textResponse = await putArticle({
-          data: jsonBlob(requestData),
-          params: id,
-        });
-
-        if (file) {
-          const fileFormData = new FormData();
-          fileFormData.append('file', file);
-          fileFormData.append('request', jsonBlob({ seriesId: id }));
-
-          const fileResponse = await putArticleImage({
-            data: fileFormData,
-            params: id,
+          const textResponse = await putArticle({
+            data: jsonBlob(requestData),
+            id,
           });
 
-          textResponse.status === 200 &&
-            fileResponse.status === 200 &&
-            history.push(`/article/${id}`);
-        } else {
-          textResponse.status === 200 && history.push(`/article/${id}`);
+          if (values.thumbnailKeyFile) {
+            const fileFormData = new FormData();
+            fileFormData.append('file', values.thumbnailKeyFile);
+            fileFormData.append('request', jsonBlob({ seriesId: id }));
+
+            const fileResponse = await putArticleImage({
+              data: fileFormData,
+              id,
+            });
+
+            textResponse.status === 200 &&
+              fileResponse.status === 200 &&
+              history.push(`/article/${id}`);
+          } else {
+            textResponse.status === 200 && history.push(`/article/${id}`);
+          }
+        } catch (error) {
+          alert(error);
         }
-      } catch (error) {
-        alert(error);
-      }
-    },
-    validate: values => {
-      const newErrors = {};
-      if (!values.title) {
-        newErrors.title = '제목을 입력해주세요.';
-        alert('제목을 입력해주세요.');
-      }
-      if (!values.contents) {
-        newErrors.contents = '내용을 입력해주세요.';
-        alert('내용을 입력해주세요.');
-      }
-      return newErrors;
-    },
-  });
+      },
+      validate: values => {
+        const newErrors = {};
+        if (!values.title) {
+          newErrors.title = '제목을 입력해주세요.';
+          alert('제목을 입력해주세요.');
+        }
+        if (!values.contents) {
+          newErrors.contents = '내용을 입력해주세요.';
+          alert('내용을 입력해주세요.');
+        }
+        return newErrors;
+      },
+    });
 
   const getArticleContent = async id => {
-    const { data } = await getArticleDetail({
-      params: id,
-    });
+    const { data } = await getArticleDetail({ id });
     setValues({
       title: data.title,
       contents: data.contents,
@@ -83,10 +82,6 @@ const EditArticlePage = ({ match, history }) => {
     id && getArticleContent(id);
   }, []);
 
-  const handleChangefile = file => {
-    file && setFile(file);
-  };
-
   return (
     <StyledWrapper>
       <Form onSubmit={handleSubmit}>
@@ -97,8 +92,8 @@ const EditArticlePage = ({ match, history }) => {
         />
         <ImageUpload
           title="썸네일 선택"
-          onChange={handleChangefile}
-          valuename="thumbnail"
+          onChange={handleImageUpload}
+          name="thumbnail"
           url={values.thumbnailKey}
         />
         <Buttons confirmName="제출" />

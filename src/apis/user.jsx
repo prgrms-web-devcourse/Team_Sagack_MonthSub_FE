@@ -20,6 +20,6 @@ export const postMyProfileImage = async data => {
     url: '/users/profile',
     data,
     isAuth: true,
-    isJsonType: true,
+    isJsonType: false,
   });
 };
