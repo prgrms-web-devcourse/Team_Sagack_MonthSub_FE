@@ -3,6 +3,7 @@ import { Wrapper } from '@components';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import theme from '@styles/theme';
 
 const WriteListPage = () => (
   <Wrapper>
@@ -20,7 +21,7 @@ export default WriteListPage;
 const H1 = styled.h1`
   font-size: 2rem;
   font-weight: 700;
-  margin-right: 1rem;
+  margin-right: ${theme.font.base};
 `;
 
 const Container = styled.div`
@@ -31,9 +32,9 @@ const Container = styled.div`
 const Span = styled.span`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: ${theme.font.base};
 `;
 
 const StyeldAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
-  color: #4b4b4b;
+  color: ${theme.color.greyDark};
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Title } from '@components';
+import theme from '@styles/theme';
 
 const Input = ({
   name,
@@ -31,7 +32,6 @@ const Input = ({
     />
   </>
 );
-export default Input;
 
 Input.defaultProps = {
   width: 'auto',
@@ -57,6 +57,8 @@ Input.propTypes = {
   onChange: PropTypes.func,
 };
 
+export default Input;
+
 const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
@@ -64,12 +66,12 @@ const StyledInput = styled.input`
   padding: 0.2rem;
   border: #041b1d 0.063rem;
   background-color: #ffffff;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   &:focus {
     background-color: #ffffff;
     border: #041b1d 0.063rem;
-    box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   }
   margin: 0.3rem 0;

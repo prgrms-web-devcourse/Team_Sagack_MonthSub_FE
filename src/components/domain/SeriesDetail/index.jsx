@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 import {
   Button,
   PageSectionContainer,
@@ -70,7 +71,11 @@ const SeriesDetail = ({ detail }) => (
           <div className="viewArticle-text">{detail.series.introduceText}</div>
           <div className="viewArticle-edit">
             <Link to={`/series/edit/${detail.series.id}`}>
-              <Button width="100%" height="3.125rem" font-size="1.5rem">
+              <Button
+                width="100%"
+                height="3.125rem"
+                font-size={theme.font.large}
+              >
                 수정하기
               </Button>
             </Link>
@@ -110,7 +115,11 @@ const SeriesDetail = ({ detail }) => (
               <div>{detail.series.price} 원</div>
             </div>
             <Link to="/purchase">
-              <Button width="100%" height="3.125rem" font-size="1.5rem">
+              <Button
+                width="100%"
+                height="3.125rem"
+                font-size={theme.font.large}
+              >
                 결제하기
               </Button>
             </Link>
@@ -140,7 +149,7 @@ const ViewContainer = styled.div`
     width: 100%;
     height: 37.5rem;
     margin-bottom: 5rem;
-    background-color: #bdbdbd;
+    background-color: ${theme.color.grey};
   }
   .userInfo {
     display: flex;
@@ -178,7 +187,7 @@ const ViewContainer = styled.div`
       margin-bottom: 0.9375rem;
     }
     &-text {
-      line-height: 1.5rem;
+      line-height: ${theme.font.large};
       flex-grow: 1;
     }
     &-edit {
@@ -203,7 +212,7 @@ const ViewContainer = styled.div`
         margin-bottom: 1.25rem;
         > div:nth-of-type(1) {
           font-weight: bold;
-          font-size: 1.125rem;
+          font-size: ${theme.font.medium};
           margin-bottom: 0.3125rem;
         }
       }

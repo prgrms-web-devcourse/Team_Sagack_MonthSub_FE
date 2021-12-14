@@ -4,6 +4,7 @@ import { useForm } from '@hooks';
 import { Input, Wrapper, ImageUpload } from '@components';
 import { useHistory } from 'react-router-dom';
 import { getMyInfo, patchMyInfo, postMyProfileImage } from '@apis/user';
+import theme from '@styles/theme';
 
 const EditMyInfoPage = () => {
   const history = useHistory();
@@ -139,22 +140,23 @@ const Button = styled.button`
   background-color: #041b1d;
   color: #ffffff;
   border-radius: 0.25rem;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-top: 1rem;
+  ${theme.style
+    .boxShadow}: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: ${theme.font.base};
 
   &:hover {
-    background-color: #ffb15c;
+    background-color: ${theme.color.main};
     color: #041b1d;
   }
 `;
 
 const Label = styled.label`
   border: 0;
-  margin-top: 1rem;
+  margin-top: ${theme.font.base};
 `;
 
 const ErrorMessage = styled.span`
-  color: red;
+  color: ${theme.color.main}
   font-size: 0.75rem;
 `;
 
@@ -177,12 +179,12 @@ const TextArea = styled.textarea`
   padding: 0.2rem;
   border: #041b1d 0.063rem;
   background-color: #ffffff;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   &:focus {
     background-color: #ffffff;
     border: #041b1d 0.063rem;
-    box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   }
   margin: 0.3rem 0;

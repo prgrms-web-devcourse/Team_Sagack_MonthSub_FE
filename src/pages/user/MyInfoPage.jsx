@@ -4,6 +4,7 @@ import { Wrapper } from '@components';
 import { Link } from 'react-router-dom';
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import theme from '@styles/theme';
 
 const MyInfoPage = () => (
   <Wrapper>
@@ -32,12 +33,12 @@ const StyledLink = styled(Link)`
   width: 40%;
   height: 30%;
   background-color: #ffffff;
-  margin: 0 1rem;
+  margin: 0 ${theme.font.base};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.5rem;
-  border: 0.3rem #041b2d solid;
+  border: 0.3rem ${theme.color.sub} solid;
 `;
 
 const StyledChromeReaderModeIcon = styled(ChromeReaderModeIcon)`

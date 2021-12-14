@@ -2,6 +2,7 @@ import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 
 const User = ({ fontSize, color, ...props }) => (
   <StyledUserIcon fontSize={fontSize} color={color} {...props} />
@@ -9,7 +10,7 @@ const User = ({ fontSize, color, ...props }) => (
 
 User.defaultProps = {
   fontSize: 'inherit',
-  color: '#4b4b4b',
+  color: theme.color.greyDark,
 };
 
 User.propTypes = {
@@ -17,9 +18,9 @@ User.propTypes = {
   color: PropTypes.string,
 };
 
+export default User;
+
 const StyledUserIcon = styled(PersonIcon)`
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => fontSize};
 `;
-
-export default User;

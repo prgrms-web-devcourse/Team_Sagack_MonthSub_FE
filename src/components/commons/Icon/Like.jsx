@@ -17,9 +17,9 @@ Like.propTypes = {
   color: PropTypes.string,
 };
 
+export default Like;
+
 const StyledLikeIcon = styled(LikeIcon)`
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => fontSize};
 `;
-
-export default Like;

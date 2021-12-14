@@ -28,8 +28,6 @@ const TextArea = ({
   );
 };
 
-export default TextArea;
-
 TextArea.defaultProps = {
   width: 'auto',
   height: 'auto',
@@ -45,6 +43,8 @@ TextArea.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };
+
+export default TextArea;
 
 const StyledTextArea = styled.textarea`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};

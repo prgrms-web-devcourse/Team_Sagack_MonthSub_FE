@@ -6,6 +6,7 @@ import validationEmail from '@utils/validationEmail';
 import validationPassword from '@utils/validationPassword';
 import { useHistory } from 'react-router-dom';
 import { postSignUp } from '@apis/auth';
+import theme from '@styles/theme';
 
 const SignUpPage = () => {
   const history = useHistory();
@@ -124,12 +125,12 @@ const SubmitButton = styled.button`
   background-color: #041b1d;
   color: #ffffff;
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-  margin: 1rem 0 0.5rem 0;
+  margin: ${theme.font.base} 0 0.5rem 0;
 
   &:hover {
-    background-color: #ffb15c;
+    background-color: ${theme.color.main};
     color: #041b1d;
   }
 `;

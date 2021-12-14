@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import theme from '@styles/theme';
 import {
   Wrapper,
   UserProfile,
@@ -176,7 +177,7 @@ export default ChannelPage;
 const ProfileWrapper = styled.div`
   width: 100%;
   height: 15rem;
-  background-color: #eaeaea;
+  background-color: ${theme.color.grey};
   margin-top: 5rem;
 `;
 
@@ -214,20 +215,20 @@ const ProfileContainer = styled.div`
     }
 
     > div:nth-of-type(1) {
-      font-size: 1.5rem;
+      font-size: ${theme.font.large};
       padding-bottom: 1.25rem;
       display: flex;
     }
 
     .writterTag {
       width: 3.75rem;
-      height: 1.5rem;
-      font-size: 1rem;
+      height: ${theme.font.large};
+      font-size: ${theme.font.base};
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 1.5rem;
-      background-color: #ffb15c;
+      border-radius: ${theme.font.large};
+      background-color: ${theme.color.main};
       margin-left: 0.625rem;
     }
   }
@@ -236,14 +237,14 @@ const ProfileContainer = styled.div`
     width: 3.75rem;
     height: 3.75rem;
     display: flex;
-    font-size: 0.875rem;
+    font-size: ${theme.font.small};
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     background-color: #ffffff;
     margin-right: 0.625rem;
-    line-height: 1rem;
+    line-height: ${theme.font.base};
   }
 
   .follows-wrap:nth-of-type(2) {
@@ -262,7 +263,7 @@ const WriterWrapper = styled.div`
     padding-right: 1.78rem;
 
     > div:nth-of-type(1) {
-      background-color: #bdbdbd;
+      background-color: ${theme.color.grey};
       width: 5.5rem;
       height: 5.5rem;
       border-radius: 5.5rem;

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Wrapper } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams } from 'react-router-dom';
+import theme from '@styles/theme';
 
 const ArticleDetailPage = () => {
   const { id } = useParams();
@@ -64,6 +65,6 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 2rem 0;
-  box-shadow: 0 0.25rem 0.25rem -0.25rem #c4c4c4;
-  padding: 1rem 0;
+  ${theme.style.boxShadow}: 0 0.25rem 0.25rem -0.25rem #c4c4c4;
+  padding: ${theme.font.base} 0;
 `;

@@ -5,6 +5,7 @@ import { postSignIn } from '@apis/auth';
 import { Input, Wrapper } from '@components';
 import validationEmail from '@utils/validationEmail';
 import { Link, useHistory } from 'react-router-dom';
+import theme from '@styles/theme';
 
 const SignInPage = () => {
   const history = useHistory();
@@ -98,18 +99,18 @@ const Button = styled.button`
   background-color: #041b1d;
   color: #ffffff;
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-  margin-top: 1rem;
+  margin-top: ${theme.font.base};
 
   &:hover {
-    background-color: #ffb15c;
+    background-color: ${theme.color.main};
     color: #041b1d;
   }
 `;
 
 const Span = styled.span`
-  margin: 1rem auto;
+  margin: ${theme.font.base} auto;
   width: 20%;
   display: flex;
   justify-content: space-around;

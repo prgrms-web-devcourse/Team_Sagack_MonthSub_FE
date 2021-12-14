@@ -2,6 +2,7 @@ import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 
 const Home = ({ fontSize, color, ...props }) => (
   <StyledHomeIcon fontSize={fontSize} color={color} {...props} />
@@ -9,7 +10,7 @@ const Home = ({ fontSize, color, ...props }) => (
 
 Home.defaultProps = {
   fontSize: 'inherit',
-  color: '#4b4b4b',
+  color: theme.color.greyDark,
 };
 
 Home.propTypes = {
@@ -17,9 +18,9 @@ Home.propTypes = {
   color: PropTypes.string,
 };
 
+export default Home;
+
 const StyledHomeIcon = styled(HomeIcon)`
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => fontSize};
 `;
-
-export default Home;
