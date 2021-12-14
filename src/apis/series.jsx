@@ -2,8 +2,7 @@ import { GET, POST, PUT } from './axios';
 
 export const getSeries = async () =>
   GET({
-    url: `/series/sort?sort=RECENT`,
-
+    url: '/series/all?size=16',
     isAuth: false,
   });
 

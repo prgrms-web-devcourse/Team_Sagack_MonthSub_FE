@@ -35,7 +35,7 @@ const EditMyInfoPage = () => {
       });
 
       const formData = new FormData();
-      formData.append('image', requestData.profileKeyFile);
+      formData.append('file', requestData.profileKeyFile);
       postMyProfileImage(formData);
     },
     validate: ({ nickName }) => {

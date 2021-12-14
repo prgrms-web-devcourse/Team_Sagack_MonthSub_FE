@@ -5,6 +5,9 @@ export const getArticleDetail = async ({ params }) =>
     url: `/articles/${params}`,
     isAuth: true,
     isJsonType: false,
+    data: {
+      seriesId: params,
+    },
   });
 
 export const postArticle = async ({ data }) =>
