@@ -12,7 +12,7 @@ import { postArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
 
 const WriteArticlePage = ({ match, history }) => {
-  const { id } = match.params;
+  const { seriesId } = match.params;
   const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
     initialValues: {
       title: '',
@@ -28,7 +28,7 @@ const WriteArticlePage = ({ match, history }) => {
       try {
         const request = {
           ...values,
-          seriesId: id,
+          seriesId,
         };
 
         const formData = new FormData();
@@ -38,7 +38,9 @@ const WriteArticlePage = ({ match, history }) => {
         const response = await postArticle({
           data: formData,
         });
-        response.status === 200 && history.push(`/article/${id}`);
+        console.log(response.data.id);
+        response.status === 200 &&
+          history.push(`/series/${seriesId}/article/${response.data.id}`);
       } catch (error) {
         alert(error);
       }
