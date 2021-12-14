@@ -12,7 +12,7 @@ export const patchMyInfo = async data =>
     url: '/users/me',
     data,
     isAuth: true,
-    isJsonType: false,
+    isJsonType: true,
   });
 
 export const postMyProfileImage = async data => {
