@@ -49,9 +49,9 @@ const UpdateArticlePage = ({ match, history }) => {
 
           textResponse.status === 200 &&
             fileResponse.status === 200 &&
-            history.push(`/articles/${id}`);
+            history.push(`/article/${id}`);
         } else {
-          textResponse.status === 200 && history.push(`/articles/${id}`);
+          textResponse.status === 200 && history.push(`/article/${id}`);
         }
       } catch (error) {
         alert(error);

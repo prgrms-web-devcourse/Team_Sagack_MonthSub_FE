@@ -39,7 +39,7 @@ const WriteArticlePage = ({ match, history }) => {
         const response = await postArticle({
           data: formData,
         });
-        response.status === 200 && history.push(`/articles/${id}`);
+        response.status === 200 && history.push(`/article/${id}`);
       } catch (error) {
         alert(error);
       }
