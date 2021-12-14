@@ -3,6 +3,7 @@ import { React, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { useClickAway } from '@hooks';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 
 const BackgroundDim = styled.div`
   position: fixed;
@@ -24,7 +25,7 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
   padding: 8px;
   background-color: white;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  ${theme.style.boxShadow}: 0 3px 6px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 `;
 
@@ -63,8 +64,6 @@ const Modal = ({ children, width, height, visible, onClose, ...props }) => {
   );
 };
 
-export default Modal;
-
 Modal.defaultProps = {
   visible: false,
   width: '400px',
@@ -79,3 +78,5 @@ Modal.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClose: PropTypes.func,
 };
+
+export default Modal;

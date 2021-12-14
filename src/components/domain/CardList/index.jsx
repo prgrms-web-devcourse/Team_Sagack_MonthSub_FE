@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
 import { Icons, Image } from '@components';
+import theme from '@styles/theme';
 
 const CardList = ({ list, ...props }) => (
   <CardContainer {...props}>
@@ -96,20 +97,20 @@ const Card = styled.div`
   .card {
     &-imageArea {
       height: 11rem;
-      background-color: #bdbdbd;
+      background-color: ${theme.color.grey};
     }
     &-textArea {
       flex-grow: 1;
-      font-size: 0.875rem;
-      color: #4b4b4b;
-      padding: 0.875rem;
+      font-size: ${theme.font.small};
+      color: ${theme.color.greyDark};
+      padding: ${theme.font.small};
       background-color: rgba(255, 177, 92, 0.2);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
       .card-likes {
-        font-size: 1.125rem;
+        font-size: ${theme.font.medium};
       }
 
       .category {
@@ -119,11 +120,11 @@ const Card = styled.div`
         border-radius: 1.25rem;
         display: flex;
         align-items: center;
-        border: 0.0625rem solid #ffb15c;
+        border: 0.0625rem solid ${theme.color.main};
       }
 
       > div {
-        margin-bottom: 0.875rem;
+        margin-bottom: ${theme.font.small};
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -140,9 +141,9 @@ const Card = styled.div`
       }
 
       .card-title {
-        font-size: 1.125rem;
+        font-size: ${theme.font.medium};
         color: #000000;
-        line-height: 1.5rem;
+        line-height: ${theme.font.large};
         flex-grow: 1;
 
         &:hover {
@@ -162,7 +163,7 @@ const SubscribeStatusDiv = styled.div`
     padding: 0.625rem;
   }
   .available {
-    background-color: #ffb15c;
+    background-color: ${theme.color.main};
   }
   .unAvailable {
     background-color: #ff8eb2;

@@ -1,20 +1,16 @@
-export { default as ArticleDetailPage } from './ArticleDetailPage';
-export { default as ChannelPage } from './ChannelPage';
-export { default as EditArticlePage } from './EditArticlePage';
-export { default as EditMyInfoPage } from './EditMyInfoPage';
-export { default as HomePage } from './HomePage';
-export { default as MyChannelPage } from './MyChannelPage';
-export { default as MyInfoPage } from './MyInfoPage';
-export { default as PurchaseHistoryPage } from './PurchaseHistoryPage';
-export { default as PurchasePage } from './PurchasePage';
-export { default as SearchPage } from './SearchPage';
-export { default as SeriesDetailPage } from './SeriesDetailPage';
-export { default as SeriesListPage } from './SeriesListPage';
-export { default as SignInPage } from './SignInPage';
-export { default as SignUpPage } from './SignUpPage';
-export { default as WriteArticlePage } from './WriteArticlePage';
-export { default as UpdateArticlePage } from './UpdateArticlePage';
-export { default as WriteListPage } from './WriteListPage';
-export { default as WriteSeriesPage } from './WriteSeriesPage';
-export { default as UpdateSeriesPage } from './UpdateSeriesPage';
-export { default as NotFoundPage } from './NotFoundPage';
+export {
+  ArticleDetailPage,
+  EditArticlePage,
+  WriteArticlePage,
+} from './article';
+export { ChannelPage } from './channel';
+export { EditMyInfoPage, MyInfoPage, WriteListPage } from './user';
+export { HomePage, SearchPage, NotFoundPage } from './general';
+export { PurchaseHistoryPage, PurchasePage } from './purchase';
+export { SignInPage, SignUpPage } from './auth';
+export {
+  SeriesDetailPage,
+  SeriesListPage,
+  WriteSeriesPage,
+  EditSeriesPage,
+} from './series';

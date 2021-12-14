@@ -27,3 +27,4 @@ export { default as ImageUpload } from './domain/ImageUpload';
 export { default as Title } from './commons/Title';
 export { default as Period } from './domain/Period';
 export { default as ArticleEditor } from './domain/ArticleEditor';
+export { default as IconWrapper } from './commons/IconWrapper';

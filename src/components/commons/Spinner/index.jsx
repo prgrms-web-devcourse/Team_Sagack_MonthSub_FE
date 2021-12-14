@@ -47,8 +47,6 @@ const Spinner = ({ size, color, loading }) => {
   ) : null;
 };
 
-export default Spinner;
-
 Spinner.defaultProps = {
   size: '4',
   color: '#C4C4C4',
@@ -60,6 +58,8 @@ Spinner.propTypes = {
   color: PropTypes.string,
   loading: PropTypes.bool,
 };
+
+export default Spinner;
 
 const Icon = styled.i`
   display: inline-block;

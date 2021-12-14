@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import theme from '@styles/theme';
 
 const Title = ({
   name,
@@ -47,7 +48,6 @@ const Title = ({
     </StyledTag>
   );
 };
-export default Title;
 
 Title.defaultProps = {
   h1: true,
@@ -58,7 +58,7 @@ Title.defaultProps = {
   h6: false,
   marginBottom: '0.5rem',
   weight: 700,
-  size: '1.125rem',
+  size: theme.font.medium,
 };
 
 Title.propTypes = {
@@ -73,3 +73,5 @@ Title.propTypes = {
   weight: PropTypes.number,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
+
+export default Title;

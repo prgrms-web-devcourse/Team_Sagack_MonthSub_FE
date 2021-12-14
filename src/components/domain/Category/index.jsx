@@ -16,11 +16,11 @@ const Category = () => (
   </div>
 );
 
-export default Category;
-
 Category.defaultProps = {};
 
 Category.propTypes = {};
+
+export default Category;
 
 const StyledButton = styled(Button)`
   margin: 0 10px;

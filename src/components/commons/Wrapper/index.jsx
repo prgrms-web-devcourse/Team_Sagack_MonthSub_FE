@@ -8,8 +8,6 @@ const Wrapper = ({ children, width, ...props }) => (
   </StyledDiv>
 );
 
-export default Wrapper;
-
 Wrapper.defaultProps = {
   width: '71.25rem',
 };
@@ -22,11 +20,12 @@ Wrapper.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
+export default Wrapper;
+
 const StyledDiv = styled.div`
   height: 100%;
   min-height: 100vh;
   max-width: ${props => props.width || '71.25rem'};
   margin: 0 auto;
-  /* border: 2px #000000 solid; */
   padding-top: 5rem;
 `;

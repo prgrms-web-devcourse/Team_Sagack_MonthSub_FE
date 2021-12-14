@@ -1,26 +1,27 @@
 import React from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 import Like from './Like';
 import Home from './Home';
 import User from './User';
+import Search from './Search';
 
-const Icons = ({ fontSize, backgroundColor, isDisabled, onClick, ...props }) => (
+const Icons = ({
+  fontSize,
+  backgroundColor,
+  isDisabled,
+  onClick,
+  ...props
+}) => (
   <IconWrapper
-  fontSize={fontSize}
-  backgroundColor={backgroundColor}
-  isDisabled={isDisabled}
-  onClick={onClick}
-  {...props}
-   />
+    fontSize={fontSize}
+    backgroundColor={backgroundColor}
+    isDisabled={isDisabled}
+    onClick={onClick}
+    {...props}
+  />
 );
-
-const IconWrapper = styled.div`
-  font-size: ${({ fontSize }) => fontSize};
-  display: inline-block;
-  cursor: pointer;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-`;
 
 Icons.propTypes = {
   fontSize: PropTypes.string,
@@ -30,14 +31,22 @@ Icons.propTypes = {
 };
 
 Icons.defaultProps = {
-  fontSize: '1.5rem',
+  fontSize: theme.font.large,
   backgroundColor: 'transparent',
   isDisabled: false,
   onClick: () => {},
-}
+};
 
 Icons.Like = Like;
 Icons.Home = Home;
 Icons.User = User;
+Icons.Search = Search;
 
 export default Icons;
+
+const IconWrapper = styled.div`
+  font-size: ${({ fontSize }) => fontSize};
+  display: inline-block;
+  cursor: pointer;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`;

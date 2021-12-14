@@ -6,9 +6,9 @@ export const getSeries = async () =>
     isAuth: false,
   });
 
-export const getSeriesDetail = async ({ params }) =>
+export const getSeriesDetail = async ({ id }) =>
   GET({
-    url: `/series/${params}`,
+    url: `/series/${id}`,
     isAuth: false,
   });
 
@@ -19,17 +19,17 @@ export const postSeries = async ({ data }) =>
     data,
   });
 
-export const putSeries = async ({ data, params }) =>
+export const putSeries = async ({ data, id }) =>
   PUT({
-    url: `/series/${params}/edit`,
+    url: `/series/${id}/edit`,
     isAuth: true,
     data,
     isJsonType: true,
   });
 
-export const putSeriesImage = async ({ data, params }) =>
+export const putSeriesImage = async ({ data, id }) =>
   PUT({
-    url: `/series/${params}/thumbnail`,
+    url: `/series/${id}/thumbnail`,
     isAuth: true,
     data,
   });

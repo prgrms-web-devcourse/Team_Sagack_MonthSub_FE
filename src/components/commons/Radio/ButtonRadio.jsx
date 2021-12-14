@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { List, Input, Title } from '@components';
+import theme from '@styles/theme';
 
 const ButtonRadio = ({
   title,
@@ -58,7 +59,7 @@ const Label = styled.label``;
 const StyledRadioInput = styled(Input)`
   display: none;
   &:checked + div {
-    color: #ffb15c;
+    color: ${theme.color.main};
   }
 `;
 
@@ -70,10 +71,10 @@ const StyledButton = styled.div`
   border-radius: 50px;
   margin-right: 0.5rem;
   background-color: #fff;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   text-align: center;
   &:hover {
-    color: #ffb15c;
+    color: ${theme.color.main};
   }
 `;

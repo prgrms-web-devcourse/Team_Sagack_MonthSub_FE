@@ -1,41 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 import {
   Button,
+  Image,
   PageSectionContainer,
   PageSectionTitle,
   ArticleList,
-  // CommentList,
-  Image,
 } from '@components';
 import { Link } from 'react-router-dom';
 
 const SeriesDetail = ({ detail }) => (
-  // const commentList = [
-  //   {
-  //     commentId: 1,
-  //     nickname: '홍길동',
-  //     thumbnail: 'img',
-  //     text: '이야 이 서비스 끝내줍니다! 칭찬해~',
-  //     date: '2021-12-02',
-  //   },
-  //   {
-  //     commentId: 2,
-  //     nickname: '뽀식이',
-  //     thumbnail: 'img',
-  //     text: '마크업 힘들어.. 그만할래...ㅜ',
-  //     date: '2021-12-24',
-  //   },
-  //   {
-  //     commentId: 3,
-  //     nickname: '초롱이',
-  //     thumbnail: 'img',
-  //     text: '집갈래~',
-  //     date: '2021-12-31',
-  //   },
-  // ];
-
   <>
     <ViewContainer>
       <div className="imageWrapper">
@@ -70,7 +46,11 @@ const SeriesDetail = ({ detail }) => (
           <div className="viewArticle-text">{detail.series.introduceText}</div>
           <div className="viewArticle-edit">
             <Link to={`/series/edit/${detail.series.id}`}>
-              <Button width="100%" height="3.125rem" font-size="1.5rem">
+              <Button
+                width="100%"
+                height="3.125rem"
+                font-size={theme.font.large}
+              >
                 수정하기
               </Button>
             </Link>
@@ -100,7 +80,13 @@ const SeriesDetail = ({ detail }) => (
                 <div>
                   <div>연재 주기</div>
                   <div>
-                    {detail.upload.date.map(day => day)},{detail.upload.time}
+                    {detail.upload.date.map(day => (
+                      <div key={day}>{day}</div>
+                    ))}
+                    {detail.upload.time.hour}
+                    {detail.upload.time.minute}
+                    {detail.upload.time.second}
+                    {detail.upload.time.nano}
                   </div>
                 </div>
               </div>
@@ -110,7 +96,11 @@ const SeriesDetail = ({ detail }) => (
               <div>{detail.series.price} 원</div>
             </div>
             <Link to="/purchase">
-              <Button width="100%" height="3.125rem" font-size="1.5rem">
+              <Button
+                width="100%"
+                height="3.125rem"
+                font-size={theme.font.large}
+              >
                 결제하기
               </Button>
             </Link>
@@ -124,7 +114,6 @@ const SeriesDetail = ({ detail }) => (
     </PageSectionContainer>
     <PageSectionContainer>
       <PageSectionTitle text="댓글 목록" />
-      {/* <CommentList list={commentList} /> */}
     </PageSectionContainer>
   </>
 );
@@ -140,7 +129,7 @@ const ViewContainer = styled.div`
     width: 100%;
     height: 37.5rem;
     margin-bottom: 5rem;
-    background-color: #bdbdbd;
+    background-color: ${theme.color.grey};
   }
   .userInfo {
     display: flex;
@@ -178,7 +167,7 @@ const ViewContainer = styled.div`
       margin-bottom: 0.9375rem;
     }
     &-text {
-      line-height: 1.5rem;
+      line-height: ${theme.font.large};
       flex-grow: 1;
     }
     &-edit {
@@ -203,7 +192,7 @@ const ViewContainer = styled.div`
         margin-bottom: 1.25rem;
         > div:nth-of-type(1) {
           font-weight: bold;
-          font-size: 1.125rem;
+          font-size: ${theme.font.medium};
           margin-bottom: 0.3125rem;
         }
       }

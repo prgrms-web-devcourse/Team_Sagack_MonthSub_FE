@@ -2,6 +2,7 @@ import React from 'react';
 import { TextArea, Input, Title } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 
 const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
   const handleInputChange = e => {
@@ -60,9 +61,9 @@ const StyledSection = styled.section`
 
 const StyledInput = styled(Input)`
   border: 0.016rem solid #949494;
-  box-shadow: none;
+  ${theme.style.boxShadow}: none;
   &:focus {
-    box-shadow: none;
+    ${theme.style.boxShadow}: none;
     border: 0.016rem solid #949494;
   }
 `;
