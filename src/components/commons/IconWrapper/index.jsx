@@ -16,7 +16,7 @@ IconWrapper.defaultProps = {
 };
 
 IconWrapper.propTypes = {
-  children: PropTypes.symbol,
+  children: PropTypes.element,
   color: PropTypes.string,
   fontSize: PropTypes.string,
 };
