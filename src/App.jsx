@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/my/info" exact component={MyInfoPage} />
         <Route path="/my/edit" exact component={EditMyInfoPage} />
         <Route path="/channel/:id" exact component={ChannelPage} />
-        <Route path="/purchase" exact component={PurchasePage} />
+        <Route path="/purchase/:id" exact component={PurchasePage} />
         <Route path="/purchase/info" exact component={PurchaseHistoryPage} />
         <Route path="/search" exact component={SearchPage} />
         <Route path="/writes" exact component={WriteListPage} />

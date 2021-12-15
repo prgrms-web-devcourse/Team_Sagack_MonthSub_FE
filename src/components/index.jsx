@@ -28,3 +28,4 @@ export { default as Period } from './domain/Period';
 export { default as ArticleEditor } from './domain/ArticleEditor';
 export { default as IconWrapper } from './commons/IconWrapper';
 export { default as DetailFrom } from './domain/DetailFrom';
+export { default as Container } from './commons/Container';
