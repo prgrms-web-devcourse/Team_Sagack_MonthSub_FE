@@ -32,7 +32,9 @@ const DetailForm = ({
           />
         </Link>
         <div>
-          <div>{writerNickname}</div>
+          <div>
+            <Link to={`/channel/${writerId}`}>{writerNickname}</Link>
+          </div>
           <div>{postDate}</div>
         </div>
       </DetailWriterInfo>
