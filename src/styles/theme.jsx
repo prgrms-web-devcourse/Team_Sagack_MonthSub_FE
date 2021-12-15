@@ -3,7 +3,7 @@ const color = {
   main: '#ffb15c',
   sub: '#041b2d',
   greyLight: '#f2f2f2',
-  grey: '#eaeaea',
+  grey: '#dbdbdb',
   greyMedium: '#bdbdbd',
   greyDark: '#4b4b4b',
   red: '#e00000',
@@ -14,6 +14,7 @@ const font = {
   base: '1rem',
   medium: '1.125rem',
   large: '1.5rem',
+  xLarge: '2rem',
 };
 
 const style = {
