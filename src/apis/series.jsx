@@ -2,7 +2,7 @@ import { GET, POST, PUT } from './axios';
 
 export const getSeries = async () =>
   GET({
-    url: '/series/all?size=16',
+    url: '/series?size=16&categories=ALL',
     isAuth: false,
   });
 
