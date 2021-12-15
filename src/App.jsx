@@ -59,7 +59,11 @@ const App = () => {
           exact
           component={WriteArticlePage}
         />
-        <Route path="/article/edit/:id" exact component={EditArticlePage} />
+        <Route
+          path="/series/:seriesId/article/edit/:articleId"
+          exact
+          component={EditArticlePage}
+        />
         <Route
           path="/series/:seriesId/article/:articleId"
           exact

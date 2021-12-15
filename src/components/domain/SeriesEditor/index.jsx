@@ -24,8 +24,8 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         <StyledTextArea
           width="100%"
           height="3rem"
-          name="introduceText"
-          value={value.introduceText || ''}
+          name="introduceSentence"
+          value={value.introduceSentence || ''}
           onInput={handleInputChange}
           disabled={disabled && disabled}
           placeholder="소개"
@@ -34,8 +34,8 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         <StyledTextArea
           width="100%"
           height="10rem"
-          name="introduceSentence"
-          value={value.introduceSentence || ''}
+          name="introduceText"
+          value={value.introduceText || ''}
           onInput={handleInputChange}
           disabled={disabled && disabled}
           placeholder="설명"
