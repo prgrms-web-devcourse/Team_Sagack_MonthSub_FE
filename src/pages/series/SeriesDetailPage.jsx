@@ -166,7 +166,7 @@ const MainArea = styled.div`
 
   > div:nth-of-type(1) {
     flex-grow: 1;
-    padding-right: 20px;
+    padding-right: 1.25rem;
   }
 
   > div:nth-of-type(2) {
@@ -188,7 +188,7 @@ const SeriesInfoHead = styled.div`
 
 const SeriesInfo = styled.div`
   width: 100%;
-  height: 300px;
+  height: 18.75rem;
   padding: 1.25rem;
   border: 0.0625rem solid ${theme.color.main};
 `;
@@ -205,7 +205,7 @@ const SeriesInfoSection = styled.div`
     margin-top: 0.625rem;
 
     > span:nth-of-type(1) {
-      margin-right: 10px;
+      margin-right: 0.625rem;
       color: ${theme.color.main};
     }
   }

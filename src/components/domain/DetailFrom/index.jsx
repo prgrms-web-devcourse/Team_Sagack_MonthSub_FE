@@ -50,7 +50,7 @@ const DetailForm = ({
     <DetailBody>
       <div>{bodyText}</div>
       <div>
-        <Button width="100px" height="45px" margin={0}>
+        <Button width="6.25rem" height="2.8125rem" margin={0}>
           수정하기
         </Button>
       </div>
