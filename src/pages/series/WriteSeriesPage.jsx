@@ -13,6 +13,7 @@ import {
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
+import getToday from '@utils/getToday';
 import jsonBlob from '@utils/createJsonBlob';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '@apis/series';
@@ -32,6 +33,8 @@ const WriteSeriesPage = ({ history }) => {
       category: '',
       uploadTime: '',
       articleCount: '',
+      thumbnailFile: '',
+      thumbnailUrl: '',
     },
 
     onSubmit: async values => {
@@ -102,7 +105,11 @@ const WriteSeriesPage = ({ history }) => {
           />
         </Section>
         <Section>
-          <ImageUpload onChange={handleImageUpload} name="thumbnail" />
+          <ImageUpload
+            onChange={handleImageUpload}
+            name="thumbnail"
+            src={values.thumbnailUrl}
+          />
         </Section>
         <Section>
           <Input
@@ -119,7 +126,7 @@ const WriteSeriesPage = ({ history }) => {
             title="모집기간"
             startName="subscribeStartDate"
             startValue={values.subscribeStartDate}
-            startMin=""
+            startMin={getToday()}
             endName="subscribeEndDate"
             endValue={values.subscribeEndDate}
             endMin={calculateLaterDate(values.subscribeStartDate, 1)}

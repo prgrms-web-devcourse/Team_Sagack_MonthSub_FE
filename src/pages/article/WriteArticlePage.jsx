@@ -17,14 +17,11 @@ const WriteArticlePage = ({ match, history }) => {
     initialValues: {
       title: '',
       contents: '',
+      thumbnailFile: '',
+      thumbnailUrl: '',
     },
 
     onSubmit: async values => {
-      if (!values) {
-        alert('이미지를 업로드 해주세요!');
-        return;
-      }
-
       try {
         const request = {
           ...values,
@@ -35,7 +32,7 @@ const WriteArticlePage = ({ match, history }) => {
         formData.append('file', values.thumbnailFile);
         formData.append('request', jsonBlob(request));
 
-        const { response } = await postArticle({
+        const response = await postArticle({
           data: formData,
         });
         response.status === 200 &&
@@ -54,6 +51,10 @@ const WriteArticlePage = ({ match, history }) => {
         newErrors.contents = '내용을 입력해주세요.';
         alert('내용을 입력해주세요');
       }
+      if (!values.thumbnailFile) {
+        newErrors.thumbnailFile = '이미지를 업로드 해주세요.';
+        alert('이미지를 업로드 해주세요!');
+      }
       return newErrors;
     },
   });
@@ -66,7 +67,11 @@ const WriteArticlePage = ({ match, history }) => {
           onChange={handleChange}
           value={values}
         />
-        <ImageUpload onChange={handleImageUpload} name="thumbnail" />
+        <ImageUpload
+          onChange={handleImageUpload}
+          name="thumbnail"
+          src={values.thumbnailUrl}
+        />
         <Buttons confirmName="제출" />
       </Form>
     </StyledWrapper>

@@ -10,28 +10,31 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { getArticleDetail, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
+import { useParams } from 'react-router-dom';
 
-const EditArticlePage = ({ match, history }) => {
-  const { seriesId, articleId } = match.params();
+const EditArticlePage = ({ history }) => {
+  const { seriesId, articleId } = useParams();
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
         title: '',
         contents: '',
         createdAt: '',
-        thumbnailKey: '',
-        thumbnailKeyFile: {},
+        thumbnailFile: '',
+        thumbnailUrl: '',
       },
       onSubmit: async values => {
         try {
           const request = {
             title: values.title,
             contents: values.contents,
+            seriesId,
           };
           const formData = new FormData();
           formData.append('file', values.thumbnailFile);
           formData.append('request', jsonBlob(request));
           const response = await putArticle({
+            id: articleId,
             data: formData,
           });
           response.status === 200 &&
@@ -83,7 +86,7 @@ const EditArticlePage = ({ match, history }) => {
           title="썸네일 선택"
           onChange={handleImageUpload}
           name="thumbnail"
-          url={values.thumbnailKey}
+          src={values.thumbnailUrl}
         />
         <Buttons confirmName="제출" />
       </Form>
@@ -92,7 +95,6 @@ const EditArticlePage = ({ match, history }) => {
 };
 
 EditArticlePage.propTypes = {
-  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

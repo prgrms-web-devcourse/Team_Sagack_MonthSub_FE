@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper } from '@components';
+import { Wrapper, Button } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams } from 'react-router-dom';
 import theme from '@styles/theme';
@@ -16,10 +16,7 @@ const ArticleDetailPage = () => {
 
   const getInitialData = async ({ seriesId, articleId }) => {
     try {
-      const { data } = await getArticleDetail({
-        seriesId,
-        articleId,
-      });
+      const { data } = await getArticleDetail({ seriesId, articleId });
       setArticle({
         title: data.title,
         contents: data.contents,
@@ -42,6 +39,7 @@ const ArticleDetailPage = () => {
         <Date>{article.createdAt}</Date>
       </Container>
       <Paragraph>{article.contents}</Paragraph>
+      <Button name="수정하기" />
     </Wrapper>
   );
 };
