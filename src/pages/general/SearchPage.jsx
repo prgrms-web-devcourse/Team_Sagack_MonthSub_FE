@@ -1,22 +1,26 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Container, Input, Button } from '@components';
+import { Container, Input, Button, CardList } from '@components';
 import { getSearchWithTitle } from '@apis/search';
 import { useForm } from '@hooks';
 
 const SearchPage = () => {
-  const { values, errors, handleChange, handleSubmit } = useForm({
+  const { values, setValues, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       keyword: '',
       check: '',
-      searchList: []
+      seriesList: [],
     },
-    onSubmit: values => {
-      if (values.check === 'title')
-        const response = getSearchWithTitle({
-          title: values.keyword,
-        });
-        
+    onSubmit: async values => {
+      const { data } = await getSearchWithTitle({
+        check: values.check,
+        keyword: values.keyword,
+      });
+      setValues({
+        ...values,
+        keyword: '',
+        seriesList: data.seriesList,
+      });
     },
     validate: ({ check, keyword }) => {
       const newErrors = {};
@@ -43,7 +47,7 @@ const SearchPage = () => {
           <Input
             type="radio"
             name="check"
-            value="writer"
+            value="nickname"
             onChange={handleChange}
           />
           작가
@@ -51,14 +55,18 @@ const SearchPage = () => {
         <StyledInput
           width="90%"
           name="keyword"
-          value={values.keyword}
+          value={values.keyword || ''}
           onChange={handleChange}
           placeholder="검색어를 입력하세요."
         />
         <StyledButton type="submit">검색</StyledButton>
         <ErrorMessage>{errors.error}&nbsp;</ErrorMessage>
       </SearchForm>
-      <SearchResult />
+      {values.seriesList.length ? (
+        <CardList list={values.seriesList} />
+      ) : (
+        <div>검색결과가 없습니다.</div>
+      )}
     </Container>
   );
 };
@@ -90,5 +98,3 @@ const StyledButton = styled(Button)`
   right: 0;
   border: 0;
 `;
-
-const SearchResult = styled.div``;
