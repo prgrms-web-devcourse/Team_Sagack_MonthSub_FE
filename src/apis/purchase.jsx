@@ -1,4 +1,4 @@
-import { GET } from './axios';
+import { GET, POST } from './axios';
 
 export const getPurchaseInfo = async ({ id }) =>
   GET({
@@ -6,3 +6,11 @@ export const getPurchaseInfo = async ({ id }) =>
     isAuth: true,
     isJsonType: false,
   });
+
+export const postPurchase = async ({ id }) => {
+  POST({
+    url: `/payments/series/${id}`,
+    isAuth: true,
+    isJsonType: false,
+  });
+};

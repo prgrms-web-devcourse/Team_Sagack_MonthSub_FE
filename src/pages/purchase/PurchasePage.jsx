@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, Image, Button, Container } from '@components';
 import { useHistory, useParams } from 'react-router-dom';
-import { getPurchaseInfo } from '@apis/purchase';
+import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
 
 const DEFAULT_PROFILE_IMAGE =
@@ -28,9 +28,14 @@ const PurchasePage = () => {
   const history = useHistory();
   const [values, setValues] = useState(initialData);
 
-  const handleSubmit = e => {
-    console.log(e);
-    history.push(`/purchase/result/${id}`);
+  const handleSubmit = async () => {
+    try {
+      const response = await postPurchase({ id });
+      console.log(response);
+    } catch (error) {
+      alert(error);
+      history.push(`/purchase/result/${id}`);
+    }
   };
 
   const getInitialData = async () => {
@@ -44,8 +49,7 @@ const PurchasePage = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <H1>결제</H1>
+      <Container title="결제">
         <PurchaseSeries>
           <Image
             alt="시리즈썸네일"
@@ -83,14 +87,6 @@ const PurchasePage = () => {
 };
 
 export default PurchasePage;
-
-const H1 = styled.h1`
-  width: 100%;
-  font-weight: 700;
-  font-size: 1.5rem;
-  box-shadow: 0 0.25rem 0.25rem -0.25rem #c4c4c4;
-  padding: 0.5rem 0;
-`;
 
 const H2 = styled.h2`
   font-weight: 700;

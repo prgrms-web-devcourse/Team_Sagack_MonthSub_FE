@@ -37,8 +37,7 @@ const PurchaseResultPage = () => {
   }, []);
   return (
     <Wrapper>
-      <Container>
-        <H1>결제</H1>
+      <Container title="결제">
         <PurchaseResult>
           결제를 완료했습니다!
           <p>남은 포인트</p>
@@ -57,29 +56,32 @@ const PurchaseResultPage = () => {
             <span>{values.series.price}</span>
           </Content>
         </PurchaseSeries>
-        <Button
-          type="submit"
-          width="100%"
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          홈으로 가기
-        </Button>
+        <ButtonContainer>
+          <Button
+            type="submit"
+            width="48%"
+            onClick={() => {
+              history.push('/series');
+            }}
+          >
+            시리즈 더 보기
+          </Button>
+          <Button
+            type="submit"
+            width="48%"
+            onClick={() => {
+              history.push(`/series/${id}`);
+            }}
+          >
+            아티클 보기
+          </Button>
+        </ButtonContainer>
       </Container>
     </Wrapper>
   );
 };
 
 export default PurchaseResultPage;
-
-const H1 = styled.h1`
-  width: 100%;
-  font-weight: 700;
-  font-size: 1.5rem;
-  box-shadow: 0 0.25rem 0.25rem -0.25rem #c4c4c4;
-  padding: 0.5rem 0;
-`;
 
 const H2 = styled.h2`
   font-weight: 500;
@@ -100,4 +102,9 @@ const Content = styled.div`
 const PurchaseResult = styled.div`
   padding: 2rem 1rem;
   text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
