@@ -24,3 +24,10 @@ export const patchMyInfo = async data => {
     isJsonType: false,
   });
 };
+
+export const getMyPurchaseSeries = async () =>
+  GET({
+    url: '/series/users/subscribe',
+    isAuth: true,
+    isJsonType: false,
+  });
