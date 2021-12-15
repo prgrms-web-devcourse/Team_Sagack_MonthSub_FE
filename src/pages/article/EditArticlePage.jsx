@@ -10,11 +10,9 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { getArticleDetail, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
-import { useParams } from 'react-router-dom';
 
 const EditArticlePage = ({ match, history }) => {
-  const { seriesId, articleId } = useParams();
-  const { id } = match.params;
+  const { seriesId, articleId } = match.params();
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
@@ -36,7 +34,8 @@ const EditArticlePage = ({ match, history }) => {
           const response = await putArticle({
             data: formData,
           });
-          response.status === 200 && history.push(`/article/${id}`);
+          response.status === 200 &&
+            history.push(`/series/${seriesId}/article/${articleId}`);
         } catch (error) {
           alert(error);
         }
@@ -57,8 +56,8 @@ const EditArticlePage = ({ match, history }) => {
 
   const getInitialData = async ({ seriesId, articleId }) => {
     const { data } = await getArticleDetail({
-      data: seriesId,
-      id: articleId,
+      seriesId,
+      articleId,
     });
     setValues({
       title: data.title,

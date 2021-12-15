@@ -1,13 +1,10 @@
 import { GET, POST, PUT } from './axios';
 
-export const getArticleDetail = async ({ data, id }) =>
+export const getArticleDetail = async ({ articleId, seriesId }) =>
   GET({
-    url: `/articles/${id}`,
+    url: `/articles/${articleId}?seriesId=${seriesId}`,
     isAuth: true,
     isJsonType: false,
-    data: {
-      seriesId: data,
-    },
   });
 
 export const postArticle = async ({ data }) =>

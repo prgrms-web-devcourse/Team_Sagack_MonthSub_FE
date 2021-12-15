@@ -35,10 +35,9 @@ const WriteArticlePage = ({ match, history }) => {
         formData.append('file', values.thumbnailFile);
         formData.append('request', jsonBlob(request));
 
-        const response = await postArticle({
+        const { response } = await postArticle({
           data: formData,
         });
-        console.log(response.data.id);
         response.status === 200 &&
           history.push(`/series/${seriesId}/article/${response.data.id}`);
       } catch (error) {
