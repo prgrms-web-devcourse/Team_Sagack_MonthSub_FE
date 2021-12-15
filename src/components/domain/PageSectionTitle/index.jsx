@@ -16,6 +16,6 @@ PageSectionTitle.propTypes = {
 export default PageSectionTitle;
 
 const TitleWrapper = styled.div`
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.625rem;
   font-size: ${theme.font.large};
 `;

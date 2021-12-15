@@ -16,4 +16,6 @@ PageSectionContainer.propTypes = {
 
 export default PageSectionContainer;
 
-const SectionContainer = styled.div``;
+const SectionContainer = styled.div`
+  margin-bottom: 3.125rem;
+`;
