@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Image, Button } from '@components';
+import { Wrapper, Image, Button, Container } from '@components';
 import { useHistory, useParams } from 'react-router-dom';
 import { getPurchaseInfo } from '@apis/purchase';
 import theme from '@styles/theme';
@@ -83,16 +83,6 @@ const PurchasePage = () => {
 };
 
 export default PurchasePage;
-
-const Container = styled.div`
-  width: 80%;
-  height: 50%;
-  margin: 15rem auto;
-  padding: 2rem;
-  border-radius: 0.8rem;
-  box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-`;
 
 const H1 = styled.h1`
   width: 100%;
