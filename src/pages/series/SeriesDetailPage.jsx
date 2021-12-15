@@ -7,11 +7,12 @@ import {
   ArticleList,
   DetailFrom,
 } from '@components';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export const initialData = {
   series: {
@@ -126,7 +127,15 @@ const SeriesDetailPage = () => {
         </div>
       </MainArea>
       <ArticleArea>
-        <PageSectionTitle text="연재목록" />
+        <div className="articleAreaHeader">
+          <PageSectionTitle text="연재목록" />
+          <div>
+            <StyeldAddCircleOutlineIcon />
+            <Link to={`/series/${detail.series.id}/article/write`}>
+              새 아티클 작성하기
+            </Link>
+          </div>
+        </div>
         <PageSectionContainer>
           {detail.articleList.length === 0 ? (
             <div className="articleListNone">
@@ -221,4 +230,20 @@ const ArticleArea = styled.div`
     align-items: center;
     color: ${theme.color.greyDark};
   }
+
+  .articleAreaHeader {
+    display: flex;
+
+    > *:nth-of-type(2) {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+  }
+`;
+
+const StyeldAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
+  color: ${theme.color.greyDark};
 `;

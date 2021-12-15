@@ -54,7 +54,11 @@ const App = () => {
         <Route path="/series/write" exact component={WriteSeriesPage} />
         <Route path="/series/:id" exact component={SeriesDetailPage} />
         <Route path="/series/edit/:id" exact component={EditSeriesPage} />
-        <Route path="/article/write/:id" exact component={WriteArticlePage} />
+        <Route
+          path="/series/:seriesId/article/write"
+          exact
+          component={WriteArticlePage}
+        />
         <Route path="/article/edit/:id" exact component={EditArticlePage} />
         <Route
           path="/series/:seriesId/article/:articleId"
