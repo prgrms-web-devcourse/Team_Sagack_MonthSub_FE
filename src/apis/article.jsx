@@ -1,19 +1,12 @@
 import axios from 'axios';
 import { POST, PUT } from './axios';
 
-// export const getArticleDetail = async () => {
-//   const res = await GET({
-//     url: `/articles/2?seriesId=0`,
-//     isAuth: true,
-//     isJsonType: false,
-//   });
-//   console.log(res);
-// };
+const { REACT_APP_API_END_POINT } = process.env;
 
 export const getArticleDetail = async ({ seriesId, articleId }) => {
   const res = await axios({
     method: 'get',
-    url: `https://monthsub.com/articles/${articleId}`,
+    url: `${REACT_APP_API_END_POINT}/articles/${articleId}`,
     headers: {
       Authorization: `Bearer ${sessionStorage
         .getItem('authorization')
