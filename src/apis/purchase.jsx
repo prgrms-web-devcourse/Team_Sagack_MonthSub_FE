@@ -7,10 +7,9 @@ export const getPurchaseInfo = async ({ id }) =>
     isJsonType: false,
   });
 
-export const postPurchase = async ({ id }) => {
+export const postPurchase = async ({ id }) =>
   POST({
     url: `/payments/series/${id}`,
     isAuth: true,
     isJsonType: false,
   });
-};

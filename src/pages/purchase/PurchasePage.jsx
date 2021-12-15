@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, Image, Button, Container } from '@components';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
-
-const DEFAULT_PROFILE_IMAGE =
-  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
 
 const initialData = {
   series: {
@@ -21,26 +18,35 @@ const initialData = {
     date: [],
     time: '',
   },
+  user: {
+    point: 0,
+  },
 };
 
 const PurchasePage = () => {
   const { id } = useParams();
   const history = useHistory();
   const [values, setValues] = useState(initialData);
+  const [isPayed, setIsPayed] = useState(false);
 
   const handleSubmit = async () => {
     try {
-      const response = await postPurchase({ id });
-      console.log(response);
+      const { data } = await postPurchase({ id });
+      setValues(data);
+      setIsPayed(true);
     } catch (error) {
       alert(error);
-      history.push(`/purchase/result/${id}`);
     }
   };
 
   const getInitialData = async () => {
     const { data } = await getPurchaseInfo({ id });
-    setValues(data);
+    setValues({
+      ...data,
+      user: {
+        point: 0,
+      },
+    });
   };
 
   useEffect(() => {
@@ -50,12 +56,18 @@ const PurchasePage = () => {
   return (
     <Wrapper>
       <Container title="결제">
+        {isPayed && (
+          <PurchaseResult>
+            결제를 완료했습니다!
+            <p>남은 포인트 : {values.user.point}</p>
+          </PurchaseResult>
+        )}
         <PurchaseSeries>
           <Image
             alt="시리즈썸네일"
             width="30%"
             height="30%"
-            src={values.series.thumbnail || DEFAULT_PROFILE_IMAGE}
+            src={values.series.thumbnail}
           />
           <Content>
             <TitleContainer>
@@ -78,9 +90,32 @@ const PurchasePage = () => {
             </FlexContainer>
           </Content>
         </PurchaseSeries>
-        <Button type="submit" width="100%" onClick={handleSubmit}>
-          결제하기
-        </Button>
+        {isPayed ? (
+          <ButtonContainer>
+            <Button
+              type="submit"
+              width="45%"
+              onClick={() => {
+                history.push('/series');
+              }}
+            >
+              시리즈더보기
+            </Button>
+            <Button
+              type="submit"
+              width="45%"
+              onClick={() => {
+                history.push(`/series/${id}`);
+              }}
+            >
+              작품보기
+            </Button>
+          </ButtonContainer>
+        ) : (
+          <Button type="submit" width="100%" onClick={handleSubmit}>
+            결제하기
+          </Button>
+        )}
       </Container>
     </Wrapper>
   );
@@ -131,4 +166,14 @@ const Price = styled.h1`
   font-weight: 700;
   font-size: 1.5rem;
   padding: 0.5rem 0;
+`;
+
+const PurchaseResult = styled.div`
+  padding: 2rem 1rem;
+  text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
