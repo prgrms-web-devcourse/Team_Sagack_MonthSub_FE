@@ -1,14 +1,23 @@
-import { GET, POST, PUT } from './axios';
+import axios from 'axios';
+import { POST, PUT } from './axios';
 
-export const getArticleDetail = async ({ data, id }) =>
-  GET({
-    url: `/articles/${id}`,
-    isAuth: true,
-    isJsonType: false,
-    data: {
-      seriesId: data,
+const { REACT_APP_API_END_POINT } = process.env;
+
+export const getArticleDetail = async ({ seriesId, articleId }) => {
+  const res = await axios({
+    method: 'get',
+    url: `${REACT_APP_API_END_POINT}/articles/${articleId}`,
+    headers: {
+      Authorization: `Bearer ${sessionStorage
+        .getItem('authorization')
+        .replace(/\"/gi, '')}`,
+    },
+    params: {
+      seriesId,
     },
   });
+  return res;
+};
 
 export const postArticle = async ({ data }) =>
   POST({
@@ -22,12 +31,5 @@ export const putArticle = async ({ data, id }) =>
     url: `/articles/${id}`,
     isAuth: true,
     data,
-    isJsonType: true,
-  });
-
-export const putArticleImage = async ({ data, id }) =>
-  PUT({
-    url: `/articles/${id}/thumbnail`,
-    isAuth: true,
-    data,
+    isJsonType: false,
   });

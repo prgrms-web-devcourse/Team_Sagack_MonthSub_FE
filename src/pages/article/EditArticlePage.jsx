@@ -10,31 +10,35 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { getArticleDetail, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
+import { useParams } from 'react-router-dom';
 
-const EditArticlePage = ({ match, history }) => {
-  const { id } = match.params;
+const EditArticlePage = ({ history }) => {
+  const { seriesId, articleId } = useParams();
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
         title: '',
         contents: '',
         createdAt: '',
-        thumbnailKey: '',
-        thumbnailKeyFile: {},
+        thumbnailFile: '',
+        thumbnailUrl: '',
       },
       onSubmit: async values => {
         try {
           const request = {
             title: values.title,
             contents: values.contents,
+            seriesId,
           };
           const formData = new FormData();
           formData.append('file', values.thumbnailFile);
           formData.append('request', jsonBlob(request));
           const response = await putArticle({
+            id: articleId,
             data: formData,
           });
-          response.status === 200 && history.push(`/article/${id}`);
+          response.status === 200 &&
+            history.push(`/series/${seriesId}/article/${articleId}`);
         } catch (error) {
           alert(error);
         }
@@ -53,8 +57,11 @@ const EditArticlePage = ({ match, history }) => {
       },
     });
 
-  const getArticleContent = async id => {
-    const { data } = await getArticleDetail({ id });
+  const getInitialData = async ({ seriesId, articleId }) => {
+    const { data } = await getArticleDetail({
+      seriesId,
+      articleId,
+    });
     setValues({
       title: data.title,
       contents: data.contents,
@@ -64,7 +71,7 @@ const EditArticlePage = ({ match, history }) => {
   };
 
   useEffect(() => {
-    id && getArticleContent(id);
+    getInitialData({ seriesId, articleId });
   }, []);
 
   return (
@@ -79,7 +86,7 @@ const EditArticlePage = ({ match, history }) => {
           title="썸네일 선택"
           onChange={handleImageUpload}
           name="thumbnail"
-          url={values.thumbnailKey}
+          src={values.thumbnailUrl}
         />
         <Buttons confirmName="제출" />
       </Form>
@@ -88,7 +95,6 @@ const EditArticlePage = ({ match, history }) => {
 };
 
 EditArticlePage.propTypes = {
-  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
