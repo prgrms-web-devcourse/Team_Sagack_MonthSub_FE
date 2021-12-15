@@ -95,7 +95,7 @@ const SeriesDetail = ({ detail }) => (
               <div>구독료</div>
               <div>{detail.series.price} 원</div>
             </div>
-            <Link to="/purchase">
+            <Link to={`/purchase/${detail.series.id}`}>
               <Button
                 width="100%"
                 height="3.125rem"

@@ -64,7 +64,6 @@ const StyledButton = styled.button`
   border: 0.0625rem solid ${theme.color.main};
   border-radius: 4px;
   padding: 0.5rem;
-  margin: 0 1rem;
   color: ${theme.color.main};
   background-color: #fff;
   &:hover {
