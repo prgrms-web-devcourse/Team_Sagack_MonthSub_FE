@@ -14,6 +14,7 @@ const Button = ({
   children,
   name,
   value,
+  margin,
   ...props
 }) => (
   <StyledButton
@@ -25,6 +26,7 @@ const Button = ({
     name={name}
     value={value}
     onClick={onClick}
+    margin={margin}
     {...props}
   >
     {children}
@@ -43,6 +45,7 @@ Button.defaultProps = {
   name: '',
   value: '',
   children: 'text',
+  margin: 1,
 };
 
 Button.propTypes = {
@@ -55,6 +58,7 @@ Button.propTypes = {
   children: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
+  margin: PropTypes.number,
 };
 
 const StyledButton = styled.button`
@@ -64,7 +68,7 @@ const StyledButton = styled.button`
   border: 0.0625rem solid ${theme.color.main};
   border-radius: 4px;
   padding: 0.5rem;
-  margin: 0 1rem;
+  margin: 0 ${({ margin }) => `${margin}rem`};
   color: ${theme.color.main};
   background-color: #fff;
   &:hover {

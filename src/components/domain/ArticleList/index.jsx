@@ -2,24 +2,31 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
+import { Link } from 'react-router-dom';
 
-const ArticleList = ({ list, ...props }) => (
+const ArticleList = ({ seriesId, list, ...props }) => (
   <div {...props}>
     {list.map(item => (
       <ArticleContainer key={item.articleId}>
         <div>{item.round}</div>
-        <div className="title">{item.title}</div>
-        <div>날짜</div>
+        <div className="title">
+          <Link to={`/series/${seriesId}/article/${item.articleId}`}>
+            {item.title}
+          </Link>
+        </div>
+        <div>{item.date}</div>
       </ArticleContainer>
     ))}
   </div>
 );
 
 ArticleList.defaultProps = {
+  seriesId: 0,
   list: [],
 };
 
 ArticleList.propTypes = {
+  seriesId: PropTypes.number,
   list: PropTypes.array,
 };
 
