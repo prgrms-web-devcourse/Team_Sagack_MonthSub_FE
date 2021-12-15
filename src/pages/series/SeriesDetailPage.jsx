@@ -84,6 +84,7 @@ const SeriesDetailPage = () => {
           <DetailFrom
             previousRoot="/series"
             previousRootText="구독 모집"
+            ParentId={detail.series.id}
             title={detail.series.title}
             writerId={detail.writer.userId}
             writerProfileImage={detail.writer.profileImage}

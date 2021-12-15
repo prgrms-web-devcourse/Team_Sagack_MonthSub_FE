@@ -8,6 +8,7 @@ import { Button, Icons, IconWrapper, Image } from '@components';
 const DetailForm = ({
   previousRoot,
   previousRootText,
+  ParentId,
   title,
   writerId,
   writerProfileImage,
@@ -50,9 +51,11 @@ const DetailForm = ({
     <DetailBody>
       <div>{bodyText}</div>
       <div>
-        <Button width="6.25rem" height="2.8125rem" margin={0}>
-          수정하기
-        </Button>
+        <Link to={`/series/edit/${ParentId}`}>
+          <Button width="6.25rem" height="2.8125rem" margin={0}>
+            수정하기
+          </Button>
+        </Link>
       </div>
     </DetailBody>
   </div>
@@ -61,6 +64,7 @@ const DetailForm = ({
 DetailForm.defaultProps = {
   previousRoot: '',
   previousRootText: '',
+  ParentId: -1,
   title: '',
   writerId: -1,
   writerProfileImage: '',
@@ -73,6 +77,7 @@ DetailForm.defaultProps = {
 DetailForm.propTypes = {
   previousRoot: PropTypes.string,
   previousRootText: PropTypes.string,
+  ParentId: PropTypes.number,
   title: PropTypes.string,
   writerId: PropTypes.number,
   writerProfileImage: PropTypes.string,
