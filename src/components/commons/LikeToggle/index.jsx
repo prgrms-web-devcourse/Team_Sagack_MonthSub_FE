@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Icons, IconWrapper } from '@components';
 import { useToggle } from '@hooks';
+import styled from '@emotion/styled';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
 
@@ -30,12 +31,12 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   };
 
   return (
-    <div onClick={handleClick}>
+    <Container onClick={handleClick}>
       <IconWrapper color={theme.color.red}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
       {typeof likeCount === 'boolean' ? '' : <span>{count} Likes</span>}
-    </div>
+    </Container>
   );
 };
 
@@ -53,3 +54,12 @@ LikeToggle.propTypes = {
 };
 
 export default LikeToggle;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & div {
+    margin-bottom: 0.2rem;
+  }
+`;
