@@ -151,7 +151,7 @@ const DetailWriterInfo = styled.div`
 
 const DetailBody = styled.div`
   border-top: 0.0625rem solid ${theme.color.grey};
-  min-height: 13rem;
+  min-height: 12.6rem;
   display: flex;
   flex-direction: column;
 
