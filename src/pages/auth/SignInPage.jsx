@@ -6,10 +6,12 @@ import { Input, Wrapper } from '@components';
 import validationEmail from '@utils/validationEmail';
 import { Link, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
+import { useUser } from '../../contexts/UserProvider';
 
 const SignInPage = () => {
   const history = useHistory();
   const { setValue } = useSessionStorage('authorization', '');
+  const { addToken } = useUser();
   const { values, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
@@ -20,6 +22,12 @@ const SignInPage = () => {
         const response = await postSignIn(requestData);
         if (response) {
           setValue(response.data.token);
+          addToken({
+            token: response.data.token,
+            username: response.data.username,
+            userId: response.data.userId,
+            group: response.data.group,
+          });
           history.push('/');
         }
       } catch (error) {
