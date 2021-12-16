@@ -7,6 +7,7 @@ export { default as Upload } from './commons/Upload';
 export { default as TextArea } from './commons/TextArea';
 export { default as Input } from './commons/Input';
 export { default as Wrapper } from './commons/Wrapper';
+export { default as ImageCard } from './commons/ImageCard';
 export { default as CheckBox } from './commons/CheckBox';
 export { default as Header } from './domain/Header';
 export { default as Category } from './domain/Category';

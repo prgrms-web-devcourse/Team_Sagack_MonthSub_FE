@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { CardList } from '@components';
 
-const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => {
+const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => { 
   const howManyItemsAre = itemsCountOnRow * itemsCountOnCol;
   const lastSlideIndex = Math.ceil(list.length / howManyItemsAre) - 1;
   const slideNumber = useRef(0);
