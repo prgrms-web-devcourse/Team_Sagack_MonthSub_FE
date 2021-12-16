@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useSessionStorage } from '@hooks';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import { Button, Icons } from '@components';
 import theme from '@styles/theme';
 import { lighten } from 'polished';
+import { useUser } from '../../../contexts/UserProvider';
 import Nav from './Nav';
 import Logo from './Logo';
 
 const logo = require('./logo.svg');
 
 const Header = () => {
-  const { storedValue } = useSessionStorage('authorization', '');
+  const { userInfo } = useUser();
 
   return (
     <StyledHeader>
@@ -24,27 +23,24 @@ const Header = () => {
             <StyledSearchIcon />
           </SearchBox>
         </Link>
-        <Link to="/writes">
-          <StyledButton width="6rem" circle isLogin={storedValue}>
-            글쓰기
-          </StyledButton>
-        </Link>
-        <Link to="/my/info">
-          <Icons.User style={{ display: storedValue ? 'inline' : 'none' }} />
-        </Link>
-        <Link to="/signin" style={{ display: storedValue ? 'none' : 'inline' }}>
-          로그인
-        </Link>
+        {userInfo.username ? (
+          <>
+            <Link to="/writes">
+              <StyledButton width="6rem" circle>
+                글쓰기
+              </StyledButton>
+            </Link>
+            <Link to="/my/info">
+              <Icons.User />
+            </Link>
+          </>
+        ) : (
+          <Link to="/signin">로그인</Link>
+        )}
       </Utils>
     </StyledHeader>
   );
 };
-// Header.propTypes = {
-//   children: PropTypes.oneOfType([
-//     PropTypes.arrayOf(PropTypes.node),
-//     PropTypes.node,
-//   ]).isRequired,
-// };
 
 export default Header;
 
@@ -94,6 +90,5 @@ const Utils = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  display: ${({ isLogin }) => (isLogin ? 'block' : 'none')};
   margin-right: 1.3rem;
 `;

@@ -3,12 +3,12 @@ import axios from 'axios';
 export const instance = axios.create({});
 const { REACT_APP_API_END_POINT } = process.env;
 
-export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
+export const GET = async ({ url, isJsonType = false, params = {} }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
 
   try {
@@ -16,6 +16,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
       method: 'get',
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
+      params,
     });
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
