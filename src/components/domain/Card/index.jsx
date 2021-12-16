@@ -1,79 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
-import { Icons, Image } from '@components';
+import { LikeToggle, Image } from '@components';
 import theme from '@styles/theme';
 
-const Card = ({ item, ...props }) => (
-  <Container {...props}>
-    {item.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
-      <SubscribeStatusDiv>
-        <div className="available">모집중</div>
-      </SubscribeStatusDiv>
-    ) : (
-      <SubscribeStatusDiv>
-        <div className="unAvailable">연재중</div>
-      </SubscribeStatusDiv>
-    )}
-    <div className="card-imageArea">
-      <Link to={`/series/${item.seriesId}`}>
-        <Image
-          src={item.thumbnail}
-          width="100%"
-          height="100%"
-          alt={`cardThumb-${item.seriesId}`}
-        />
-      </Link>
-    </div>
-    <div className="card-textArea">
-      <div>
-        <div className="card-userId">
-          <Link to={`/channel/${item.userId}`}>{item.nickname}</Link>
-        </div>
-        <div className="card-likes">
-          <Icons.Like />
-          {item.likes} Likes
-        </div>
+const Card = ({ data, ...props }) => {
+  const [likeCount, setLikeCount] = useState(data.likes);
+  const handleClick = () => {
+    data.likes < likeCount
+      ? setLikeCount(likeCount - 1)
+      : setLikeCount(likeCount + 1);
+  };
+  return (
+    <Container {...props}>
+      {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
+        <SubscribeStatusDiv>
+          <div className="available">모집중</div>
+        </SubscribeStatusDiv>
+      ) : (
+        <SubscribeStatusDiv>
+          <div className="unAvailable">연재중</div>
+        </SubscribeStatusDiv>
+      )}
+      <div className="card-imageArea">
+        <Link to={`/series/${data.seriesId}`}>
+          <Image
+            src={data.thumbnail}
+            width="100%"
+            height="100%"
+            alt={`cardThumb-${data.seriesId}`}
+          />
+        </Link>
       </div>
-      <div className="card-title">
-        <Link to={`/series/${item.seriesId}`}>{item.title}</Link>
-      </div>
-      <div>{item.introduceSentence}</div>
-      <div>
-        <div className="category">{convertCategory(item.category)}</div>
+      <div className="card-textArea">
         <div>
-          {item.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
-            ? `모집마감 ~ ${item.subscribeEndDate}`
-            : `연재종료 ~ ${item.seriesEndDate}`}
+          <div className="card-userId">
+            <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
+          </div>
+          <div className="card-likes">
+            <LikeToggle id={data.seriesId} onClick={handleClick} />
+            {likeCount}
+            Likes
+          </div>
+        </div>
+        <div className="card-title">
+          <Link to={`/series/${data.seriesId}`}>{data.title}</Link>
+        </div>
+        <div>{data.introduceSentence}</div>
+        <div>
+          <div className="category">{convertCategory(data.category)}</div>
+          <div>
+            {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
+              ? `모집마감 ~ ${data.subscribeEndDate}`
+              : `연재종료 ~ ${data.seriesEndDate}`}
+          </div>
         </div>
       </div>
-    </div>
-  </Container>
-);
+    </Container>
+  );
+};
 
 Card.defaultProps = {
-  item: {
+  data: {
     userId: 0,
     writerId: 0,
     seriesId: 0,
-    nickname: 'string',
-    thumbnail: 'string',
-    title: 'string',
-    introduceSentence: 'string',
-    seriesStartDate: '2021-12-16',
-    seriesEndDate: '2021-12-16',
-    subscribeStatus: 'string',
-    subscribeStartDate: '2021-12-16',
-    subscribeEndDate: '2021-12-16',
+    nickname: '닉네임',
+    thumbnail: '썸네일',
+    title: '제목',
+    introduceSentence: '소개',
+    seriesStartDate: '',
+    seriesEndDate: '',
+    subscribeStatus: '모집중',
+    subscribeStartDate: '',
+    subscribeEndDate: '',
     likes: 0,
     category: 'ALL',
   },
 };
 
 Card.propTypes = {
-  item: PropTypes.object,
+  data: PropTypes.object,
 };
 
 export default Card;

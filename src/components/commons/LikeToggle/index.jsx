@@ -5,7 +5,7 @@ import { useToggle } from '@hooks';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
 
-export const LikeToggle = ({ id, isLiked }) => {
+export const LikeToggle = ({ id, isLiked, onClick }) => {
   const [state, toggle] = useToggle();
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export const LikeToggle = ({ id, isLiked }) => {
 
   const handleClick = () => {
     toggle();
+    onClick && onClick();
     state ? cancleLike() : addLike();
   };
 
@@ -37,10 +38,12 @@ export const LikeToggle = ({ id, isLiked }) => {
 LikeToggle.defaultProps = {
   id: 1,
   isLiked: false,
+  onClick: () => {},
 };
 LikeToggle.propTypes = {
   id: PropTypes.number,
   isLiked: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default LikeToggle;
