@@ -160,7 +160,6 @@ const App = () => {
               />
             )}
           </Route>
-          <Route path="/series/:id" exact component={SeriesDetailPage} />
           <Route path="/series/edit/:id" exact component={EditSeriesPage}>
             {hasAuth ? (
               <EditSeriesPage />
@@ -175,6 +174,7 @@ const App = () => {
               />
             )}
           </Route>
+          <Route path="/series/:id" exact component={SeriesDetailPage} />
           <Route
             path="/series/:seriesId/article/write"
             exact
