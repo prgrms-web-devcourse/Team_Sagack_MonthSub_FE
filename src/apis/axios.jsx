@@ -3,12 +3,12 @@ import axios from 'axios';
 export const instance = axios.create({});
 const { REACT_APP_API_END_POINT } = process.env;
 
-export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
+export const GET = async ({ url, isJsonType = false, params = {} }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
 
   try {
@@ -16,6 +16,7 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
       method: 'get',
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
+      params,
     });
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
@@ -26,17 +27,12 @@ export const GET = async ({ url, isAuth = false, isJsonType = false }) => {
   }
 };
 
-export const POST = async ({
-  url,
-  isAuth = false,
-  data,
-  isJsonType = false,
-}) => {
+export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
 
   try {
@@ -45,6 +41,7 @@ export const POST = async ({
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
       data,
+      params,
     });
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
@@ -55,25 +52,23 @@ export const POST = async ({
   }
 };
 
-export const PUT = async ({
-  url,
-  isAuth = false,
-  data,
-  isJsonType = false,
-}) => {
+export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
+
   try {
     const response = await axios({
       method: 'put',
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
       data,
+      params,
     });
+
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
@@ -83,17 +78,12 @@ export const PUT = async ({
   }
 };
 
-export const PATCH = async ({
-  url,
-  isAuth = false,
-  data,
-  isJsonType = false,
-}) => {
+export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
   try {
     const response = await axios({
@@ -101,6 +91,7 @@ export const PATCH = async ({
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
       data,
+      params,
     });
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
@@ -113,15 +104,15 @@ export const PATCH = async ({
 
 export const DELETE = async ({
   url,
-  isAuth = false,
   data,
   isJsonType = false,
+  params = {},
 }) => {
+  const token = sessionStorage.getItem('authorization');
+
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
-    Authorization: isAuth
-      ? `Bearer ${sessionStorage.getItem('authorization').replace(/\"/gi, '')}`
-      : '',
+    ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
   };
 
   try {
@@ -130,6 +121,7 @@ export const DELETE = async ({
       url: `${REACT_APP_API_END_POINT}${url}`,
       headers,
       data,
+      params,
     });
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
