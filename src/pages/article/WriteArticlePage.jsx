@@ -6,13 +6,14 @@ import {
   Wrapper,
 } from '@components';
 import { useForm } from '@hooks';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { postArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
+import { useParams, useHistory } from 'react-router-dom';
 
-const WriteArticlePage = ({ match, history }) => {
-  const { seriesId } = match.params;
+const WriteArticlePage = () => {
+  const history = useHistory();
+  const { seriesId } = useParams();
   const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
     initialValues: {
       title: '',
@@ -76,11 +77,6 @@ const WriteArticlePage = ({ match, history }) => {
       </Form>
     </StyledWrapper>
   );
-};
-
-WriteArticlePage.propTypes = {
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
 };
 
 export default WriteArticlePage;
