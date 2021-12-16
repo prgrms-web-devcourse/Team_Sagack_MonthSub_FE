@@ -7,9 +7,7 @@ const ImageCard = ({ nickname, title, introduceSentence, src, id }) => (
   <ImageWrapper to={`/series/${id}`}>
     <Image src={src} alt="미리보기" />
     <ImageInfo>
-      <P>
-        <Span>{nickname}</Span>
-      </P>
+      <Span>{nickname}</Span>
       <P>{title}</P>
       <P>{introduceSentence}</P>
       <P>{id}</P>
@@ -38,12 +36,12 @@ const ImageWrapper = styled(Link)`
   width: 15rem;
   height: 20rem;
   position: relative;
-  border: 0.063rem 1px solid;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
   filter: brightness(50%);
 `;
 
@@ -60,5 +58,6 @@ const P = styled.p`
 `;
 
 const Span = styled.span`
+  color: #ffffff;
   font-weight: 900;
 `;

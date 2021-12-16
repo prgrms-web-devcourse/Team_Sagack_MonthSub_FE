@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, ImageCard, Image, Title, CardList } from '@components';
 import { getMain } from '@apis/user';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const initialValues = {
   popularSeriesList: [
@@ -85,7 +85,7 @@ const HomePage = () => {
         <PopularWriterContainer>
           {values.popularWriterList.map(
             ({ nickname, profileImage, writerId }) => (
-              <WriterProfile key={writerId}>
+              <WriterProfile key={writerId} to={`/channel/${writerId}`}>
                 <ProfileImage src={profileImage} alt="미리보기" />
                 <span>{nickname}</span>
               </WriterProfile>
@@ -118,7 +118,7 @@ const RecentSeriesContainer = styled.div`
   padding: 2rem 0;
 `;
 
-const WriterProfile = styled.div`
+const WriterProfile = styled(Link)`
   width: 20%;
   height: 20%;
   display: flex;
