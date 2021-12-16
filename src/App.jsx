@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '@components/domain/Header';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Header } from '@components';
+import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import {
   ArticleDetailPage,
   ChannelPage,
@@ -25,7 +25,8 @@ import {
 const App = () => {
   const isAuth = sessionStorage.getItem('authorization');
   return (
-    <Header>
+    <BrowserRouter>
+      <Header />
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/signup" exact component={SignUpPage} />
@@ -71,7 +72,7 @@ const App = () => {
         />
         <Route path="*" component={NotFoundPage} />
       </Switch>
-    </Header>
+    </BrowserRouter>
   );
 };
 
