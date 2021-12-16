@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icons, IconWrapper } from '@components';
 import { useToggle } from '@hooks';
+import { addLikeSeries, delLikeSeries } from '@apis/like';
 
-export const LikeToggle = ({ seriesId, isLiked }) => {
+export const LikeToggle = ({ id, isLiked }) => {
   const [state, toggle] = useToggle();
 
   useEffect(() => {
@@ -11,11 +12,11 @@ export const LikeToggle = ({ seriesId, isLiked }) => {
   }, []);
 
   const addLike = async () => {
-    console.log('좋아요 추가 api호출', seriesId);
+    await addLikeSeries(id);
   };
 
   const cancleLike = async () => {
-    console.log('좋아요 취소 api호출', seriesId);
+    await delLikeSeries(id);
   };
 
   const handleClick = () => {
@@ -33,11 +34,11 @@ export const LikeToggle = ({ seriesId, isLiked }) => {
 };
 
 LikeToggle.defaultProps = {
-  seriesId: 2,
+  id: 1,
   isLiked: false,
 };
 LikeToggle.propTypes = {
-  seriesId: PropTypes.number,
+  id: PropTypes.number,
   isLiked: PropTypes.bool,
 };
 
