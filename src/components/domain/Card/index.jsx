@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -6,61 +6,51 @@ import convertCategory from '@utils/convertCategory';
 import { LikeToggle, Image } from '@components';
 import theme from '@styles/theme';
 
-const Card = ({ data, ...props }) => {
-  const [likeCount, setLikeCount] = useState(data.likes);
-  const handleClick = () => {
-    data.likes < likeCount
-      ? setLikeCount(likeCount - 1)
-      : setLikeCount(likeCount + 1);
-  };
-  return (
-    <Container {...props}>
-      {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
-        <SubscribeStatusDiv>
-          <div className="available">모집중</div>
-        </SubscribeStatusDiv>
-      ) : (
-        <SubscribeStatusDiv>
-          <div className="unAvailable">연재중</div>
-        </SubscribeStatusDiv>
-      )}
-      <div className="card-imageArea">
-        <Link to={`/series/${data.seriesId}`}>
-          <Image
-            src={data.thumbnail}
-            width="100%"
-            height="100%"
-            alt={`cardThumb-${data.seriesId}`}
-          />
-        </Link>
-      </div>
-      <div className="card-textArea">
-        <div>
-          <div className="card-userId">
-            <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
-          </div>
-          <div className="card-likes">
-            <LikeToggle id={data.seriesId} onClick={handleClick} />
-            {likeCount}
-            Likes
-          </div>
+const Card = ({ data, ...props }) => (
+  <Container {...props}>
+    {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
+      <SubscribeStatusDiv>
+        <div className="available">모집중</div>
+      </SubscribeStatusDiv>
+    ) : (
+      <SubscribeStatusDiv>
+        <div className="unAvailable">연재중</div>
+      </SubscribeStatusDiv>
+    )}
+    <div className="card-imageArea">
+      <Link to={`/series/${data.seriesId}`}>
+        <Image
+          src={data.thumbnail}
+          width="100%"
+          height="100%"
+          alt={`cardThumb-${data.seriesId}`}
+        />
+      </Link>
+    </div>
+    <div className="card-textArea">
+      <div>
+        <div className="card-userId">
+          <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
         </div>
-        <div className="card-title">
-          <Link to={`/series/${data.seriesId}`}>{data.title}</Link>
-        </div>
-        <div>{data.introduceSentence}</div>
-        <div>
-          <div className="category">{convertCategory(data.category)}</div>
-          <div>
-            {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
-              ? `모집마감 ~ ${data.subscribeEndDate}`
-              : `연재종료 ~ ${data.seriesEndDate}`}
-          </div>
+        <div className="card-likes">
+          <LikeToggle id={data.seriesId} likeCount={data.likes} />
         </div>
       </div>
-    </Container>
-  );
-};
+      <div className="card-title">
+        <Link to={`/series/${data.seriesId}`}>{data.title}</Link>
+      </div>
+      <div>{data.introduceSentence}</div>
+      <div>
+        <div className="category">{convertCategory(data.category)}</div>
+        <div>
+          {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
+            ? `모집마감 ~ ${data.subscribeEndDate}`
+            : `연재종료 ~ ${data.seriesEndDate}`}
+        </div>
+      </div>
+    </div>
+  </Container>
+);
 
 Card.defaultProps = {
   data: {

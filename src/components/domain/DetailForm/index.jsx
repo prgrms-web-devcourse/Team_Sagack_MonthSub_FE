@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
-import { Button, Icons, IconWrapper, Image } from '@components';
+import { Button, Image, LikeToggle } from '@components';
 
 const DetailForm = ({
   previousRoot,
@@ -41,10 +41,7 @@ const DetailForm = ({
       </DetailWriterInfo>
       {likes === null ? null : (
         <div className="detailInfoLikes">
-          <IconWrapper>
-            <Icons.Like />
-          </IconWrapper>
-          {likes} Likes
+          <LikeToggle id={ParentId} likeCount={likes} />
         </div>
       )}
     </DetailInfo>
