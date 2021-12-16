@@ -1,5 +1,12 @@
 import { GET, POST, PATCH } from './axios';
 
+export const getMain = async () =>
+  GET({
+    url: '/main',
+    isAuth: false,
+    isJsonType: false,
+  });
+
 export const getMyInfo = async () =>
   GET({
     url: '/users/me',

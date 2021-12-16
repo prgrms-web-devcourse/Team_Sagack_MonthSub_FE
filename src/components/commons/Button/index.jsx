@@ -66,7 +66,7 @@ const StyledButton = styled.button`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   border: 0.0625rem solid ${theme.color.main};
-  border-radius: 4px;
+  border-radius: 0.25rem;
   padding: 0.5rem;
   margin: 0 ${({ margin }) => `${margin}rem`};
   color: ${theme.color.main};
