@@ -89,7 +89,6 @@ const ChannelPage = () => {
 
   return (
     <ChannelContainer>
-      {console.log(data)}
       <ProfileWrapper>
         <ProfileContainer>
           <div>
