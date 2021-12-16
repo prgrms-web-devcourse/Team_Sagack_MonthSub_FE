@@ -26,6 +26,7 @@ const App = () => {
   const isAuth = sessionStorage.getItem('authorization');
   return (
     <BrowserRouter>
+      <Header />
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/signup" exact component={SignUpPage} />
@@ -71,7 +72,6 @@ const App = () => {
         />
         <Route path="*" component={NotFoundPage} />
       </Switch>
-      <Header />
     </BrowserRouter>
   );
 };
