@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Icons, IconWrapper } from '@components';
 import { useToggle } from '@hooks';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
+import theme from '@styles/theme';
 
 export const LikeToggle = ({ id, isLiked }) => {
   const [state, toggle] = useToggle();
@@ -26,7 +27,7 @@ export const LikeToggle = ({ id, isLiked }) => {
 
   return (
     <div onClick={handleClick}>
-      <IconWrapper color="red">
+      <IconWrapper color={theme.color.red}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
     </div>
