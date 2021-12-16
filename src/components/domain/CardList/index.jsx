@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
-import { Icons, Image } from '@components';
+import { Image, LikeToggle } from '@components';
 import theme from '@styles/theme';
 
 const CardList = ({ list, ...props }) => (
@@ -35,7 +35,7 @@ const CardList = ({ list, ...props }) => (
               <Link to={`/channel/${item.userId}`}>{item.nickname}</Link>
             </div>
             <div className="card-likes">
-              <Icons.Like />
+              <LikeToggle id={item.seriesId} />
               {item.likes} Likes
             </div>
           </div>

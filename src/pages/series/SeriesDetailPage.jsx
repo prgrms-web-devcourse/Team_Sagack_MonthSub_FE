@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
   Wrapper,
   Image,
-  PageSectionTitle,
-  PageSectionContainer,
+  SectionTitle,
+  SectionContainer,
   ArticleList,
-  DetailFrom,
+  DetailForm,
+  Button,
 } from '@components';
 import { useParams, Link } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
@@ -81,7 +82,7 @@ const SeriesDetailPage = () => {
       </ImageArea>
       <MainArea>
         <div>
-          <DetailFrom
+          <DetailForm
             previousRoot="/series"
             previousRootText="구독 모집"
             ParentId={detail.series.id}
@@ -124,12 +125,19 @@ const SeriesDetailPage = () => {
                 {detail.series.articleCount} 회
               </div>
             </SeriesInfoSection>
+            <SeriesInfoSection>
+              <Link to={`/purchase/${detail.series.id}`}>
+                <Button width="100%" height="2.8125rem" margin={0}>
+                  결제하기
+                </Button>
+              </Link>
+            </SeriesInfoSection>
           </SeriesInfo>
         </div>
       </MainArea>
       <ArticleArea>
         <div className="articleAreaHeader">
-          <PageSectionTitle text="연재목록" />
+          <SectionTitle>연재 목록</SectionTitle>
           <div>
             <StyeldAddCircleOutlineIcon />
             <Link to={`/series/${detail.series.id}/article/write`}>
@@ -137,18 +145,18 @@ const SeriesDetailPage = () => {
             </Link>
           </div>
         </div>
-        <PageSectionContainer>
-          {detail.articleList.length === 0 ? (
-            <div className="articleListNone">
-              해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
-            </div>
-          ) : (
+        <SectionContainer>
+          {detail.articleList.length ? (
             <ArticleList
               seriesId={detail.series.id}
               list={detail.articleList}
             />
+          ) : (
+            <div className="articleListNone">
+              해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
+            </div>
           )}
-        </PageSectionContainer>
+        </SectionContainer>
       </ArticleArea>
     </Wrapper>
   );
@@ -198,7 +206,7 @@ const SeriesInfoHead = styled.div`
 
 const SeriesInfo = styled.div`
   width: 100%;
-  height: 18.75rem;
+  height: 19.375rem;
   padding: 1.25rem;
   border: 0.0625rem solid ${theme.color.main};
 `;
