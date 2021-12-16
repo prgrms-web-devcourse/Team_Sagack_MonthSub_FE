@@ -8,10 +8,11 @@ import theme from '@styles/theme';
 
 export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   const [state, toggle] = useToggle();
-  const [count, setCount] = useState(likeCount);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     isLiked && toggle();
+    setCount(likeCount);
   }, []);
 
   const addLike = async () => {
