@@ -17,6 +17,7 @@ const ArticleDetailPage = () => {
   const getInitialData = async ({ seriesId, articleId }) => {
     try {
       const { data } = await getArticleDetail({ seriesId, articleId });
+      console.log(data);
       setArticle({
         title: data.title,
         contents: data.contents,
