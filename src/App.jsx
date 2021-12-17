@@ -7,6 +7,7 @@ import {
   EditMyInfoPage,
   HomePage,
   MyInfoPage,
+  MyLikeSeriesPage,
   PurchaseHistoryPage,
   PurchasePage,
   SearchPage,
@@ -68,6 +69,20 @@ const App = () => {
                   pathname: '/signin',
                   state: {
                     from: '/my/info',
+                  },
+                }}
+              />
+            )}
+          </Route>
+          <Route path="/my/likes" exact component={MyLikeSeriesPage}>
+            {hasAuth ? (
+              <MyLikeSeriesPage />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/signin',
+                  state: {
+                    from: '/my/likes',
                   },
                 }}
               />

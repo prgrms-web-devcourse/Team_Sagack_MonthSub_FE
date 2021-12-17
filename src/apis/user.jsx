@@ -37,3 +37,8 @@ export const getMyWriteSeries = async () =>
   GET({
     url: '/series/writer/posts',
   });
+
+export const getMyLikes = async () =>
+  GET({
+    url: '/likes',
+  });
