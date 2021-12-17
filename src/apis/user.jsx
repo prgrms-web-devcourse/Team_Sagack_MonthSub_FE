@@ -31,3 +31,8 @@ export const patchMyInfo = async data => {
     isJsonType: false,
   });
 };
+
+export const getMyWriteSeries = async () =>
+  GET({
+    url: '/series/writer/posts',
+  });
