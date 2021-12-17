@@ -71,7 +71,7 @@ const HomePage = () => {
           ({ nickname, title, introduceSentence, thumbnail, seriesId }) => (
             <ImageCard
               id={seriesId}
-              key={seriesId}
+              key={parseInt(seriesId, 10)}
               src={thumbnail}
               nickname={nickname}
               title={title}

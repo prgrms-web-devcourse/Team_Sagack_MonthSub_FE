@@ -14,14 +14,12 @@ export const getSeriesDetail = async ({ id }) =>
 export const postSeries = async ({ data }) =>
   POST({
     url: '/series',
-    isAuth: true,
     data,
   });
 
 export const putSeries = async ({ data, id }) =>
   PUT({
     url: `/series/${id}/edit`,
-    isAuth: true,
     data,
     isJsonType: true,
   });
@@ -29,6 +27,5 @@ export const putSeries = async ({ data, id }) =>
 export const putSeriesImage = async ({ data, id }) =>
   PUT({
     url: `/series/${id}/thumbnail`,
-    isAuth: true,
     data,
   });

@@ -1,46 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Icons, IconWrapper } from '@components';
 import { useToggle } from '@hooks';
+import styled from '@emotion/styled';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
 
-export const LikeToggle = ({ id, isLiked }) => {
+export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   const [state, toggle] = useToggle();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     isLiked && toggle();
+    setCount(likeCount);
   }, []);
 
   const addLike = async () => {
+    setCount(count + 1);
     await addLikeSeries(id);
   };
 
   const cancleLike = async () => {
+    setCount(count - 1);
     await delLikeSeries(id);
   };
 
   const handleClick = () => {
     toggle();
     state ? cancleLike() : addLike();
+    onClick && onClick();
   };
 
   return (
-    <div onClick={handleClick}>
+    <Container onClick={handleClick}>
       <IconWrapper color={theme.color.red}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
-    </div>
+      {typeof likeCount === 'boolean' ? '' : <span>{count} Likes</span>}
+    </Container>
   );
 };
 
 LikeToggle.defaultProps = {
   id: 1,
   isLiked: false,
+  likeCount: false,
+  onClick: () => {},
 };
 LikeToggle.propTypes = {
   id: PropTypes.number,
   isLiked: PropTypes.bool,
+  onClick: PropTypes.func,
+  likeCount: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
 export default LikeToggle;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & div {
+    margin-bottom: 0.2rem;
+  }
+`;

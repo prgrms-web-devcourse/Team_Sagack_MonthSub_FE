@@ -7,6 +7,7 @@ import {
   EditMyInfoPage,
   HomePage,
   MyInfoPage,
+  MyLikeSeriesPage,
   PurchaseHistoryPage,
   PurchasePage,
   SearchPage,
@@ -73,6 +74,20 @@ const App = () => {
               />
             )}
           </Route>
+          <Route path="/my/likes" exact component={MyLikeSeriesPage}>
+            {hasAuth ? (
+              <MyLikeSeriesPage />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/signin',
+                  state: {
+                    from: '/my/likes',
+                  },
+                }}
+              />
+            )}
+          </Route>
           <Route path="/my/edit" exact component={EditMyInfoPage}>
             {hasAuth ? (
               <EditMyInfoPage />
@@ -102,20 +117,6 @@ const App = () => {
             )}
           </Route>
           <Route path="/channel/:id" exact component={ChannelPage} />
-          <Route path="/purchase/:id" exact component={PurchasePage}>
-            {hasAuth ? (
-              <PurchasePage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/purchase/:id',
-                  },
-                }}
-              />
-            )}
-          </Route>
           <Route path="/purchase/info" exact component={PurchaseHistoryPage}>
             {hasAuth ? (
               <PurchaseHistoryPage />
@@ -125,6 +126,20 @@ const App = () => {
                   pathname: '/signin',
                   state: {
                     from: '/purchase/info',
+                  },
+                }}
+              />
+            )}
+          </Route>
+          <Route path="/purchase/:id" exact component={PurchasePage}>
+            {hasAuth ? (
+              <PurchasePage />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/signin',
+                  state: {
+                    from: '/purchase/:id',
                   },
                 }}
               />
