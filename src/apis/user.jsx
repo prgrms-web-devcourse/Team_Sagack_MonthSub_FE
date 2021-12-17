@@ -32,3 +32,8 @@ export const getMyPurchaseSeries = async () =>
   GET({
     url: '/series/users/subscribe',
   });
+
+export const getMyWriteSeries = async () =>
+  GET({
+    url: '/series/writer/posts',
+  });
