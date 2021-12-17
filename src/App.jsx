@@ -102,20 +102,6 @@ const App = () => {
             )}
           </Route>
           <Route path="/channel/:id" exact component={ChannelPage} />
-          <Route path="/purchase/:id" exact component={PurchasePage}>
-            {hasAuth ? (
-              <PurchasePage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/purchase/:id',
-                  },
-                }}
-              />
-            )}
-          </Route>
           <Route path="/purchase/info" exact component={PurchaseHistoryPage}>
             {hasAuth ? (
               <PurchaseHistoryPage />
@@ -125,6 +111,20 @@ const App = () => {
                   pathname: '/signin',
                   state: {
                     from: '/purchase/info',
+                  },
+                }}
+              />
+            )}
+          </Route>
+          <Route path="/purchase/:id" exact component={PurchasePage}>
+            {hasAuth ? (
+              <PurchasePage />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/signin',
+                  state: {
+                    from: '/purchase/:id',
                   },
                 }}
               />
