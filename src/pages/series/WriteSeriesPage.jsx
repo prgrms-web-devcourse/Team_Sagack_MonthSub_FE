@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import {
   Wrapper,
   SeriesEditor,
@@ -17,8 +16,10 @@ import getToday from '@utils/getToday';
 import jsonBlob from '@utils/createJsonBlob';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '@apis/series';
+import { useHistory } from 'react-router-dom';
 
-const WriteSeriesPage = ({ history }) => {
+const WriteSeriesPage = () => {
+  const history = useHistory();
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
     initialValues: {
@@ -184,10 +185,6 @@ const WriteSeriesPage = ({ history }) => {
       </form>
     </StyledWrapper>
   );
-};
-
-WriteSeriesPage.propTypes = {
-  history: PropTypes.object.isRequired,
 };
 
 export default WriteSeriesPage;

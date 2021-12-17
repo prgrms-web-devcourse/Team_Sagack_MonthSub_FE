@@ -10,7 +10,6 @@ const ImageCard = ({ nickname, title, introduceSentence, src, id }) => (
       <Span>{nickname}</Span>
       <P>{title}</P>
       <P>{introduceSentence}</P>
-      <P>{id}</P>
     </ImageInfo>
   </ImageWrapper>
 );
@@ -19,7 +18,7 @@ ImageCard.defaultProps = {
   title: '',
   introduceSentence: '',
   src: '',
-  id: '',
+  id: 0,
 };
 
 ImageCard.propTypes = {
@@ -27,7 +26,7 @@ ImageCard.propTypes = {
   title: PropTypes.string,
   introduceSentence: PropTypes.string,
   src: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.number,
 };
 
 export default ImageCard;

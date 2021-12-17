@@ -6,13 +6,13 @@ import {
   Wrapper,
 } from '@components';
 import { useForm } from '@hooks';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { getArticleDetail, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
-const EditArticlePage = ({ history }) => {
+const EditArticlePage = () => {
+  const history = useHistory();
   const { seriesId, articleId } = useParams();
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
@@ -92,10 +92,6 @@ const EditArticlePage = ({ history }) => {
       </Form>
     </StyledWrapper>
   );
-};
-
-EditArticlePage.propTypes = {
-  history: PropTypes.object.isRequired,
 };
 
 export default EditArticlePage;
