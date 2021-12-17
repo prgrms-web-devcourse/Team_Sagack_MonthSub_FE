@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import {
   Wrapper,
   SeriesEditor,
@@ -16,9 +15,12 @@ import calculateLaterDate from '@utils/calculateLaterDate ';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { putSeries, getSeriesDetail } from '@apis/series';
 import jsonBlob from '@utils/createJsonBlob';
+import { useParams, useHistory } from 'react-router-dom';
 
-const EditSeriesPage = ({ match, history }) => {
-  const { id } = match.params;
+const EditSeriesPage = () => {
+  const { id } = useParams();
+  const history = useHistory();
+
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
@@ -224,11 +226,6 @@ const EditSeriesPage = ({ match, history }) => {
       </form>
     </StyledWrapper>
   );
-};
-
-EditSeriesPage.propTypes = {
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
 };
 
 export default EditSeriesPage;

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, Button } from '@components';
 import { getArticleDetail } from '@apis/article';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
 
 const ArticleDetailPage = () => {
+  const history = useHistory();
   const { seriesId, articleId } = useParams();
   const [article, setArticle] = useState({
     title: '',
@@ -39,7 +40,13 @@ const ArticleDetailPage = () => {
         <Date>{article.createdAt}</Date>
       </Container>
       <Paragraph>{article.contents}</Paragraph>
-      <Button name="수정하기" />
+      <Button
+        onClick={() =>
+          history.push(`/series/${seriesId}/article/edit/${articleId}`)
+        }
+      >
+        수정하기
+      </Button>
     </Wrapper>
   );
 };
