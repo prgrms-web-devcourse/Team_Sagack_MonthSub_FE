@@ -5,12 +5,15 @@ import { useToggle } from '@hooks';
 import styled from '@emotion/styled';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
+import { useUser } from '../../../contexts/UserProvider';
 
 export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   const [state, toggle] = useToggle();
   const [count, setCount] = useState(0);
+  const { userInfo } = useUser();
 
   useEffect(() => {
+    console.log(isLiked);
     isLiked && toggle();
     setCount(likeCount);
   }, []);
@@ -26,6 +29,9 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   };
 
   const handleClick = () => {
+    if (!userInfo.userId) {
+      return;
+    }
     toggle();
     state ? cancleLike() : addLike();
     onClick && onClick();
@@ -33,7 +39,7 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
 
   return (
     <Container onClick={handleClick}>
-      <IconWrapper color={theme.color.red}>
+      <IconWrapper color={userInfo.userId ? theme.color.red : theme.color.gray}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
       {typeof likeCount === 'boolean' ? '' : <span>{count} Likes</span>}
