@@ -16,7 +16,7 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
     console.log(isLiked);
     isLiked && toggle();
     setCount(likeCount);
-  }, []);
+  }, [likeCount]);
 
   const addLike = async () => {
     setCount(count + 1);
