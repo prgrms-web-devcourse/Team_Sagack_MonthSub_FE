@@ -13,7 +13,6 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   const { userInfo } = useUser();
 
   useEffect(() => {
-    console.log(isLiked);
     isLiked && toggle();
     setCount(likeCount);
   }, [likeCount]);

@@ -16,6 +16,8 @@ import convertDay from '@utils/convertDay';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export const initialData = {
+  isMine: false,
+  isLiked: false,
   series: {
     id: 0,
     thumbnail: '',
@@ -93,6 +95,7 @@ const SeriesDetailPage = () => {
             postDate={detail.subscribe.startDate}
             likes={detail.series.likes}
             bodyText={detail.series.introduceText}
+            isLiked={detail.isLiked}
           />
         </div>
         <div>

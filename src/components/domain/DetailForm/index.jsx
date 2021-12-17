@@ -15,6 +15,7 @@ const DetailForm = ({
   writerNickname,
   postDate,
   likes,
+  isLiked,
   bodyText,
 }) => (
   <div>
@@ -41,7 +42,7 @@ const DetailForm = ({
       </DetailWriterInfo>
       {likes === null ? null : (
         <div className="detailInfoLikes">
-          <LikeToggle id={ParentId} likeCount={likes} />
+          <LikeToggle id={ParentId} likeCount={likes} isLiked={isLiked} />
         </div>
       )}
     </DetailInfo>
@@ -69,6 +70,7 @@ DetailForm.defaultProps = {
   postDate: '',
   likes: null,
   bodyText: '',
+  isLiked: false,
 };
 
 DetailForm.propTypes = {
@@ -82,6 +84,7 @@ DetailForm.propTypes = {
   postDate: PropTypes.string,
   likes: PropTypes.number,
   bodyText: PropTypes.string,
+  isLiked: PropTypes.bool,
 };
 
 export default DetailForm;

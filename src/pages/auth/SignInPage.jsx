@@ -31,7 +31,7 @@ const SignInPage = () => {
           history.push('/');
         }
       } catch (error) {
-        console.log(error.response.status);
+        alert(error);
       }
     },
     validate: ({ email, password }) => {
