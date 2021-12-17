@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, from, to, ...props }) => {
     <Route
       {...props}
       render={props =>
-        userInfo.token ? (
+        userInfo.token || sessionStorage.getItem('authorization') ? (
           <Component {...props} />
         ) : (
           <Redirect

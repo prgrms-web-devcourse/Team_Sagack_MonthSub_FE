@@ -34,7 +34,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/signup" exact component={SignUpPage}>
-          {hasAuth ? (
+          {hasAuth || sessionStorage.getItem('authorization') ? (
             <Redirect
               to={{
                 pathname: '/',
@@ -48,7 +48,7 @@ const App = () => {
           )}
         </Route>
         <Route path="/signin">
-          {hasAuth ? (
+          {hasAuth || sessionStorage.getItem('authorization') ? (
             <Redirect
               to={{
                 pathname: '/my/info',
