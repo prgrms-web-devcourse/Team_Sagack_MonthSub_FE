@@ -74,7 +74,7 @@ const ChannelPage = () => {
   const { id } = useParams();
 
   const getInitialData = async () => {
-    if (id === 'my') {
+    if (!id) {
       const { data } = await getMyChannel();
       setData(data);
     } else {

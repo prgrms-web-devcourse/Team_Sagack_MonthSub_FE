@@ -31,8 +31,7 @@ const SearchPage = () => {
   });
 
   return (
-    <Container>
-      <H1>리스트 검색</H1>
+    <Container title="리스트 검색">
       <SearchForm onSubmit={handleSubmit}>
         <span>
           <Input
@@ -72,13 +71,6 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-const H1 = styled.h1`
-  width: 100%;
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 0.5rem 0;
-`;
 
 const ErrorMessage = styled.div`
   color: #ff0000;
