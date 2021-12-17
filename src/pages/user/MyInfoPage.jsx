@@ -16,7 +16,7 @@ const MyInfoPage = () => {
       <Container title="마이 페이지">
         <StyledLink to="/my/edit">내 정보 수정</StyledLink>
         <StyledLink to="/purchase/info">내 구독 내역</StyledLink>
-        <StyledLink to="/purchase/info">내 관심 목록</StyledLink>
+        <StyledLink to="/my/likes">내 관심 목록</StyledLink>
         <StyledButton type="button" onClick={handleClick}>
           로그아웃
         </StyledButton>

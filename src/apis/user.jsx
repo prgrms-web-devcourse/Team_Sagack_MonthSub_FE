@@ -31,3 +31,8 @@ export const patchMyInfo = async data => {
     isJsonType: false,
   });
 };
+
+export const getMyLikes = async () =>
+  GET({
+    url: '/likes',
+  });
