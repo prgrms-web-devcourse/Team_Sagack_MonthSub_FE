@@ -4,12 +4,13 @@ import {
   SelectContainer,
   Select,
   CardList,
-  Category2,
+  Category,
 } from '@components';
-import { getSeriesScrolling } from '@apis/series';
+import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
   const pageEnd = useRef();
+  const requestType = useRef(null);
   const setSeriesId = useRef(null);
   const setCategory = useRef('ALL');
   const [list, setList] = useState([]);
@@ -18,22 +19,17 @@ const SeriesListPage = () => {
     lastSeriesId: null,
     size: 20,
     categories: 'ALL',
-    requestType: null,
   });
 
   const getListUpdate = async () => {
-    const { data } = await getSeriesScrolling({
-      lastSeriesId: params.lastSeriesId,
-      size: params.size,
-      categories: params.categories,
-    });
+    const { data } = await getSeries(params);
 
     if (data.seriesList.length !== 0) {
       setSeriesId.current =
         data.seriesList[data.seriesList.length - 1].seriesId;
     }
 
-    params.requestType === 'scroll'
+    requestType.current === 'scroll'
       ? setList(prev => [...prev, ...data.seriesList])
       : setList(data.seriesList);
 
@@ -53,8 +49,9 @@ const SeriesListPage = () => {
               ...params,
               categories: setCategory.current,
               lastSeriesId: setSeriesId.current,
-              requestType: 'scroll',
             });
+
+            requestType.current = 'scroll';
           }
         },
         { threshold: 1 },
@@ -63,22 +60,22 @@ const SeriesListPage = () => {
     }
   }, [loading]);
 
-  const categorizingHandler = e => {
+  const handleCategorizing = e => {
     setParams({
       ...params,
       categories: e.target.id,
       lastSeriesId: null,
-      requestType: 'category',
     });
 
+    requestType.current = 'category';
     setCategory.current = e.target.id;
   };
 
   return (
     <Wrapper>
-      <Category2
-        onClick={e => categorizingHandler(e)}
-        keyAndValues={[
+      <Category
+        onClick={handleCategorizing}
+        categoryList={[
           { key: 'ALL', value: '전체' },
           { key: 'NOVEL', value: '소설' },
           { key: 'POEM', value: '시' },
