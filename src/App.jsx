@@ -22,6 +22,7 @@ import {
   NotFoundPage,
 } from '@pages';
 import UserProvider from './contexts/UserProvider';
+import PrivateRoute from './utils/privateRoute';
 
 const App = () => {
   const hasAuth = sessionStorage.getItem('authorization');
@@ -59,176 +60,45 @@ const App = () => {
               <SignInPage />
             )}
           </Route>
-          <Route path="/my/info" exact component={MyInfoPage}>
-            {hasAuth ? (
-              <MyInfoPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/my/info',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route path="/my/edit" exact component={EditMyInfoPage}>
-            {hasAuth ? (
-              <EditMyInfoPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/my/edit',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route path="/channel/my" exact component={ChannelPage}>
-            {hasAuth ? (
-              <ChannelPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/channel/my',
-                  },
-                }}
-              />
-            )}
-          </Route>
+          <PrivateRoute exact from="/my/info" component={MyInfoPage} />
+          <PrivateRoute exact from="/my/edit" component={EditMyInfoPage} />
+          <PrivateRoute exact from="/channel/my" component={ChannelPage} />
           <Route path="/channel/:id" exact component={ChannelPage} />
-          <Route path="/purchase/:id" exact component={PurchasePage}>
-            {hasAuth ? (
-              <PurchasePage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/purchase/:id',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route path="/purchase/info" exact component={PurchaseHistoryPage}>
-            {hasAuth ? (
-              <PurchaseHistoryPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/purchase/info',
-                  },
-                }}
-              />
-            )}
-          </Route>
+          <PrivateRoute exact from="/purchase/:id" component={PurchasePage} />
+          <PrivateRoute
+            exact
+            from="/purchase/info"
+            component={PurchaseHistoryPage}
+          />
           <Route path="/search" exact component={SearchPage} />
-          <Route path="/writes" exact component={WriteListPage}>
-            {hasAuth ? (
-              <WriteListPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/writes',
-                  },
-                }}
-              />
-            )}
-          </Route>
+          <PrivateRoute exact from="/writes" component={WriteListPage} />
           <Route path="/series" exact component={SeriesListPage} />
-          <Route path="/series/write" exact component={WriteSeriesPage}>
-            {hasAuth ? (
-              <WriteSeriesPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/series/write',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route path="/series/edit/:id" exact component={EditSeriesPage}>
-            {hasAuth ? (
-              <EditSeriesPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/series/edit/:id',
-                  },
-                }}
-              />
-            )}
-          </Route>
+          <PrivateRoute
+            exact
+            from="/series/write"
+            component={WriteSeriesPage}
+          />
+          <PrivateRoute
+            exact
+            from="/series/edit/:id"
+            component={EditSeriesPage}
+          />
           <Route path="/series/:id" exact component={SeriesDetailPage} />
-          <Route
-            path="/series/:seriesId/article/write"
+          <PrivateRoute
             exact
+            from="/series/:seriesId/article/write"
             component={WriteArticlePage}
-          >
-            {hasAuth ? (
-              <WriteArticlePage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/series/:seriesId/article/write',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route
-            path="/series/:seriesId/article/edit/:articleId"
+          />
+          <PrivateRoute
             exact
+            from="/series/:seriesId/article/edit/:articleId"
             component={EditArticlePage}
-          >
-            {hasAuth ? (
-              <EditArticlePage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/series/:seriesId/article/edit/:articleId',
-                  },
-                }}
-              />
-            )}
-          </Route>
-          <Route
-            path="/series/:seriesId/article/:articleId"
+          />
+          <PrivateRoute
             exact
+            from="/series/:seriesId/article/:articleId"
             component={ArticleDetailPage}
-          >
-            {hasAuth ? (
-              <ArticleDetailPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/series/:seriesId/article/:articleId',
-                  },
-                }}
-              />
-            )}
-          </Route>
+          />
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </BrowserRouter>
