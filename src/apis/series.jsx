@@ -1,4 +1,24 @@
+import axios from 'axios';
 import { GET, POST, PUT } from './axios';
+
+const { REACT_APP_API_END_POINT } = process.env;
+
+export const getSeriesScrolling = async ({
+  lastSeriesId,
+  size,
+  categories,
+}) => {
+  const response = await axios({
+    method: 'get',
+    url: `${REACT_APP_API_END_POINT}/series`,
+    params: {
+      lastSeriesId,
+      size,
+      categories,
+    },
+  });
+  return response;
+};
 
 export const getSeries = async () =>
   GET({

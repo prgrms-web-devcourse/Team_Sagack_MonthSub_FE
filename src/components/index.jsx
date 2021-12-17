@@ -31,3 +31,4 @@ export { default as ArticleEditor } from './domain/ArticleEditor';
 export { default as IconWrapper } from './commons/IconWrapper';
 export { default as DetailForm } from './domain/DetailForm';
 export { default as UserList } from './domain/UserList';
+export { default as Category2 } from './domain/Category2';
