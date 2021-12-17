@@ -5,7 +5,6 @@ const { REACT_APP_API_END_POINT } = process.env;
 
 export const GET = async ({ url, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -29,7 +28,6 @@ export const GET = async ({ url, isJsonType = false, params = {} }) => {
 
 export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -54,7 +52,6 @@ export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
 
 export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -80,7 +77,6 @@ export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
 
 export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -109,7 +105,6 @@ export const DELETE = async ({
   params = {},
 }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),

@@ -16,7 +16,6 @@ export const postMyProfileImage = async data => {
   POST({
     url: '/users/profile',
     data,
-    isJsonType: false,
   });
 };
 
@@ -24,11 +23,20 @@ export const patchMyInfo = async data => {
   PATCH({
     url: '/users/me',
     data,
-    isJsonType: false,
   });
 };
 
 export const getMyPurchaseSeries = async () =>
   GET({
     url: '/series/users/subscribe',
+  });
+
+export const getMyWriteSeries = async () =>
+  GET({
+    url: '/series/writer/posts',
+  });
+
+export const getMyLikes = async () =>
+  GET({
+    url: '/likes',
   });

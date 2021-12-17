@@ -1,8 +1,9 @@
 import { GET, POST, PUT } from './axios';
 
-export const getSeries = async () =>
+export const getSeries = async params =>
   GET({
-    url: '/series?size=16&categories=ALL',
+    url: '/series',
+    params,
   });
 
 export const getSeriesDetail = async ({ id }) =>
