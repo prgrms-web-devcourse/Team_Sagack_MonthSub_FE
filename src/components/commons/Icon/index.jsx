@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 import Like from './Like';
+import LikeBorder from './LikeBorder';
 import Home from './Home';
 import User from './User';
 import Search from './Search';
@@ -38,6 +39,7 @@ Icons.defaultProps = {
 };
 
 Icons.Like = Like;
+Icons.LikeBorder = LikeBorder;
 Icons.Home = Home;
 Icons.User = User;
 Icons.Search = Search;

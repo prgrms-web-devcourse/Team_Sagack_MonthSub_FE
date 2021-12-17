@@ -1,5 +1,5 @@
 import React from 'react';
-import SignInPage from '@pages/SignInPage';
+import SignInPage from '@pages/auth/SignInPage';
 
 export default {
   title: 'Pages/SignInPage',
