@@ -5,7 +5,7 @@ import { useToggle } from '@hooks';
 import styled from '@emotion/styled';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
-import { useUser } from '../../../contexts/UserProvider';
+import { useUser } from '@contexts/UserProvider';
 
 export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   const [state, toggle] = useToggle();
