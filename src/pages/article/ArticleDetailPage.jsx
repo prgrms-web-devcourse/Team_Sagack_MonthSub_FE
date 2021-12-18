@@ -27,7 +27,7 @@ const ArticleDetailPage = () => {
         isMine: data.isMine,
       });
     } catch (error) {
-      alert(error);
+      history.goBack();
     }
   };
 

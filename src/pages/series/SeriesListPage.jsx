@@ -102,7 +102,7 @@ const SeriesListPage = () => {
         />
       </SelectContainer>
       <CardList list={list} />
-      <div ref={pageEnd}>loading</div>
+      <div ref={pageEnd} />
     </Wrapper>
   );
 };

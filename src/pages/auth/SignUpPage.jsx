@@ -18,19 +18,14 @@ const SignUpPage = () => {
       nickName: '',
     },
     onSubmit: async requestData => {
-      try {
-        await postSignUp(requestData);
-        history.push('/signin');
-      } catch (error) {
-        alert(error);
-      }
+      await postSignUp(requestData);
+      history.push('/signin');
     },
     validate: ({ email, userName, password, nickName }) => {
       const newErrors = {};
       if (!email) newErrors.email = '이메일을 입력해주세요.';
       else if (!validationEmail(email))
         newErrors.email = '잘못된 이메일 형식입니다.';
-
       if (!userName) newErrors.userName = '이름을 입력해주세요.';
       if (!password) newErrors.password = '비밀번호를 입력해주세요.';
       else if (!validationPassword(password))

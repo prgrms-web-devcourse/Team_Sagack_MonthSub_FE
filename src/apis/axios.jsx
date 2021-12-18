@@ -24,10 +24,10 @@ export const GET = async ({ url, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
-      text: errorToString(error),
+      title: errorToString(error.response.data.code),
       icon: 'question',
-      confirmButtonText: 'Cool',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
     });
   }
 };
@@ -55,10 +55,10 @@ export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
-      text: errorToString(error.response.data.code),
+      title: errorToString(error.response.data.code),
       icon: 'question',
-      confirmButtonText: 'Cool',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
     });
   }
 };
@@ -85,10 +85,10 @@ export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
-      text: errorToString(error.response.data.code),
+      title: errorToString(error.response.data.code),
       icon: 'question',
-      confirmButtonText: 'Cool',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
     });
   }
 };
@@ -113,10 +113,10 @@ export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
-      text: errorToString(error.response.data.code),
+      title: errorToString(error.response.data.code),
       icon: 'question',
-      confirmButtonText: 'Cool',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
     });
   }
 };
@@ -147,10 +147,10 @@ export const DELETE = async ({
     return response;
   } catch (error) {
     Swal.fire({
-      title: 'Error!',
-      text: errorToString(error.response.data.code),
+      title: errorToString(error.response.data.code),
       icon: 'question',
-      confirmButtonText: 'Cool',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
     });
   }
 };

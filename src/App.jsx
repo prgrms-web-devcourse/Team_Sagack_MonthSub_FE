@@ -37,13 +37,13 @@ const App = () => (
       <PrivateRoute exact from="/my/edit" component={EditMyInfoPage} />
       <PrivateRoute exact from="/channel/my" component={ChannelPage} />
       <Route path="/channel/:id" exact component={ChannelPage} />
-      <PrivateRoute exact from="/purchase/:id" component={PurchasePage} />
-      <PrivateRoute exact from="/my/likes" component={MyLikeSeriesPage} />
       <PrivateRoute
         exact
         from="/purchase/info"
         component={PurchaseHistoryPage}
       />
+      <PrivateRoute exact from="/purchase/:id" component={PurchasePage} />
+      <PrivateRoute exact from="/my/likes" component={MyLikeSeriesPage} />
       <Route path="/search" exact component={SearchPage} />
       <PrivateRoute exact from="/writes" component={WriteListPage} />
       <Route path="/series" exact component={SeriesListPage} />
