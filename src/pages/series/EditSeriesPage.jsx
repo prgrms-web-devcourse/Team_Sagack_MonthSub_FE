@@ -9,6 +9,7 @@ import {
   CheckBox,
   Input,
   Period,
+  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -136,6 +137,7 @@ const EditSeriesPage = () => {
         </Section>
 
         <Section>
+          <Title name="썸네일 선택" />
           <ImageUpload
             onChange={handleImageUpload}
             name="thumbnail"
@@ -145,6 +147,7 @@ const EditSeriesPage = () => {
 
         <Section>
           <Input
+            width="22rem"
             title="구독료"
             type="number"
             value={values.price}
@@ -185,6 +188,7 @@ const EditSeriesPage = () => {
 
         <Section>
           <Input
+            width="22rem"
             title="연재 시간"
             type="time"
             name="uploadTime"
@@ -195,6 +199,7 @@ const EditSeriesPage = () => {
 
         <Section>
           <Input
+            width="22rem"
             title="총 회차"
             type="number"
             name="articleCount"

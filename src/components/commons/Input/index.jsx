@@ -63,16 +63,16 @@ const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
-  padding: 0.2rem;
-  border: #041b1d 0.063rem;
+  padding: 0.5rem;
+  border: 0.063rem solid ${theme.color.greyMedium};
+  border-radius: 0.2rem;
   background-color: #ffffff;
   ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   &:focus {
     background-color: #ffffff;
-    border: #041b1d 0.063rem;
+    border: 0.063rem solid ${theme.color.main};
     ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
       0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
   }
-  margin: 0.3rem 0;
 `;

@@ -18,6 +18,7 @@ const Period = ({
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <Container>
       <Input
+        width="10rem"
         type="date"
         value={startValue}
         name={startName}
@@ -27,6 +28,7 @@ const Period = ({
       />
       <Line>-</Line>
       <Input
+        width="10rem"
         type="date"
         value={endValue}
         name={endName}
@@ -65,7 +67,10 @@ Period.propTypes = {
 export default Period;
 
 const Line = styled.span`
-  padding: 0 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
 `;
 
 const Container = styled.div`
