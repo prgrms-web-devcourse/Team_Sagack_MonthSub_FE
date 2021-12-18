@@ -8,7 +8,7 @@ import { Button, Image, LikeToggle } from '@components';
 const DetailForm = ({
   previousRoot,
   previousRootText,
-  ParentId,
+  parentId,
   title,
   writerId,
   writerProfileImage,
@@ -42,14 +42,14 @@ const DetailForm = ({
       </DetailWriterInfo>
       {likes === null ? null : (
         <div className="detailInfoLikes">
-          <LikeToggle id={ParentId} likeCount={likes} isLiked={isLiked} />
+          <LikeToggle id={parentId} likeCount={likes} isLiked={isLiked} />
         </div>
       )}
     </DetailInfo>
     <DetailBody>
       <div>{bodyText}</div>
       <div>
-        <Link to={`/series/edit/${ParentId}`}>
+        <Link to={`/series/edit/${parentId}`}>
           <Button width="6.25rem" height="2.8125rem" margin={0}>
             수정하기
           </Button>
@@ -62,7 +62,7 @@ const DetailForm = ({
 DetailForm.defaultProps = {
   previousRoot: '',
   previousRootText: '',
-  ParentId: -1,
+  parentId: -1,
   title: '',
   writerId: -1,
   writerProfileImage: '',
@@ -76,7 +76,7 @@ DetailForm.defaultProps = {
 DetailForm.propTypes = {
   previousRoot: PropTypes.string,
   previousRootText: PropTypes.string,
-  ParentId: PropTypes.number,
+  parentId: PropTypes.number,
   title: PropTypes.string,
   writerId: PropTypes.number,
   writerProfileImage: PropTypes.string,
