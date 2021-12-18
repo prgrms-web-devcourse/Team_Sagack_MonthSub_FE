@@ -13,6 +13,7 @@ const ArticleDetailPage = () => {
     contents: '',
     thumbnailKey: '',
     createdAt: '',
+    isMine: '',
   });
 
   const getInitialData = async ({ seriesId, articleId }) => {
@@ -23,6 +24,7 @@ const ArticleDetailPage = () => {
         contents: data.contents,
         thumbnailKey: data.thumbnailKey,
         createdAt: data.createdAt,
+        isMine: data.isMine,
       });
     } catch (error) {
       alert(error);
@@ -40,13 +42,17 @@ const ArticleDetailPage = () => {
         <Date>{article.createdAt}</Date>
       </Container>
       <Paragraph>{article.contents}</Paragraph>
-      <Button
-        onClick={() =>
-          history.push(`/series/${seriesId}/article/edit/${articleId}`)
-        }
-      >
-        수정하기
-      </Button>
+      {article.isMine ? (
+        <Button
+          onClick={() =>
+            history.push(`/series/${seriesId}/article/edit/${articleId}`)
+          }
+        >
+          수정하기
+        </Button>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 };

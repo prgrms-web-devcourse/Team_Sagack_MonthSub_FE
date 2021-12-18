@@ -33,7 +33,11 @@ const Card = ({ data, ...props }) => (
           <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
         </div>
         <div className="card-likes">
-          <LikeToggle id={data.seriesId} likeCount={data.likes} />
+          <LikeToggle
+            id={data.seriesId}
+            likeCount={data.likes}
+            isLiked={data.likeStatus}
+          />
         </div>
       </div>
       <div className="card-title">
@@ -68,6 +72,7 @@ Card.defaultProps = {
     subscribeEndDate: '',
     likes: 0,
     category: 'ALL',
+    likeStatus: false,
   },
 };
 

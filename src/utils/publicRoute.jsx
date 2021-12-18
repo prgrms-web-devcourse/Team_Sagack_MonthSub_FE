@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useUser } from '../contexts/UserProvider';
+import { useUser } from '@contexts/UserProvider';
 
 const PublicRoute = ({ component: Component, from, to, ...props }) => {
   const { userInfo } = useUser();
