@@ -10,11 +10,13 @@ const UserList = ({ list, title, moreLink }) => (
     <SectionTitle>
       <div className="title">{title}</div>
       <div className="seeMore">
-        <Link to={moreLink}>
-          <Button margin={0} width="6.25rem" height="1.875rem">
-            더보기
-          </Button>
-        </Link>
+        {moreLink ? (
+          <Link to={moreLink}>
+            <Button margin={0} width="6.25rem" height="1.875rem">
+              더보기
+            </Button>
+          </Link>
+        ) : null}
       </div>
     </SectionTitle>
     <UserListBody>
