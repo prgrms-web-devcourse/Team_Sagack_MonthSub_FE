@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Wrapper,
-  SelectContainer,
-  Select,
-  CardList,
-  Category,
-} from '@components';
+import { Wrapper, CardList, Category } from '@components';
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
+  const [buttonState, setButtonState] = useState({
+    ALL: false,
+    NOVEL: false,
+    POEM: false,
+    ESSAY: false,
+    INTERVIEW: false,
+    CRITIQUE: false,
+    ETC: false,
+  });
   const pageEnd = useRef();
   const requestType = useRef(null);
   const setSeriesId = useRef(null);
@@ -38,7 +41,7 @@ const SeriesListPage = () => {
 
   useEffect(() => {
     getListUpdate();
-  }, [params]);
+  }, []);
 
   useEffect(() => {
     if (loading) {
@@ -60,12 +63,31 @@ const SeriesListPage = () => {
     }
   }, [loading]);
 
-  const handleCategorizing = e => {
+  const handleCategorizing = async e => {
+    const nextState = {
+      ...buttonState,
+      [e.target.id]: !buttonState[e.target.id],
+    };
+
+    setButtonState(nextState);
+
     setParams({
       ...params,
-      categories: e.target.id,
+      categories: Object.keys(nextState)
+        .filter(element => nextState[element])
+        .join(','),
       lastSeriesId: null,
     });
+
+    const { data } = await getSeries({
+      ...params,
+      categories: Object.keys(nextState)
+        .filter(element => nextState[element])
+        .join(','),
+      lastSeriesId: null,
+    });
+
+    setList(data.seriesList);
 
     requestType.current = 'category';
     setCategory.current = e.target.id;
@@ -76,31 +98,19 @@ const SeriesListPage = () => {
       <Category
         onClick={handleCategorizing}
         categoryList={[
-          { key: 'ALL', value: '전체' },
-          { key: 'NOVEL', value: '소설' },
-          { key: 'POEM', value: '시' },
-          { key: 'ESSAY', value: '수필' },
-          { key: 'INTERVIEW', value: '인터뷰' },
-          { key: 'CRITIQUE', value: '평론' },
-          { key: 'ETC', value: '기타' },
+          { key: 'ALL', value: '전체', state: buttonState['ALL'] },
+          { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
+          { key: 'POEM', value: '시', state: buttonState['POEM'] },
+          { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
+          {
+            key: 'INTERVIEW',
+            value: '인터뷰',
+            state: buttonState['INTERVIEW'],
+          },
+          { key: 'CRITIQUE', value: '평론', state: buttonState['CRITIQUE'] },
+          { key: 'ETC', value: '기타', state: buttonState['ETC'] },
         ]}
       />
-      <SelectContainer>
-        <Select
-          name="default"
-          options={[
-            { value: 'newest', text: '최신순' },
-            { value: 'hottest', text: '인기순' },
-          ]}
-        />
-        <Select
-          name="subscribeStatus"
-          options={[
-            { value: 'before', text: '모집중' },
-            { value: 'after', text: '연재중' },
-          ]}
-        />
-      </SelectContainer>
       <CardList list={list} />
       <div ref={pageEnd} />
     </Wrapper>

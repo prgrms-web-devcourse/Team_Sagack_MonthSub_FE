@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { CardList } from '@components';
+import { CardList, HottestList } from '@components';
+import theme from '@styles/theme';
 
-const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => { 
+const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, parentOf }) => {
   const howManyItemsAre = itemsCountOnRow * itemsCountOnCol;
   const lastSlideIndex = Math.ceil(list.length / howManyItemsAre) - 1;
   const slideNumber = useRef(0);
@@ -14,7 +15,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => {
 
   const divideList = () => {
     for (let i = 0; i <= list.length; i += 1) {
-      if (i === 0 || i % 8 === 0) {
+      if (i === 0 || i % howManyItemsAre === 0) {
         newList.push(list.slice(i, i + howManyItemsAre));
       }
     }
@@ -32,8 +33,11 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, children }) => {
             slideRef.current[i] = el;
           }}
         >
-          {children}
-          <CardList list={newList[i]} />
+          {parentOf ? (
+            <HottestList list={newList[i]} />
+          ) : (
+            <CardList list={newList[i]} />
+          )}
         </SlideSectionArea>,
       );
     }
@@ -89,14 +93,14 @@ CardSlider.defaultProps = {
   list: [],
   itemsCountOnRow: 4,
   itemsCountOnCol: 2,
-  children: '',
+  parentOf: '',
 };
 
 CardSlider.propTypes = {
   list: PropTypes.array,
   itemsCountOnRow: PropTypes.number,
   itemsCountOnCol: PropTypes.number,
-  children: PropTypes.node,
+  parentOf: PropTypes.string,
 };
 
 export default CardSlider;
@@ -110,9 +114,10 @@ const SlideContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 3rem;
-    color: #ffffff;
-    background-color: #000000;
+    border-radius: 4rem;
+    color: #000000;
+    background: rgba(234, 234, 234, 0.6);
+    box-shadow: ${theme.style.boxShadow};
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -120,11 +125,11 @@ const SlideContainer = styled.div`
   }
 
   .handler-left {
-    left: -2.5rem;
+    left: 0;
   }
 
   .handler-right {
-    right: -2.5rem;
+    right: 0;
   }
 `;
 

@@ -8,7 +8,7 @@ import { useUser } from '@contexts/UserProvider';
 import Nav from './Nav';
 import Logo from './Logo';
 
-const logo = require('./logo.svg');
+const logo = require('./logo_whiteBackboard.svg');
 
 const Header = () => {
   const { userInfo } = useUser();
@@ -50,7 +50,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 5rem;
+  height: ${theme.common.navHeight};
   padding: 0 3rem;
   top: 0;
   background-color: #fff;
