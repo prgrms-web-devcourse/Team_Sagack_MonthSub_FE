@@ -51,7 +51,7 @@ const DetailForm = ({
       <div>{bodyText}</div>
       <div>
         {isMine ? (
-          <Link to={`/series/edit/${ParentId}`}>
+          <Link to={`/series/edit/${parentId}`}>
             <Button width="6.25rem" height="2.8125rem" margin={0}>
               수정하기
             </Button>
