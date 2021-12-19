@@ -98,13 +98,17 @@ const SeriesListPage = () => {
       <Category
         onClick={handleCategorizing}
         categoryList={[
-          { key: 'ALL', value: '전체' },
-          { key: 'NOVEL', value: '소설' },
-          { key: 'POEM', value: '시' },
-          { key: 'ESSAY', value: '수필' },
-          { key: 'INTERVIEW', value: '인터뷰' },
-          { key: 'CRITIQUE', value: '평론' },
-          { key: 'ETC', value: '기타' },
+          { key: 'ALL', value: '전체', state: buttonState['ALL'] },
+          { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
+          { key: 'POEM', value: '시', state: buttonState['POEM'] },
+          { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
+          {
+            key: 'INTERVIEW',
+            value: '인터뷰',
+            state: buttonState['INTERVIEW'],
+          },
+          { key: 'CRITIQUE', value: '평론', state: buttonState['CRITIQUE'] },
+          { key: 'ETC', value: '기타', state: buttonState['ETC'] },
         ]}
       />
       <CardList list={list} />

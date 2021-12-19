@@ -3,20 +3,33 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 
-const Category = ({ categoryList, onClick }) => (
-  <CategoryContainer>
-    {categoryList.map(item => (
-      <StyledButton
-        type="button"
-        key={item.key}
-        id={item.key}
-        onClick={onClick}
-      >
-        {item.value}
-      </StyledButton>
-    ))}
-  </CategoryContainer>
-);
+const Category = ({ categoryList, onClick }) => {
+  const clickedStyle = {
+    color: '#ffffff',
+    backgroundColor: `${theme.color.main}`,
+  };
+
+  const unClickedStyle = {
+    color: '#000000',
+    backgroundColor: '#ffffff',
+  };
+
+  return (
+    <CategoryContainer>
+      {categoryList.map(item => (
+        <StyledButton
+          type="button"
+          key={item.key}
+          id={item.key}
+          onClick={onClick}
+          style={item.state ? clickedStyle : unClickedStyle}
+        >
+          {item.value}
+        </StyledButton>
+      ))}
+    </CategoryContainer>
+  );
+};
 
 Category.defaultProps = {
   categoryList: [],
