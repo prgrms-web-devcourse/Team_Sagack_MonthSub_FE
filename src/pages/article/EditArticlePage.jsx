@@ -99,7 +99,7 @@ const Container = styled.div`
 `;
 
 const StyledWrapper = styled(Wrapper)`
-  padding: 3rem 0 4rem 0;
+  margin-top: 0;
 `;
 
 const Form = styled.form`

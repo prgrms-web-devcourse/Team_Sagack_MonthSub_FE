@@ -76,6 +76,7 @@ const StyledUpload = styled(Upload)`
 
 const StyledButton = styled(Button)`
   padding: 0.5rem;
+  font-size: 1rem;
   font-weight: 700;
   user-select: none;
   border-radius: 50px;
