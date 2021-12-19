@@ -19,9 +19,10 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
           value={value.title || ''}
           onChange={handleInputChange}
           disabled={disabled && disabled}
-          placeholder="제목"
+          placeholder="제목을 입력해주세요"
           maxlength="300"
         />
+        <Line />
         <StyledTextArea
           width="100%"
           height="100%"
@@ -29,7 +30,7 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
           value={value.contents || ''}
           onInput={handleInputChange}
           disabled={disabled && disabled}
-          placeholder="내용"
+          placeholder="내용을 입력해주세요"
           maxlength="5000"
         />
       </StyledSection>
@@ -60,19 +61,29 @@ const StyledSection = styled.section`
 `;
 
 const StyledInput = styled(Input)`
-  border: 0.016rem solid #949494;
-  ${theme.style.boxShadow}: none;
+  border: none;
+  font-size: 3rem;
+  padding: 3rem;
   &:focus {
-    ${theme.style.boxShadow}: none;
-    border: 0.016rem solid #949494;
+    border: none;
   }
 `;
 
+const Line = styled.div`
+  height: 0.1rem;
+  margin: 1rem 0;
+  background-color: ${theme.color.greyLight};
+`;
+
 const StyledTextArea = styled(TextArea)`
-  border: 0.016rem solid #949494;
-  margin-bottom: 0.5rem;
+  border: none;
   outline: none;
+  font-size: 1rem;
+  padding: 2rem 3rem;
   &[name='contents'] {
     flex-basis: 1;
+  }
+  &:focus {
+    border: none;
   }
 `;

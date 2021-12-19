@@ -9,6 +9,7 @@ import {
   CheckBox,
   Input,
   Period,
+  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -26,14 +27,14 @@ const WriteSeriesPage = () => {
       title: '',
       introduceText: '',
       introduceSentence: '',
-      price: '',
+      price: 0,
       subscribeStartDate: '',
       subscribeEndDate: '',
       seriesStartDate: '',
       seriesEndDate: '',
       category: '',
       uploadTime: '',
-      articleCount: '',
+      articleCount: 0,
       thumbnailFile: '',
       thumbnailUrl: '',
     },
@@ -106,6 +107,7 @@ const WriteSeriesPage = () => {
           />
         </Section>
         <Section>
+          <Title name="썸네일 선택" />
           <ImageUpload
             onChange={handleImageUpload}
             name="thumbnail"
@@ -114,6 +116,7 @@ const WriteSeriesPage = () => {
         </Section>
         <Section>
           <Input
+            width="22rem"
             title="구독료"
             type="number"
             value={values.price}
@@ -148,6 +151,7 @@ const WriteSeriesPage = () => {
         </Section>
         <Section>
           <Input
+            width="22rem"
             title="연재 시간"
             type="time"
             name="uploadTime"
@@ -157,6 +161,7 @@ const WriteSeriesPage = () => {
         </Section>
         <Section>
           <Input
+            width="22rem"
             title="총 회차"
             type="number"
             name="articleCount"

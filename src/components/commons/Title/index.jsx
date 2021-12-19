@@ -56,7 +56,7 @@ Title.defaultProps = {
   h4: false,
   h5: false,
   h6: false,
-  marginBottom: '0.5rem',
+  marginBottom: '1.5rem',
   weight: 700,
   size: theme.font.medium,
 };

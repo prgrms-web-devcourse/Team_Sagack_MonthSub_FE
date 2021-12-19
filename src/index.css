@@ -16,7 +16,7 @@ html {
 body {
   font-family: 'Eulyoo1945', serif;
   overflow-y: scroll;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
 }
 
 ::selection {
@@ -34,7 +34,8 @@ a {
 }
 
 a,
-button {
+button,
+textarea {
   cursor: pointer;
   outline: none;
   border: none;
@@ -43,6 +44,8 @@ button {
 button:focus,
 button:active,
 input:focus,
-input:active {
+input:active,
+textarea:focus,
+textarea:active {
   outline: none;
 }

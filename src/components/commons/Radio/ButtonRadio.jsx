@@ -65,16 +65,19 @@ const StyledRadioInput = styled(Input)`
 
 const StyledButton = styled.div`
   width: 6.25rem;
-  padding: 0.3rem;
+  padding: 0.5rem;
   cursor: pointer;
   user-select: none;
   border-radius: 50px;
-  margin-right: 0.5rem;
+  margin-right: 1.5rem;
   background-color: #fff;
-  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  box-shadow: ${theme.style.boxShadow};
   text-align: center;
   &:hover {
     color: ${theme.color.main};
+  }
+  &:active {
+    background-color: ${theme.color.main};
+    color: #fff;
   }
 `;

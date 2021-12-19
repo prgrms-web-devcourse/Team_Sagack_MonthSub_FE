@@ -67,5 +67,5 @@ const StyledSection = styled.section`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 `;

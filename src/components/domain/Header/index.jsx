@@ -53,12 +53,9 @@ const StyledHeader = styled.header`
   height: ${theme.common.navHeight};
   padding: 0 3rem;
   top: 0;
-  background-color: white;
-  box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
-  color: black;
-
-  z-index: 1;
-
+  background-color: #fff;
+  border-bottom: 0.0625rem solid ${theme.color.main};
+  z-index: 2;
   a:hover {
     color: ${theme.color.main};
     transition: all 200ms ease-out;

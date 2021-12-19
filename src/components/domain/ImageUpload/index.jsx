@@ -3,14 +3,24 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Upload } from '@components';
 import theme from '@styles/theme';
+import { css } from '@emotion/react';
 
-const DEFAULT_PROFILE_IMAGE =
-  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
+// const DEFAULT_PROFILE_IMAGE =
+//   'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
 
-const ImageUpload = ({ onChange, buttonName, circle, src, name }) => (
-  <Container>
-    <UploadImage fileImageUrl={src || DEFAULT_PROFILE_IMAGE} circle={circle} />
-    <StyledUpload onChange={onChange} name={name}>
+const ImageUpload = ({
+  onChange,
+  buttonName,
+  circle,
+  src,
+  name,
+  wide,
+  ...props
+}) => (
+  <Container wide={wide} {...props}>
+    <UploadImage fileImageUrl={src || ''} circle={circle} wide={wide} />
+    <ImageCover wide={wide} />
+    <StyledUpload onChange={onChange} name={name} wide={wide}>
       <button type="button">{buttonName}</button>
     </StyledUpload>
   </Container>
@@ -22,6 +32,7 @@ ImageUpload.defaultProps = {
   buttonName: 'File Select',
   src: '',
   name: '',
+  wide: false,
 };
 
 ImageUpload.propTypes = {
@@ -30,35 +41,55 @@ ImageUpload.propTypes = {
   buttonName: PropTypes.string,
   src: PropTypes.string,
   name: PropTypes.string,
+  wide: PropTypes.bool,
 };
 
 export default ImageUpload;
 
 const Container = styled.div`
+  position: relative;
   width: 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${({ wide }) =>
+    wide &&
+    css`
+      position: relative;
+      width: 100%;
+    `}
 `;
 
 const StyledUpload = styled(Upload)`
   button {
     width: 6.25rem;
-    padding: 0.3rem;
+    padding: 0.5rem;
     cursor: pointer;
     user-select: none;
     border-radius: 50px;
     border: none;
     color: ${({ isFile }) =>
       isFile ? theme.color.main : theme.color.greyDark};
-    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+    box-shadow: ${theme.style.boxShadow};
     background-color: #fff;
     text-align: center;
     &:hover {
       color: ${theme.color.main};
     }
+    &:active {
+      background-color: ${theme.color.main};
+      color: #fff;
+    }
   }
+  ${({ wide }) =>
+    wide &&
+    css`
+      position: absolute;
+      top: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    `}
 `;
 
 const UploadImage = styled.div`
@@ -69,6 +100,26 @@ const UploadImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   border-radius: ${({ circle }) => (circle ? '100px' : '4px')};
-  background-color: #949494;
+  background-color: ${theme.color.greyLight};
   margin-bottom: 0.8rem;
+  ${({ wide }) =>
+    wide &&
+    css`
+      margin-top: 0;
+      height: 30rem;
+    `}
+`;
+
+const ImageCover = styled.div`
+  display: none;
+  ${({ wide }) =>
+    wide &&
+    css`
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 30rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    `}
 `;
