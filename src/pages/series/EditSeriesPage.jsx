@@ -117,7 +117,7 @@ const EditSeriesPage = () => {
   };
   return (
     <Container>
-      <StyledWrapper styled={{ padding: '2rem 0' }}>
+      <Wrapper styled={{ padding: '2rem 0' }}>
         <form onSubmit={handleSubmit}>
           <Section>
             <Radio
@@ -230,7 +230,7 @@ const EditSeriesPage = () => {
 
           <ConfirmCancleButtons confirmName="제출" />
         </form>
-      </StyledWrapper>
+      </Wrapper>
     </Container>
   );
 };
@@ -239,10 +239,6 @@ export default EditSeriesPage;
 
 const Container = styled.div`
   background-color: #fff;
-`;
-
-const StyledWrapper = styled(Wrapper)`
-  padding: 9rem 0 4rem 0;
 `;
 
 const Section = styled.section`

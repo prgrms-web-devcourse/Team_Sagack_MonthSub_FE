@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
+import { css } from '@emotion/react';
 
-const Wrapper = ({ children, width, ...props }) => (
+const Wrapper = ({ children, width, whole, ...props }) => (
   <StyledDiv width={width} {...props}>
     {children}
   </StyledDiv>
@@ -11,6 +12,7 @@ const Wrapper = ({ children, width, ...props }) => (
 
 Wrapper.defaultProps = {
   width: '71.25rem',
+  whole: false,
 };
 
 Wrapper.propTypes = {
@@ -19,16 +21,19 @@ Wrapper.propTypes = {
     PropTypes.node,
   ]).isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  whole: PropTypes.bool,
 };
 
 export default Wrapper;
 
 const StyledDiv = styled.div`
-  height: 100%;
-  min-height: 100vh;
+  height: auto;
   max-width: ${props => props.width || '71.25rem'};
   margin: 0 auto;
-  padding-top: ${theme.common.navHeight};
-  margin-top: 3rem;
-  padding-bottom: 3rem;
+  padding: 3rem 0;
+  ${({ whole }) =>
+    whole &&
+    css`
+      margin: ${theme.common.navHeight} auto 0;
+    `}
 `;

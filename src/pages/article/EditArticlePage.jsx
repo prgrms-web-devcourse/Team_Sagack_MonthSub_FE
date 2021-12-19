@@ -76,18 +76,18 @@ const EditArticlePage = () => {
 
   return (
     <Container>
-      <StyledImageUpload
+      <ImageUpload
         onChange={handleImageUpload}
         name="thumbnail"
         src={values.thumbnailUrl}
         wide={+true}
       />
-      <StyledWrapper>
+      <Wrapper>
         <Form onSubmit={handleSubmit}>
           <ArticleEditor onChange={handleChange} value={values} />
           <Buttons confirmName="제출" />
         </Form>
-      </StyledWrapper>
+      </Wrapper>
     </Container>
   );
 };
@@ -95,11 +95,8 @@ const EditArticlePage = () => {
 export default EditArticlePage;
 
 const Container = styled.div`
+  margin-top: 5rem;
   background-color: #fff;
-`;
-
-const StyledWrapper = styled(Wrapper)`
-  margin-top: 0;
 `;
 
 const Form = styled.form`
@@ -109,8 +106,4 @@ const Form = styled.form`
 
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const StyledImageUpload = styled(ImageUpload)`
-  margin-top: 5rem;
 `;

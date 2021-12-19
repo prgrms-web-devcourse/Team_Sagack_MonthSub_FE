@@ -90,7 +90,7 @@ const WriteSeriesPage = () => {
 
   return (
     <Container>
-      <StyledWrapper>
+      <Wrapper>
         <form onSubmit={handleSubmit}>
           <Section>
             <Radio
@@ -189,7 +189,7 @@ const WriteSeriesPage = () => {
           </Section>
           <ConfirmCancleButtons confirmName="제출" />
         </form>
-      </StyledWrapper>
+      </Wrapper>
     </Container>
   );
 };
@@ -198,10 +198,6 @@ export default WriteSeriesPage;
 
 const Container = styled.div`
   background-color: #fff;
-`;
-
-const StyledWrapper = styled(Wrapper)`
-  padding: 9rem 0 4rem 0;
 `;
 
 const Section = styled.section`

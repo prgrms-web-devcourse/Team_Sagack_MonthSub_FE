@@ -61,9 +61,9 @@ const ArticleDetailPage = () => {
           </Content>
         </ImageCover>
       </ImageContainer>
-      <StyledWrapper>
+      <Wrapper>
         <Paragraph>{article.contents}</Paragraph>
-      </StyledWrapper>
+      </Wrapper>
     </Container>
   );
 };
@@ -72,10 +72,8 @@ export default ArticleDetailPage;
 
 const Container = styled.div`
   background-color: #fff;
-`;
-
-const StyledWrapper = styled(Wrapper)`
-  padding-top: 5rem;
+  height: calc(100vh - 5rem);
+  margin-top: 5rem;
 `;
 
 const ImageContainer = styled.div`
