@@ -29,7 +29,7 @@ PublicRoute.defaultProps = {
 };
 
 PublicRoute.propTypes = {
-  component: PropTypes.element.isRequired,
+  component: PropTypes.elementType.isRequired,
   from: PropTypes.string.isRequired,
   to: PropTypes.string,
 };

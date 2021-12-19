@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Upload } from '@components';
+import { Upload, Button } from '@components';
 import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
@@ -21,7 +21,9 @@ const ImageUpload = ({
     <UploadImage fileImageUrl={src || ''} circle={circle} wide={wide} />
     <ImageCover wide={wide} />
     <StyledUpload onChange={onChange} name={name} wide={wide}>
-      <button type="button">{buttonName}</button>
+      <StyledButton wide={wide} width="6.25rem">
+        file upload
+      </StyledButton>
     </StyledUpload>
   </Container>
 );
@@ -61,26 +63,6 @@ const Container = styled.div`
 `;
 
 const StyledUpload = styled(Upload)`
-  button {
-    width: 6.25rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 50px;
-    border: none;
-    color: ${({ isFile }) =>
-      isFile ? theme.color.main : theme.color.greyDark};
-    box-shadow: ${theme.style.boxShadow};
-    background-color: #fff;
-    text-align: center;
-    &:hover {
-      color: ${theme.color.main};
-    }
-    &:active {
-      background-color: ${theme.color.main};
-      color: #fff;
-    }
-  }
   ${({ wide }) =>
     wide &&
     css`
@@ -89,6 +71,29 @@ const StyledUpload = styled(Upload)`
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;
+    `}
+`;
+
+const StyledButton = styled(Button)`
+  padding: 0.5rem;
+  font-weight: 700;
+  user-select: none;
+  border-radius: 50px;
+  border: none;
+  color: ${theme.color.main};
+  box-shadow: ${theme.style.boxShadow};
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+    background-color: ${theme.color.main};
+  }
+  ${({ wide }) =>
+    wide &&
+    css`
+      width: 8rem;
+      padding: 0.7rem 0;
     `}
 `;
 
