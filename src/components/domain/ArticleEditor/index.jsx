@@ -57,13 +57,13 @@ export default ArticleEditor;
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 80vh;
 `;
 
 const StyledInput = styled(Input)`
   border: none;
   font-size: 3rem;
-  padding: 3rem;
+  height: 4rem;
   &:focus {
     border: none;
   }
@@ -79,7 +79,8 @@ const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
   font-size: 1rem;
-  padding: 2rem 3rem;
+  line-height: 1.8rem;
+  font-size: 1rem;
   &[name='contents'] {
     flex-basis: 1;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from '@components';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import {
   ArticleDetailPage,
   ChannelPage,
@@ -27,7 +27,7 @@ import PrivateRoute from './utils/privateRoute';
 import PublicRoute from './utils/publicRoute';
 
 const App = () => (
-  <BrowserRouter>
+  <>
     <Header />
     <Switch>
       <Route path="/" exact component={HomePage} />
@@ -67,7 +67,7 @@ const App = () => (
       />
       <Route path="*" component={NotFoundPage} />
     </Switch>
-  </BrowserRouter>
+  </>
 );
 
 export default App;

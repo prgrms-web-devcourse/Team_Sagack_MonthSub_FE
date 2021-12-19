@@ -11,7 +11,7 @@ const ArticleDetailPage = () => {
   const [article, setArticle] = useState({
     title: '',
     contents: '',
-    thumbnailKey: '',
+    thumbnailUrl: '',
     createdAt: '',
     isMine: '',
   });
@@ -22,7 +22,7 @@ const ArticleDetailPage = () => {
       setArticle({
         title: data.title,
         contents: data.contents,
-        thumbnailKey: data.thumbnailKey,
+        thumbnailUrl: data.thumbnailKey,
         createdDate: data.createdDate,
         isMine: data.isMine,
         nickname: data.nickname,
@@ -38,8 +38,8 @@ const ArticleDetailPage = () => {
   }, []);
 
   return (
-    <>
-      <ImageContainer image={article.thumbnailKey}>
+    <Container>
+      <ImageContainer image={article.thumbnailUrl}>
         <ImageCover>
           <Content>
             <Title>{article.title}</Title>
@@ -61,17 +61,19 @@ const ArticleDetailPage = () => {
           </Content>
         </ImageCover>
       </ImageContainer>
-      <StyledWrapper>
+      <Wrapper>
         <Paragraph>{article.contents}</Paragraph>
-      </StyledWrapper>
-    </>
+      </Wrapper>
+    </Container>
   );
 };
 
 export default ArticleDetailPage;
 
-const StyledWrapper = styled(Wrapper)`
-  padding-top: 5rem;
+const Container = styled.div`
+  background-color: #fff;
+  height: calc(100vh - 5rem);
+  margin-top: 5rem;
 `;
 
 const ImageContainer = styled.div`
