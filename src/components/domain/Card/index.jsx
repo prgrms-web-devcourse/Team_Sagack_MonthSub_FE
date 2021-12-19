@@ -8,16 +8,7 @@ import theme from '@styles/theme';
 
 const Card = ({ data, ...props }) => (
   <Container {...props}>
-    {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
-      <SubscribeStatusDiv>
-        <div className="available">모집중</div>
-      </SubscribeStatusDiv>
-    ) : (
-      <SubscribeStatusDiv>
-        <div className="unAvailable">연재중</div>
-      </SubscribeStatusDiv>
-    )}
-    <div className="card-imageArea">
+    <CardImageArea>
       <Link to={`/series/${data.seriesId}`}>
         <Image
           src={data.thumbnail}
@@ -26,29 +17,44 @@ const Card = ({ data, ...props }) => (
           alt={`cardThumb-${data.seriesId}`}
         />
       </Link>
-    </div>
-    <div className="card-textArea">
       <div>
-        <div className="card-userId">
+        {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE' ? (
+          <CardStatusTag color={theme.color.main}>
+            <div className="available">모집중</div>
+          </CardStatusTag>
+        ) : (
+          <CardStatusTag color="#ff6d94">
+            <div className="unAvailable">연재중</div>
+          </CardStatusTag>
+        )}
+      </div>
+    </CardImageArea>
+    <CardTextArea>
+      <TextHeader>
+        <div>
+          <StyledInfo>{convertCategory(data.category)}</StyledInfo>
+        </div>
+      </TextHeader>
+      <Link to={`/series/${data.seriesId}`}>
+        <TextMain>
+          <div className="title">{data.title}</div>
+          <div className="intro">{data.introduceSentence}</div>
+          <div className="date">
+            {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
+              ? `모집일: ${data.subscribeStartDate} ~ ${data.subscribeEndDate}`
+              : `연재일: ${data.seriesStartDate} ~ ${data.seriesEndDate}`}
+          </div>
+        </TextMain>
+      </Link>
+      <TextBottom>
+        <div>
           <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
         </div>
-        <div className="card-likes">
+        <div>
           <LikeToggle id={data.seriesId} likeCount={data.likes} />
         </div>
-      </div>
-      <div className="card-title">
-        <Link to={`/series/${data.seriesId}`}>{data.title}</Link>
-      </div>
-      <div>{data.introduceSentence}</div>
-      <div>
-        <div className="category">{convertCategory(data.category)}</div>
-        <div>
-          {data.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
-            ? `모집마감 ~ ${data.subscribeEndDate}`
-            : `연재종료 ~ ${data.seriesEndDate}`}
-        </div>
-      </div>
-    </div>
+      </TextBottom>
+    </CardTextArea>
   </Container>
 );
 
@@ -77,7 +83,7 @@ Card.propTypes = {
 
 export default Card;
 
-const margin = '1.875rem';
+const margin = '1.25rem';
 const contentsMaxCount = 4;
 const Container = styled.div`
   width: calc(
@@ -87,7 +93,8 @@ const Container = styled.div`
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  position: relative;
+  box-shadow: 0 0.2rem 0.625rem 0 rgba(50, 50, 93, 0.2);
+  // border: 1px solid #ccd3e2;
 
   &:nth-of-type(-n + 4) {
     margin-top: 0;
@@ -96,79 +103,90 @@ const Container = styled.div`
   &:nth-of-type(${contentsMaxCount}n) {
     margin-right: 0;
   }
-
-  .card {
-    &-imageArea {
-      height: 11rem;
-      background-color: ${theme.color.grey};
-    }
-    &-textArea {
-      flex-grow: 1;
-      font-size: ${theme.font.small};
-      color: ${theme.color.greyDark};
-      padding: ${theme.font.small};
-      background-color: rgba(255, 177, 92, 0.2);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .card-likes {
-        font-size: ${theme.font.medium};
-      }
-
-      .category {
-        height: 1.5625rem;
-        padding: 0.625rem;
-        background: #ffffff;
-        border-radius: 1.25rem;
-        display: flex;
-        align-items: center;
-        border: 0.0625rem solid ${theme.color.main};
-      }
-
-      > div {
-        margin-bottom: ${theme.font.small};
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      > div:last-child {
-        margin-bottom: 0;
-      }
-
-      .card-userId {
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-      .card-title {
-        font-size: ${theme.font.medium};
-        color: #000000;
-        line-height: ${theme.font.large};
-        flex-grow: 1;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
 `;
 
-const SubscribeStatusDiv = styled.div`
+const CardImageArea = styled.div`
+  height: 11rem;
+  background-color: ${theme.color.grey};
+  position: relative;
+`;
+
+const CardStatusTag = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${({ color }) => color};
+  height: 25px;
+  padding: 0 10px;
+  border-radius: 30px;
+  font-size: 13px;
+  color: #000000;
+  margin: 5px;
+`;
 
-  > * {
-    padding: 0.625rem;
+const CardTextArea = styled.div`
+  background-color: #ffffff;
+  > div {
+    padding: 15px 20px;
   }
-  .available {
-    background-color: ${theme.color.main};
+`;
+const TextHeader = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const TextMain = styled.div`
+  padding: 15px 20px;
+
+  .title {
+    font-size: ${theme.font.medium};
+    font-weight: bold;
+    max-height: 2rem;
+    padding-right: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
-  .unAvailable {
-    background-color: #ff8eb2;
+
+  .intro {
+    line-height: 1rem;
+    height: 2.2rem;
+    max-height: 2.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
+
+  .date {
+  }
+
+  > div {
+    margin-bottom: 15px;
+    font-size: ${theme.font.small};
+  }
+`;
+const TextBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ccd3e2;
+`;
+
+const StyledInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${theme.color.sub};
+  color: #ffffff;
+  height: 25px;
+  padding: 0 10px;
+  border-radius: 30px;
+  font-size: 13px;
+  margin-right: 10px;
 `;

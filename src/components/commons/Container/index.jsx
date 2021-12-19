@@ -40,4 +40,5 @@ const Wrapper = styled.div`
   border-radius: 0.8rem;
   box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
     0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
 `;

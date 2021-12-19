@@ -18,13 +18,18 @@ const font = {
 };
 
 const style = {
-  boxShadow: '0 0.125rem 0.3125rem 0 rgba(50, 50, 93, 0.2)',
+  boxShadow: '0 0.1875rem 0.3125rem 0 rgba(50, 50, 93, 0.15)',
+};
+
+const common = {
+  navHeight: '5rem',
 };
 
 const theme = {
   color,
   font,
   style,
+  common,
 };
 
 export default theme;

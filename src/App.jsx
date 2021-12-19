@@ -7,7 +7,6 @@ import {
   EditMyInfoPage,
   HomePage,
   MyInfoPage,
-  MyLikeSeriesPage,
   PurchaseHistoryPage,
   PurchasePage,
   SearchPage,
@@ -21,6 +20,7 @@ import {
   WriteSeriesPage,
   EditSeriesPage,
   NotFoundPage,
+  StylesTest,
 } from '@pages';
 import UserProvider from './contexts/UserProvider';
 
@@ -74,20 +74,6 @@ const App = () => {
               />
             )}
           </Route>
-          <Route path="/my/likes" exact component={MyLikeSeriesPage}>
-            {hasAuth ? (
-              <MyLikeSeriesPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/my/likes',
-                  },
-                }}
-              />
-            )}
-          </Route>
           <Route path="/my/edit" exact component={EditMyInfoPage}>
             {hasAuth ? (
               <EditMyInfoPage />
@@ -117,20 +103,6 @@ const App = () => {
             )}
           </Route>
           <Route path="/channel/:id" exact component={ChannelPage} />
-          <Route path="/purchase/info" exact component={PurchaseHistoryPage}>
-            {hasAuth ? (
-              <PurchaseHistoryPage />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: '/signin',
-                  state: {
-                    from: '/purchase/info',
-                  },
-                }}
-              />
-            )}
-          </Route>
           <Route path="/purchase/:id" exact component={PurchasePage}>
             {hasAuth ? (
               <PurchasePage />
@@ -140,6 +112,20 @@ const App = () => {
                   pathname: '/signin',
                   state: {
                     from: '/purchase/:id',
+                  },
+                }}
+              />
+            )}
+          </Route>
+          <Route path="/purchase/info" exact component={PurchaseHistoryPage}>
+            {hasAuth ? (
+              <PurchaseHistoryPage />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/signin',
+                  state: {
+                    from: '/purchase/info',
                   },
                 }}
               />
@@ -244,6 +230,7 @@ const App = () => {
               />
             )}
           </Route>
+          <Route path="/stylesTest" component={StylesTest} />
           <Route path="*" component={NotFoundPage} />
         </Switch>
       </BrowserRouter>

@@ -55,6 +55,8 @@ export const initialData = {
       date: '',
     },
   ],
+  isLiked: null,
+  isMine: null,
 };
 
 const SeriesDetailPage = () => {
@@ -64,6 +66,7 @@ const SeriesDetailPage = () => {
   const getInitialData = async () => {
     const { data } = await getSeriesDetail({ id });
     setDetail(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -93,9 +96,10 @@ const SeriesDetailPage = () => {
             postDate={detail.subscribe.startDate}
             likes={detail.series.likes}
             bodyText={detail.series.introduceText}
+            isMine={detail.isMine}
           />
         </div>
-        <div>
+        <InfoArea>
           <SeriesInfoHead>INFORMATION</SeriesInfoHead>
           <SeriesInfo>
             <SeriesInfoSection>
@@ -127,22 +131,28 @@ const SeriesDetailPage = () => {
             </SeriesInfoSection>
             <SeriesInfoSection>
               <Link to={`/purchase/${detail.series.id}`}>
-                <Button width="100%" height="2.8125rem" margin={0}>
-                  결제하기
-                </Button>
+                {sessionStorage.getItem('authorization') && !detail.isMine ? (
+                  <Button width="100%" height="2.8125rem" margin={0}>
+                    결제하기
+                  </Button>
+                ) : null}
               </Link>
             </SeriesInfoSection>
           </SeriesInfo>
-        </div>
+        </InfoArea>
       </MainArea>
       <ArticleArea>
         <div className="articleAreaHeader">
           <SectionTitle>연재 목록</SectionTitle>
           <div>
-            <StyeldAddCircleOutlineIcon />
-            <Link to={`/series/${detail.series.id}/article/write`}>
-              새 아티클 작성하기
-            </Link>
+            {detail.isMine ? (
+              <>
+                <StyeldAddCircleOutlineIcon />
+                <Link to={`/series/${detail.series.id}/article/write`}>
+                  새 아티클 작성하기
+                </Link>
+              </>
+            ) : null}
           </div>
         </div>
         <SectionContainer>
@@ -192,6 +202,11 @@ const MainArea = styled.div`
   }
 `;
 
+const InfoArea = styled.div`
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: ${theme.style.boxShadow};
+`;
+
 const SeriesInfoHead = styled.div`
   border-radius: 1rem 1rem 0 0;
   background-color: orange;
@@ -206,9 +221,9 @@ const SeriesInfoHead = styled.div`
 
 const SeriesInfo = styled.div`
   width: 100%;
-  height: 19.375rem;
+  height: auto;
   padding: 1.25rem;
-  border: 0.0625rem solid ${theme.color.main};
+  background-color: #ffffff;
 `;
 
 const SeriesInfoSection = styled.div`
@@ -231,7 +246,7 @@ const SeriesInfoSection = styled.div`
 
 const ArticleArea = styled.div`
   .articleListNone {
-    background-color: ${theme.color.greyLight};
+    background-color: ${theme.color.grey};
     height: 10rem;
     border-radius: 1rem;
     display: flex;

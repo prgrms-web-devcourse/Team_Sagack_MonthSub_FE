@@ -32,9 +32,10 @@ ImageCard.propTypes = {
 export default ImageCard;
 
 const ImageWrapper = styled(Link)`
-  width: 15rem;
+  width: 40rem;
   height: 20rem;
   position: relative;
+  border: 1px solid orange;
 `;
 
 const Image = styled.img`
@@ -42,6 +43,11 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   filter: brightness(50%);
+  transition: filter 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(100%);
+  }
 `;
 
 const ImageInfo = styled.div`

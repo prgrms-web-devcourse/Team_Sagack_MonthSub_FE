@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import theme from '@styles/theme';
 
 const Wrapper = ({ children, width, ...props }) => (
   <StyledDiv width={width} {...props}>
@@ -27,6 +28,7 @@ const StyledDiv = styled.div`
   min-height: 100vh;
   max-width: ${props => props.width || '71.25rem'};
   margin: 0 auto;
-  padding-top: 8rem;
+  padding-top: ${theme.common.navHeight};
+  margin-top: 3rem;
   padding-bottom: 3rem;
 `;

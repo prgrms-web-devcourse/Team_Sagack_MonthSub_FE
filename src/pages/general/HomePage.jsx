@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, ImageCard, Image, Title, CardList } from '@components';
+import { Wrapper, CardList, CardSlider, SectionTitle } from '@components';
 import { getMain } from '@apis/user';
-import { Link } from 'react-router-dom';
 
 const initialValues = {
   popularSeriesList: [
@@ -58,6 +57,7 @@ const HomePage = () => {
   const getInitialData = async () => {
     const { data } = await getMain();
     setValues(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -65,70 +65,34 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
-      <PopularSeriesContainer>
-        {values.popularSeriesList.map(
-          ({ nickname, title, introduceSentence, thumbnail, seriesId }) => (
-            <ImageCard
-              id={seriesId}
-              key={parseInt(seriesId, 10)}
-              src={thumbnail}
-              nickname={nickname}
-              title={title}
-              introduceSentence={introduceSentence}
-            />
-          ),
-        )}
-      </PopularSeriesContainer>
-      <Wrapper>
-        <Title name="인기 작가" h2 />
-        <PopularWriterContainer>
-          {values.popularWriterList.map(
-            ({ nickname, profileImage, writerId }) => (
-              <WriterProfile key={writerId} to={`/channel/${writerId}`}>
-                <ProfileImage src={profileImage} alt="미리보기" />
-                <span>{nickname}</span>
-              </WriterProfile>
-            ),
-          )}
-        </PopularWriterContainer>
-        <Title name="최근 시리즈" h2 />
+    <HomepageContainer>
+      <CardSlider
+        list={values.popularSeriesList}
+        parentOf="main"
+        itemsCountOnRow={5}
+        itemsCountOnCol={1}
+      />
+
+      <Wrapper className="customWrapper">
+        <SectionTitle>
+          <div>최신 모집글</div>
+        </SectionTitle>
         <RecentSeriesContainer>
           <CardList list={values.recentSeriesList} />
         </RecentSeriesContainer>
       </Wrapper>
-    </>
+    </HomepageContainer>
   );
 };
 
 export default HomePage;
 
-const PopularSeriesContainer = styled.div`
-  padding-top: 5rem;
-  display: flex;
+const HomepageContainer = styled.div`
+  .customWrapper {
+    margin-top: 2rem;
+  }
 `;
-const PopularWriterContainer = styled.div`
-  width: 100%;
-  justify-content: space-between;
-  height: 100%;
-  display: flex;
-  padding: 2rem 0;
-`;
+
 const RecentSeriesContainer = styled.div`
-  padding: 2rem 0;
-`;
-
-const WriterProfile = styled(Link)`
-  width: 20%;
-  height: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileImage = styled(Image)`
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  margin-bottom: 5rem;
 `;
