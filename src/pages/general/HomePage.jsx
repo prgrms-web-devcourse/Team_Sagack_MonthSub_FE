@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, CardList, CardSlider, SectionTitle } from '@components';
-import { getMain } from '@apis/user';
+import { getMain, getMyPurchaseSeries } from '@apis/user';
 
 const initialValues = {
   popularSeriesList: [
@@ -49,14 +49,42 @@ const initialValues = {
       category: '',
     },
   ],
+  seriesList: [
+    {
+      likeStatus: true,
+      userId: 0,
+      writerId: 0,
+      seriesId: 0,
+      nickname: '',
+      thumbnail: '',
+      title: '',
+      introduceSentence: '',
+      seriesStartDate: '',
+      seriesEndDate: '',
+      subscribeStatus: '',
+      subscribeStartDate: '',
+      subscribeEndDate: '',
+      likes: 0,
+      category: '',
+    },
+  ],
 };
 
 const HomePage = () => {
   const [values, setValues] = useState(initialValues);
+  const hasAuth = sessionStorage.getItem('authorization');
 
   const getInitialData = async () => {
-    const { data } = await getMain();
-    setValues(data);
+    const mainResponse = await getMain();
+    setValues(mainResponse.data);
+
+    if (hasAuth) {
+      const purChaseSeriesResponse = await getMyPurchaseSeries();
+      setValues({
+        ...mainResponse.data,
+        seriesList: purChaseSeriesResponse.data.seriesList,
+      });
+    }
   };
 
   useEffect(() => {
@@ -73,8 +101,20 @@ const HomePage = () => {
       />
 
       <Wrapper className="customWrapper">
+        {hasAuth ? (
+          <div>
+            <SectionTitle>
+              <div>구독중인 시리즈</div>
+            </SectionTitle>
+            <RecentSeriesContainer>
+              <CardList list={values.seriesList} />
+            </RecentSeriesContainer>
+          </div>
+        ) : (
+          ''
+        )}
         <SectionTitle>
-          <div>최신 모집글</div>
+          <div>최신 시리즈</div>
         </SectionTitle>
         <RecentSeriesContainer>
           <CardList list={values.recentSeriesList} />
