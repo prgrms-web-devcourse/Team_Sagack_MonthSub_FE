@@ -66,7 +66,6 @@ const SeriesDetailPage = () => {
   const getInitialData = async () => {
     const { data } = await getSeriesDetail({ id });
     setDetail(data);
-    console.log(data);
   };
 
   useEffect(() => {

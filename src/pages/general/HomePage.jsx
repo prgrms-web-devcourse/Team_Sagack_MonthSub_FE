@@ -57,7 +57,6 @@ const HomePage = () => {
   const getInitialData = async () => {
     const { data } = await getMain();
     setValues(data);
-    console.log(data);
   };
 
   useEffect(() => {
