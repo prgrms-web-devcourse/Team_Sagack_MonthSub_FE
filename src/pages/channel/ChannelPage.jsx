@@ -7,7 +7,6 @@ import {
   SectionTitle,
   SectionContainer,
   CardSlider,
-  UserList,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams } from 'react-router-dom';
@@ -103,28 +102,11 @@ const ChannelPage = () => {
             </div>
             <div>{data.user.profileIntroduce}</div>
           </div>
-          <div>
-            <div className="follows-wrap">
-              <div>{data.followIngCount}</div>
-              팔로잉
-            </div>
-            <div className="follows-wrap">
-              <div>{data.followCount}</div>
-              팔로워
-            </div>
-          </div>
         </ProfileContainer>
       </ProfileWrapper>
 
       <Wrapper className="customWrapper">
-        <SectionContainer>
-          <UserList
-            list={data.followWriterList}
-            title="팔로잉 한 작가들"
-            moreLink="/follow/my"
-          />
-        </SectionContainer>
-        {id === 'my' ? (
+        {!id ? (
           <SectionContainer>
             <SectionTitle>구독한 시리즈</SectionTitle>
             <CardSlider list={data.subscribeList} />

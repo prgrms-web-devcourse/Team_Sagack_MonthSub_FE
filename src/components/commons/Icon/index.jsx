@@ -7,6 +7,9 @@ import LikeBorder from './LikeBorder';
 import Home from './Home';
 import User from './User';
 import Search from './Search';
+import Info from './Info';
+import Tag from './Tag';
+import Change from './Change';
 
 const Icons = ({
   fontSize,
@@ -43,6 +46,9 @@ Icons.LikeBorder = LikeBorder;
 Icons.Home = Home;
 Icons.User = User;
 Icons.Search = Search;
+Icons.Info = Info;
+Icons.Tag = Tag;
+Icons.Change = Change;
 
 export default Icons;
 

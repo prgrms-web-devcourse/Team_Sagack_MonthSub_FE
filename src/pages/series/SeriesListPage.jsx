@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Wrapper,
-  SelectContainer,
-  Select,
-  CardList,
-  Category,
-} from '@components';
+import { Wrapper, CardList, Category } from '@components';
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
@@ -113,22 +107,6 @@ const SeriesListPage = () => {
           { key: 'ETC', value: '기타' },
         ]}
       />
-      <SelectContainer>
-        <Select
-          name="default"
-          options={[
-            { value: 'newest', text: '최신순' },
-            { value: 'hottest', text: '인기순' },
-          ]}
-        />
-        <Select
-          name="subscribeStatus"
-          options={[
-            { value: 'before', text: '모집중' },
-            { value: 'after', text: '연재중' },
-          ]}
-        />
-      </SelectContainer>
       <CardList list={list} />
       <div ref={pageEnd} />
     </Wrapper>

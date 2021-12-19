@@ -41,7 +41,7 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
       <IconWrapper color={userInfo.userId ? theme.color.red : theme.color.gray}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
-      {typeof likeCount === 'boolean' ? '' : <span>{count} Likes</span>}
+      {typeof likeCount === 'boolean' ? '' : <span>좋아요 {count}</span>}
     </Container>
   );
 };
@@ -63,9 +63,6 @@ export default LikeToggle;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  & div {
-    margin-bottom: 0.2rem;
-  }
 `;

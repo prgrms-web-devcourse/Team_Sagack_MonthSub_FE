@@ -10,7 +10,7 @@ export {
   WriteListPage,
   MyLikeSeriesPage,
 } from './user';
-export { HomePage, SearchPage, NotFoundPage } from './general';
+export { HomePage, SearchPage, NotFoundPage, StylesTest } from './general';
 export { PurchaseHistoryPage, PurchasePage } from './purchase';
 export { SignInPage, SignUpPage } from './auth';
 export {

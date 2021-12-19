@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import theme from '@styles/theme';
 
 const Category = ({ categoryList, onClick }) => (
   <CategoryContainer>
@@ -37,6 +38,10 @@ const CategoryContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 1.25rem;
+  height: 40px;
+  border-radius: 40px;
+  padding: 0 1.5rem;
   margin-right: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: ${theme.style.boxShadow};
 `;

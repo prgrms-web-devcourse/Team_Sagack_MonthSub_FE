@@ -17,6 +17,7 @@ const DetailForm = ({
   likes,
   isLiked,
   bodyText,
+  isMine,
 }) => (
   <div>
     <DetailRoot>
@@ -49,11 +50,13 @@ const DetailForm = ({
     <DetailBody>
       <div>{bodyText}</div>
       <div>
-        <Link to={`/series/edit/${parentId}`}>
-          <Button width="6.25rem" height="2.8125rem" margin={0}>
-            수정하기
-          </Button>
-        </Link>
+        {isMine ? (
+          <Link to={`/series/edit/${parentId}`}>
+            <Button width="6.25rem" height="2.8125rem" margin={0}>
+              수정하기
+            </Button>
+          </Link>
+        ) : null}
       </div>
     </DetailBody>
   </div>
@@ -70,6 +73,7 @@ DetailForm.defaultProps = {
   postDate: '',
   likes: null,
   bodyText: '',
+  isMine: null,
   isLiked: false,
 };
 
@@ -84,6 +88,7 @@ DetailForm.propTypes = {
   postDate: PropTypes.string,
   likes: PropTypes.number,
   bodyText: PropTypes.string,
+  isMine: PropTypes.bool,
   isLiked: PropTypes.bool,
 };
 
