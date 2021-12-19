@@ -4,7 +4,7 @@ import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
   const [buttonState, setButtonState] = useState({
-    ALL: false,
+    ALL: true,
     NOVEL: false,
     POEM: false,
     ESSAY: false,
@@ -68,6 +68,14 @@ const SeriesListPage = () => {
       ...buttonState,
       [e.target.id]: !buttonState[e.target.id],
     };
+
+    const clickedCategoryArray = Object.keys(nextState).filter(
+      element => nextState[element],
+    );
+
+    if (clickedCategoryArray.length === 0) {
+      nextState['ALL'] = true;
+    }
 
     setButtonState(nextState);
 

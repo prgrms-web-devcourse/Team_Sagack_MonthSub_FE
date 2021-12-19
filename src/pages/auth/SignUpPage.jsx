@@ -18,8 +18,12 @@ const SignUpPage = () => {
       nickName: '',
     },
     onSubmit: async requestData => {
-      await postSignUp(requestData);
-      history.push('/signin');
+      try {
+        const response = await postSignUp(requestData);
+        if (response.stats === 200) history.push('/signin');
+      } catch (error) {
+        history.push('/signup');
+      }
     },
     validate: ({ email, userName, password, nickName }) => {
       const newErrors = {};
