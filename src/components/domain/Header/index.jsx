@@ -55,7 +55,7 @@ const StyledHeader = styled.header`
   top: 0;
   background-color: #fff;
   border-bottom: 0.0625rem solid ${theme.color.main};
-  z-index: 1;
+  z-index: 2;
   a:hover {
     color: ${theme.color.main};
     transition: all 200ms ease-out;

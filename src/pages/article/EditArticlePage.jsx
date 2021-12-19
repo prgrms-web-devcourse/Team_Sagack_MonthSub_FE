@@ -75,29 +75,27 @@ const EditArticlePage = () => {
   }, []);
 
   return (
-    <StyledWrapper>
-      <Form onSubmit={handleSubmit}>
-        <ArticleEditor
-          title="아티클 작성"
-          onChange={handleChange}
-          value={values}
-        />
-        <ImageUpload
-          title="썸네일 선택"
-          onChange={handleImageUpload}
-          name="thumbnail"
-          src={values.thumbnailUrl}
-        />
-        <Buttons confirmName="제출" />
-      </Form>
-    </StyledWrapper>
+    <>
+      <StyledImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide
+      />
+      <StyledWrapper>
+        <Form onSubmit={handleSubmit}>
+          <ArticleEditor onChange={handleChange} value={values} />
+          <Buttons confirmName="제출" />
+        </Form>
+      </StyledWrapper>
+    </>
   );
 };
 
 export default EditArticlePage;
 
 const StyledWrapper = styled(Wrapper)`
-  padding: 9rem 0 4rem 0;
+  padding: 3rem 0 4rem 0;
 `;
 
 const Form = styled.form`
@@ -107,4 +105,8 @@ const Form = styled.form`
 
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
+`;
+
+const StyledImageUpload = styled(ImageUpload)`
+  margin-top: 5rem;
 `;
