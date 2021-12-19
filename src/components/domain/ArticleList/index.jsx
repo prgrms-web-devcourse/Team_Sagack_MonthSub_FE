@@ -7,15 +7,13 @@ import { Link } from 'react-router-dom';
 const ArticleList = ({ seriesId, list, ...props }) => (
   <div {...props}>
     {list.map(item => (
-      <ArticleContainer key={item.articleId}>
-        <div>{item.round}</div>
-        <div className="title">
-          <Link to={`/series/${seriesId}/article/${item.articleId}`}>
-            {item.title}
-          </Link>
-        </div>
-        <div>{item.date}</div>
-      </ArticleContainer>
+      <Link to={`/series/${seriesId}/article/${item.articleId}`}>
+        <ArticleContainer key={item.articleId}>
+          <div>{item.round}</div>
+          <div className="title">{item.title}</div>
+          <div>{item.date}</div>
+        </ArticleContainer>
+      </Link>
     ))}
   </div>
 );
@@ -36,9 +34,17 @@ const ArticleContainer = styled.div`
   width: 100%;
   height: 3.75rem;
   padding: 0 1.25rem;
+  border-radius: 0.3rem;
   display: flex;
   align-items: center;
   border-bottom: 0.0625rem solid ${theme.color.grey};
+
+  &:hover {
+    background-color: ${theme.color.main};
+    color: #fff;
+    border-bottom: 0.0625rem solid #fff;
+    transition: all 200ms ease-out;
+  }
 
   > div {
     &:nth-of-type(1) {

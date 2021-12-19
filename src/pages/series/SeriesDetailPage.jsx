@@ -73,7 +73,7 @@ const SeriesDetailPage = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <ImageArea>
         <Image
           src={detail.series.thumbnail}
@@ -106,34 +106,39 @@ const SeriesDetailPage = () => {
               <SeriesInfoSection>
                 <div>구독 정보</div>
                 <div className="seriesInfoBlock">
-                  <span>모집 일</span>
+                  <div>모집일</div>
                   {detail.subscribe.startDate} ~ {detail.subscribe.endDate}
                 </div>
                 <div className="seriesInfoBlock">
-                  <span>구독료</span>
+                  <div>구독료</div>
                   {detail.series.price} 원
                 </div>
               </SeriesInfoSection>
               <SeriesInfoSection>
                 <div>연재 정보</div>
                 <div className="seriesInfoBlock">
-                  <span>연재 일</span>
+                  <div>연재 일</div>
                   {detail.series.startDate} ~ {detail.series.endDate}
                 </div>
                 <div className="seriesInfoBlock">
-                  <span>연재 주기</span>
+                  <div>연재 주기</div>
                   {convertDay(detail.upload.date).join(', ')}
                   &nbsp;{detail.upload.time} 시
                 </div>
                 <div className="seriesInfoBlock">
-                  <span>총 회차</span>
+                  <div>총 회차</div>
                   {detail.series.articleCount} 회
                 </div>
               </SeriesInfoSection>
               <SeriesInfoSection>
                 <Link to={`/purchase/${detail.series.id}`}>
                   {sessionStorage.getItem('authorization') && !detail.isMine ? (
-                    <Button width="100%" height="2.8125rem" margin={0}>
+                    <Button
+                      className="seriesPurchase"
+                      width="100%"
+                      height="2.8125rem"
+                      margin={0}
+                    >
                       결제하기
                     </Button>
                   ) : null}
@@ -147,12 +152,13 @@ const SeriesDetailPage = () => {
             <SectionTitle>연재 목록</SectionTitle>
             <div>
               {detail.isMine ? (
-                <>
+                <Link
+                  to={`/series/${detail.series.id}/article/write`}
+                  className="articleAdd"
+                >
                   <StyeldAddCircleOutlineIcon />
-                  <Link to={`/series/${detail.series.id}/article/write`}>
-                    새 아티클 작성하기
-                  </Link>
-                </>
+                  <span>새 아티클 작성하기</span>
+                </Link>
               ) : null}
             </div>
           </div>
@@ -170,15 +176,19 @@ const SeriesDetailPage = () => {
           </SectionContainer>
         </ArticleArea>
       </Wrapper>
-    </>
+    </Container>
   );
 };
 
 export default SeriesDetailPage;
 
+const Container = styled.div`
+  background-color: #fff;
+`;
+
 const ImageArea = styled.div`
   width: 100%;
-  height: 37.5rem;
+  height: 30rem;
   position: relative;
   overflow: hidden;
   margin-top: 5rem;
@@ -208,6 +218,7 @@ const MainArea = styled.div`
 const InfoArea = styled.div`
   border-radius: 1rem 1rem 0 0;
   box-shadow: ${theme.style.boxShadow};
+  margin-left: 3rem;
 `;
 
 const SeriesInfoHead = styled.div`
@@ -225,29 +236,37 @@ const SeriesInfoHead = styled.div`
 const SeriesInfo = styled.div`
   width: 100%;
   height: auto;
-  padding: 1.25rem;
+  padding: 2rem 1.5rem;
   background-color: #ffffff;
+  > div:nth-of-type(1) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const SeriesInfoSection = styled.div`
-  margin-bottom: 1.875rem;
-
   > div:nth-of-type(1) {
     font-weight: bold;
     font-size: ${theme.font.medium};
+    margin-bottom: 0.5rem;
   }
 
   .seriesInfoBlock {
-    margin-top: 0.625rem;
+    margin-top: 1rem;
 
-    > span:nth-of-type(1) {
-      margin-right: 0.625rem;
+    > div:nth-of-type(1) {
+      font-weight: 700;
+      margin: 0 1rem 0.5rem 0;
       color: ${theme.color.main};
     }
+  }
+
+  .seriesPurchase {
+    margin-top: 1.5rem;
   }
 `;
 
 const ArticleArea = styled.div`
+  margin-top: 4rem;
   .articleListNone {
     background-color: ${theme.color.grey};
     height: 10rem;
@@ -261,6 +280,16 @@ const ArticleArea = styled.div`
   .articleAreaHeader {
     display: flex;
 
+    .articleAdd {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span:hover {
+        color: ${theme.color.main};
+        transition: all 200ms ease-out;
+      }
+    }
+
     > *:nth-of-type(2) {
       display: flex;
       flex-grow: 1;
@@ -272,5 +301,7 @@ const ArticleArea = styled.div`
 `;
 
 const StyeldAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
-  color: ${theme.color.greyDark};
+  font-size: 2rem;
+  margin-right: 0.35rem;
+  color: ${theme.color.main};
 `;
