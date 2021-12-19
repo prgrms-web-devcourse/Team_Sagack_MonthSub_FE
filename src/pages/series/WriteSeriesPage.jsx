@@ -89,110 +89,116 @@ const WriteSeriesPage = () => {
   };
 
   return (
-    <StyledWrapper>
-      <form onSubmit={handleSubmit}>
-        <Section>
-          <Radio
-            names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
-            onChange={handleChange}
-            checkedButton={values.category}
-            title="카테고리"
-          />
-        </Section>
-        <Section>
-          <SeriesEditor
-            onChange={handleChange}
-            value={values}
-            title="시리즈 소개"
-          />
-        </Section>
-        <Section>
-          <Title name="썸네일 선택" />
-          <ImageUpload
-            onChange={handleImageUpload}
-            name="thumbnail"
-            src={values.thumbnailUrl}
-          />
-        </Section>
-        <Section>
-          <Input
-            width="22rem"
-            title="구독료"
-            type="number"
-            value={values.price}
-            name="price"
-            onChange={handleChange}
-            min={0}
-          />
-        </Section>
-        <Section>
-          <Period
-            title="모집기간"
-            startName="subscribeStartDate"
-            startValue={values.subscribeStartDate}
-            startMin={getToday()}
-            endName="subscribeEndDate"
-            endValue={values.subscribeEndDate}
-            endMin={calculateLaterDate(values.subscribeStartDate, 1)}
-            onChange={handleChange}
-          />
-        </Section>
-        <Section>
-          <Period
-            title="연재기간"
-            startName="seriesStartDate"
-            startValue={values.seriesStartDate}
-            startMin={calculateLaterDate(values.subscribeEndDate, 1)}
-            endName="seriesEndDate"
-            endValue={values.seriesEndDate}
-            endMin={calculateLaterDate(values.seriesStartDate, 1)}
-            onChange={handleChange}
-          />
-        </Section>
-        <Section>
-          <Input
-            width="22rem"
-            title="연재 시간"
-            type="time"
-            name="uploadTime"
-            value={values.uploadTime}
-            onChange={handleChange}
-          />
-        </Section>
-        <Section>
-          <Input
-            width="22rem"
-            title="총 회차"
-            type="number"
-            name="articleCount"
-            value={values.articleCount}
-            onChange={handleChange}
-            min={1}
-          />
-        </Section>
-        <Section>
-          <CheckBox
-            title="연재 요일"
-            labels={[
-              'monday',
-              'tuesday',
-              'wednesday',
-              'thursday',
-              'friday',
-              'saturday',
-              'sunday',
-            ]}
-            checkedInputs={checkedInputs}
-            onChange={handleSelectDays}
-          />
-        </Section>
-        <ConfirmCancleButtons confirmName="제출" />
-      </form>
-    </StyledWrapper>
+    <Container>
+      <StyledWrapper>
+        <form onSubmit={handleSubmit}>
+          <Section>
+            <Radio
+              names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+              onChange={handleChange}
+              checkedButton={values.category}
+              title="카테고리"
+            />
+          </Section>
+          <Section>
+            <SeriesEditor
+              onChange={handleChange}
+              value={values}
+              title="시리즈 소개"
+            />
+          </Section>
+          <Section>
+            <Title name="썸네일 선택" />
+            <ImageUpload
+              onChange={handleImageUpload}
+              name="thumbnail"
+              src={values.thumbnailUrl}
+            />
+          </Section>
+          <Section>
+            <Input
+              width="22rem"
+              title="구독료"
+              type="number"
+              value={values.price}
+              name="price"
+              onChange={handleChange}
+              min={0}
+            />
+          </Section>
+          <Section>
+            <Period
+              title="모집기간"
+              startName="subscribeStartDate"
+              startValue={values.subscribeStartDate}
+              startMin={getToday()}
+              endName="subscribeEndDate"
+              endValue={values.subscribeEndDate}
+              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
+              onChange={handleChange}
+            />
+          </Section>
+          <Section>
+            <Period
+              title="연재기간"
+              startName="seriesStartDate"
+              startValue={values.seriesStartDate}
+              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+              endName="seriesEndDate"
+              endValue={values.seriesEndDate}
+              endMin={calculateLaterDate(values.seriesStartDate, 1)}
+              onChange={handleChange}
+            />
+          </Section>
+          <Section>
+            <Input
+              width="22rem"
+              title="연재 시간"
+              type="time"
+              name="uploadTime"
+              value={values.uploadTime}
+              onChange={handleChange}
+            />
+          </Section>
+          <Section>
+            <Input
+              width="22rem"
+              title="총 회차"
+              type="number"
+              name="articleCount"
+              value={values.articleCount}
+              onChange={handleChange}
+              min={1}
+            />
+          </Section>
+          <Section>
+            <CheckBox
+              title="연재 요일"
+              labels={[
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday',
+                'sunday',
+              ]}
+              checkedInputs={checkedInputs}
+              onChange={handleSelectDays}
+            />
+          </Section>
+          <ConfirmCancleButtons confirmName="제출" />
+        </form>
+      </StyledWrapper>
+    </Container>
   );
 };
 
 export default WriteSeriesPage;
+
+const Container = styled.div`
+  background-color: #fff;
+`;
 
 const StyledWrapper = styled(Wrapper)`
   padding: 9rem 0 4rem 0;

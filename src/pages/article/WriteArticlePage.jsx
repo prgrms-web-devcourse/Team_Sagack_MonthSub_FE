@@ -61,12 +61,12 @@ const WriteArticlePage = () => {
   });
 
   return (
-    <>
+    <Container>
       <StyledImageUpload
         onChange={handleImageUpload}
         name="thumbnail"
         src={values.thumbnailUrl}
-        wide
+        wide={+true}
       />
       <StyledWrapper>
         <Form onSubmit={handleSubmit}>
@@ -74,11 +74,15 @@ const WriteArticlePage = () => {
           <Buttons confirmName="제출" />
         </Form>
       </StyledWrapper>
-    </>
+    </Container>
   );
 };
 
 export default WriteArticlePage;
+
+const Container = styled.div`
+  background-color: #fff;
+`;
 
 const StyledWrapper = styled(Wrapper)`
   padding: 3rem 0 4rem 0;

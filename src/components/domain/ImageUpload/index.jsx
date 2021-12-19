@@ -41,7 +41,7 @@ ImageUpload.propTypes = {
   buttonName: PropTypes.string,
   src: PropTypes.string,
   name: PropTypes.string,
-  wide: PropTypes.bool,
+  wide: PropTypes.number,
 };
 
 export default ImageUpload;
