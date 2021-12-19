@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import { errorToString } from '@utils/errors';
 
-export const instance = axios.create({});
 const { REACT_APP_API_END_POINT } = process.env;
 
 export const GET = async ({ url, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -23,13 +23,17 @@ export const GET = async ({ url, isJsonType = false, params = {} }) => {
     }
     return response;
   } catch (error) {
-    alert(error);
+    Swal.fire({
+      title: errorToString(error.response.data.code),
+      icon: 'question',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
+    });
   }
 };
 
 export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -43,18 +47,24 @@ export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
       data,
       params,
     });
+
     if (response.status >= 400) {
       throw new Error('API 호출에 실패 했습니다.');
     }
+
     return response;
   } catch (error) {
-    alert(error);
+    Swal.fire({
+      title: errorToString(error.response.data.code),
+      icon: 'question',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
+    });
   }
 };
 
 export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -74,13 +84,17 @@ export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
     }
     return response;
   } catch (error) {
-    alert(error);
+    Swal.fire({
+      title: errorToString(error.response.data.code),
+      icon: 'question',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
+    });
   }
 };
 
 export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -98,7 +112,12 @@ export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
     }
     return response;
   } catch (error) {
-    return error;
+    Swal.fire({
+      title: errorToString(error.response.data.code),
+      icon: 'question',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
+    });
   }
 };
 
@@ -109,7 +128,6 @@ export const DELETE = async ({
   params = {},
 }) => {
   const token = sessionStorage.getItem('authorization');
-
   const headers = {
     ...(isJsonType && { 'Content-Type': 'application/json;charset=utf-8' }),
     ...(token && { Authorization: `Bearer ${token.replace(/\"/gi, '')}` }),
@@ -128,7 +146,12 @@ export const DELETE = async ({
     }
     return response;
   } catch (error) {
-    alert(error);
+    Swal.fire({
+      title: errorToString(error.response.data.code),
+      icon: 'question',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#ffb15c',
+    });
   }
 };
 

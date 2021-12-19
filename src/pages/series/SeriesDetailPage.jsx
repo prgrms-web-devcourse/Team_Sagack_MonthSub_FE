@@ -16,6 +16,8 @@ import convertDay from '@utils/convertDay';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export const initialData = {
+  isMine: false,
+  isLiked: false,
   series: {
     id: 0,
     thumbnail: '',
@@ -55,8 +57,6 @@ export const initialData = {
       date: '',
     },
   ],
-  isLiked: null,
-  isMine: null,
 };
 
 const SeriesDetailPage = () => {
@@ -88,7 +88,7 @@ const SeriesDetailPage = () => {
           <DetailForm
             previousRoot="/series"
             previousRootText="구독 모집"
-            ParentId={detail.series.id}
+            parentId={detail.series.id}
             title={detail.series.title}
             writerId={detail.writer.userId}
             writerProfileImage={detail.writer.profileImage}
@@ -97,6 +97,7 @@ const SeriesDetailPage = () => {
             likes={detail.series.likes}
             bodyText={detail.series.introduceText}
             isMine={detail.isMine}
+            isLiked={detail.isLiked}
           />
         </div>
         <InfoArea>

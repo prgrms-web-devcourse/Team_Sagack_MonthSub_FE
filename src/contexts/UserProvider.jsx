@@ -31,7 +31,7 @@ const UserProvider = ({ children }) => {
   const getInitialData = async () => {
     const { data } = await getMyInfo();
     setUserInfo({
-      token: data.token,
+      token: sessionStorage.getItem('authorization'),
       username: data.userName,
       userId: data.userId,
       group: data.group,

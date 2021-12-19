@@ -2,12 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, Container, Button } from '@components';
 import { Link, useHistory } from 'react-router-dom';
+import { useUser } from '@contexts/UserProvider';
 
 const MyInfoPage = () => {
   const history = useHistory();
+  const { removeToken } = useUser();
 
   const handleClick = () => {
     sessionStorage.removeItem('authorization');
+    removeToken();
     history.push('/');
   };
 

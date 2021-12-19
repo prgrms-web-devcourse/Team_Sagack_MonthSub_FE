@@ -6,7 +6,7 @@ import { Input, Wrapper } from '@components';
 import validationEmail from '@utils/validationEmail';
 import { Link, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
-import { useUser } from '../../contexts/UserProvider';
+import { useUser } from '@contexts/UserProvider';
 
 const SignInPage = () => {
   const history = useHistory();
@@ -31,7 +31,7 @@ const SignInPage = () => {
           history.push('/');
         }
       } catch (error) {
-        alert(error);
+        alert(error.response.status);
       }
     },
     validate: ({ email, password }) => {

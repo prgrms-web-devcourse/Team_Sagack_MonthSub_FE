@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Icons } from '@components';
 import theme from '@styles/theme';
 import { lighten } from 'polished';
-import { useUser } from '../../../contexts/UserProvider';
+import { useUser } from '@contexts/UserProvider';
 import Nav from './Nav';
 import Logo from './Logo';
 

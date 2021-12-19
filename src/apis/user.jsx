@@ -16,7 +16,6 @@ export const postMyProfileImage = async data => {
   POST({
     url: '/users/profile',
     data,
-    isJsonType: false,
   });
 };
 
@@ -24,7 +23,6 @@ export const patchMyInfo = async data => {
   PATCH({
     url: '/users/me',
     data,
-    isJsonType: false,
   });
 };
 

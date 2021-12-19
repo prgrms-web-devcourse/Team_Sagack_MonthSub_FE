@@ -35,7 +35,8 @@ const EditMyInfoPage = () => {
         }),
       );
       try {
-        patchMyInfo(formData);
+        await patchMyInfo(formData);
+        history.push('/');
       } catch (error) {
         alert(error);
       }
