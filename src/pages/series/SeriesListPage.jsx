@@ -9,6 +9,15 @@ import {
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
+  const [buttonState, setButtonState] = useState({
+    ALL: false,
+    NOVEL: false,
+    POEM: false,
+    ESSAY: false,
+    INTERVIEW: false,
+    CRITIQUE: false,
+    ETC: false,
+  });
   const pageEnd = useRef();
   const requestType = useRef(null);
   const setSeriesId = useRef(null);
@@ -38,7 +47,7 @@ const SeriesListPage = () => {
 
   useEffect(() => {
     getListUpdate();
-  }, [params]);
+  }, []);
 
   useEffect(() => {
     if (loading) {
@@ -60,12 +69,31 @@ const SeriesListPage = () => {
     }
   }, [loading]);
 
-  const handleCategorizing = e => {
+  const handleCategorizing = async e => {
+    const nextState = {
+      ...buttonState,
+      [e.target.id]: !buttonState[e.target.id],
+    };
+
+    setButtonState(nextState);
+
     setParams({
       ...params,
-      categories: e.target.id,
+      categories: Object.keys(nextState)
+        .filter(element => nextState[element])
+        .join(','),
       lastSeriesId: null,
     });
+
+    const { data } = await getSeries({
+      ...params,
+      categories: Object.keys(nextState)
+        .filter(element => nextState[element])
+        .join(','),
+      lastSeriesId: null,
+    });
+
+    setList(data.seriesList);
 
     requestType.current = 'category';
     setCategory.current = e.target.id;
