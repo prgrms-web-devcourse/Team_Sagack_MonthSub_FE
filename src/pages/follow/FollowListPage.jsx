@@ -28,7 +28,6 @@ const FollowListPage = () => {
         },
       });
       setValues(response.data);
-      console.log(values.data);
     } else {
       const response = await getOtherFollowList({
         id,
@@ -38,6 +37,7 @@ const FollowListPage = () => {
         },
       });
       setValues(response.data);
+      // eslint-disable-next-line no-console
       console.log(values);
     }
   };
@@ -69,6 +69,7 @@ const FollowListPage = () => {
   return (
     <Wrapper>
       <div ref={setBottom} />
+      {}
     </Wrapper>
   );
 };

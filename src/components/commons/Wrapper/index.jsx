@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-// import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
 const Wrapper = ({ children, width, whole, ...props }) => (
