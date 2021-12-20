@@ -75,13 +75,13 @@ const StyledUpload = styled(Upload)`
 `;
 
 const StyledButton = styled(Button)`
-  padding: 0.5rem;
+  width: 8rem;
+  padding: 0.5rem 0.2rem;
   font-size: 1rem;
-  font-weight: 700;
+  color: ${theme.color.greyDark};
   user-select: none;
   border-radius: 50px;
   border: none;
-  color: ${theme.color.main};
   box-shadow: ${theme.style.boxShadow};
   background-color: #fff;
   text-align: center;
@@ -95,6 +95,8 @@ const StyledButton = styled(Button)`
     css`
       width: 8rem;
       padding: 0.7rem 0;
+      color: ${theme.color.main};
+      font-weight: 700;
     `}
 `;
 

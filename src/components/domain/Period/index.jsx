@@ -14,7 +14,7 @@ const Period = ({
   onChange,
   pageParam,
 }) => (
-  <>
+  <div>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <Container>
       <Input
@@ -26,7 +26,7 @@ const Period = ({
         disabled={!!pageParam}
         min={startMin || ''}
       />
-      <Line>-</Line>
+      <Line>⎻</Line>
       <Input
         width="10rem"
         type="date"
@@ -37,7 +37,7 @@ const Period = ({
         min={endMin || ''}
       />
     </Container>
-  </>
+  </div>
 );
 
 Period.defaultProps = {

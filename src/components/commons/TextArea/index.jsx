@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { Title } from '@components';
 import theme from '@styles/theme';
 
 const TextArea = ({
@@ -9,6 +10,7 @@ const TextArea = ({
   disabled,
   name,
   value,
+  title,
   onChange,
   ...props
 }) => {
@@ -17,15 +19,18 @@ const TextArea = ({
   };
 
   return (
-    <StyledTextArea
-      width={width}
-      height={height}
-      disabled={disabled}
-      value={value}
-      name={name}
-      onChange={handleChange}
-      {...props}
-    />
+    <Container width={width} {...props}>
+      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      <StyledTextArea
+        width={width}
+        height={height}
+        disabled={disabled}
+        value={value}
+        name={name}
+        onChange={handleChange}
+        {...props}
+      />
+    </Container>
   );
 };
 
@@ -33,10 +38,12 @@ TextArea.defaultProps = {
   width: 'auto',
   height: 'auto',
   disabled: false,
+  title: '',
   onChange: () => {},
 };
 
 TextArea.propTypes = {
+  title: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
@@ -47,18 +54,21 @@ TextArea.propTypes = {
 
 export default TextArea;
 
+const Container = styled.div`
+  width: ${({ width }) => width};
+`;
 const StyledTextArea = styled.textarea`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  padding: 0.4rem;
-  border: 0.063rem solid ${theme.color.greyMedium};
+  padding: 0.7rem;
+  font-size: 1rem;
   border-radius: 0.2rem;
   resize: none;
+  line-height: 1.4rem;
+  box-shadow: ${theme.style.boxShadow};
   &:focus {
     background-color: #ffffff;
-    border: 0.063rem solid ${theme.color.main};
-    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+    outline: 0.063rem solid ${theme.color.main};
   }
 `;

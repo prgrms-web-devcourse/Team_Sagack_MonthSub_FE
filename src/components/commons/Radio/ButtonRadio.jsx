@@ -70,14 +70,13 @@ const StyledButton = styled.div`
   user-select: none;
   border-radius: 50px;
   margin-right: 1.5rem;
+  color: ${theme.color.main};
   background-color: #fff;
   box-shadow: ${theme.style.boxShadow};
   text-align: center;
   &:hover {
-    color: ${theme.color.main};
-  }
-  &:active {
-    background-color: ${theme.color.main};
     color: #fff;
+    background-color: ${theme.color.main};
+    transition: all 200ms ease-out;
   }
 `;

@@ -68,6 +68,7 @@ const FollowListPage = () => {
     <Wrapper>
       {values.ninkname}
       <div ref={setBottom} />
+      {}
     </Wrapper>
   );
 };

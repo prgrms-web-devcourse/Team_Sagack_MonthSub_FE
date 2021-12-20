@@ -10,6 +10,7 @@ import Search from './Search';
 import Info from './Info';
 import Tag from './Tag';
 import Change from './Change';
+import AddCircle from './AddCircle';
 
 const Icons = ({
   fontSize,
@@ -49,6 +50,7 @@ Icons.Search = Search;
 Icons.Info = Info;
 Icons.Tag = Tag;
 Icons.Change = Change;
+Icons.AddCircle = AddCircle;
 
 export default Icons;
 

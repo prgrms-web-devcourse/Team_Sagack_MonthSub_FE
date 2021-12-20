@@ -102,7 +102,7 @@ const DetailRoot = styled.div`
 
 const DetailTitle = styled.div`
   font-size: ${theme.font.xLarge};
-  padding: 0.9375rem 0;
+  padding: 1rem 0 1.7rem 0;
 `;
 
 const DetailInfo = styled.div`
@@ -160,6 +160,10 @@ const DetailBody = styled.div`
   display: flex;
   flex-direction: column;
 
+  button {
+    margin-top: 1rem;
+  }
+
   > div:nth-of-type(1) {
     flex-grow: 1;
     padding: 1.5625rem 0;
@@ -169,6 +173,5 @@ const DetailBody = styled.div`
   > div:nth-of-type(2) {
     height: auto;
     text-align: right;
-    padding-top: 1.25rem;
   }
 `;

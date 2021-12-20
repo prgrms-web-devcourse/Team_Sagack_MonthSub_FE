@@ -44,17 +44,15 @@ const SignUpPage = () => {
     <Wrapper>
       <Form onSubmit={handleSubmit}>
         <H1>회원가입</H1>
-        <Span>
-          <Input
-            width="100%"
-            height="2.5rem"
-            name="email"
-            value={values.email}
-            type="text"
-            placeholder="이메일을 입력해주세요."
-            onChange={handleChange}
-          />
-        </Span>
+        <Input
+          width="100%"
+          height="2.5rem"
+          name="email"
+          value={values.email}
+          type="text"
+          placeholder="이메일을 입력해주세요."
+          onChange={handleChange}
+        />
         <ErrorMessage>{errors.email}&nbsp;</ErrorMessage>
         <Input
           width="100%"
@@ -66,17 +64,15 @@ const SignUpPage = () => {
           onChange={handleChange}
         />
         <ErrorMessage>{errors.userName}&nbsp;</ErrorMessage>
-        <Span>
-          <Input
-            width="100%"
-            height="2.5rem"
-            name="nickName"
-            value={values.nickName}
-            type="text"
-            placeholder="닉네임을 입력해주세요."
-            onChange={handleChange}
-          />
-        </Span>
+        <Input
+          width="100%"
+          height="2.5rem"
+          name="nickName"
+          value={values.nickName}
+          type="text"
+          placeholder="닉네임을 입력해주세요."
+          onChange={handleChange}
+        />
         <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
         <Input
           width="100%"
@@ -98,8 +94,10 @@ const SignUpPage = () => {
 export default SignUpPage;
 
 const ErrorMessage = styled.span`
+  display: block;
   color: #ff0000;
   font-size: 0.75rem;
+  margin: 0.7rem 0;
 `;
 
 const H1 = styled.h1`
@@ -132,9 +130,4 @@ const SubmitButton = styled.button`
     background-color: ${theme.color.main};
     color: #041b1d;
   }
-`;
-
-const Span = styled.span`
-  display: flex;
-  justify-content: space-between;
 `;

@@ -79,8 +79,6 @@ const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
   font-size: 1rem;
-  line-height: 1.8rem;
-  font-size: 1rem;
   &[name='contents'] {
     flex-basis: 1;
   }

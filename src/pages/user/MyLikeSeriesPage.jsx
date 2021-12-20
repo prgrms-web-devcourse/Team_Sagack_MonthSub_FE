@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Wrapper, Container, CardList } from '@components';
+import { Wrapper, CardList } from '@components';
 import { getMyLikes } from '@apis/user';
+import styled from '@emotion/styled';
 
 const initialValues = [
   {
@@ -34,10 +35,34 @@ const MyLikeSeriesPage = () => {
 
   return (
     <Wrapper>
-      <Container title="내 관심 시리즈">
-        <CardList list={values} />
+      <Container>
+        <Header>
+          <H1>관심 시리즈</H1>
+        </Header>
+        {values.length ? (
+          <CardList list={values} />
+        ) : (
+          <div>구독한 시리즈가 없습니다.</div>
+        )}
       </Container>
     </Wrapper>
   );
 };
 export default MyLikeSeriesPage;
+
+const Container = styled.div`
+  width: 100%;
+  margin-top: 5rem;
+`;
+
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
+const H1 = styled.h1`
+  font-size: 2rem;
+  font-weight: 700;
+  margin-right: 2rem;
+`;

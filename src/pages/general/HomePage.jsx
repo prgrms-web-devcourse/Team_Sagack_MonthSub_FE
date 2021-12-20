@@ -57,7 +57,7 @@ const initialValues = {
   ],
   seriesList: [
     {
-      likeStatus: true,
+      isLiked: true,
       userId: 0,
       writerId: 0,
       seriesId: 0,
