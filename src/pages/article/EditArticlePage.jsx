@@ -65,7 +65,7 @@ const EditArticlePage = () => {
     setValues({
       title: data.title,
       contents: data.contents,
-      thumbnailKey: data.thumbnailKey,
+      thumbnailUrl: data.thumbnailKey,
       createdAt: data.createdAt,
     });
   };
@@ -75,27 +75,28 @@ const EditArticlePage = () => {
   }, []);
 
   return (
-    <>
-      <StyledImageUpload
+    <Container>
+      <ImageUpload
         onChange={handleImageUpload}
         name="thumbnail"
         src={values.thumbnailUrl}
-        wide
+        wide={+true}
       />
-      <StyledWrapper>
+      <Wrapper>
         <Form onSubmit={handleSubmit}>
           <ArticleEditor onChange={handleChange} value={values} />
           <Buttons confirmName="제출" />
         </Form>
-      </StyledWrapper>
-    </>
+      </Wrapper>
+    </Container>
   );
 };
 
 export default EditArticlePage;
 
-const StyledWrapper = styled(Wrapper)`
-  padding: 3rem 0 4rem 0;
+const Container = styled.div`
+  margin-top: 5rem;
+  background-color: #fff;
 `;
 
 const Form = styled.form`
@@ -105,8 +106,4 @@ const Form = styled.form`
 
 const Buttons = styled(ConfirmCancleButtons)`
   margin-top: 2rem;
-`;
-
-const StyledImageUpload = styled(ImageUpload)`
-  margin-top: 5rem;
 `;
