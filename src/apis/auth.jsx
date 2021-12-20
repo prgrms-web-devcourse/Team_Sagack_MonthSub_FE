@@ -2,7 +2,7 @@ import { POST } from './axios';
 
 export const postSignIn = async ({ email, password }) => {
   const response = await POST({
-    url: '/users/login',
+    url: '/signin',
     data: {
       email,
       password,
@@ -19,6 +19,6 @@ export const postSignOut = async () =>
 
 export const postSignUp = async data =>
   POST({
-    url: '/users/signup',
+    url: '/signup',
     data,
   });

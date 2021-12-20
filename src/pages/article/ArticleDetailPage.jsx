@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Button } from '@components';
+import { Wrapper, Button, Loading } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
 
 const ArticleDetailPage = () => {
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const { seriesId, articleId } = useParams();
   const [article, setArticle] = useState({
     title: '',
@@ -28,6 +29,7 @@ const ArticleDetailPage = () => {
         nickname: data.nickname,
         round: data.round,
       });
+      setLoading(false);
     } catch (error) {
       history.goBack();
     }
@@ -39,31 +41,39 @@ const ArticleDetailPage = () => {
 
   return (
     <Container>
-      <ImageContainer image={article.thumbnailUrl}>
-        <ImageCover>
-          <Content>
-            <Title>{article.title}</Title>
-            <div>
-              <Nickname>by {article.nickname}</Nickname>
-              <Date>{article.createdDate}</Date>
-            </div>
-            {article.isMine ? (
-              <StyledButton
-                onClick={() =>
-                  history.push(`/series/${seriesId}/article/edit/${articleId}`)
-                }
-              >
-                수정하기
-              </StyledButton>
-            ) : (
-              ''
-            )}
-          </Content>
-        </ImageCover>
-      </ImageContainer>
-      <Wrapper>
-        <Paragraph>{article.contents}</Paragraph>
-      </Wrapper>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ImageContainer image={article.thumbnailUrl}>
+            <ImageCover>
+              <Content>
+                <Title>{article.title}</Title>
+                <div>
+                  <Nickname>by {article.nickname}</Nickname>
+                  <Date>{article.createdDate}</Date>
+                </div>
+                {article.isMine ? (
+                  <StyledButton
+                    onClick={() =>
+                      history.push(
+                        `/series/${seriesId}/article/edit/${articleId}`,
+                      )
+                    }
+                  >
+                    수정하기
+                  </StyledButton>
+                ) : (
+                  ''
+                )}
+              </Content>
+            </ImageCover>
+          </ImageContainer>
+          <Wrapper>
+            <Paragraph>{article.contents}</Paragraph>
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 };

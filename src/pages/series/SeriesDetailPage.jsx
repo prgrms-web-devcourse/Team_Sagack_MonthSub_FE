@@ -7,7 +7,11 @@ import {
   ArticleList,
   DetailForm,
   Button,
+<<<<<<< HEAD
   AddButton,
+=======
+  Loading,
+>>>>>>> 4394ffe3c7445d90e6b9846839f0ed122b60b7ba
 } from '@components';
 import { useParams, Link } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
@@ -61,11 +65,13 @@ export const initialData = {
 
 const SeriesDetailPage = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState(initialData);
 
   const getInitialData = async () => {
     const { data } = await getSeriesDetail({ id });
     setDetail(data);
+    setLoading(false);
   };
 
   useEffect(() => {

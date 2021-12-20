@@ -78,21 +78,16 @@ const ChannelPage = () => {
   const getInitialData = async () => {
     if (!id) {
       const { data } = await getMyChannel();
-
       setData(data);
     } else {
       const { data } = await getChannel(id);
-
       setData(data);
     }
   };
 
   const handleClick = () => {
     const writerId = data.user.userId;
-
-    data.isFollowed
-      ? deleteFollow({ id: writerId })
-      : postFollow({ id: writerId });
+    data.isFollowed ? deleteFollow({ id: writerId }) : postFollow({ id: 1 });
     setData({
       ...data,
       isFollowed: !data.isFollowed,
@@ -101,7 +96,7 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
-  }, []);
+  }, [data.isFollowed]);
 
   return (
     <ChannelContainer>

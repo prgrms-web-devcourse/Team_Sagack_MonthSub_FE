@@ -20,6 +20,7 @@ import { useParams, useHistory } from 'react-router-dom';
 const EditSeriesPage = () => {
   const { id } = useParams();
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
@@ -78,7 +79,7 @@ const EditSeriesPage = () => {
       },
     });
 
-  const init = async id => {
+  const getInitialData = async id => {
     const response = await getSeriesDetail({
       id,
     });
@@ -101,10 +102,11 @@ const EditSeriesPage = () => {
       thumbnailUrl: series.thumbnail,
     });
     setCheckedInputs(upload.date);
+    setLoading(false);
   };
 
   useEffect(() => {
-    id && init(id);
+    id && getInitialData(id);
   }, []);
 
   const handleSelectDays = (checked, value) => {

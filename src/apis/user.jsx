@@ -2,7 +2,7 @@ import { GET, POST, PUT } from './axios';
 
 export const getMain = async () =>
   GET({
-    url: '/main',
+    url: '/',
     isJsonType: false,
   });
 
@@ -28,7 +28,7 @@ export const patchMyInfo = async data => {
 
 export const getMyPurchaseSeries = async () =>
   GET({
-    url: '/series/users/subscribe',
+    url: '/series/subscribe',
   });
 
 export const getMyWriteSeries = async () =>
@@ -38,5 +38,5 @@ export const getMyWriteSeries = async () =>
 
 export const getMyLikes = async () =>
   GET({
-    url: '/likes',
+    url: '/series/likes',
   });

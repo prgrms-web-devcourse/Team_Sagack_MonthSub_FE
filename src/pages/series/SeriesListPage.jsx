@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Wrapper, CardList, Category } from '@components';
+import { Wrapper, CardList, Category, Loading } from '@components';
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
@@ -17,6 +17,7 @@ const SeriesListPage = () => {
   const setSeriesId = useRef(null);
   const setCategory = useRef('ALL');
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
     lastSeriesId: null,
@@ -37,6 +38,7 @@ const SeriesListPage = () => {
       : setList(data.seriesList);
 
     setLoading(true);
+    setIsLoading(false);
   };
 
   useEffect(() => {

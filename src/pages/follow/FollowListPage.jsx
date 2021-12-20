@@ -37,8 +37,6 @@ const FollowListPage = () => {
         },
       });
       setValues(response.data);
-      // eslint-disable-next-line no-console
-      console.log(values);
     }
   };
 
@@ -68,6 +66,7 @@ const FollowListPage = () => {
 
   return (
     <Wrapper>
+      {values.ninkname}
       <div ref={setBottom} />
       {}
     </Wrapper>
