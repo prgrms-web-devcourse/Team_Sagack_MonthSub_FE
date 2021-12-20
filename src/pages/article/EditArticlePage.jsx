@@ -64,6 +64,12 @@ const EditArticlePage = () => {
       seriesId,
       articleId,
     });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues({
       title: data.title,
       contents: data.contents,

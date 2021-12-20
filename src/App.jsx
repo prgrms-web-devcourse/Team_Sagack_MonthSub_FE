@@ -22,6 +22,7 @@ import {
   WriteSeriesPage,
   EditSeriesPage,
   NotFoundPage,
+  ServerErrorPage,
 } from '@pages';
 
 import PrivateRoute from './utils/privateRoute';
@@ -68,6 +69,7 @@ const App = () => (
         from="/series/:seriesId/article/:articleId"
         component={ArticleDetailPage}
       />
+      <Route path="/server-error" component={ServerErrorPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
   </>

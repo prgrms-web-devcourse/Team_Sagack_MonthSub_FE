@@ -81,10 +81,16 @@ const EditSeriesPage = () => {
     });
 
   const getInitialData = async id => {
-    const response = await getSeriesDetail({
+    const { data } = await getSeriesDetail({
       id,
     });
-    const { series, upload, subscribe, category, writer } = response.data;
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
+    const { series, upload, subscribe, category, writer } = data;
 
     setValues({
       writeId: writer.id,

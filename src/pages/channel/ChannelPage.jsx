@@ -12,7 +12,7 @@ import {
   Loading,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
 
 const initialData = {
@@ -75,14 +75,27 @@ const initialData = {
 const ChannelPage = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(initialData);
+  const history = useHistory();
   const { id } = useParams();
 
   const getInitialData = async () => {
     if (!id) {
       const { data } = await getMyChannel();
+
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
+
       setData(data);
     } else {
       const { data } = await getChannel(id);
+
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
+
       setData(data);
     }
   };

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Wrapper, CardList, Category, Loading } from '@components';
 import { getSeries } from '@apis/series';
+import { useHistory } from 'react-router-dom';
 
 const SeriesListPage = () => {
+  const history = useHistory();
   const [buttonState, setButtonState] = useState({
     ALL: true,
     NOVEL: false,
@@ -96,6 +98,11 @@ const SeriesListPage = () => {
         .join(','),
       lastSeriesId: null,
     });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
 
     setList(data.seriesList);
 

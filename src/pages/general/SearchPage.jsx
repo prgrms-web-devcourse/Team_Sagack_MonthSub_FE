@@ -3,8 +3,10 @@ import styled from '@emotion/styled';
 import { Container, Input, Button, CardList } from '@components';
 import { getSearchWithTitle } from '@apis/search';
 import { useForm } from '@hooks';
+import { useHistory } from 'react-router-dom';
 
 const SearchPage = () => {
+  const history = useHistory();
   const { values, setValues, errors, handleChange, handleSubmit } = useForm({
     initialValues: {
       keyword: '',
@@ -16,6 +18,12 @@ const SearchPage = () => {
         check: values.check,
         keyword: values.keyword,
       });
+
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
+
       setValues({
         ...values,
         keyword: '',

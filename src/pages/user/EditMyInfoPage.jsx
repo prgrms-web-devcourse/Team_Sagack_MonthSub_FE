@@ -50,6 +50,12 @@ const EditMyInfoPage = () => {
 
   const getInitialData = async () => {
     const { data } = await getMyInfo();
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues({
       userName: data.userName,
       nickName: data.nickName,

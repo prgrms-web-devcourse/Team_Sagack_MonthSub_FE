@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
 import { Wrapper, UserProfile } from '@components';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const initialValues = [
   {
@@ -18,6 +18,7 @@ const FollowListPage = () => {
   const { id } = useParams(); // writerId 받아와야함!
   const [target, setTarget] = useState(null); // observer가 인지할 값
   const [values, setValues] = useState(initialValues);
+  const history = useHistory();
 
   const getData = async () => {
     params = {
@@ -27,8 +28,13 @@ const FollowListPage = () => {
     };
 
     const { data } = await getFollowList({ params });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues(data.writerLikesList);
-    console.log(data.writerLikesList);
 
     setTarget;
   };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Wrapper, CardList } from '@components';
 import { getMyLikes } from '@apis/user';
 import styled from '@emotion/styled';
+import { useHistory } from 'react-router-dom';
 
 const initialValues = [
   {
@@ -24,8 +25,16 @@ const initialValues = [
 
 const MyLikeSeriesPage = () => {
   const [values, setValues] = useState(initialValues);
+  const history = useHistory();
+
   const getInitialData = async () => {
     const { data } = await getMyLikes();
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues(data.seriesList);
   };
 
