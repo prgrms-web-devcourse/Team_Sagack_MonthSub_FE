@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@components';
-import theme from '@styles/theme';
 
 const Period = ({
   title,
@@ -18,7 +17,7 @@ const Period = ({
   <div>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <Container>
-      <StyledInput
+      <Input
         width="10rem"
         type="date"
         value={startValue}
@@ -28,7 +27,7 @@ const Period = ({
         min={startMin || ''}
       />
       <Line>⎻</Line>
-      <StyledInput
+      <Input
         width="10rem"
         type="date"
         value={endValue}
@@ -76,9 +75,4 @@ const Line = styled.span`
 
 const Container = styled.div`
   display: flex;
-`;
-
-const StyledInput = styled(Input)`
-  /* border: 0.05rem solid ${theme.color.grey}; */
-  border: 0.05rem solid ${theme.color.grey};
 `;

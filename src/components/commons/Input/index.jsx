@@ -16,7 +16,7 @@ const Input = ({
   title,
   ...props
 }) => (
-  <div>
+  <Container width={width} {...props}>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <StyledInput
       name={name}
@@ -30,7 +30,7 @@ const Input = ({
       onChange={onChange}
       {...props}
     />
-  </div>
+  </Container>
 );
 
 Input.defaultProps = {
@@ -59,18 +59,21 @@ Input.propTypes = {
 
 export default Input;
 
+const Container = styled.div`
+  width: ${({ width }) => width};
+`;
+
 const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
   padding: 0.5rem;
-  border: 0.063rem solid ${theme.color.greyMedium};
+  border: none;
   border-radius: 0.2rem;
-  background-color: #ffffff;
   box-shadow: ${theme.style.boxShadow};
+  background-color: #ffffff;
   &:focus {
     background-color: #ffffff;
-    border: 0.063rem solid ${theme.color.main};
-    box-shadow: ${theme.style.boxShadow};
+    outline: 0.063rem solid ${theme.color.main};
   }
 `;

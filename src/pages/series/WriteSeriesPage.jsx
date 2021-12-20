@@ -17,7 +17,6 @@ import jsonBlob from '@utils/createJsonBlob';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
-import theme from '@styles/theme';
 
 const WriteSeriesPage = () => {
   const history = useHistory();
@@ -136,7 +135,7 @@ const WriteSeriesPage = () => {
             />
           </VerticalSection>
           <VerticalSection>
-            <StyledInput
+            <Input
               width="22rem"
               title="연재 시간"
               type="time"
@@ -144,7 +143,7 @@ const WriteSeriesPage = () => {
               value={values.uploadTime}
               onChange={handleChange}
             />
-            <StyledInput
+            <Input
               width="22rem"
               title="총 회차"
               type="number"
@@ -156,7 +155,7 @@ const WriteSeriesPage = () => {
           </VerticalSection>
 
           <Section>
-            <StyledInput
+            <Input
               width="22rem"
               title="구독료"
               type="number"
@@ -202,10 +201,6 @@ const VerticalSection = styled.div`
   & > div {
     margin-right: 1.5rem;
   }
-`;
-
-const StyledInput = styled(Input)`
-  border: 0.05rem solid ${theme.color.grey};
 `;
 
 const StyledImageUpload = styled(ImageUpload)`

@@ -2,7 +2,6 @@ import React from 'react';
 import { TextArea, Title } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import theme from '@styles/theme';
 
 const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
   const handleInputChange = e => {
@@ -69,6 +68,4 @@ const StyledSection = styled.section`
 
 const StyledTextArea = styled(TextArea)`
   margin-bottom: 0.8rem;
-  border: 0.05rem solid ${theme.color.grey};
-  box-shadow: ${theme.style.boxShadow};
 `;
