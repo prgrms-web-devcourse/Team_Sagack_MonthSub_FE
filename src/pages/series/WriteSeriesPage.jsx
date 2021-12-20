@@ -9,6 +9,7 @@ import {
   CheckBox,
   Input,
   Period,
+  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -135,35 +136,41 @@ const WriteSeriesPage = () => {
             />
           </VerticalSection>
           <VerticalSection>
-            <Input
-              width="22rem"
-              title="연재 시간"
-              type="time"
-              name="uploadTime"
-              value={values.uploadTime}
-              onChange={handleChange}
-            />
-            <Input
-              width="22rem"
-              title="총 회차"
-              type="number"
-              name="articleCount"
-              value={values.articleCount}
-              onChange={handleChange}
-              min={1}
-            />
+            <div>
+              <Title name="연재 시간" />
+              <Input
+                width="22rem"
+                type="time"
+                name="uploadTime"
+                value={values.uploadTime}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Title name="총 회차" />
+              <Input
+                width="22rem"
+                type="number"
+                name="articleCount"
+                value={values.articleCount}
+                onChange={handleChange}
+                min={1}
+              />
+            </div>
           </VerticalSection>
 
           <Section>
-            <Input
-              width="22rem"
-              title="구독료"
-              type="number"
-              value={values.price}
-              name="price"
-              onChange={handleChange}
-              min={0}
-            />
+            <div>
+              <Title name="구독료" />
+              <Input
+                width="22rem"
+                type="number"
+                value={values.price}
+                name="price"
+                onChange={handleChange}
+                min={0}
+              />
+            </div>
           </Section>
 
           <Section>

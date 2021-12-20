@@ -59,7 +59,8 @@ const Label = styled.label``;
 const StyledRadioInput = styled(Input)`
   display: none;
   &:checked + div {
-    color: ${theme.color.main};
+    background-color: ${theme.color.main};
+    color: #fff;
   }
 `;
 
