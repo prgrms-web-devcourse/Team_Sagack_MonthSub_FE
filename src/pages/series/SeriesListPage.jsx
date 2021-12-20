@@ -102,7 +102,7 @@ const SeriesListPage = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper whole>
       <Category
         onClick={handleCategorizing}
         categoryList={[

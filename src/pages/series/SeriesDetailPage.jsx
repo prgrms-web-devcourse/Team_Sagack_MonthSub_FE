@@ -7,13 +7,13 @@ import {
   ArticleList,
   DetailForm,
   Button,
+  AddButton,
 } from '@components';
 import { useParams, Link } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export const initialData = {
   isMine: false,
@@ -152,12 +152,8 @@ const SeriesDetailPage = () => {
             <SectionTitle>연재 목록</SectionTitle>
             <div>
               {detail.isMine ? (
-                <Link
-                  to={`/series/${detail.series.id}/article/write`}
-                  className="articleAdd"
-                >
-                  <StyeldAddCircleOutlineIcon />
-                  <span>새 아티클 작성하기</span>
+                <Link to={`/series/${detail.series.id}/article/write`}>
+                  <AddButton>새 아티클 작성하기</AddButton>
                 </Link>
               ) : null}
             </div>
@@ -280,16 +276,6 @@ const ArticleArea = styled.div`
   .articleAreaHeader {
     display: flex;
 
-    .articleAdd {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      span:hover {
-        color: ${theme.color.main};
-        transition: all 200ms ease-out;
-      }
-    }
-
     > *:nth-of-type(2) {
       display: flex;
       flex-grow: 1;
@@ -298,10 +284,4 @@ const ArticleArea = styled.div`
       margin-bottom: 1.25rem;
     }
   }
-`;
-
-const StyeldAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
-  font-size: 2rem;
-  margin-right: 0.35rem;
-  color: ${theme.color.main};
 `;
