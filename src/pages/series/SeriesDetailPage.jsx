@@ -7,11 +7,8 @@ import {
   ArticleList,
   DetailForm,
   Button,
-<<<<<<< HEAD
   AddButton,
-=======
   Loading,
->>>>>>> 4394ffe3c7445d90e6b9846839f0ed122b60b7ba
 } from '@components';
 import { useParams, Link } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
@@ -80,104 +77,111 @@ const SeriesDetailPage = () => {
 
   return (
     <Container>
-      <ImageArea>
-        <Image
-          src={detail.series.thumbnail}
-          alt="seriesDetailThumbnail"
-          width="100%"
-          height="auto"
-        />
-      </ImageArea>
-      <Wrapper>
-        <MainArea>
-          <div>
-            <DetailForm
-              previousRoot="/series"
-              previousRootText="구독 모집"
-              parentId={detail.series.id}
-              title={detail.series.title}
-              writerId={detail.writer.userId}
-              writerProfileImage={detail.writer.profileImage}
-              writerNickname={detail.writer.nickname}
-              postDate={detail.subscribe.startDate}
-              likes={detail.series.likes}
-              bodyText={detail.series.introduceText}
-              isMine={detail.isMine}
-              isLiked={detail.isLiked}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ImageArea>
+            <Image
+              src={detail.series.thumbnail}
+              alt="seriesDetailThumbnail"
+              width="100%"
+              height="auto"
             />
-          </div>
-          <InfoArea>
-            <SeriesInfoHead>INFORMATION</SeriesInfoHead>
-            <SeriesInfo>
-              <SeriesInfoSection>
-                <div>구독 정보</div>
-                <div className="seriesInfoBlock">
-                  <div>모집일</div>
-                  {detail.subscribe.startDate} ~ {detail.subscribe.endDate}
-                </div>
-                <div className="seriesInfoBlock">
-                  <div>구독료</div>
-                  {detail.series.price} 원
-                </div>
-              </SeriesInfoSection>
-              <SeriesInfoSection>
-                <div>연재 정보</div>
-                <div className="seriesInfoBlock">
-                  <div>연재 일</div>
-                  {detail.series.startDate} ~ {detail.series.endDate}
-                </div>
-                <div className="seriesInfoBlock">
-                  <div>연재 주기</div>
-                  {convertDay(detail.upload.date).join(', ')}
-                  &nbsp;{detail.upload.time} 시
-                </div>
-                <div className="seriesInfoBlock">
-                  <div>총 회차</div>
-                  {detail.series.articleCount} 회
-                </div>
-              </SeriesInfoSection>
-              <SeriesInfoSection>
-                <Link to={`/purchase/${detail.series.id}`}>
-                  {sessionStorage.getItem('authorization') && !detail.isMine ? (
-                    <Button
-                      className="seriesPurchase"
-                      width="100%"
-                      height="2.8125rem"
-                      margin={0}
-                    >
-                      결제하기
-                    </Button>
-                  ) : null}
-                </Link>
-              </SeriesInfoSection>
-            </SeriesInfo>
-          </InfoArea>
-        </MainArea>
-        <ArticleArea>
-          <div className="articleAreaHeader">
-            <SectionTitle>연재 목록</SectionTitle>
-            <div>
-              {detail.isMine ? (
-                <Link to={`/series/${detail.series.id}/article/write`}>
-                  <AddButton>새 아티클 작성하기</AddButton>
-                </Link>
-              ) : null}
-            </div>
-          </div>
-          <SectionContainer>
-            {detail.articleList.length ? (
-              <ArticleList
-                seriesId={detail.series.id}
-                list={detail.articleList}
-              />
-            ) : (
-              <div className="articleListNone">
-                해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
+          </ImageArea>
+          <Wrapper>
+            <MainArea>
+              <div>
+                <DetailForm
+                  previousRoot="/series"
+                  previousRootText="구독 모집"
+                  parentId={detail.series.id}
+                  title={detail.series.title}
+                  writerId={detail.writer.userId}
+                  writerProfileImage={detail.writer.profileImage}
+                  writerNickname={detail.writer.nickname}
+                  postDate={detail.subscribe.startDate}
+                  likes={detail.series.likes}
+                  bodyText={detail.series.introduceText}
+                  isMine={detail.isMine}
+                  isLiked={detail.isLiked}
+                />
               </div>
-            )}
-          </SectionContainer>
-        </ArticleArea>
-      </Wrapper>
+              <InfoArea>
+                <SeriesInfoHead>INFORMATION</SeriesInfoHead>
+                <SeriesInfo>
+                  <SeriesInfoSection>
+                    <div>구독 정보</div>
+                    <div className="seriesInfoBlock">
+                      <div>모집일</div>
+                      {detail.subscribe.startDate} ~ {detail.subscribe.endDate}
+                    </div>
+                    <div className="seriesInfoBlock">
+                      <div>구독료</div>
+                      {detail.series.price} 원
+                    </div>
+                  </SeriesInfoSection>
+                  <SeriesInfoSection>
+                    <div>연재 정보</div>
+                    <div className="seriesInfoBlock">
+                      <div>연재 일</div>
+                      {detail.series.startDate} ~ {detail.series.endDate}
+                    </div>
+                    <div className="seriesInfoBlock">
+                      <div>연재 주기</div>
+                      {convertDay(detail.upload.date).join(', ')}
+                      &nbsp;{detail.upload.time} 시
+                    </div>
+                    <div className="seriesInfoBlock">
+                      <div>총 회차</div>
+                      {detail.series.articleCount} 회
+                    </div>
+                  </SeriesInfoSection>
+                  <SeriesInfoSection>
+                    <Link to={`/purchase/${detail.series.id}`}>
+                      {sessionStorage.getItem('authorization') &&
+                      !detail.isMine ? (
+                        <Button
+                          className="seriesPurchase"
+                          width="100%"
+                          height="2.8125rem"
+                          margin={0}
+                        >
+                          결제하기
+                        </Button>
+                      ) : null}
+                    </Link>
+                  </SeriesInfoSection>
+                </SeriesInfo>
+              </InfoArea>
+            </MainArea>
+            <ArticleArea>
+              <div className="articleAreaHeader">
+                <SectionTitle>연재 목록</SectionTitle>
+                <div>
+                  {detail.isMine ? (
+                    <Link to={`/series/${detail.series.id}/article/write`}>
+                      <AddButton>새 아티클 작성하기</AddButton>
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+              <SectionContainer>
+                {detail.articleList.length ? (
+                  <ArticleList
+                    seriesId={detail.series.id}
+                    list={detail.articleList}
+                  />
+                ) : (
+                  <div className="articleListNone">
+                    해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
+                  </div>
+                )}
+              </SectionContainer>
+            </ArticleArea>
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 };

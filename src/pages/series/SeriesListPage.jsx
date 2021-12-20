@@ -104,24 +104,34 @@ const SeriesListPage = () => {
   };
 
   return (
-    <Wrapper whole>
-      <Category
-        onClick={handleCategorizing}
-        categoryList={[
-          { key: 'ALL', value: '전체', state: buttonState['ALL'] },
-          { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
-          { key: 'POEM', value: '시', state: buttonState['POEM'] },
-          { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
-          {
-            key: 'INTERVIEW',
-            value: '인터뷰',
-            state: buttonState['INTERVIEW'],
-          },
-          { key: 'CRITIQUE', value: '평론', state: buttonState['CRITIQUE'] },
-          { key: 'ETC', value: '기타', state: buttonState['ETC'] },
-        ]}
-      />
-      <CardList list={list} />
+    <Wrapper>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Category
+            onClick={handleCategorizing}
+            categoryList={[
+              { key: 'ALL', value: '전체', state: buttonState['ALL'] },
+              { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
+              { key: 'POEM', value: '시', state: buttonState['POEM'] },
+              { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
+              {
+                key: 'INTERVIEW',
+                value: '인터뷰',
+                state: buttonState['INTERVIEW'],
+              },
+              {
+                key: 'CRITIQUE',
+                value: '평론',
+                state: buttonState['CRITIQUE'],
+              },
+              { key: 'ETC', value: '기타', state: buttonState['ETC'] },
+            ]}
+          />
+          <CardList list={list} />
+        </>
+      )}
       <div ref={pageEnd} />
     </Wrapper>
   );
