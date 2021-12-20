@@ -7,8 +7,11 @@ import { Link } from 'react-router-dom';
 const ArticleList = ({ seriesId, list, ...props }) => (
   <div {...props}>
     {list.map(item => (
-      <Link to={`/series/${seriesId}/article/${item.articleId}`}>
-        <ArticleContainer key={item.articleId}>
+      <Link
+        to={`/series/${seriesId}/article/${item.articleId}`}
+        key={item.articleId}
+      >
+        <ArticleContainer>
           <div>{item.round}</div>
           <div className="title">{item.title}</div>
           <div>{item.date}</div>
