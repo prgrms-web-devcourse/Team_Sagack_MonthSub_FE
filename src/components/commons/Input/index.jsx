@@ -16,7 +16,7 @@ const Input = ({
   title,
   ...props
 }) => (
-  <Container width={width} {...props}>
+  <>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <StyledInput
       name={name}
@@ -30,7 +30,7 @@ const Input = ({
       onChange={onChange}
       {...props}
     />
-  </Container>
+  </>
 );
 
 Input.defaultProps = {
@@ -58,10 +58,6 @@ Input.propTypes = {
 };
 
 export default Input;
-
-const Container = styled.div`
-  width: ${({ width }) => width};
-`;
 
 const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
