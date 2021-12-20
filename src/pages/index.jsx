@@ -19,3 +19,4 @@ export {
   WriteSeriesPage,
   EditSeriesPage,
 } from './series';
+export { FollowListPage } from './follow';

@@ -1,4 +1,4 @@
-import { GET, POST, PATCH } from './axios';
+import { GET, POST, PUT } from './axios';
 
 export const getMain = async () =>
   GET({
@@ -20,7 +20,7 @@ export const postMyProfileImage = async data => {
 };
 
 export const patchMyInfo = async data => {
-  PATCH({
+  PUT({
     url: '/users/me',
     data,
   });

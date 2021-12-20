@@ -5,6 +5,7 @@ import {
   ArticleDetailPage,
   ChannelPage,
   EditMyInfoPage,
+  FollowListPage,
   HomePage,
   MyInfoPage,
   MyLikeSeriesPage,
@@ -42,6 +43,8 @@ const App = () => (
         from="/purchase/info"
         component={PurchaseHistoryPage}
       />
+      <Route path="/follow/my" exact component={FollowListPage} />
+      <Route path="/follow/:id" exact component={FollowListPage} />
       <PrivateRoute exact from="/purchase/:id" component={PurchasePage} />
       <PrivateRoute exact from="/my/likes" component={MyLikeSeriesPage} />
       <Route path="/search" exact component={SearchPage} />
