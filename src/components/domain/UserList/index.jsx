@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Image, Button, SectionTitle } from '@components';
 
-const UserList = ({ list, title, moreLink }) => (
-  <UserListContainer>
+const UserList = ({ list, title, moreLink, ...props }) => (
+  <UserListContainer {...props}>
     <SectionTitle>
       <div className="title">{title}</div>
       <div className="seeMore">
