@@ -20,7 +20,7 @@ const SignUpPage = () => {
     onSubmit: async requestData => {
       try {
         const response = await postSignUp(requestData);
-        if (response.stats === 200) history.push('/signin');
+        if (response.status === 200) history.push('/signin');
       } catch (error) {
         history.push('/signup');
       }

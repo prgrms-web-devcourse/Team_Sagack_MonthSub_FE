@@ -7,9 +7,12 @@ import {
   SectionTitle,
   SectionContainer,
   CardSlider,
+  UserList,
+  Button,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams } from 'react-router-dom';
+import { postFollow, deleteFollow } from '@apis/follow';
 
 const initialData = {
   user: {
@@ -75,16 +78,31 @@ const ChannelPage = () => {
   const getInitialData = async () => {
     if (!id) {
       const { data } = await getMyChannel();
+      console.log(data);
       setData(data);
     } else {
       const { data } = await getChannel(id);
+      console.log(data);
       setData(data);
     }
   };
 
+  const handleClick = () => {
+    const writerId = data.user.userId;
+    console.log(writerId);
+    data.isFollowed
+      ? deleteFollow({ id: writerId })
+      : postFollow({ id: writerId });
+    setData({
+      ...data,
+      isFollowed: !data.isFollowed,
+    });
+  };
+
   useEffect(() => {
+    console.log('리랜더링');
     getInitialData();
-  }, [id]);
+  }, []);
 
   return (
     <ChannelContainer>
@@ -99,13 +117,25 @@ const ChannelPage = () => {
               <div className="writterTag">
                 {data.seriesPostList.length > 0 ? '작가' : '사용자'}
               </div>
+              <div>
+                팔로워 : {data.followCount} | 팔로잉 : {data.followIngCount}
+              </div>
+              {id ? (
+                <Button type="button" onClick={handleClick}>
+                  {data.isFollowed ? '팔로우 취소' : '팔로우 하기'}
+                </Button>
+              ) : null}
             </div>
             <div>{data.user.profileIntroduce}</div>
           </div>
         </ProfileContainer>
       </ProfileWrapper>
-
       <Wrapper className="customWrapper">
+        <UserList
+          list={data.followWriterList}
+          title="팔로잉 한 작가들"
+          moreLink={id ? `/follow/${id}` : '/follow/my'}
+        />
         {!id ? (
           <SectionContainer>
             <SectionTitle>구독한 시리즈</SectionTitle>
@@ -139,7 +169,6 @@ const ProfileWrapper = styled.div`
   height: 15rem;
   background-color: ${theme.color.grey};
   margin-top: 5rem;
-  z-index: -1;
 `;
 
 const ProfileContainer = styled.div`
