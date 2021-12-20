@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, CardList, CardSlider, SectionTitle } from '@components';
+import {
+  Wrapper,
+  CardList,
+  CardSlider,
+  SectionTitle,
+  Loading,
+} from '@components';
 import { getMain, getMyPurchaseSeries } from '@apis/user';
 
 const initialValues = {
@@ -71,6 +77,7 @@ const initialValues = {
 };
 
 const HomePage = () => {
+  const [loading, setLoading] = useState(true);
   const [values, setValues] = useState(initialValues);
   const hasAuth = sessionStorage.getItem('authorization');
 
@@ -85,6 +92,8 @@ const HomePage = () => {
         seriesList: purChaseSeriesResponse.data.seriesList,
       });
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -93,33 +102,38 @@ const HomePage = () => {
 
   return (
     <HomepageContainer>
-      <CardSlider
-        list={values.popularSeriesList}
-        parentOf="main"
-        itemsCountOnRow={5}
-        itemsCountOnCol={1}
-      />
-
-      <Wrapper className="customWrapper">
-        {hasAuth ? (
-          <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <CardSlider
+            list={values.popularSeriesList}
+            parentOf="main"
+            itemsCountOnRow={5}
+            itemsCountOnCol={1}
+          />
+          <Wrapper className="customWrapper">
+            {hasAuth ? (
+              <div>
+                <SectionTitle>
+                  <div>구독중인 시리즈</div>
+                </SectionTitle>
+                <RecentSeriesContainer>
+                  <CardList list={values.seriesList} />
+                </RecentSeriesContainer>
+              </div>
+            ) : (
+              ''
+            )}
             <SectionTitle>
-              <div>구독중인 시리즈</div>
+              <div>최신 시리즈</div>
             </SectionTitle>
             <RecentSeriesContainer>
-              <CardList list={values.seriesList} />
+              <CardList list={values.recentSeriesList} />
             </RecentSeriesContainer>
-          </div>
-        ) : (
-          ''
-        )}
-        <SectionTitle>
-          <div>최신 시리즈</div>
-        </SectionTitle>
-        <RecentSeriesContainer>
-          <CardList list={values.recentSeriesList} />
-        </RecentSeriesContainer>
-      </Wrapper>
+          </Wrapper>
+        </>
+      )}
     </HomepageContainer>
   );
 };

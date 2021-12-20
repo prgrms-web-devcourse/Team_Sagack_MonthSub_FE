@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Wrapper, CardList, Category } from '@components';
+import { Wrapper, CardList, Category, Loading } from '@components';
 import { getSeries } from '@apis/series';
 
 const SeriesListPage = () => {
@@ -17,6 +17,7 @@ const SeriesListPage = () => {
   const setSeriesId = useRef(null);
   const setCategory = useRef('ALL');
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
     lastSeriesId: null,
@@ -37,6 +38,7 @@ const SeriesListPage = () => {
       : setList(data.seriesList);
 
     setLoading(true);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -103,23 +105,33 @@ const SeriesListPage = () => {
 
   return (
     <Wrapper>
-      <Category
-        onClick={handleCategorizing}
-        categoryList={[
-          { key: 'ALL', value: '전체', state: buttonState['ALL'] },
-          { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
-          { key: 'POEM', value: '시', state: buttonState['POEM'] },
-          { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
-          {
-            key: 'INTERVIEW',
-            value: '인터뷰',
-            state: buttonState['INTERVIEW'],
-          },
-          { key: 'CRITIQUE', value: '평론', state: buttonState['CRITIQUE'] },
-          { key: 'ETC', value: '기타', state: buttonState['ETC'] },
-        ]}
-      />
-      <CardList list={list} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Category
+            onClick={handleCategorizing}
+            categoryList={[
+              { key: 'ALL', value: '전체', state: buttonState['ALL'] },
+              { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
+              { key: 'POEM', value: '시', state: buttonState['POEM'] },
+              { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
+              {
+                key: 'INTERVIEW',
+                value: '인터뷰',
+                state: buttonState['INTERVIEW'],
+              },
+              {
+                key: 'CRITIQUE',
+                value: '평론',
+                state: buttonState['CRITIQUE'],
+              },
+              { key: 'ETC', value: '기타', state: buttonState['ETC'] },
+            ]}
+          />
+          <CardList list={list} />
+        </>
+      )}
       <div ref={pageEnd} />
     </Wrapper>
   );

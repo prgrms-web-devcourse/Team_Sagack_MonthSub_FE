@@ -78,21 +78,16 @@ const ChannelPage = () => {
   const getInitialData = async () => {
     if (!id) {
       const { data } = await getMyChannel();
-      console.log(data);
       setData(data);
     } else {
       const { data } = await getChannel(id);
-      console.log(data);
       setData(data);
     }
   };
 
   const handleClick = () => {
     const writerId = data.user.userId;
-    console.log(writerId);
-    data.isFollowed
-      ? deleteFollow({ id: writerId })
-      : postFollow({ id: writerId });
+    data.isFollowed ? deleteFollow({ id: writerId }) : postFollow({ id: 1 });
     setData({
       ...data,
       isFollowed: !data.isFollowed,
@@ -100,9 +95,8 @@ const ChannelPage = () => {
   };
 
   useEffect(() => {
-    console.log('리랜더링');
     getInitialData();
-  }, []);
+  }, [data.isFollowed]);
 
   return (
     <ChannelContainer>

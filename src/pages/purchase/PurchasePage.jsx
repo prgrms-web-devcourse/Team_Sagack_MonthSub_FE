@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Image, Button, Container } from '@components';
+import { Wrapper, Image, Button, Container, Loading } from '@components';
 import { useParams, useHistory } from 'react-router-dom';
 import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
@@ -26,16 +26,19 @@ const initialData = {
 const PurchasePage = () => {
   const { id } = useParams();
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const [values, setValues] = useState(initialData);
   const [isPayed, setIsPayed] = useState(false);
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const { data } = await postPurchase({ id });
       setValues(data);
       setIsPayed(true);
+      setLoading(false);
     } catch (error) {
-      alert(error);
+      history.goBack();
     }
   };
 
@@ -47,6 +50,7 @@ const PurchasePage = () => {
         point: 0,
       },
     });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -55,68 +59,72 @@ const PurchasePage = () => {
 
   return (
     <Wrapper>
-      <Container title="결제">
-        {isPayed && (
-          <PurchaseResult>
-            결제를 완료했습니다!
-            <p>남은 포인트 : {values.user.point}</p>
-          </PurchaseResult>
-        )}
-        <PurchaseSeries>
-          <Image
-            alt="시리즈썸네일"
-            width="30%"
-            height="30%"
-            src={values.series.thumbnail}
-          />
-          <Content>
-            <TitleContainer>
-              <H2>{values.series.title}</H2>
-              <span>{values.series.nickname}</span>
-            </TitleContainer>
-            <FlexContainer>
-              <div>
-                {values.series.startDate} ~ {values.series.endDate}
-              </div>
-              <div>회차 : {values.series.articleCount}</div>
-            </FlexContainer>
-            <FlexContainer>
-              <span>{values.time}</span>
-              <span>{values.series.date.join(',')}</span>
-            </FlexContainer>
-            <FlexContainer>
-              <Label>{values.series.category}</Label>
-              <Price>{values.series.price}</Price>
-            </FlexContainer>
-          </Content>
-        </PurchaseSeries>
-        {isPayed ? (
-          <ButtonContainer>
-            <Button
-              type="submit"
-              width="45%"
-              onClick={() => {
-                history.push('/series');
-              }}
-            >
-              시리즈더보기
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container title="결제">
+          {isPayed && (
+            <PurchaseResult>
+              결제를 완료했습니다!
+              <p>남은 포인트 : {values.user.point}</p>
+            </PurchaseResult>
+          )}
+          <PurchaseSeries>
+            <Image
+              alt="시리즈썸네일"
+              width="30%"
+              height="30%"
+              src={values.series.thumbnail}
+            />
+            <Content>
+              <TitleContainer>
+                <H2>{values.series.title}</H2>
+                <span>{values.series.nickname}</span>
+              </TitleContainer>
+              <FlexContainer>
+                <div>
+                  {values.series.startDate} ~ {values.series.endDate}
+                </div>
+                <div>회차 : {values.series.articleCount}</div>
+              </FlexContainer>
+              <FlexContainer>
+                <span>{values.time}</span>
+                <span>{values.series.date.join(',')}</span>
+              </FlexContainer>
+              <FlexContainer>
+                <Label>{values.series.category}</Label>
+                <Price>{values.series.price}</Price>
+              </FlexContainer>
+            </Content>
+          </PurchaseSeries>
+          {isPayed ? (
+            <ButtonContainer>
+              <Button
+                type="submit"
+                width="45%"
+                onClick={() => {
+                  history.push('/series');
+                }}
+              >
+                시리즈더보기
+              </Button>
+              <Button
+                type="submit"
+                width="45%"
+                onClick={() => {
+                  history.push(`/series/${id}`);
+                }}
+              >
+                작품보기
+              </Button>
+            </ButtonContainer>
+          ) : (
+            <Button type="submit" width="100%" onClick={handleSubmit}>
+              결제하기
             </Button>
-            <Button
-              type="submit"
-              width="45%"
-              onClick={() => {
-                history.push(`/series/${id}`);
-              }}
-            >
-              작품보기
-            </Button>
-          </ButtonContainer>
-        ) : (
-          <Button type="submit" width="100%" onClick={handleSubmit}>
-            결제하기
-          </Button>
-        )}
-      </Container>
+          )}
+        </Container>
+      )}
     </Wrapper>
   );
 };

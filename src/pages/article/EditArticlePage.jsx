@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ConfirmCancleButtons,
   ImageUpload,
   ArticleEditor,
   Wrapper,
+  Loading,
 } from '@components';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
@@ -13,6 +14,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 const EditArticlePage = () => {
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const { seriesId, articleId } = useParams();
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
@@ -68,6 +70,7 @@ const EditArticlePage = () => {
       thumbnailUrl: data.thumbnailKey,
       createdAt: data.createdAt,
     });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -76,18 +79,24 @@ const EditArticlePage = () => {
 
   return (
     <Container>
-      <ImageUpload
-        onChange={handleImageUpload}
-        name="thumbnail"
-        src={values.thumbnailUrl}
-        wide={+true}
-      />
-      <Wrapper>
-        <Form onSubmit={handleSubmit}>
-          <ArticleEditor onChange={handleChange} value={values} />
-          <Buttons confirmName="제출" />
-        </Form>
-      </Wrapper>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ImageUpload
+            onChange={handleImageUpload}
+            name="thumbnail"
+            src={values.thumbnailUrl}
+            wide={+true}
+          />
+          <Wrapper>
+            <Form onSubmit={handleSubmit}>
+              <ArticleEditor onChange={handleChange} value={values} />
+              <Buttons confirmName="제출" />
+            </Form>
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 };
