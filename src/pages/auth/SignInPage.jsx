@@ -24,7 +24,7 @@ const SignInPage = () => {
           setValue(response.data.token);
           addToken({
             token: response.data.token,
-            username: response.data.username,
+            userName: response.data.userName,
             userId: response.data.userId,
             group: response.data.group,
           });
