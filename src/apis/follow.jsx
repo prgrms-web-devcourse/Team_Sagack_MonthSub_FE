@@ -16,7 +16,7 @@ export const getOtherFollowList = async ({ id, params }) =>
     params,
   });
 
-export const getMyFollowList = async ({ params }) =>
+export const getFollowList = async ({ params }) =>
   GET({
     url: '/writers/likes',
     params,

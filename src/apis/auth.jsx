@@ -12,11 +12,6 @@ export const postSignIn = async ({ email, password }) => {
   return response;
 };
 
-export const postSignOut = async () =>
-  POST({
-    url: '/logout',
-  });
-
 export const postSignUp = async data =>
   POST({
     url: '/signup',

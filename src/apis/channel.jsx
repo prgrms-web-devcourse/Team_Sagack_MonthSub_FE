@@ -5,7 +5,10 @@ export const getMyChannel = async () =>
     url: `/channel/me`,
   });
 
-export const getChannel = async id =>
+export const getChannel = async (id = '') =>
   GET({
-    url: `/channel/users/${id}/other`,
+    url: `/channel`,
+    params: {
+      user: id,
+    },
   });

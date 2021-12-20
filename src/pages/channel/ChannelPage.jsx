@@ -9,6 +9,7 @@ import {
   CardSlider,
   UserList,
   Button,
+  Loading,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams } from 'react-router-dom';
@@ -72,6 +73,7 @@ const initialData = {
 };
 
 const ChannelPage = () => {
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState(initialData);
   const { id } = useParams();
 
@@ -86,8 +88,8 @@ const ChannelPage = () => {
   };
 
   const handleClick = () => {
-    const writerId = data.user.userId;
-    data.isFollowed ? deleteFollow({ id: writerId }) : postFollow({ id: 1 });
+    const id = data.user.writerId;
+    data.isFollowed ? deleteFollow({ id }) : postFollow({ id });
     setData({
       ...data,
       isFollowed: !data.isFollowed,
@@ -96,53 +98,60 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
+    setLoading(false);
   }, [data.isFollowed]);
 
   return (
     <ChannelContainer>
-      <ProfileWrapper>
-        <ProfileContainer>
-          <div>
-            <UserProfile imageOnly src={data.user.profileImage} />
-          </div>
-          <div className="channel-introduce">
-            <div>
-              <div>{data.user.nickname}</div>
-              <div className="writterTag">
-                {data.seriesPostList.length > 0 ? '작가' : '사용자'}
-              </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ProfileWrapper>
+            <ProfileContainer>
               <div>
-                팔로워 : {data.followCount} | 팔로잉 : {data.followIngCount}
+                <UserProfile imageOnly src={data.user.profileImage} />
               </div>
-              {id ? (
-                <Button type="button" onClick={handleClick}>
-                  {data.isFollowed ? '팔로우 취소' : '팔로우 하기'}
-                </Button>
-              ) : null}
-            </div>
-            <div>{data.user.profileIntroduce}</div>
-          </div>
-        </ProfileContainer>
-      </ProfileWrapper>
-      <Wrapper className="customWrapper">
-        <UserList
-          list={data.followWriterList}
-          title="팔로잉 한 작가들"
-          moreLink={id ? `/follow/${id}` : '/follow/my'}
-        />
-        {!id ? (
-          <SectionContainer>
-            <SectionTitle>구독한 시리즈</SectionTitle>
-            <CardSlider list={data.subscribeList} />
-          </SectionContainer>
-        ) : null}
-        {data.seriesPostList.length > 0 ? (
-          <SectionContainer>
-            <SectionTitle>생성한 시리즈</SectionTitle>
-            <CardSlider list={data.seriesPostList} />
-          </SectionContainer>
-        ) : null}
-      </Wrapper>
+              <div className="channel-introduce">
+                <div>
+                  <div>{data.user.nickname}</div>
+                  <div className="writterTag">
+                    {data.seriesPostList.length > 0 ? '작가' : '사용자'}
+                  </div>
+                  <div>
+                    팔로워 : {data.followCount} | 팔로잉 : {data.followIngCount}
+                  </div>
+                  {id ? (
+                    <Button type="button" onClick={handleClick}>
+                      {data.isFollowed ? '팔로우 취소' : '팔로우 하기'}
+                    </Button>
+                  ) : null}
+                </div>
+                <div>{data.user.profileIntroduce}</div>
+              </div>
+            </ProfileContainer>
+          </ProfileWrapper>
+          <Wrapper className="customWrapper">
+            <UserList
+              list={data.followWriterList}
+              title="팔로잉 한 작가들"
+              moreLink={id ? `/follow/${id}` : '/follow/my'}
+            />
+            {!id ? (
+              <SectionContainer>
+                <SectionTitle>구독한 시리즈</SectionTitle>
+                <CardSlider list={data.subscribeList} />
+              </SectionContainer>
+            ) : null}
+            {data.seriesPostList.length > 0 ? (
+              <SectionContainer>
+                <SectionTitle>생성한 시리즈</SectionTitle>
+                <CardSlider list={data.seriesPostList} />
+              </SectionContainer>
+            ) : null}
+          </Wrapper>
+        </>
+      )}
     </ChannelContainer>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import styled from '@emotion/styled';
-import { getMyFollowList, getOtherFollowList } from '@apis/follow';
-import { Wrapper } from '@components';
+import { getFollowList } from '@apis/follow';
+import { Wrapper, UserProfile } from '@components';
 import { useParams } from 'react-router-dom';
 
 const initialValues = [
   {
+    writerId: 0,
     followCount: 0,
     nickname: '',
     profileKey: '',
@@ -14,60 +14,51 @@ const initialValues = [
 ];
 
 const FollowListPage = () => {
-  const { id } = useParams();
-  const [bottom, setBottom] = useState(null);
-  const bottomObserver = useRef();
+  let params = useRef();
+  const { id } = useParams(); // writerId 받아와야함!
+  const [target, setTarget] = useState(null); // observer가 인지할 값
   const [values, setValues] = useState(initialValues);
 
   const getData = async () => {
-    if (!id) {
-      const response = await getMyFollowList({
-        params: {
-          lastId: null,
-          size: 10,
-        },
-      });
-      setValues(response.data);
-    } else {
-      const response = await getOtherFollowList({
-        id,
-        params: {
-          lastId: null,
-          size: 10,
-        },
-      });
-      setValues(response.data);
-    }
+    params = {
+      ...(id && { userId: id }),
+      lastId: null,
+      size: 10,
+    };
+
+    const { data } = await getFollowList({ params });
+    setValues(data.writerLikesList);
+    console.log(data.writerLikesList);
+
+    setTarget;
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          getData();
-        }
-      },
-      { threshold: 0.25, rootMargin: '100%' },
-    );
-    bottomObserver.current = observer;
-  }, []);
-
-  useEffect(() => {
-    const observer = bottomObserver.current;
-    if (bottom) {
-      observer.observe(bottom);
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            // api 호출!
+            console.log('intersectiono : ', id);
+            getData();
+          }
+        },
+        {
+          threshold: 1,
+        },
+      );
+      observer.observe(target);
     }
-    return () => {
-      if (bottom) {
-        observer.unobserve(bottom);
-      }
-    };
-  }, [bottom]);
+    return () => observer && observer.disconnect();
+  }, [target]);
 
   return (
     <Wrapper>
-      {values.ninkname}
-      <div ref={setBottom} />
+      {values.map(element => (
+        <UserProfile src={element.profileKey} nickname={element.nickname} />
+      ))}
+      <div ref={setTarget} />
     </Wrapper>
   );
 };
