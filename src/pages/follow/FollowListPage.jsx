@@ -1,42 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
 import { Wrapper, UserProfile } from '@components';
-import { useParams, useHistory } from 'react-router-dom';
-
-const initialValues = [
-  {
-    writerId: 0,
-    followCount: 0,
-    nickname: '',
-    profileKey: '',
-    profileIntroduce: '',
-  },
-];
+import { useParams } from 'react-router-dom';
 
 const FollowListPage = () => {
-  let params = useRef();
-  const { id } = useParams(); // writerId 받아와야함!
-  const [target, setTarget] = useState(null); // observer가 인지할 값
-  const [values, setValues] = useState(initialValues);
-  const history = useHistory();
+  const lastId = useRef(null);
+  const { id } = useParams();
+  const [target, setTarget] = useState(null);
+  const [values, setValues] = useState([]);
 
   const getData = async () => {
-    params = {
-      ...(id && { userId: id }),
-      lastId: null,
-      size: 10,
-    };
+    const { data } = await getFollowList({
+      params: {
+        ...(id && { userId: id }),
+        lastId: lastId.current,
+        size: 10,
+      },
+    });
 
-    const { data } = await getFollowList({ params });
+    setValues(prev => [...prev, ...data.writerLikesList]);
 
-    if (!data) {
-      history.push('/server-error');
-      return;
-    }
-
-    setValues(data.writerLikesList);
-
-    setTarget;
+    lastId.current =
+      data.writerLikesList[data.writerLikesList.length - 1].writerId;
   };
 
   useEffect(() => {
@@ -45,8 +30,6 @@ const FollowListPage = () => {
       observer = new IntersectionObserver(
         entries => {
           if (entries[0].isIntersecting) {
-            // api 호출!
-            console.log('intersectiono : ', id);
             getData();
           }
         },
@@ -62,7 +45,11 @@ const FollowListPage = () => {
   return (
     <Wrapper>
       {values.map(element => (
-        <UserProfile src={element.profileKey} nickname={element.nickname} />
+        <UserProfile
+          src={element.profileKey}
+          nickname={element.nickname}
+          key={element.writerId}
+        />
       ))}
       <div ref={setTarget} />
     </Wrapper>
@@ -70,8 +57,3 @@ const FollowListPage = () => {
 };
 
 export default FollowListPage;
-
-// const Div = styled.div`
-//   height: 50vh;
-//   border: #000000 1px solid;
-// `;
