@@ -34,6 +34,12 @@ const PurchasePage = () => {
     try {
       setLoading(true);
       const { data } = await postPurchase({ id });
+
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
+
       setValues(data);
       setIsPayed(true);
       setLoading(false);

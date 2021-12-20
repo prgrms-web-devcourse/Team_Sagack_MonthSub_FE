@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, CardList, AddButton } from '@components';
-import { Link } from 'react-router-dom';
+import { Wrapper, CardList, AddButton, Loading } from '@components';
+import { Link, useHistory } from 'react-router-dom';
 import { getMyPurchaseSeries } from '@apis/user';
 
 const initialValues = {
@@ -26,11 +26,20 @@ const initialValues = {
 };
 
 const PurchaseHistoryPage = () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const [values, setValues] = useState(initialValues);
 
   const getInitialData = async () => {
     const { data } = await getMyPurchaseSeries();
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -39,19 +48,23 @@ const PurchaseHistoryPage = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Header>
-          <H1>구독중인 시리즈</H1>
-          <Link to="/series">
-            <AddButton>시리즈 구독하기</AddButton>
-          </Link>
-        </Header>
-        {values.seriesList.length ? (
-          <CardList list={values.seriesList} />
-        ) : (
-          <div>구독한 시리즈가 없습니다.</div>
-        )}
-      </Container>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Header>
+            <H1>구독중인 시리즈</H1>
+            <Link to="/series">
+              <AddButton>시리즈 구독하기</AddButton>
+            </Link>
+          </Header>
+          {values.seriesList.length ? (
+            <CardList list={values.seriesList} />
+          ) : (
+            <div>구독한 시리즈가 없습니다.</div>
+          )}
+        </Container>
+      )}
     </Wrapper>
   );
 };

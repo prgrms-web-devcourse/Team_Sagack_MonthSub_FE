@@ -1,9 +1,10 @@
 import React from 'react';
+import { Wrapper } from '@components';
 
-const NotFoundPage = () => (
-  <div>
+const ServerErrorPage = () => (
+  <Wrapper whole>
     <h1>500 Server Error Page</h1>
-  </div>
+  </Wrapper>
 );
 
-export default NotFoundPage;
+export default ServerErrorPage;

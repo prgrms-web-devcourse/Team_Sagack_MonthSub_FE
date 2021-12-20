@@ -18,21 +18,23 @@ const ArticleDetailPage = () => {
   });
 
   const getInitialData = async ({ seriesId, articleId }) => {
-    try {
-      const { data } = await getArticleDetail({ seriesId, articleId });
-      setArticle({
-        title: data.title,
-        contents: data.contents,
-        thumbnailUrl: data.thumbnailKey,
-        createdDate: data.createdDate,
-        isMine: data.isMine,
-        nickname: data.nickname,
-        round: data.round,
-      });
-      setLoading(false);
-    } catch (error) {
-      history.goBack();
+    const { data } = await getArticleDetail({ seriesId, articleId });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
     }
+
+    setArticle({
+      title: data.title,
+      contents: data.contents,
+      thumbnailUrl: data.thumbnailKey,
+      createdDate: data.createdDate,
+      isMine: data.isMine,
+      nickname: data.nickname,
+      round: data.round,
+    });
+    setLoading(false);
   };
 
   useEffect(() => {
