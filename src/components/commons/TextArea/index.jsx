@@ -46,15 +46,16 @@ TextArea.propTypes = {
 };
 
 export default TextArea;
-
 const StyledTextArea = styled.textarea`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  padding: 0.4rem;
+  padding: 0.7rem;
   border: 0.063rem solid ${theme.color.greyMedium};
+  font-size: 1rem;
   border-radius: 0.2rem;
   resize: none;
+  line-height: 1.4rem;
   &:focus {
     background-color: #ffffff;
     border: 0.063rem solid ${theme.color.main};

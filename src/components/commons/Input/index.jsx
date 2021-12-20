@@ -16,7 +16,7 @@ const Input = ({
   title,
   ...props
 }) => (
-  <>
+  <div>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <StyledInput
       name={name}
@@ -30,7 +30,7 @@ const Input = ({
       onChange={onChange}
       {...props}
     />
-  </>
+  </div>
 );
 
 Input.defaultProps = {
@@ -67,12 +67,10 @@ const StyledInput = styled.input`
   border: 0.063rem solid ${theme.color.greyMedium};
   border-radius: 0.2rem;
   background-color: #ffffff;
-  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  box-shadow: ${theme.style.boxShadow};
   &:focus {
     background-color: #ffffff;
     border: 0.063rem solid ${theme.color.main};
-    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+    box-shadow: ${theme.style.boxShadow};
   }
 `;

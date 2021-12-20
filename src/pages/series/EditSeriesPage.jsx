@@ -9,7 +9,6 @@ import {
   CheckBox,
   Input,
   Period,
-  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -17,6 +16,7 @@ import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { putSeries, getSeriesDetail } from '@apis/series';
 import jsonBlob from '@utils/createJsonBlob';
 import { useParams, useHistory } from 'react-router-dom';
+import theme from '@styles/theme';
 
 const EditSeriesPage = () => {
   const { id } = useParams();
@@ -116,8 +116,14 @@ const EditSeriesPage = () => {
     }
   };
   return (
-    <Container>
-      <Wrapper styled={{ padding: '2rem 0' }}>
+    <>
+      <StyledImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide={+true}
+      />
+      <Wrapper>
         <form onSubmit={handleSubmit}>
           <Section>
             <Radio
@@ -137,29 +143,7 @@ const EditSeriesPage = () => {
             />
           </Section>
 
-          <Section>
-            <Title name="썸네일 선택" />
-            <ImageUpload
-              onChange={handleImageUpload}
-              name="thumbnail"
-              src={values.thumbnailUrl}
-            />
-          </Section>
-
-          <Section>
-            <Input
-              width="22rem"
-              title="구독료"
-              type="number"
-              value={values.price}
-              name="price"
-              onChange={handleChange}
-              min={0}
-              disabled={!!id}
-            />
-          </Section>
-
-          <Section>
+          <VerticalSection>
             <Period
               title="모집기간"
               startName="subscribeStartDate"
@@ -171,9 +155,6 @@ const EditSeriesPage = () => {
               onChange={handleChange}
               pageParam={id}
             />
-          </Section>
-
-          <Section>
             <Period
               title="연재기간"
               startName="seriesStartDate"
@@ -185,10 +166,10 @@ const EditSeriesPage = () => {
               onChange={handleChange}
               pageParam={id}
             />
-          </Section>
+          </VerticalSection>
 
-          <Section>
-            <Input
+          <VerticalSection>
+            <StyledInput
               width="22rem"
               title="연재 시간"
               type="time"
@@ -196,10 +177,7 @@ const EditSeriesPage = () => {
               value={values.uploadTime}
               onChange={handleChange}
             />
-          </Section>
-
-          <Section>
-            <Input
+            <StyledInput
               width="22rem"
               title="총 회차"
               type="number"
@@ -207,6 +185,19 @@ const EditSeriesPage = () => {
               value={values.articleCount}
               onChange={handleChange}
               min={1}
+              disabled={!!id}
+            />
+          </VerticalSection>
+
+          <Section>
+            <StyledInput
+              width="22rem"
+              title="구독료"
+              type="number"
+              value={values.price}
+              name="price"
+              onChange={handleChange}
+              min={0}
               disabled={!!id}
             />
           </Section>
@@ -231,16 +222,28 @@ const EditSeriesPage = () => {
           <ConfirmCancleButtons confirmName="제출" />
         </form>
       </Wrapper>
-    </Container>
+    </>
   );
 };
 
 export default EditSeriesPage;
 
-const Container = styled.div`
-  background-color: #fff;
-`;
-
 const Section = styled.section`
   margin-bottom: 3rem;
+`;
+
+const VerticalSection = styled.div`
+  display: flex;
+  margin-bottom: 3rem;
+  & > div {
+    margin-right: 1.5rem;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  border: 0.05rem solid ${theme.color.grey};
+`;
+
+const StyledImageUpload = styled(ImageUpload)`
+  margin-top: 5rem;
 `;

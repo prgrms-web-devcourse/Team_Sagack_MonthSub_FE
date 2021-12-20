@@ -2,6 +2,7 @@ import React from 'react';
 import { TextArea, Title } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
+import theme from '@styles/theme';
 
 const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
   const handleInputChange = e => {
@@ -13,7 +14,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
       <StyledSection {...props}>
         <StyledTextArea
           width="100%"
-          height="2rem"
+          height="3rem"
           name="title"
           value={value.title || ''}
           onInput={handleInputChange}
@@ -23,7 +24,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         />
         <StyledTextArea
           width="100%"
-          height="3rem"
+          height="5rem"
           name="introduceSentence"
           value={value.introduceSentence || ''}
           onInput={handleInputChange}
@@ -33,7 +34,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         />
         <StyledTextArea
           width="100%"
-          height="10rem"
+          height="12rem"
           name="introduceText"
           value={value.introduceText || ''}
           onInput={handleInputChange}
@@ -68,4 +69,6 @@ const StyledSection = styled.section`
 
 const StyledTextArea = styled(TextArea)`
   margin-bottom: 0.8rem;
+  border: 0.05rem solid ${theme.color.grey};
+  box-shadow: ${theme.style.boxShadow};
 `;

@@ -9,7 +9,6 @@ import {
   CheckBox,
   Input,
   Period,
-  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -18,6 +17,7 @@ import jsonBlob from '@utils/createJsonBlob';
 import convertSeriesInputName from '@utils/convertSeriesInputName';
 import { postSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
+import theme from '@styles/theme';
 
 const WriteSeriesPage = () => {
   const history = useHistory();
@@ -89,7 +89,13 @@ const WriteSeriesPage = () => {
   };
 
   return (
-    <Container>
+    <>
+      <StyledImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide={+true}
+      />
       <Wrapper>
         <form onSubmit={handleSubmit}>
           <Section>
@@ -107,26 +113,7 @@ const WriteSeriesPage = () => {
               title="시리즈 소개"
             />
           </Section>
-          <Section>
-            <Title name="썸네일 선택" />
-            <ImageUpload
-              onChange={handleImageUpload}
-              name="thumbnail"
-              src={values.thumbnailUrl}
-            />
-          </Section>
-          <Section>
-            <Input
-              width="22rem"
-              title="구독료"
-              type="number"
-              value={values.price}
-              name="price"
-              onChange={handleChange}
-              min={0}
-            />
-          </Section>
-          <Section>
+          <VerticalSection>
             <Period
               title="모집기간"
               startName="subscribeStartDate"
@@ -137,8 +124,6 @@ const WriteSeriesPage = () => {
               endMin={calculateLaterDate(values.subscribeStartDate, 1)}
               onChange={handleChange}
             />
-          </Section>
-          <Section>
             <Period
               title="연재기간"
               startName="seriesStartDate"
@@ -149,9 +134,9 @@ const WriteSeriesPage = () => {
               endMin={calculateLaterDate(values.seriesStartDate, 1)}
               onChange={handleChange}
             />
-          </Section>
-          <Section>
-            <Input
+          </VerticalSection>
+          <VerticalSection>
+            <StyledInput
               width="22rem"
               title="연재 시간"
               type="time"
@@ -159,9 +144,7 @@ const WriteSeriesPage = () => {
               value={values.uploadTime}
               onChange={handleChange}
             />
-          </Section>
-          <Section>
-            <Input
+            <StyledInput
               width="22rem"
               title="총 회차"
               type="number"
@@ -170,7 +153,20 @@ const WriteSeriesPage = () => {
               onChange={handleChange}
               min={1}
             />
+          </VerticalSection>
+
+          <Section>
+            <StyledInput
+              width="22rem"
+              title="구독료"
+              type="number"
+              value={values.price}
+              name="price"
+              onChange={handleChange}
+              min={0}
+            />
           </Section>
+
           <Section>
             <CheckBox
               title="연재 요일"
@@ -190,16 +186,28 @@ const WriteSeriesPage = () => {
           <ConfirmCancleButtons confirmName="제출" />
         </form>
       </Wrapper>
-    </Container>
+    </>
   );
 };
 
 export default WriteSeriesPage;
 
-const Container = styled.div`
-  background-color: #fff;
-`;
-
 const Section = styled.section`
   margin-bottom: 3rem;
+`;
+
+const VerticalSection = styled.div`
+  display: flex;
+  margin-bottom: 3rem;
+  & > div {
+    margin-right: 1.5rem;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  border: 0.05rem solid ${theme.color.grey};
+`;
+
+const StyledImageUpload = styled(ImageUpload)`
+  margin-top: 5rem;
 `;
