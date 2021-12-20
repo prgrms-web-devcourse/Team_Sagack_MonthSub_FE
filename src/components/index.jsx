@@ -37,4 +37,5 @@ export { default as NoContents } from './domain/NoContents';
 export { default as PopularSeriesList } from './domain/PopularSeriesList';
 export { default as HottestList } from './domain/HottestList';
 export { default as HottestCard } from './domain/HottestCard';
+export { default as AddButton } from './commons/Button/AddButton';
 export { default as Loading } from './commons/Loading';

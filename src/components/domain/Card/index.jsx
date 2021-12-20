@@ -54,7 +54,7 @@ const Card = ({ data, ...props }) => (
           <LikeToggle
             id={data.seriesId}
             likeCount={data.likes}
-            isLiked={data.likeStatus}
+            isLiked={data.isLiked}
           />
         </div>
       </TextBottom>
@@ -78,7 +78,7 @@ Card.defaultProps = {
     subscribeEndDate: '',
     likes: 0,
     category: 'ALL',
-    likeStatus: false,
+    isLiked: false,
   },
 };
 

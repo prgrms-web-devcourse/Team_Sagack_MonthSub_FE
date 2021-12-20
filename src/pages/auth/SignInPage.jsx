@@ -81,8 +81,10 @@ const SignInPage = () => {
 export default SignInPage;
 
 const ErrorMessage = styled.span`
+  display: block;
   color: #ff0000;
   font-size: 0.75rem;
+  margin: 0.7rem 0;
 `;
 
 const H1 = styled.h1`

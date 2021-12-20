@@ -13,7 +13,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
       <StyledSection {...props}>
         <StyledTextArea
           width="100%"
-          height="2rem"
+          height="3rem"
           name="title"
           value={value.title || ''}
           onInput={handleInputChange}
@@ -23,7 +23,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         />
         <StyledTextArea
           width="100%"
-          height="3rem"
+          height="5rem"
           name="introduceSentence"
           value={value.introduceSentence || ''}
           onInput={handleInputChange}
@@ -33,7 +33,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
         />
         <StyledTextArea
           width="100%"
-          height="10rem"
+          height="12rem"
           name="introduceText"
           value={value.introduceText || ''}
           onInput={handleInputChange}

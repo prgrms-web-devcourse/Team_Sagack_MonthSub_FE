@@ -12,6 +12,7 @@ const Title = ({
   h5,
   h6,
   size,
+  color,
   weight,
   marginBottom,
   ...props
@@ -33,6 +34,7 @@ const Title = ({
   const StyledTag = styled(Tag)`
     font-size: ${({ size }) => (typeof size === 'number' ? `${size}px` : size)};
     font-weight: ${({ weight }) => weight};
+    color: ${({ color }) => color};
     margin-bottom: ${({ marginBottom }) =>
       typeof marginBottom === 'number' ? `${marginBottom}px` : marginBottom};
   `;
@@ -41,6 +43,7 @@ const Title = ({
     <StyledTag
       size={size}
       weight={weight}
+      color={color}
       marginBottom={marginBottom}
       {...props}
     >
@@ -59,6 +62,7 @@ Title.defaultProps = {
   marginBottom: '1.5rem',
   weight: 700,
   size: theme.font.medium,
+  color: theme.color.greyDark,
 };
 
 Title.propTypes = {
@@ -69,6 +73,7 @@ Title.propTypes = {
   h4: PropTypes.bool,
   h5: PropTypes.bool,
   h6: PropTypes.bool,
+  color: PropTypes.string,
   marginBottom: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   weight: PropTypes.number,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

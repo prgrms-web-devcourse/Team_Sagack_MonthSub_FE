@@ -9,7 +9,6 @@ import {
   CheckBox,
   Input,
   Period,
-  Title,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -89,7 +88,13 @@ const WriteSeriesPage = () => {
   };
 
   return (
-    <Container>
+    <>
+      <StyledImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide={+true}
+      />
       <Wrapper>
         <form onSubmit={handleSubmit}>
           <Section>
@@ -107,14 +112,48 @@ const WriteSeriesPage = () => {
               title="시리즈 소개"
             />
           </Section>
-          <Section>
-            <Title name="썸네일 선택" />
-            <ImageUpload
-              onChange={handleImageUpload}
-              name="thumbnail"
-              src={values.thumbnailUrl}
+          <VerticalSection>
+            <Period
+              title="모집기간"
+              startName="subscribeStartDate"
+              startValue={values.subscribeStartDate}
+              startMin={getToday()}
+              endName="subscribeEndDate"
+              endValue={values.subscribeEndDate}
+              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
+              onChange={handleChange}
             />
-          </Section>
+            <Period
+              title="연재기간"
+              startName="seriesStartDate"
+              startValue={values.seriesStartDate}
+              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+              endName="seriesEndDate"
+              endValue={values.seriesEndDate}
+              endMin={calculateLaterDate(values.seriesStartDate, 1)}
+              onChange={handleChange}
+            />
+          </VerticalSection>
+          <VerticalSection>
+            <Input
+              width="22rem"
+              title="연재 시간"
+              type="time"
+              name="uploadTime"
+              value={values.uploadTime}
+              onChange={handleChange}
+            />
+            <Input
+              width="22rem"
+              title="총 회차"
+              type="number"
+              name="articleCount"
+              value={values.articleCount}
+              onChange={handleChange}
+              min={1}
+            />
+          </VerticalSection>
+
           <Section>
             <Input
               width="22rem"
@@ -126,51 +165,7 @@ const WriteSeriesPage = () => {
               min={0}
             />
           </Section>
-          <Section>
-            <Period
-              title="모집기간"
-              startName="subscribeStartDate"
-              startValue={values.subscribeStartDate}
-              startMin={getToday()}
-              endName="subscribeEndDate"
-              endValue={values.subscribeEndDate}
-              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
-              onChange={handleChange}
-            />
-          </Section>
-          <Section>
-            <Period
-              title="연재기간"
-              startName="seriesStartDate"
-              startValue={values.seriesStartDate}
-              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
-              endName="seriesEndDate"
-              endValue={values.seriesEndDate}
-              endMin={calculateLaterDate(values.seriesStartDate, 1)}
-              onChange={handleChange}
-            />
-          </Section>
-          <Section>
-            <Input
-              width="22rem"
-              title="연재 시간"
-              type="time"
-              name="uploadTime"
-              value={values.uploadTime}
-              onChange={handleChange}
-            />
-          </Section>
-          <Section>
-            <Input
-              width="22rem"
-              title="총 회차"
-              type="number"
-              name="articleCount"
-              value={values.articleCount}
-              onChange={handleChange}
-              min={1}
-            />
-          </Section>
+
           <Section>
             <CheckBox
               title="연재 요일"
@@ -190,16 +185,24 @@ const WriteSeriesPage = () => {
           <ConfirmCancleButtons confirmName="제출" />
         </form>
       </Wrapper>
-    </Container>
+    </>
   );
 };
 
 export default WriteSeriesPage;
 
-const Container = styled.div`
-  background-color: #fff;
-`;
-
 const Section = styled.section`
   margin-bottom: 3rem;
+`;
+
+const VerticalSection = styled.div`
+  display: flex;
+  margin-bottom: 3rem;
+  & > div {
+    margin-right: 1.5rem;
+  }
+`;
+
+const StyledImageUpload = styled(ImageUpload)`
+  margin-top: 5rem;
 `;

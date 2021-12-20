@@ -5,6 +5,7 @@ import { Button, Icons } from '@components';
 import theme from '@styles/theme';
 import { lighten } from 'polished';
 import { useUser } from '@contexts/UserProvider';
+import { css } from '@emotion/react';
 import Nav from './Nav';
 import Logo from './Logo';
 
@@ -16,13 +17,13 @@ const Header = () => {
   return (
     <StyledHeader>
       <Logo src={logo.default} alt="미리보기" />
-      <Nav items={['Home', '연재하기', '내 채널']} />
-      <Utils>
-        <Link to="/search">
+      <StyledNav items={['Home', '연재하기', '내 채널']} />
+      <Utils islogin={userInfo.username}>
+        <SearchLink to="/search" islogin={userInfo.username}>
           <SearchBox>
             <StyledSearchIcon />
           </SearchBox>
-        </Link>
+        </SearchLink>
         {userInfo.username ? (
           <>
             <Link to="/writes">
@@ -35,7 +36,7 @@ const Header = () => {
             </Link>
           </>
         ) : (
-          <Link to="/signin">로그인</Link>
+          <LoginLink to="/signin">로그인</LoginLink>
         )}
       </Utils>
     </StyledHeader>
@@ -62,6 +63,12 @@ const StyledHeader = styled.header`
   }
 `;
 
+const StyledNav = styled(Nav)`
+  width: 100%;
+  min-width: 15rem;
+  margin: 0 4rem;
+`;
+
 const StyledSearchIcon = styled(Icons.Search)`
   margin-right: 0.3rem;
 `;
@@ -74,7 +81,6 @@ const SearchBox = styled.div`
   padding: 0.2rem;
   border-radius: 4px;
   background-color: ${theme.color.greyLight};
-  margin-right: 5rem;
   &:hover {
     outline: 0.0625rem solid ${theme.color.main};
     background-color: ${lighten(0.01, theme.color.greyLight)};
@@ -86,9 +92,30 @@ const SearchBox = styled.div`
 
 const Utils = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 17rem;
+  ${({ islogin }) =>
+    islogin &&
+    css`
+      max-width: 23rem;
+    `}
+`;
+
+const SearchLink = styled(Link)`
+  margin-right: 1.5rem;
+  ${({ islogin }) =>
+    islogin &&
+    css`
+      margin-right: 2.5rem;
+    `}
 `;
 
 const StyledButton = styled(Button)`
-  margin-right: 1.3rem;
+  margin-right: 1rem;
+`;
+
+const LoginLink = styled(Link)`
+  flex-shrink: 0;
 `;

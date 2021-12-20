@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input, Wrapper, ImageUpload } from '@components';
+import { Input, TextArea, Wrapper, ImageUpload } from '@components';
 import { useHistory } from 'react-router-dom';
 import { getMyInfo, patchMyInfo } from '@apis/user';
 import theme from '@styles/theme';
@@ -73,22 +73,23 @@ const EditMyInfoPage = () => {
           circle
           id="profileKey"
           alt="미리보기"
+          wide={+false}
         />
         <Label htmlFor="name">이름</Label>
         <Input
           width="100%"
           height="2.5rem"
           type="text"
-          id="userName"
+          id="name"
           value={values.userName || ''}
           disabled
         />
         <Label htmlFor="nickName">닉네임</Label>
         <Input
-          type="text"
-          id="nickName"
           width="100%"
           height="2.5rem"
+          type="text"
+          id="nickName"
           name="nickName"
           value={values.nickName || ''}
           onChange={handleChange}
@@ -98,7 +99,7 @@ const EditMyInfoPage = () => {
         <TextArea
           type="text"
           width="100%"
-          height="2.5rem"
+          height="5rem"
           id="introduce"
           name="profileIntroduce"
           placeholder="한 줄 소개글이 없습니다."
@@ -145,8 +146,7 @@ const Button = styled.button`
   background-color: #041b1d;
   color: #ffffff;
   border-radius: 0.25rem;
-  ${theme.style
-    .boxShadow}: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: ${theme.style.boxShadow};
   margin-top: ${theme.font.base};
 
   &:hover {
@@ -157,41 +157,17 @@ const Button = styled.button`
 
 const Label = styled.label`
   border: 0;
-  margin-top: ${theme.font.base};
+  margin: 2rem 0 0.6rem 0;
 `;
 
 const ErrorMessage = styled.span`
-  color: ${theme.color.main}
+  color: ${theme.color.main};
   font-size: 0.75rem;
 `;
 
 const ButtonContainer = styled.div`
   width: 50%;
   display: flex;
+  margin-top: 3rem;
   justify-content: space-around;
-`;
-
-// const ProfileImage = styled(Image)`
-//   border-radius: 50%;
-//   width: 10rem;
-//   height: 10rem;
-// `;
-
-const TextArea = styled.textarea`
-  width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
-  height: ${({ height }) =>
-    typeof height === 'number' ? `${height}rem` : height};
-  padding: 0.2rem;
-  border: #041b1d 0.063rem;
-  background-color: #ffffff;
-  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-  &:focus {
-    background-color: #ffffff;
-    border: #041b1d 0.063rem;
-    ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
-      0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
-  }
-  margin: 0.3rem 0;
-  resize: none;
 `;

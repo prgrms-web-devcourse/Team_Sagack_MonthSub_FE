@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, CardList } from '@components';
+import { Wrapper, CardList, AddButton } from '@components';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import theme from '@styles/theme';
 
 const initialValues = [
   {
@@ -39,11 +37,12 @@ const WriteListPage = () => {
   return (
     <Wrapper>
       <Container>
-        <Span>
+        <Header>
           <H1>연재중인 시리즈</H1>
-          <StyeldAddCircleOutlineIcon />
-          <Link to="/series/write">새 시리즈 작성하기</Link>
-        </Span>
+          <Link to="/series/write">
+            <AddButton>시리즈 구독하기</AddButton>
+          </Link>
+        </Header>
         <CardList list={values} />
       </Container>
     </Wrapper>
@@ -51,23 +50,19 @@ const WriteListPage = () => {
 };
 export default WriteListPage;
 
-const H1 = styled.h1`
-  font-size: 2rem;
-  font-weight: 700;
-  margin-right: ${theme.font.base};
-`;
-
 const Container = styled.div`
   width: 100%;
   margin-top: 5rem;
 `;
 
-const Span = styled.span`
+const Header = styled.header`
   display: flex;
   align-items: center;
-  margin-bottom: ${theme.font.base};
+  margin-bottom: 2rem;
 `;
 
-const StyeldAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
-  color: ${theme.color.greyDark};
+const H1 = styled.h1`
+  font-size: 2rem;
+  font-weight: 700;
+  margin-right: 2rem;
 `;
