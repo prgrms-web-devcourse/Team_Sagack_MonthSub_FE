@@ -14,21 +14,21 @@ import { getPopularSeries, getRecentSeries } from '@apis/series';
 
 const popularSeriesListInit = [
   {
-    isLiked: true,
+    isLiked: false,
     userId: 0,
     writerId: 0,
     seriesId: 0,
-    nickname: 'string',
-    thumbnail: 'string',
-    title: 'string',
-    introduceSentence: 'string',
-    seriesStartDate: '2021-12-20',
-    seriesEndDate: '2021-12-20',
-    subscribeStatus: 'string',
-    subscribeStartDate: '2021-12-20',
-    subscribeEndDate: '2021-12-20',
+    nickname: '',
+    thumbnail: '',
+    title: '',
+    introduceSentence: '',
+    seriesStartDate: '',
+    seriesEndDate: '',
+    subscribeStatus: '',
+    subscribeStartDate: '',
+    subscribeEndDate: '',
     likes: 0,
-    category: 'POEM',
+    category: '',
   },
 ];
 
@@ -44,7 +44,7 @@ const popularWriterListInit = [
 
 const recentSeriesListInit = [
   {
-    isLiked: true,
+    isLiked: false,
     userId: 0,
     writerId: 0,
     seriesId: 0,
@@ -64,7 +64,7 @@ const recentSeriesListInit = [
 
 const purChaseSeriesListInit = [
   {
-    isLiked: true,
+    isLiked: false,
     userId: 0,
     writerId: 0,
     seriesId: 0,
@@ -101,17 +101,25 @@ const HomePage = () => {
 
   const getInitialData = async () => {
     const popularSeriesResponse = await getPopularSeries();
-    setPopularSeriesList(popularSeriesResponse.data.seriesList);
+    popularSeriesResponse.data
+      ? setPopularSeriesList(popularSeriesResponse.data.seriesList)
+      : setPopularSeriesList('');
 
     const recentSeriesResponse = await getRecentSeries();
-    setRecentSeriesList(recentSeriesResponse.data.seriesList);
+    recentSeriesResponse.data
+      ? setRecentSeriesList(recentSeriesResponse.data.seriesList)
+      : setRecentSeriesList('');
 
     const popularWritersResponse = await getPopularWriters();
-    setPopularWriterList(popularWritersResponse.data.popularWriterList);
+    popularWritersResponse.data
+      ? setPopularWriterList(popularWritersResponse.data.popularWriterList)
+      : setPopularWriterList('');
 
     if (hasAuth) {
       const purChaseSeriesResponse = await getMyPurchaseSeries();
-      setPurChaseSeriesList(purChaseSeriesResponse.data.seriesList);
+      purChaseSeriesResponse.data
+        ? setPurChaseSeriesList(purChaseSeriesResponse.data.seriesList)
+        : setPurChaseSeriesList('');
     }
 
     setLoading(false);
