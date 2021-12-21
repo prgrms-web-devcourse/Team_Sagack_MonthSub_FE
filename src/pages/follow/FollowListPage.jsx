@@ -76,6 +76,5 @@ const FollowListContainer = styled.div`
   height: 90%;
   border-radius: 20px;
   margin: 0 auto;
-  overflow-y: scroll;
   box-shadow: ${theme.style.boxShadow};
 `;
