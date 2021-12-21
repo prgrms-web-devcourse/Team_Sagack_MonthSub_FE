@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 const SeriesListPage = () => {
   const history = useHistory();
   const [buttonState, setButtonState] = useState({
-    ALL: true,
+    ALL: false,
     NOVEL: false,
     POEM: false,
     ESSAY: false,
@@ -18,13 +18,15 @@ const SeriesListPage = () => {
   const requestType = useRef(null);
   const setSeriesId = useRef(null);
   const setCategory = useRef('ALL');
+  const [allButton, setAllButton] = useState(true);
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
     lastSeriesId: null,
     size: 20,
-    categories: 'ALL',
+    status: '',
+    categories: '',
   });
 
   const getListUpdate = async () => {
@@ -75,15 +77,14 @@ const SeriesListPage = () => {
   const handleCategorizing = async e => {
     const nextState = {
       ...buttonState,
-      [e.target.id]: !buttonState[e.target.id],
+      [e.target.id]:
+        e.target.id === 'ALL'
+          ? buttonState[e.target.id]
+          : !buttonState[e.target.id],
     };
 
-    const clickedCategoryArray = Object.keys(nextState).filter(
-      element => nextState[element],
-    );
-
-    if (clickedCategoryArray.length === 0) {
-      nextState['ALL'] = true;
+    if (e.target.id === 'ALL') {
+      allButton ? setAllButton(false) : setAllButton(true);
     }
 
     setButtonState(nextState);
@@ -96,11 +97,19 @@ const SeriesListPage = () => {
       lastSeriesId: null,
     });
 
+    const clickedList = Object.keys(nextState).filter(
+      element => nextState[element],
+    );
+
+    if (clickedList.length >= 1) {
+      setAllButton(false);
+    } else {
+      setAllButton(true);
+    }
+
     const { data } = await getSeries({
       ...params,
-      categories: Object.keys(nextState)
-        .filter(element => nextState[element])
-        .join(','),
+      categories: e.target.id === 'ALL' ? '' : clickedList.join(','),
       lastSeriesId: null,
     });
 
@@ -124,7 +133,7 @@ const SeriesListPage = () => {
           <Category
             onClick={handleCategorizing}
             categoryList={[
-              { key: 'ALL', value: '전체', state: buttonState['ALL'] },
+              { key: 'ALL', value: '전체', state: allButton },
               { key: 'NOVEL', value: '소설', state: buttonState['NOVEL'] },
               { key: 'POEM', value: '시', state: buttonState['POEM'] },
               { key: 'ESSAY', value: '수필', state: buttonState['ESSAY'] },
