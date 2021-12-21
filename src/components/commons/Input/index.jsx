@@ -12,13 +12,11 @@ const Input = ({
   type,
   placeholder,
   onChange,
-  title,
   round,
   focus,
   ...props
 }) => (
   <>
-    <Title style={{ display: title ? 'block' : 'none' }} name={title} />
     <StyledInput
       name={name}
       width={width}
@@ -26,7 +24,6 @@ const Input = ({
       disabled={disabled}
       value={value}
       type={type}
-      title={title}
       placeholder={placeholder}
       onChange={onChange}
       round={round}
