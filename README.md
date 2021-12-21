@@ -10,7 +10,8 @@
 
 | [박송이](https://github.com/thddlmy) | [양윤](https://github.com/yyoooon) | [박예진](https://github.com/kokoke414) |
 | ------------------------------------ | ---------------------------------- | -------------------------------------- |
-| 송이님 사진                          | 윤님 사진                          | 예진 사진                              |
+| ![69751205](https://user-images.githubusercontent.com/88189402/146892679-4aaaf9b4-1412-4cb9-b49f-65b0d92e3d75.jpeg)| ![image (2)](https://user-images.githubusercontent.com/88189402/146892772-bd1a18a7-1ab1-4577-8a45-044cf090bf8f.png)|![bda04f6c4](https://user-images.githubusercontent.com/88189402/146893012-17507821-c407-4a5b-842e-f93792b3889a.png)
+
 
 # 배포
 
