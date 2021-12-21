@@ -1,6 +1,5 @@
 # MonthSub
-
-- logo
+![logo_whiteBackboard](https://user-images.githubusercontent.com/88189402/146893680-0c14334c-4e23-4164-b0e7-04a608b0971b.jpg)
 
 # 프로젝트 소개
 
