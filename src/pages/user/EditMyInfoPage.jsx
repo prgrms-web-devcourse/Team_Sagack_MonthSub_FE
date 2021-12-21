@@ -41,9 +41,11 @@ const EditMyInfoPage = () => {
         alert(error);
       }
     },
-    validate: ({ nickName }) => {
+    validate: ({ nickName, profileIntroduce }) => {
       const newErrors = {};
       if (!nickName) newErrors.nickName = '닉네임을 입력해주세요.';
+      if (!profileIntroduce)
+        newErrors.profileIntroduce = '소개글을 입력해주세요.';
       return newErrors;
     },
   });
@@ -111,6 +113,7 @@ const EditMyInfoPage = () => {
           value={values.profileIntroduce || ''}
           onInput={handleChange}
         />
+        <ErrorMessage>{errors.profileIntroduce}&nbsp;</ErrorMessage>
         <ButtonContainer>
           <Button type="submit" onClick={handleSubmit}>
             확인
