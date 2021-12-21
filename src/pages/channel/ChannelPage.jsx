@@ -80,7 +80,6 @@ const ChannelPage = () => {
   const [data, setData] = useState(initialData);
   const history = useHistory();
   const { id } = useParams();
-  const history = useHistory();
 
   const getInitialData = async () => {
     if (!id) {
