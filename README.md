@@ -1,6 +1,14 @@
+# 📝 MonthSub
+
+![logo_whiteBackboard](https://user-images.githubusercontent.com/88189402/146893680-0c14334c-4e23-4164-b0e7-04a608b0971b.jpg)
+
 # 🖼 프로젝트 소개
 
 - Monthsub은 월 단위 구독자를 모집하고, 구독한 작품을 제공 받는 월간 구독 플랫폼 서비스입니다! 😎
+
+# 📜 배포
+
+- 링크: [MonthSub](https://monthsub.netlify.app/)
 
 # 📚 기술 스택
 
@@ -62,10 +70,6 @@ SKIP_PREFLIGHT_CHECK=true
 ### 3. 실행
 
 - `yarn start` 명령어로 실행합니다.
-
-# 📜 배포
-
-- 링크: [MonthSub](https://monthsub.netlify.app/)
 
 # 🧸 팀원 소개
 
