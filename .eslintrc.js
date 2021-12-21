@@ -23,9 +23,25 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-unused-expressions': 'off',
-    'no-shadow': 'off', 
+    'no-shadow': 'off',
     'no-restricted-syntax': 'off',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
-    'no-nested-ternary':'off'
+    'no-nested-ternary': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
+    'jsx-a11y/label-has-for': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
 };
