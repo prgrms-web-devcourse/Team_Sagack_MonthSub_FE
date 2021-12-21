@@ -16,21 +16,19 @@ const Input = ({
   focus,
   ...props
 }) => (
-  <>
-    <StyledInput
-      name={name}
-      width={width}
-      height={height}
-      disabled={disabled}
-      value={value}
-      type={type}
-      placeholder={placeholder}
-      onChange={onChange}
-      round={round}
-      focus={focus}
-      {...props}
-    />
-  </>
+  <StyledInput
+    name={name}
+    width={width}
+    height={height}
+    disabled={disabled}
+    value={value}
+    type={type}
+    placeholder={placeholder}
+    onChange={onChange}
+    round={round}
+    focus={focus}
+    {...props}
+  />
 );
 
 Input.defaultProps = {
