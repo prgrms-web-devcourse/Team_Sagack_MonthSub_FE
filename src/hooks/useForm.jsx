@@ -16,7 +16,6 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
   const handleChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(value);
   };
 
   const handleSubmit = async e => {
