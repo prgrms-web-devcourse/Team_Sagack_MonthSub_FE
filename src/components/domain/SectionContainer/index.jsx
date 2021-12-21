@@ -17,5 +17,9 @@ SectionContainer.propTypes = {
 export default SectionContainer;
 
 const StyledContainer = styled.div`
-  margin-bottom: 3.125rem;
+  margin-bottom: 80px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
