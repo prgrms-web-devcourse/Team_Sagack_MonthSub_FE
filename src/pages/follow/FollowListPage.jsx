@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
 import { Wrapper, FollowListItem } from '@components';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
-import { useParams, useHistory } from 'react-router-dom';
 
 const FollowListPage = () => {
   const history = useHistory();
