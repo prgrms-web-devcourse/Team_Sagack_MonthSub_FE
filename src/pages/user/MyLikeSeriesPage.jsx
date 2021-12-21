@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Wrapper, CardList } from '@components';
+import { Wrapper, CardList, NoData, Loading } from '@components';
 import { getMyLikes } from '@apis/user';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
 
 const initialValues = [
   {
@@ -24,18 +23,16 @@ const initialValues = [
 ];
 
 const MyLikeSeriesPage = () => {
+  const [loading, setLoading] = useState(true);
   const [values, setValues] = useState(initialValues);
-  const history = useHistory();
 
   const getInitialData = async () => {
     const { data } = await getMyLikes();
 
-    if (!data) {
-      history.push('/server-error');
-      return;
+    if (data) {
+      setValues(data.seriesList);
     }
-
-    setValues(data.seriesList);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,16 +41,16 @@ const MyLikeSeriesPage = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Header>
-          <H1>관심 시리즈</H1>
-        </Header>
-        {values.length ? (
-          <CardList list={values} />
-        ) : (
-          <div>구독한 시리즈가 없습니다.</div>
-        )}
-      </Container>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Header>
+            <H1>관심 시리즈</H1>
+          </Header>
+          {values.length ? <CardList list={values} /> : <NoData />}
+        </Container>
+      )}
     </Wrapper>
   );
 };

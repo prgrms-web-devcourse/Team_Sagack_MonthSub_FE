@@ -21,7 +21,7 @@ const ArticleDetailPage = () => {
     const { data } = await getArticleDetail({ seriesId, articleId });
 
     if (!data) {
-      history.push('/server-error');
+      history.goBack();
       return;
     }
 

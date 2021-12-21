@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, CardList, AddButton } from '@components';
+import { Wrapper, CardList, AddButton, NoData } from '@components';
 import styled from '@emotion/styled';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
 
 const initialValues = [
@@ -25,17 +25,13 @@ const initialValues = [
 
 const WriteListPage = () => {
   const [values, setValues] = useState(initialValues);
-  const history = useHistory();
 
   const getInitialData = async () => {
     const { data } = await getMyWriteSeries();
 
-    if (!data) {
-      history.push('/server-error');
-      return;
+    if (data) {
+      setValues(data.seriesList);
     }
-
-    setValues(data.seriesList);
   };
 
   useEffect(() => {
@@ -51,7 +47,7 @@ const WriteListPage = () => {
             <AddButton>시리즈 구독하기</AddButton>
           </Link>
         </Header>
-        <CardList list={values} />
+        {values.length ? <NoData /> : <CardList list={values} />}
       </Container>
     </Wrapper>
   );
