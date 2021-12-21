@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
-import { Wrapper, UserProfile } from '@components';
+import { Wrapper, FollowListItem } from '@components';
 import { useParams, useHistory } from 'react-router-dom';
+import styled from '@emotion/styled';
+import theme from '@styles/theme';
 
 const FollowListPage = () => {
   const history = useHistory();
@@ -18,7 +20,6 @@ const FollowListPage = () => {
         size: 10,
       },
     });
-
     if (!data) {
       history.push('/server-error');
       return;
@@ -49,17 +50,32 @@ const FollowListPage = () => {
   }, [target]);
 
   return (
-    <Wrapper>
-      {values.map(element => (
-        <UserProfile
-          src={element.profileKey}
-          nickname={element.nickname}
-          key={element.writerId}
-        />
-      ))}
+    <Wrapper whole>
+      <FollowListContainer>
+        {values.map(element => (
+          <FollowListItem
+            key={element.writerId}
+            src={element.profileImage}
+            nickname={element.nickname}
+            intro={element.profileIntroduce}
+            followCount={element.followCount}
+            writerId={element.writerId}
+          />
+        ))}
+      </FollowListContainer>
       <div ref={setTarget} />
     </Wrapper>
   );
 };
 
 export default FollowListPage;
+
+const FollowListContainer = styled.div`
+  background-color: #ffffff;
+  width: 80%;
+  height: 90%;
+  border-radius: 20px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  box-shadow: ${theme.style.boxShadow};
+`;

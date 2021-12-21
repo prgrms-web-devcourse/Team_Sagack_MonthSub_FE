@@ -12,6 +12,8 @@ const Input = ({
   type,
   placeholder,
   onChange,
+  round,
+  focus,
   ...props
 }) => (
   <StyledInput
@@ -23,6 +25,8 @@ const Input = ({
     type={type}
     placeholder={placeholder}
     onChange={onChange}
+    round={round}
+    focus={focus}
     {...props}
   />
 );
@@ -36,6 +40,8 @@ Input.defaultProps = {
   value: '',
   onChange: () => {},
   name: '',
+  round: true,
+  focus: true,
 };
 
 Input.propTypes = {
@@ -47,6 +53,8 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  round: PropTypes.bool,
+  focus: PropTypes.bool,
 };
 
 export default Input;
@@ -56,12 +64,20 @@ const StyledInput = styled.input`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
   padding: 0.5rem;
-  border: none;
-  border-radius: 0.2rem;
-  box-shadow: ${theme.style.boxShadow};
+  border: 0.063rem solid ${theme.color.greyMedium};
+  border-radius: ${({ round }) => (round ? '0.2rem' : 'none')};
   background-color: #ffffff;
-  &:focus {
-    background-color: #ffffff;
-    outline: 0.063rem solid ${theme.color.main};
-  }
+  ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+    0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+  ${({ focus }) =>
+    focus
+      ? `
+    &:focus {
+      background-color: #ffffff;
+      border: 0.063rem solid ${theme.color.main};
+      ${theme.style.boxShadow}: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),
+        0 0.063rem 0.188rem rgba(0, 0, 0, 0.08);
+    }
+    `
+      : null}
 `;

@@ -3,17 +3,17 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import {
   Wrapper,
-  UserProfile,
   SectionTitle,
   SectionContainer,
+  UserProfile,
   CardSlider,
   UserList,
-  Button,
   Loading,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
+import cover from './channel_cover.jpg';
 
 const initialData = {
   user: {
@@ -23,6 +23,8 @@ const initialData = {
     profileIntroduce: '',
     nickname: '',
   },
+  isMine: null,
+  isFollowed: null,
   followIngCount: 0,
   followWriterList: [
     {
@@ -33,7 +35,8 @@ const initialData = {
       subscribeStatus: '',
     },
   ],
-  subscribeList: [
+  followCount: 0,
+  seriesPostList: [
     {
       userId: 0,
       writerId: 0,
@@ -51,9 +54,9 @@ const initialData = {
       category: '',
     },
   ],
-  followCount: 0,
-  seriesPostList: [
+  subscribeList: [
     {
+      isLiked: true,
       userId: 0,
       writerId: 0,
       seriesId: 0,
@@ -90,13 +93,15 @@ const ChannelPage = () => {
       setData(data);
     } else {
       const { data } = await getChannel(id);
-
       if (!data) {
         history.push('/server-error');
         return;
       }
-
-      setData(data);
+      if (data.isMine) {
+        history.push('/channel/my');
+      } else {
+        setData(data);
+      }
     }
   };
 
@@ -111,6 +116,10 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
+  }, [id]);
+
+  useEffect(() => {
+    getInitialData();
     setLoading(false);
   }, [data.isFollowed]);
 
@@ -121,45 +130,86 @@ const ChannelPage = () => {
       ) : (
         <>
           <ProfileWrapper>
-            <ProfileContainer>
+            <ProfileMain>
+              <ProfileContainer>
+                <UserProfile
+                  src={data.user.profileImage}
+                  size={7}
+                  nickname={data.user.nickname}
+                  imageOnly
+                />
+                <UserInfo>
+                  <div className="nickname">{data.user.nickname}</div>
+                  <div className="intro">{data.user.profileIntroduce}</div>
+                </UserInfo>
+              </ProfileContainer>
+            </ProfileMain>
+            <ProfileBottom>
               <div>
-                <UserProfile imageOnly src={data.user.profileImage} />
+                <span>팔로워</span> &#40;
+                {data.followCount.toLocaleString('ko-KR')}&#41;
               </div>
-              <div className="channel-introduce">
+              <div>
+                <span>팔로잉</span> &#40;
+                {data.followIngCount.toLocaleString('ko-KR')}&#41;
+              </div>
+              {id ? (
                 <div>
-                  <div>{data.user.nickname}</div>
-                  <div className="writterTag">
-                    {data.seriesPostList.length > 0 ? '작가' : '사용자'}
-                  </div>
-                  <div>
-                    팔로워 : {data.followCount} | 팔로잉 : {data.followIngCount}
-                  </div>
-                  {id ? (
-                    <Button type="button" onClick={handleClick}>
-                      {data.isFollowed ? '팔로우 취소' : '팔로우 하기'}
-                    </Button>
-                  ) : null}
+                  <StyledButton
+                    type="button"
+                    onClick={handleClick}
+                    bgColor={data.isFollowed ? theme.color.red : '#5cb85c'}
+                  >
+                    {data.isFollowed ? '언팔로우' : '+ 팔로우'}
+                  </StyledButton>
                 </div>
-                <div>{data.user.profileIntroduce}</div>
-              </div>
-            </ProfileContainer>
+              ) : null}
+            </ProfileBottom>
           </ProfileWrapper>
+
           <Wrapper className="customWrapper">
-            <UserList
-              list={data.followWriterList}
-              title="팔로잉 한 작가들"
-              moreLink={id ? `/follow/${id}` : '/follow/my'}
-            />
-            {!id ? (
+            {data.followWriterList.length > 0 ? (
               <SectionContainer>
-                <SectionTitle>구독한 시리즈</SectionTitle>
-                <CardSlider list={data.subscribeList} />
+                <UserList
+                  list={data.followWriterList}
+                  title="팔로우한 작가들"
+                  moreLink={id ? `/follow/${id}` : '/follow/my'}
+                />
               </SectionContainer>
+            ) : !id ? (
+              <SectionContainer>
+                <SectionTitle>팔로우한 작가들</SectionTitle>
+                <NoContents>
+                  팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
+                </NoContents>
+              </SectionContainer>
+            ) : null}
+            {!id ? (
+              data.subscribeList.length > 0 ? (
+                <SectionContainer>
+                  <SectionTitle>구독한 시리즈</SectionTitle>
+                  <CardSlider list={data.subscribeList} />
+                </SectionContainer>
+              ) : (
+                <SectionContainer>
+                  <SectionTitle>구독한 시리즈</SectionTitle>
+                  <NoContents>
+                    구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
+                  </NoContents>
+                </SectionContainer>
+              )
             ) : null}
             {data.seriesPostList.length > 0 ? (
               <SectionContainer>
-                <SectionTitle>생성한 시리즈</SectionTitle>
+                <SectionTitle>작성한 시리즈</SectionTitle>
                 <CardSlider list={data.seriesPostList} />
+              </SectionContainer>
+            ) : !id ? (
+              <SectionContainer>
+                <SectionTitle>작성한 시리즈</SectionTitle>
+                <NoContents>
+                  작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
+                </NoContents>
               </SectionContainer>
             ) : null}
           </Wrapper>
@@ -171,9 +221,11 @@ const ChannelPage = () => {
 
 export default ChannelPage;
 
+const ProfileAreaHeight = '27rem';
+
 const ChannelContainer = styled.div`
   .customWrapper {
-    padding-top: 24rem;
+    margin-top: calc(${ProfileAreaHeight} + ${theme.common.navHeight});
   }
 `;
 
@@ -182,9 +234,13 @@ const ProfileWrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 15rem;
-  background-color: ${theme.color.grey};
-  margin-top: 5rem;
+  height: ${ProfileAreaHeight};
+  margin-top: ${theme.common.navHeight};
+  background-image: url(${cover});
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ProfileContainer = styled.div`
@@ -192,68 +248,68 @@ const ProfileContainer = styled.div`
   height: 100%;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const UserInfo = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .nickname {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .intro {
+    max-width: 70%;
+    height: 80px;
+    line-height: 1rem;
+  }
+`;
+
+const ProfileMain = styled.div`
+  flex: 1;
+`;
+
+const ProfileBottom = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${theme.font.medium};
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.1);
 
   > div {
-    display: flex;
-    align-items: center;
+    margin-right: 20px;
   }
-
-  > div:nth-of-type(1) {
-    padding-right: 1.25rem;
-  }
-
-  > div:nth-of-type(2) {
-    flex-grow: 1;
-  }
-
-  > div:nth-of-type(3) {
-    align-items: flex-start;
-    padding-top: 1.25rem;
-  }
-
-  .channel-introduce {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    > div {
-      width: 100%;
-    }
-
-    > div:nth-of-type(1) {
-      font-size: ${theme.font.large};
-      padding-bottom: 1.25rem;
-      display: flex;
-    }
-
-    .writterTag {
-      width: 3.75rem;
-      height: ${theme.font.large};
-      font-size: ${theme.font.base};
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: ${theme.font.large};
-      background-color: ${theme.color.main};
-      margin-left: 0.625rem;
-    }
-  }
-
-  .follows-wrap {
-    width: 3.75rem;
-    height: 3.75rem;
-    display: flex;
-    font-size: ${theme.font.small};
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #ffffff;
-    margin-right: 0.625rem;
-    line-height: ${theme.font.base};
-  }
-
-  .follows-wrap:nth-of-type(2) {
+  > div:last-of-type {
     margin-right: 0;
   }
+`;
+
+const StyledButton = styled(`button`)`
+  height: 30px;
+  width: 90px;
+  border-radius: 30px;
+  background-color: ${({ bgColor }) => bgColor};
+  color: #ffffff;
+  font-size: 1rem;
+`;
+
+const NoContents = styled.div`
+  background-color: ${theme.color.grey};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  height: 160px;
 `;

@@ -1,8 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Container, Input, Button, CardList } from '@components';
+import {
+  Input,
+  Button,
+  CardList,
+  Wrapper,
+  Icons,
+  SectionTitle,
+} from '@components';
 import { getSearchWithTitle } from '@apis/search';
 import { useForm } from '@hooks';
+import theme from '@styles/theme';
 import { useHistory } from 'react-router-dom';
 
 const SearchPage = () => {
@@ -39,42 +47,57 @@ const SearchPage = () => {
   });
 
   return (
-    <Container title="리스트 검색">
+    <Wrapper whole>
+      <SectionTitle>리스트 검색</SectionTitle>
       <SearchForm onSubmit={handleSubmit}>
-        <span>
-          <Input
-            type="radio"
-            name="check"
-            value="title"
+        <div className="optionArea">
+          <RadioSpan>
+            <Input
+              type="radio"
+              name="check"
+              value="title"
+              onChange={handleChange}
+              id="searchTitle"
+            />
+            <label htmlFor="searchTitle" className="optionTitle">
+              제목
+            </label>
+          </RadioSpan>
+          <RadioSpan>
+            <Input
+              type="radio"
+              name="check"
+              value="nickname"
+              onChange={handleChange}
+              id="searchNickname"
+            />
+            <label htmlFor="searchNickname" className="optionNickname">
+              닉네임
+            </label>
+          </RadioSpan>
+        </div>
+        <div className="searchInputBox">
+          <StyledInput
+            width="100%"
+            name="keyword"
+            value={values.keyword || ''}
             onChange={handleChange}
+            placeholder="검색어를 입력해주세요."
+            round={false}
+            focus={false}
           />
-          제목
-        </span>
-        <span>
-          <Input
-            type="radio"
-            name="check"
-            value="nickname"
-            onChange={handleChange}
-          />
-          작가
-        </span>
-        <StyledInput
-          width="90%"
-          name="keyword"
-          value={values.keyword || ''}
-          onChange={handleChange}
-          placeholder="검색어를 입력하세요."
-        />
-        <StyledButton type="submit">검색</StyledButton>
+          <StyledButton type="submit" margin={0} round={false}>
+            <Icons.Search />
+          </StyledButton>
+        </div>
         <ErrorMessage>{errors.error}&nbsp;</ErrorMessage>
       </SearchForm>
       {values.seriesList.length ? (
         <CardList list={values.seriesList} />
       ) : (
-        <div>검색결과가 없습니다.</div>
+        <Noresult>검색결과가 없습니다.</Noresult>
       )}
-    </Container>
+    </Wrapper>
   );
 };
 
@@ -82,19 +105,72 @@ export default SearchPage;
 
 const ErrorMessage = styled.div`
   color: #ff0000;
-  font-size: 0.75rem;
-`;
-
-const StyledInput = styled(Input)`
-  border-bottom: #000000 0.063rem solid;
+  font-size: ${theme.font.base};
+  margin-top: 10px;
 `;
 
 const SearchForm = styled.form`
-  position: relative;
+  .optionArea {
+    display: flex;
+  }
+
+  .searchInputBox {
+    display: flex;
+    margin-top: 20px;
+  }
+`;
+
+const RadioSpan = styled.span`
+  background-color: #ffffff;
+  box-shadow: ${theme.style.boxShadow};
+  height: 40px;
+  width: 80px;
+  overflow: hidden;
+  border-radius: 40px;
+  margin-right: 10px;
+
+  > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size: ${theme.font.small};
+  }
+
+  > input {
+    display: none;
+  }
+
+  #searchTitle:checked ~ .optionTitle {
+    background-color: ${theme.color.main};
+    color: #ffffff;
+  }
+
+  #searchNickname:checked ~ .optionNickname {
+    background-color: ${theme.color.main};
+    color: #ffffff;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  border: none;
+  height: 50px;
+  font-size: ${theme.font.large};
+  border: 2px solid ${theme.color.main};
+  flex-grow: 1;
 `;
 
 const StyledButton = styled(Button)`
-  position: absolute;
-  right: 0;
-  border: 0;
+  border: 2px solid ${theme.color.main};
+  border-left: none;
+  width: 60px;
+`;
+
+const Noresult = styled.div`
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

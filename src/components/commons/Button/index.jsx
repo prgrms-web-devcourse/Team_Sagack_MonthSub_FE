@@ -15,6 +15,7 @@ const Button = ({
   name,
   value,
   margin,
+  round,
   ...props
 }) => (
   <StyledButton
@@ -27,6 +28,7 @@ const Button = ({
     value={value}
     onClick={onClick}
     margin={margin}
+    round={round}
     {...props}
   >
     {children}
@@ -46,6 +48,7 @@ Button.defaultProps = {
   value: '',
   children: 'text',
   margin: 1,
+  round: true,
 };
 
 Button.propTypes = {
@@ -55,10 +58,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   circle: PropTypes.bool,
   onClick: PropTypes.func,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   name: PropTypes.string,
   value: PropTypes.string,
   margin: PropTypes.number,
+  round: PropTypes.bool,
 };
 
 const StyledButton = styled.button`
@@ -66,7 +70,7 @@ const StyledButton = styled.button`
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   border: 0.0625rem solid ${theme.color.main};
-  border-radius: 0.25rem;
+  border-radius: ${({ round }) => (round ? '0.25rem' : 'none')};
   padding: 0.5rem;
   margin: 0 ${({ margin }) => `${margin}rem`};
   color: ${theme.color.main};

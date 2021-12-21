@@ -11,11 +11,13 @@ const UserList = ({ list, title, moreLink, ...props }) => (
       <div className="title">{title}</div>
       <div className="seeMore">
         {moreLink ? (
-          <Link to={moreLink}>
-            <Button margin={0} width="6.25rem" height="1.875rem">
-              더보기
-            </Button>
-          </Link>
+          list.length < 10 ? (
+            <Link to={moreLink}>
+              <Button margin={0} width="6.25rem" height="1.875rem">
+                더보기
+              </Button>
+            </Link>
+          ) : null
         ) : null}
       </div>
     </SectionTitle>
