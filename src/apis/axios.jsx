@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { errorToString } from '@utils/errors';
 
 const { REACT_APP_API_END_POINT } = process.env;
 
@@ -23,7 +24,7 @@ export const GET = async ({ url, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: error.response.data.message,
+      title: errorToString(error.response.data.code),
       icon: 'question',
       confirmButtonText: '확인',
       confirmButtonColor: '#ffb15c',
@@ -55,7 +56,7 @@ export const POST = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: error.response.data.message,
+      title: errorToString(error.response.data.code),
       icon: 'question',
       confirmButtonText: '확인',
       confirmButtonColor: '#ffb15c',
@@ -86,7 +87,7 @@ export const PUT = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: error.response.data.message,
+      title: errorToString(error.response.data.code),
       icon: 'question',
       confirmButtonText: '확인',
       confirmButtonColor: '#ffb15c',
@@ -115,7 +116,7 @@ export const PATCH = async ({ url, data, isJsonType = false, params = {} }) => {
     return response;
   } catch (error) {
     Swal.fire({
-      title: error.response.data.message,
+      title: errorToString(error.response.data.code),
       icon: 'question',
       confirmButtonText: '확인',
       confirmButtonColor: '#ffb15c',
@@ -150,7 +151,7 @@ export const DELETE = async ({
     return response;
   } catch (error) {
     Swal.fire({
-      title: error.response.data.message,
+      title: errorToString(error.response.data.code),
       icon: 'question',
       confirmButtonText: '확인',
       confirmButtonColor: '#ffb15c',

@@ -116,12 +116,8 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
-  }, [id]);
-
-  useEffect(() => {
-    getInitialData();
     setLoading(false);
-  }, [data.isFollowed]);
+  }, [id, data.isFollowed]);
 
   return (
     <ChannelContainer>

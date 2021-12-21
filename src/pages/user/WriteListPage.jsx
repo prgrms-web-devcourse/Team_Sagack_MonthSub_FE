@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, CardList, AddButton, NoData } from '@components';
+import { Wrapper, CardList, AddButton, NoData, Loading } from '@components';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
@@ -24,6 +24,7 @@ const initialValues = [
 ];
 
 const WriteListPage = () => {
+  const [loading, setLoading] = useState(true);
   const [values, setValues] = useState(initialValues);
 
   const getInitialData = async () => {
@@ -32,6 +33,7 @@ const WriteListPage = () => {
     if (data) {
       setValues(data.seriesList);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -40,15 +42,19 @@ const WriteListPage = () => {
 
   return (
     <Wrapper>
-      <Container>
-        <Header>
-          <H1>연재중인 시리즈</H1>
-          <Link to="/series/write">
-            <AddButton>시리즈 구독하기</AddButton>
-          </Link>
-        </Header>
-        {values.length ? <NoData /> : <CardList list={values} />}
-      </Container>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Header>
+            <H1>연재중인 시리즈</H1>
+            <Link to="/series/write">
+              <AddButton>시리즈 구독하기</AddButton>
+            </Link>
+          </Header>
+          {values.length ? <CardList list={values} /> : <NoData />}
+        </Container>
+      )}
     </Wrapper>
   );
 };
