@@ -45,7 +45,7 @@ const SignInPage = () => {
   });
 
   return (
-    <Wrapper>
+    <StyledWrapper whole>
       <Form onSubmit={handleSubmit}>
         <H1>로그인</H1>
         <Input
@@ -74,17 +74,14 @@ const SignInPage = () => {
         </Span>
         <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
 export default SignInPage;
 
-const ErrorMessage = styled.span`
-  display: block;
-  color: #ff0000;
-  font-size: 0.75rem;
-  margin: 0.7rem 0;
+const StyledWrapper = styled(Wrapper)`
+  height: calc(100vh - 5rem);
 `;
 
 const H1 = styled.h1`
@@ -125,4 +122,11 @@ const Span = styled.span`
   display: flex;
   justify-content: space-around;
   font-size: 0.75rem;
+`;
+
+const ErrorMessage = styled.span`
+  display: block;
+  color: #ff0000;
+  font-size: 0.75rem;
+  margin: 0.7rem 0;
 `;
