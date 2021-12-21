@@ -49,7 +49,7 @@ const DetailForm = ({
       )}
     </DetailInfo>
     <DetailBody>
-      <div
+      <InnerText
         dangerouslySetInnerHTML={{
           __html: replaceEnter(bodyText),
         }}
@@ -180,3 +180,5 @@ const DetailBody = styled.div`
     text-align: right;
   }
 `;
+
+const InnerText = styled.div``;
