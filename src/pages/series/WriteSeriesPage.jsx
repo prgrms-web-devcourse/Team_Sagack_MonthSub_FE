@@ -100,7 +100,14 @@ const WriteSeriesPage = () => {
         <form onSubmit={handleSubmit}>
           <Section>
             <Radio
-              names={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+              labels={[
+                'poem',
+                'novel',
+                'interview',
+                'essay',
+                'critique',
+                'etc',
+              ]}
               onChange={handleChange}
               checkedButton={values.category}
               title="카테고리"

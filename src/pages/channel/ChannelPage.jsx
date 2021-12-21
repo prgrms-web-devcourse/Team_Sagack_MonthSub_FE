@@ -158,7 +158,8 @@ const ChannelPage = () => {
                   <StyledButton
                     type="button"
                     onClick={handleClick}
-                    bgColor={data.isFollowed ? theme.color.red : '#5cb85c'}
+                    bgColor={data.isFollowed ? 'inherit' : '#5cb85c'}
+                    isFollowed={data.isFollowed}
                   >
                     {data.isFollowed ? '언팔로우' : '+ 팔로우'}
                   </StyledButton>
@@ -300,9 +301,11 @@ const StyledButton = styled(`button`)`
   height: 30px;
   width: 90px;
   border-radius: 30px;
+  border: 0.13rem solid #5cb85c;
   background-color: ${({ bgColor }) => bgColor};
-  color: #ffffff;
+  color: ${({ isFollowed }) => (isFollowed ? '#5cb85c' : `#fff`)};
   font-size: 1rem;
+  font-weight: 700;
 `;
 
 const NoContents = styled.div`

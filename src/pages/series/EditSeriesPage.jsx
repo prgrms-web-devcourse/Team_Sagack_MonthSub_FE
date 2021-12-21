@@ -140,7 +140,7 @@ const EditSeriesPage = () => {
             <form onSubmit={handleSubmit}>
               <Section>
                 <Radio
-                  names={[
+                  labels={[
                     'poem',
                     'novel',
                     'interview',

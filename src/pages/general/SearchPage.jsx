@@ -106,7 +106,7 @@ export default SearchPage;
 const ErrorMessage = styled.div`
   color: #ff0000;
   font-size: ${theme.font.base};
-  margin-top: 10px;
+  margin: 1rem 0 1.6rem 0;
 `;
 
 const SearchForm = styled.form`

@@ -38,10 +38,10 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
 
   return (
     <Container onClick={handleClick}>
-      {typeof likeCount === 'boolean' ? '' : <span>좋아요 {count}</span>}
       <IconWrapper color={userInfo.userId ? theme.color.red : theme.color.gray}>
         {state ? <Icons.Like /> : <Icons.LikeBorder />}
       </IconWrapper>
+      {typeof likeCount === 'boolean' ? '' : <Count>{count}</Count>}
     </Container>
   );
 };
@@ -65,4 +65,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Count = styled.span`
+  margin-left: 0.2rem;
 `;
