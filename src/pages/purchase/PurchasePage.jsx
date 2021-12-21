@@ -6,18 +6,16 @@ import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
 
 const initialData = {
-  series: {
-    email: '',
-    title: '',
-    thumbnail: '',
-    category: '',
-    price: 0,
-    articleCount: 0,
-    startDate: '',
-    endDate: '',
-    date: [],
-    time: '',
-  },
+  email: '',
+  title: '',
+  thumbnail: '',
+  category: '',
+  price: 0,
+  articleCount: 0,
+  startDate: '',
+  endDate: '',
+  date: [],
+  time: '',
   user: {
     point: 0,
   },
@@ -36,7 +34,7 @@ const PurchasePage = () => {
       const { data } = await postPurchase({ id });
 
       if (!data) {
-        history.push('/server-error');
+        history.goBack();
         return;
       }
 
@@ -80,26 +78,26 @@ const PurchasePage = () => {
               alt="시리즈썸네일"
               width="30%"
               height="30%"
-              src={values.series.thumbnail}
+              src={values.thumbnail}
             />
             <Content>
               <TitleContainer>
-                <H2>{values.series.title}</H2>
-                <span>{values.series.nickname}</span>
+                <H2>{values.title}</H2>
+                <span>{values.nickname}</span>
               </TitleContainer>
               <FlexContainer>
                 <div>
-                  {values.series.startDate} ~ {values.series.endDate}
+                  {values.startDate} ~ {values.endDate}
                 </div>
-                <div>회차 : {values.series.articleCount}</div>
+                <div>회차 : {values.articleCount}</div>
               </FlexContainer>
               <FlexContainer>
                 <span>{values.time}</span>
-                <span>{values.series.date.join(',')}</span>
+                <span>{values.date}</span>
               </FlexContainer>
               <FlexContainer>
-                <Label>{values.series.category}</Label>
-                <Price>{values.series.price}</Price>
+                <Label>{values.category}</Label>
+                <Price>{values.price}</Price>
               </FlexContainer>
             </Content>
           </PurchaseSeries>

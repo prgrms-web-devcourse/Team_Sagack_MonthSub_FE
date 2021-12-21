@@ -103,14 +103,13 @@ const EditMyInfoPage = () => {
         <ErrorMessage>{errors.nickName}&nbsp;</ErrorMessage>
         <Label htmlFor="introduce">소개글</Label>
         <TextArea
-          type="text"
           width="100%"
           height="5rem"
           id="introduce"
           name="profileIntroduce"
           placeholder="한 줄 소개글이 없습니다."
           value={values.profileIntroduce || ''}
-          onChange={handleChange}
+          onInput={handleChange}
         />
         <ButtonContainer>
           <Button type="submit" onClick={handleSubmit}>
