@@ -4,6 +4,8 @@ import { Wrapper, Image, Button, Container, Loading } from '@components';
 import { useParams, useHistory } from 'react-router-dom';
 import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
+import convertDay from '@utils/convertDay';
+import convertCategory from '@utils/convertCategory';
 
 const initialData = {
   email: '',
@@ -70,7 +72,7 @@ const PurchasePage = () => {
           {isPayed && (
             <PurchaseResult>
               결제를 완료했습니다!
-              <p>남은 포인트 : {values.user.point}</p>
+              <p>남은 포인트 : {values.user.point} 원</p>
             </PurchaseResult>
           )}
           <PurchaseSeries>
@@ -83,21 +85,21 @@ const PurchasePage = () => {
             <Content>
               <TitleContainer>
                 <H2>{values.title}</H2>
-                <span>{values.nickname}</span>
+                <span>저자 {values.nickname}</span>
               </TitleContainer>
               <FlexContainer>
                 <div>
-                  {values.startDate} ~ {values.endDate}
+                  연재일: {values.startDate} ~ {values.endDate}
                 </div>
                 <div>회차 : {values.articleCount}</div>
               </FlexContainer>
               <FlexContainer>
-                <span>{values.time}</span>
-                <span>{values.date}</span>
+                <span>{convertDay(values.date).join(', ')}</span>
+                <span> {values.time}시</span>
               </FlexContainer>
               <FlexContainer>
-                <Label>{values.category}</Label>
-                <Price>{values.price}</Price>
+                <div>카테고리: {convertCategory(values.category)}</div>
+                <Price>{values.price} 원</Price>
               </FlexContainer>
             </Content>
           </PurchaseSeries>
@@ -105,25 +107,35 @@ const PurchasePage = () => {
             <ButtonContainer>
               <Button
                 type="submit"
-                width="45%"
+                width="48%"
+                height="3rem"
                 onClick={() => {
                   history.push('/series');
                 }}
+                margin={0}
               >
                 시리즈더보기
               </Button>
               <Button
                 type="submit"
-                width="45%"
+                width="48%"
+                height="3rem"
                 onClick={() => {
                   history.push(`/series/${id}`);
                 }}
+                margin={0}
               >
                 작품보기
               </Button>
             </ButtonContainer>
           ) : (
-            <Button type="submit" width="100%" onClick={handleSubmit}>
+            <Button
+              type="submit"
+              width="100%"
+              height="3rem"
+              onClick={handleSubmit}
+              margin={0}
+            >
               결제하기
             </Button>
           )}
@@ -149,6 +161,11 @@ const PurchaseSeries = styled.div`
 const Content = styled.div`
   width: 100%;
   padding: 0 0.5rem;
+  margin-left: 1.25rem;
+
+  div {
+    margin-bottom: 1rem;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -162,7 +179,7 @@ const FlexContainer = styled.div`
   width: 100%;
 `;
 
-const Label = styled.div`
+/* const Label = styled.div`
   width: 6rem;
   height: 2rem;
   font-size: 0.8rem;
@@ -171,7 +188,7 @@ const Label = styled.div`
   border-radius: 1rem;
   border: 0.1rem ${theme.color.main} solid;
   color: ${theme.color.main};
-`;
+`; */
 
 const Price = styled.h1`
   width: 100%;
@@ -183,9 +200,14 @@ const Price = styled.h1`
 const PurchaseResult = styled.div`
   padding: 2rem 1rem;
   text-align: center;
+  background-color: ${theme.color.main};
+  border-radius: 1.25rem;
+  margin-top: 1rem;
+  font-size: ${theme.font.medium};
+  line-height: 2rem;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
