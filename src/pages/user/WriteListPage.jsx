@@ -49,7 +49,7 @@ const WriteListPage = () => {
           <Header>
             <H1>연재중인 시리즈</H1>
             <Link to="/series/write">
-              <AddButton>시리즈 구독하기</AddButton>
+              <AddButton>시리즈 작성하기</AddButton>
             </Link>
           </Header>
           {values.length ? <CardList list={values} /> : <NoData />}
