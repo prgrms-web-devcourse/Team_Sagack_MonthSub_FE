@@ -4,8 +4,10 @@ import { Wrapper, FollowListItem } from '@components';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
+import { useParams, useHistory } from 'react-router-dom';
 
 const FollowListPage = () => {
+  const history = useHistory();
   const lastId = useRef(null);
   const { id } = useParams();
   const [target, setTarget] = useState(null);
@@ -19,8 +21,10 @@ const FollowListPage = () => {
         size: 10,
       },
     });
-
-    console.log(data);
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
 
     setValues(prev => [...prev, ...data.writerLikesList]);
 

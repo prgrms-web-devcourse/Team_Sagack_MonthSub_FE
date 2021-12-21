@@ -18,13 +18,13 @@ const Header = () => {
     <StyledHeader>
       <Logo src={logo.default} alt="미리보기" />
       <StyledNav items={['Home', '연재하기', '내 채널']} />
-      <Utils islogin={userInfo.username}>
-        <SearchLink to="/search" islogin={userInfo.username}>
+      <Utils islogin={userInfo.userId}>
+        <SearchLink to="/search" islogin={userInfo.userId}>
           <SearchBox>
             <StyledSearchIcon />
           </SearchBox>
         </SearchLink>
-        {userInfo.username ? (
+        {userInfo.userId ? (
           <>
             <Link to="/writes">
               <StyledButton width="6rem" circle>

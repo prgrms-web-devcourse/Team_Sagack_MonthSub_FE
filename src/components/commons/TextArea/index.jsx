@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { Title } from '@components';
 import theme from '@styles/theme';
 
 const TextArea = ({
@@ -10,7 +9,6 @@ const TextArea = ({
   disabled,
   name,
   value,
-  title,
   onChange,
   ...props
 }) => {
@@ -20,7 +18,6 @@ const TextArea = ({
 
   return (
     <Container width={width} {...props}>
-      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <StyledTextArea
         width={width}
         height={height}
@@ -38,12 +35,10 @@ TextArea.defaultProps = {
   width: 'auto',
   height: 'auto',
   disabled: false,
-  title: '',
   onChange: () => {},
 };
 
 TextArea.propTypes = {
-  title: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,

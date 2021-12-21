@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { Title } from '@components';
 import theme from '@styles/theme';
 
 const Input = ({
@@ -43,7 +42,6 @@ Input.defaultProps = {
   disabled: false,
   type: 'text',
   placeholder: '',
-  title: '',
   value: '',
   onChange: () => {},
   name: '',
@@ -52,7 +50,6 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
-  title: PropTypes.string,
   name: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

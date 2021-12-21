@@ -30,6 +30,11 @@ const SeriesListPage = () => {
   const getListUpdate = async () => {
     const { data } = await getSeries(params);
 
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     if (data.seriesList.length !== 0) {
       setSeriesId.current =
         data.seriesList[data.seriesList.length - 1].seriesId;

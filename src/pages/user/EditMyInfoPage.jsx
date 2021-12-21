@@ -69,7 +69,7 @@ const EditMyInfoPage = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <StyledWrapper whole>
       <Form onSubmit={handleSubmit}>
         <H1>내 정보 수정</H1>
         <ImageUpload
@@ -121,11 +121,15 @@ const EditMyInfoPage = () => {
           </Button>
         </ButtonContainer>
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
 export default EditMyInfoPage;
+
+const StyledWrapper = styled(Wrapper)`
+  height: calc(100vh - 5rem);
+`;
 
 const H1 = styled.h1`
   font-size: 2rem;
