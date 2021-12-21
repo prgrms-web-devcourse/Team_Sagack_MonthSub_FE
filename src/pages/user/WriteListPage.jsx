@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Wrapper, CardList, AddButton } from '@components';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
 
 const initialValues = [
@@ -25,8 +25,16 @@ const initialValues = [
 
 const WriteListPage = () => {
   const [values, setValues] = useState(initialValues);
+  const history = useHistory();
+
   const getInitialData = async () => {
     const { data } = await getMyWriteSeries();
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setValues(data.seriesList);
   };
 

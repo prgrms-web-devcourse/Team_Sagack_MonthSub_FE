@@ -10,7 +10,7 @@ import {
   AddButton,
   Loading,
 } from '@components';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
@@ -64,9 +64,16 @@ const SeriesDetailPage = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState(initialData);
+  const history = useHistory();
 
   const getInitialData = async () => {
     const { data } = await getSeriesDetail({ id });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
+
     setDetail(data);
     setLoading(false);
   };

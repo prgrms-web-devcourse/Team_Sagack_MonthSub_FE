@@ -78,15 +78,26 @@ const initialData = {
 const ChannelPage = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(initialData);
+  const history = useHistory();
   const { id } = useParams();
   const history = useHistory();
 
   const getInitialData = async () => {
     if (!id) {
       const { data } = await getMyChannel();
+
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
+
       setData(data);
     } else {
       const { data } = await getChannel(id);
+      if (!data) {
+        history.push('/server-error');
+        return;
+      }
       if (data.isMine) {
         history.push('/channel/my');
       } else {

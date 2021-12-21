@@ -11,6 +11,16 @@ export const getSeriesDetail = async ({ id }) =>
     url: `/series/${id}`,
   });
 
+export const getPopularSeries = async () =>
+  GET({
+    url: `/series/popular`,
+  });
+
+export const getRecentSeries = async () =>
+  GET({
+    url: `/series/recent`,
+  });
+
 export const postSeries = async ({ data }) =>
   POST({
     url: '/series',
