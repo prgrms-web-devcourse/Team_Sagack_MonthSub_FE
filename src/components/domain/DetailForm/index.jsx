@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
 import { Button, Image, LikeToggle } from '@components';
+import replaceEnter from '@utils/replaceEnter';
 
 const DetailForm = ({
   previousRoot,
@@ -48,7 +49,11 @@ const DetailForm = ({
       )}
     </DetailInfo>
     <DetailBody>
-      <div>{bodyText}</div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: replaceEnter(bodyText),
+        }}
+      />
       <div>
         {isMine ? (
           <Link to={`/series/edit/${parentId}`}>
