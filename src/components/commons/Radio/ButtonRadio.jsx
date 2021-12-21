@@ -7,7 +7,7 @@ import theme from '@styles/theme';
 const ButtonRadio = ({
   title,
   onChange,
-  names = [],
+  labels = [],
   checkedButton,
   disabled,
   ...props
@@ -19,18 +19,19 @@ const ButtonRadio = ({
     <div {...props}>
       <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <List horizen justifyContent="flex-start">
-        {names.map(name => (
-          <Label key={name}>
+        {labels.map(label => (
+          <label key={label} htmlFor={label}>
             <StyledRadioInput
               type="radio"
               name="category"
-              value={name}
+              value={label}
+              id={label}
               onChange={handleChange}
               disabled={disabled}
-              checked={checkedButton.toLowerCase() === name.toLowerCase()}
+              checked={checkedButton.toLowerCase() === label.toLowerCase()}
             />
-            <StyledButton circle>{name}</StyledButton>
-          </Label>
+            <StyledButton circle>{label}</StyledButton>
+          </label>
         ))}
       </List>
     </div>
@@ -46,15 +47,13 @@ ButtonRadio.defaultProps = {
 
 ButtonRadio.propTypes = {
   onChange: PropTypes.func,
-  names: PropTypes.array.isRequired,
+  labels: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
   checkedButton: PropTypes.string,
   title: PropTypes.string,
 };
 
 export default ButtonRadio;
-
-const Label = styled.label``;
 
 const StyledRadioInput = styled(Input)`
   display: none;

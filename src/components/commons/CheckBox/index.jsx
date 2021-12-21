@@ -2,18 +2,19 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@components';
+import theme from '@styles/theme';
 
-const CheckBox = ({ labels, onChange, checkedInputs, title }) => {
+const CheckBox = ({ labels, onChange, checkedInputs, title, ...props }) => {
   const handleChange = e => {
     onChange && onChange(e.target.checked, e.target.id);
   };
   return (
-    <>
+    <div {...props}>
       <Title style={{ display: title ? 'block' : 'none' }} name={title} />
       <Container>
         {labels.map(label => (
-          <Checkbox key={label}>
-            <StyledInput
+          <label key={label} htmlFor={label}>
+            <StyledCheckBoxInput
               type="checkbox"
               name="date"
               id={label}
@@ -21,11 +22,11 @@ const CheckBox = ({ labels, onChange, checkedInputs, title }) => {
               value=""
               checked={checkedInputs.includes(label)}
             />
-            <span>{label}</span>
-          </Checkbox>
+            <StyledButton circle>{label}</StyledButton>
+          </label>
         ))}
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -48,10 +49,28 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Checkbox = styled.div`
-  margin-right: 0.8rem;
+const StyledCheckBoxInput = styled(Input)`
+  display: none;
+  &:checked + div {
+    background-color: ${theme.color.main};
+    color: #fff;
+  }
 `;
 
-const StyledInput = styled(Input)`
-  margin-right: 0.2rem;
+const StyledButton = styled.div`
+  width: 6.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  margin-right: 1.5rem;
+  color: ${theme.color.main};
+  background-color: #fff;
+  box-shadow: ${theme.style.boxShadow};
+  text-align: center;
+  &:hover {
+    color: #fff;
+    background-color: ${theme.color.main};
+    transition: all 200ms ease-out;
+  }
 `;

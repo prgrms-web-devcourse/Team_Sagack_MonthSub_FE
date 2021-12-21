@@ -154,4 +154,6 @@ const Date = styled.span`
 const Paragraph = styled.div`
   width: 100%;
   height: 100%;
+  font-size: 1rem;
+  line-height: 1.7rem;
 `;

@@ -58,12 +58,12 @@ const StyledTextArea = styled.textarea`
     typeof height === 'number' ? `${height}px` : height};
   padding: 0.7rem;
   font-size: 1rem;
+  border: 0.063rem solid ${theme.color.greyMedium};
   border-radius: 0.2rem;
   resize: none;
-  line-height: 1.4rem;
-  box-shadow: ${theme.style.boxShadow};
+  line-height: 1.7rem;
+  background-color: #ffffff;
   &:focus {
-    background-color: #ffffff;
     outline: 0.063rem solid ${theme.color.main};
   }
 `;

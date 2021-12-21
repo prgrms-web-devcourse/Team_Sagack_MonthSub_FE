@@ -78,11 +78,13 @@ const Line = styled.div`
 const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
+  height: 100%;
   font-size: 1rem;
   &[name='contents'] {
     flex-basis: 1;
   }
   &:focus {
     border: none;
+    outline: none;
   }
 `;
