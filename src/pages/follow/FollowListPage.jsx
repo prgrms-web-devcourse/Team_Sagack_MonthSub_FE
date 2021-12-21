@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
 import { Wrapper, UserProfile } from '@components';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const FollowListPage = () => {
+  const history = useHistory();
   const lastId = useRef(null);
   const { id } = useParams();
   const [target, setTarget] = useState(null);
@@ -17,6 +18,11 @@ const FollowListPage = () => {
         size: 10,
       },
     });
+
+    if (!data) {
+      history.push('/server-error');
+      return;
+    }
 
     setValues(prev => [...prev, ...data.writerLikesList]);
 

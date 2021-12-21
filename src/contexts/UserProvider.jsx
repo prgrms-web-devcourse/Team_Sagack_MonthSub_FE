@@ -14,10 +14,10 @@ export const useUser = () => useContext(UserContext);
 const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({});
 
-  const addToken = ({ token, username, userId, group }) => {
+  const addToken = ({ token, userName, userId, group }) => {
     setUserInfo({
       token,
-      username,
+      userName,
       userId,
       group,
     });
@@ -32,7 +32,7 @@ const UserProvider = ({ children }) => {
     const { data } = await getMyInfo();
     setUserInfo({
       token: sessionStorage.getItem('authorization'),
-      username: data.userName,
+      userName: data.userName,
       userId: data.userId,
       group: data.group,
     });

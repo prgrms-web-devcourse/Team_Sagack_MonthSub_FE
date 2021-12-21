@@ -41,7 +41,7 @@ const SignUpPage = () => {
   });
 
   return (
-    <Wrapper>
+    <StyledWrapper whole>
       <Form onSubmit={handleSubmit}>
         <H1>회원가입</H1>
         <Input
@@ -87,17 +87,14 @@ const SignUpPage = () => {
         <SubmitButton type="submit">회원가입</SubmitButton>
         <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
       </Form>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 
 export default SignUpPage;
 
-const ErrorMessage = styled.span`
-  display: block;
-  color: #ff0000;
-  font-size: 0.75rem;
-  margin: 0.7rem 0;
+const StyledWrapper = styled(Wrapper)`
+  height: calc(100vh - 5rem);
 `;
 
 const H1 = styled.h1`
@@ -130,4 +127,11 @@ const SubmitButton = styled.button`
     background-color: ${theme.color.main};
     color: #041b1d;
   }
+`;
+
+const ErrorMessage = styled.span`
+  display: block;
+  color: #ff0000;
+  font-size: 0.75rem;
+  margin: 0.7rem 0;
 `;
