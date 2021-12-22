@@ -143,7 +143,7 @@ const HomePage = () => {
           />
           <Wrapper className="customWrapper">
             <StyledUserList list={popularWriterList} title="인기 작가" />
-            {hasAuth ? (
+            {hasAuth && purChaseSeriesList.length > 0 ? (
               <div>
                 <SectionTitle>
                   <div>구독중인 시리즈</div>
