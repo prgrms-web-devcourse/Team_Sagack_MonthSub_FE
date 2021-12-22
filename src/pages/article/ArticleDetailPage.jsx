@@ -4,6 +4,7 @@ import { Wrapper, Button, Loading } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
+import replaceEnter from '@utils/replaceEnter';
 
 const ArticleDetailPage = () => {
   const history = useHistory();
@@ -72,7 +73,11 @@ const ArticleDetailPage = () => {
             </ImageCover>
           </ImageContainer>
           <Wrapper>
-            <Paragraph>{article.contents}</Paragraph>
+            <Paragraph
+              dangerouslySetInnerHTML={{
+                __html: replaceEnter(article.contents),
+              }}
+            />
           </Wrapper>
         </>
       )}
@@ -84,7 +89,7 @@ export default ArticleDetailPage;
 
 const Container = styled.div`
   background-color: #fff;
-  height: calc(100vh - 5rem);
+  min-height: calc(100vh - 5rem);
   margin-top: 5rem;
 `;
 
