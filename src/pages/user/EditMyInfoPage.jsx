@@ -7,6 +7,9 @@ import { getMyInfo, patchMyInfo } from '@apis/user';
 import theme from '@styles/theme';
 import jsonBlob from '@utils/createJsonBlob';
 
+const DEFAULT_PROFILE_IMAGE =
+  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/defaultProfile.jpg';
+
 const EditMyInfoPage = () => {
   const history = useHistory();
   const {
@@ -21,7 +24,7 @@ const EditMyInfoPage = () => {
       userName: '',
       nickName: '',
       profileIntroduce: '',
-      profileKeyUrl: '',
+      profileKeyUrl: DEFAULT_PROFILE_IMAGE,
       profileKeyFile: {},
     },
     onSubmit: async requestData => {
@@ -76,7 +79,7 @@ const EditMyInfoPage = () => {
         <H1>내 정보 수정</H1>
         <ImageUpload
           onChange={handleImageUpload}
-          src={values.profileKeyUrl}
+          src={values.profileKeyUrl || DEFAULT_PROFILE_IMAGE}
           name="profileKey"
           circle
           id="profileKey"
