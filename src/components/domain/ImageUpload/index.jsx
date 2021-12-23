@@ -5,9 +5,6 @@ import { Upload, Button } from '@components';
 import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
-// const DEFAULT_PROFILE_IMAGE =
-//   'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/monthsub_default_profile.jpg';
-
 const ImageUpload = ({
   onChange,
   buttonName,
@@ -18,7 +15,7 @@ const ImageUpload = ({
   ...props
 }) => (
   <Container wide={wide} {...props}>
-    <UploadImage fileImageUrl={src || ''} circle={circle} wide={wide} />
+    <UploadImage fileImageUrl={src} circle={circle} wide={wide} />
     <ImageCover wide={wide} />
     <StyledUpload onChange={onChange} name={name} wide={wide}>
       <StyledButton wide={wide} width="6.25rem">

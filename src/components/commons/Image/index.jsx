@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const DEFAULT_PROFILE_IMAGE =
+  'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/defaultProfile.jpg';
+
 const Image = ({ src, width, height, alt, placeholder, ...props }) => (
   <img
-    src={src || placeholder}
+    src={src || DEFAULT_PROFILE_IMAGE}
     alt={alt}
     width={width}
     height={height}
+    placeholder={placeholder}
     {...props}
   />
 );
 
 Image.defaultProps = {
-  src: '',
+  src: DEFAULT_PROFILE_IMAGE,
   width: 0,
   height: 0,
-  placeholder: 'https://via.placeholder.com/200',
+  placeholder: DEFAULT_PROFILE_IMAGE,
 };
 
 Image.propTypes = {
