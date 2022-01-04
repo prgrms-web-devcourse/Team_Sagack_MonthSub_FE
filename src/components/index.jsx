@@ -40,4 +40,4 @@ export { default as AddButton } from './commons/Button/AddButton';
 export { default as Loading } from './commons/Loading';
 export { default as NoData } from './commons/NoData';
 export { default as FollowListItem } from './domain/FollowListItem';
-export { default as SeriesCreateForm } from './domain/SeriesForm/SeriesCreateForm';
+export { default as SeriesForm } from './domain/SeriesForm';

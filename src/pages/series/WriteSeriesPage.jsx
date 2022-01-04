@@ -1,9 +1,9 @@
 import React from 'react';
-import { Wrapper, SeriesCreateForm } from '@components';
+import { Wrapper, SeriesForm } from '@components';
 
 const WriteSeriesPage = () => (
   <Wrapper>
-    <SeriesCreateForm />
+    <SeriesForm />
   </Wrapper>
 );
 
