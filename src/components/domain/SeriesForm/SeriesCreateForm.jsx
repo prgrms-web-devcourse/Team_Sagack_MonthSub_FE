@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  Wrapper,
   ImageUpload,
   ConfirmCancleButtons,
   Radio,
   CheckBox,
   Input,
   Title,
+  List,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -89,117 +89,110 @@ const SeriesCreateForm = () => {
   };
 
   return (
-    <>
-      <StyledImageUpload
-        onChange={handleImageUpload}
-        name="thumbnail"
-        src={values.thumbnailUrl}
-        wide={+true}
-      />
-      <Wrapper>
-        <form onSubmit={handleSubmit}>
-          <Section>
-            <Radio
-              labels={[
-                'poem',
-                'novel',
-                'interview',
-                'essay',
-                'critique',
-                'etc',
-              ]}
+    <form onSubmit={handleSubmit}>
+      <Section>
+        <StyledImageUpload
+          onChange={handleImageUpload}
+          name="thumbnail"
+          src={values.thumbnailUrl}
+          wide={+true}
+        />
+      </Section>
+      <Section>
+        <Radio
+          labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+          onChange={handleChange}
+          checkedButton={values.category}
+          title="카테고리"
+        />
+      </Section>
+      <Section>
+        <SeriesEditor
+          onChange={handleChange}
+          value={values}
+          title="시리즈 소개"
+        />
+      </Section>
+      <Section>
+        <StyledList horizen>
+          <PeriodInput
+            title="모집기간"
+            startName="subscribeStartDate"
+            startValue={values.subscribeStartDate}
+            startMin={getToday()}
+            endName="subscribeEndDate"
+            endValue={values.subscribeEndDate}
+            endMin={calculateLaterDate(values.subscribeStartDate, 1)}
+            onChange={handleChange}
+          />
+          <PeriodInput
+            title="연재기간"
+            startName="seriesStartDate"
+            startValue={values.seriesStartDate}
+            startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+            endName="seriesEndDate"
+            endValue={values.seriesEndDate}
+            endMin={calculateLaterDate(values.seriesStartDate, 1)}
+            onChange={handleChange}
+          />
+        </StyledList>
+      </Section>
+      <Section>
+        <StyledList horizen>
+          <div>
+            <Title name="연재 시간" />
+            <Input
+              width="22rem"
+              type="time"
+              name="uploadTime"
+              value={values.uploadTime}
               onChange={handleChange}
-              checkedButton={values.category}
-              title="카테고리"
             />
-          </Section>
-          <Section>
-            <SeriesEditor
+          </div>
+          <div>
+            <Title name="총 회차" />
+            <Input
+              width="22rem"
+              type="number"
+              name="articleCount"
+              value={values.articleCount}
               onChange={handleChange}
-              value={values}
-              title="시리즈 소개"
+              min={1}
             />
-          </Section>
-          <VerticalSection>
-            <PeriodInput
-              title="모집기간"
-              startName="subscribeStartDate"
-              startValue={values.subscribeStartDate}
-              startMin={getToday()}
-              endName="subscribeEndDate"
-              endValue={values.subscribeEndDate}
-              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
-              onChange={handleChange}
-            />
-            <PeriodInput
-              title="연재기간"
-              startName="seriesStartDate"
-              startValue={values.seriesStartDate}
-              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
-              endName="seriesEndDate"
-              endValue={values.seriesEndDate}
-              endMin={calculateLaterDate(values.seriesStartDate, 1)}
-              onChange={handleChange}
-            />
-          </VerticalSection>
-          <VerticalSection>
-            <div>
-              <Title name="연재 시간" />
-              <Input
-                width="22rem"
-                type="time"
-                name="uploadTime"
-                value={values.uploadTime}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Title name="총 회차" />
-              <Input
-                width="22rem"
-                type="number"
-                name="articleCount"
-                value={values.articleCount}
-                onChange={handleChange}
-                min={1}
-              />
-            </div>
-          </VerticalSection>
+          </div>
+        </StyledList>
+      </Section>
 
-          <Section>
-            <div>
-              <Title name="구독료" />
-              <Input
-                width="22rem"
-                type="number"
-                value={values.price}
-                name="price"
-                onChange={handleChange}
-                min={0}
-              />
-            </div>
-          </Section>
+      <Section>
+        <Title name="구독료" />
+        <Input
+          width="22rem"
+          type="number"
+          value={values.price}
+          name="price"
+          onChange={handleChange}
+          min={0}
+        />
+      </Section>
 
-          <Section>
-            <CheckBox
-              title="연재 요일"
-              labels={[
-                'monday',
-                'tuesday',
-                'wednesday',
-                'thursday',
-                'friday',
-                'saturday',
-                'sunday',
-              ]}
-              checkedInputs={checkedInputs}
-              onChange={handleSelectDays}
-            />
-          </Section>
-          <ConfirmCancleButtons confirmName="제출" />
-        </form>
-      </Wrapper>
-    </>
+      <Section>
+        <CheckBox
+          title="연재 요일"
+          labels={[
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+          ]}
+          checkedInputs={checkedInputs}
+          onChange={handleSelectDays}
+        />
+      </Section>
+      <ConfirmCancleButtons confirmName="제출" />
+    </form>
   );
 };
 
@@ -209,14 +202,13 @@ const Section = styled.section`
   margin-bottom: 3rem;
 `;
 
-const VerticalSection = styled.div`
-  display: flex;
-  margin-bottom: 3rem;
+const StyledImageUpload = styled(ImageUpload)`
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+`;
+
+const StyledList = styled(List)`
   & > div {
     margin-right: 1.5rem;
   }
-`;
-
-const StyledImageUpload = styled(ImageUpload)`
-  margin-top: 5rem;
 `;
