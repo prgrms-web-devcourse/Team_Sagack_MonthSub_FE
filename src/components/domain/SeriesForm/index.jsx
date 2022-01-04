@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {
@@ -20,88 +20,98 @@ import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 
-const SeriesForm = ({ edit, param, getData, ...props }) => {
+const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
   const [checkedInputs, setCheckedInputs] = useState([]);
-  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
-    initialValues: {
-      title: '',
-      introduceText: '',
-      introduceSentence: '',
-      price: 0,
-      subscribeStartDate: '',
-      subscribeEndDate: '',
-      seriesStartDate: '',
-      seriesEndDate: '',
-      category: '',
-      uploadTime: '',
-      articleCount: 0,
-      thumbnailFile: '',
-      thumbnailUrl: '',
-    },
+  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
+    useForm({
+      initialValues: {
+        title: '',
+        introduceText: '',
+        introduceSentence: '',
+        price: 0,
+        subscribeStartDate: '',
+        subscribeEndDate: '',
+        seriesStartDate: '',
+        seriesEndDate: '',
+        category: '',
+        uploadTime: '',
+        articleCount: 0,
+        thumbnailFile: '',
+        thumbnailUrl: '',
+      },
 
-    onSubmit: async values => {
-      if (checkedInputs.length === 0) {
-        alert('요일을 선택해주세요!');
-        return;
-      }
-
-      try {
-        const postSeriesForm = async values => {
-          const postRequest = {
-            ...values,
-            uploadDate: checkedInputs,
-            articleCount: Number(values.articleCount),
-            price: Number(values.price),
-          };
-          const putRequest = {
-            writeId: values.writeId,
-            title: values.title,
-            introduceText: values.introduceText,
-            introduceSentence: values.introduceSentence,
-            uploadDate: checkedInputs,
-            uploadTime: values.uploadTime,
-          };
-
-          const formData = new FormData();
-          formData.append('file', values.thumbnailFile);
-          formData.append('request', jsonBlob(edit ? putRequest : postRequest));
-
-          const response = edit
-            ? await postSeries({
-                data: formData,
-              })
-            : await putSeries({
-                param,
-                data: formData,
-              });
-          const { seriesId } = response.data;
-
-          seriesId && history.push(`/series/${seriesId}`);
-        };
-
-        postSeriesForm(values);
-      } catch (error) {
-        alert(error);
-      }
-    },
-    validate: values => {
-      const newErrors = {};
-      for (const key in values) {
-        if (!values[key]) {
-          newErrors.empty = `${convertSeriesInputName(key)}을 입력해주세요!`;
-          alert(`${convertSeriesInputName(key)}을 입력해주세요!`);
-          break;
+      onSubmit: async values => {
+        if (checkedInputs.length === 0) {
+          alert('요일을 선택해주세요!');
+          return;
         }
-      }
-      if (edit && values.uploadDate.length !== checkedInputs.length) {
-        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-        alert('요일 수가 일치하지 않습니다!');
-      }
 
-      return newErrors;
-    },
-  });
+        try {
+          const postSeriesForm = async values => {
+            const postRequest = {
+              ...values,
+              uploadDate: checkedInputs,
+              articleCount: Number(values.articleCount),
+              price: Number(values.price),
+            };
+            const putRequest = {
+              writeId: values.writeId,
+              title: values.title,
+              introduceText: values.introduceText,
+              introduceSentence: values.introduceSentence,
+              uploadDate: checkedInputs,
+              uploadTime: values.uploadTime,
+            };
+
+            const formData = new FormData();
+            formData.append('file', values.thumbnailFile);
+            formData.append(
+              'request',
+              jsonBlob(edit ? putRequest : postRequest),
+            );
+            const response = edit
+              ? await putSeries({
+                  id: param,
+                  data: formData,
+                })
+              : await postSeries({
+                  data: formData,
+                });
+
+            const { seriesId } = response.data;
+            seriesId && history.push(`/series/${seriesId}`);
+          };
+
+          postSeriesForm(values);
+        } catch (error) {
+          alert(error);
+        }
+      },
+      validate: values => {
+        const newErrors = {};
+        for (const key in values) {
+          if (!values[key]) {
+            newErrors.empty = `${convertSeriesInputName(key)}을 입력해주세요!`;
+            alert(`${convertSeriesInputName(key)}을 입력해주세요!`);
+            break;
+          }
+        }
+        if (edit && values.uploadDate.length !== checkedInputs.length) {
+          newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+          alert('요일 수가 일치하지 않습니다!');
+        }
+
+        return newErrors;
+      },
+    });
+
+  useEffect(() => {
+    if (edit) {
+      setValues(seriesData);
+      setCheckedInputs(seriesData.uploadDate);
+    }
+  }, [seriesData, edit]);
 
   const handleSelectDays = (checked, value) => {
     if (checked) {
@@ -226,13 +236,13 @@ const SeriesForm = ({ edit, param, getData, ...props }) => {
 
 SeriesForm.defaultProps = {
   edit: false,
-  getData: {},
+  seriesData: {},
   param: '',
 };
 
 SeriesForm.propTypes = {
   edit: PropTypes.bool,
-  getData: PropTypes.object,
+  seriesData: PropTypes.object,
   param: PropTypes.string,
 };
 
