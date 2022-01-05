@@ -12,114 +12,44 @@ import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
 import { getPopularSeries, getRecentSeries } from '@apis/series';
 
-const popularSeriesListInit = [
-  {
-    isLiked: false,
-    userId: 0,
-    writerId: 0,
-    seriesId: 0,
-    nickname: '',
-    thumbnail: '',
-    title: '',
-    introduceSentence: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    subscribeStatus: '',
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    likes: 0,
-    category: '',
-  },
-];
-
-const popularWriterListInit = [
-  {
-    userId: 0,
-    writerId: 0,
-    nickname: '',
-    profileImage: '',
-    subscribeStatus: '',
-  },
-];
-
-const recentSeriesListInit = [
-  {
-    isLiked: false,
-    userId: 0,
-    writerId: 0,
-    seriesId: 0,
-    nickname: '',
-    thumbnail: '',
-    title: '',
-    introduceSentence: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    subscribeStatus: '',
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    likes: 0,
-    category: '',
-  },
-];
-
-const purChaseSeriesListInit = [
-  {
-    isLiked: false,
-    userId: 0,
-    writerId: 0,
-    seriesId: 0,
-    nickname: '',
-    thumbnail: '',
-    title: '',
-    introduceSentence: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    subscribeStatus: '',
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    likes: 0,
-    category: '',
-  },
-];
-
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
+  const [values, setValues] = useState({});
   const hasAuth = sessionStorage.getItem('authorization');
-
-  const [popularSeriesList, setPopularSeriesList] = useState(
-    popularSeriesListInit,
-  );
-  const [popularWriterList, setPopularWriterList] = useState(
-    popularWriterListInit,
-  );
-  const [recentSeriesList, setRecentSeriesList] =
-    useState(recentSeriesListInit);
-
-  const [purChaseSeriesList, setPurChaseSeriesList] = useState(
-    purChaseSeriesListInit,
-  );
 
   const getInitialData = async () => {
     const popularSeriesResponse = await getPopularSeries();
     popularSeriesResponse.data
-      ? setPopularSeriesList(popularSeriesResponse.data.seriesList)
-      : setPopularSeriesList('');
+      ? setValues(prev => ({
+          ...prev,
+          popularSeriesList: popularSeriesResponse.data.seriesList,
+        }))
+      : setValues(values);
 
     const recentSeriesResponse = await getRecentSeries();
     recentSeriesResponse.data
-      ? setRecentSeriesList(recentSeriesResponse.data.seriesList)
-      : setRecentSeriesList('');
+      ? setValues(prev => ({
+          ...prev,
+          recentSeriesList: recentSeriesResponse.data.seriesList,
+        }))
+      : setValues(values);
 
     const popularWritersResponse = await getPopularWriters();
     popularWritersResponse.data
-      ? setPopularWriterList(popularWritersResponse.data.popularWriterList)
-      : setPopularWriterList('');
+      ? setValues(prev => ({
+          ...prev,
+          popularWriterList: popularWritersResponse.data.popularWriterList,
+        }))
+      : setValues(values);
 
     if (hasAuth) {
       const purChaseSeriesResponse = await getMyPurchaseSeries();
       purChaseSeriesResponse.data
-        ? setPurChaseSeriesList(purChaseSeriesResponse.data.seriesList)
-        : setPurChaseSeriesList('');
+        ? setValues(prev => ({
+            ...prev,
+            purChaseSeriesList: purChaseSeriesResponse.data.seriesList,
+          }))
+        : setValues(values);
     }
 
     setLoading(false);
@@ -136,20 +66,20 @@ const HomePage = () => {
       ) : (
         <>
           <CardSlider
-            list={popularSeriesList}
+            list={values.popularSeriesList}
             parentOf="main"
             itemsCountOnRow={5}
             itemsCountOnCol={1}
           />
           <Wrapper className="customWrapper">
-            <StyledUserList list={popularWriterList} title="인기 작가" />
-            {hasAuth && purChaseSeriesList.length > 0 ? (
+            <StyledUserList list={values.popularWriterList} title="인기 작가" />
+            {hasAuth && values.purChaseSeriesList.length > 0 ? (
               <div>
                 <SectionTitle>
                   <div>구독중인 시리즈</div>
                 </SectionTitle>
                 <RecentSeriesContainer>
-                  <CardList list={purChaseSeriesList} />
+                  <CardList list={values.purChaseSeriesList} />
                 </RecentSeriesContainer>
               </div>
             ) : (
@@ -159,7 +89,7 @@ const HomePage = () => {
               <div>최신 시리즈</div>
             </SectionTitle>
             <RecentSeriesContainer>
-              <CardList list={recentSeriesList} />
+              <CardList list={values.recentSeriesList} />
             </RecentSeriesContainer>
           </Wrapper>
         </>

@@ -20,13 +20,7 @@ const EditMyInfoPage = () => {
     handleSubmit,
     handleImageUpload,
   } = useForm({
-    initialValues: {
-      userName: '',
-      nickName: '',
-      profileIntroduce: '',
-      profileKeyUrl: DEFAULT_PROFILE_IMAGE,
-      profileKeyFile: {},
-    },
+    initialValues: {},
     onSubmit: async requestData => {
       const formData = new FormData();
       formData.append('file', requestData.profileKeyFile);
