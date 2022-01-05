@@ -11,7 +11,6 @@ const WriteArticlePage = () => {
   const [articleData, setArticleData] = useState({
     title: '',
     contents: '',
-    createdAt: '',
     thumbnailFile: '',
     thumbnailUrl: '',
   });
@@ -30,7 +29,6 @@ const WriteArticlePage = () => {
     setArticleData({
       title: data.title,
       contents: data.contents,
-      createdAt: data.createdAt,
       thumbnailFile: '',
       thumbnailUrl: data.thumbnailKey,
     });

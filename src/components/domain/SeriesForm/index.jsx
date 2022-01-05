@@ -88,6 +88,10 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
         for (const key in values) {
           if (!values[key] || values[key].length === 0) {
+            if (edit && key === 'thumbnailFile') {
+              return;
+            }
+
             newErrors.empty = createEmptyValueMessage(key);
             alert(newErrors.empty);
 

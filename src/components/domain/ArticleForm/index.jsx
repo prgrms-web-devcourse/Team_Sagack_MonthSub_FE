@@ -51,6 +51,10 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
 
         for (const key in values) {
           if (!values[key]) {
+            if (edit && key === 'thumbnailFile') {
+              return;
+            }
+
             newErrors.empty = createEmptyValueMessage(key);
             alert(newErrors.empty);
 
