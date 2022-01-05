@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { postArticle, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
 import { useHistory } from 'react-router-dom';
+import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import ArticleEditor from './ArticleEditor';
 
 const ArticleForm = ({ edit, param, articleData, ...props }) => {
@@ -14,9 +15,9 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
+        thumbnailFile: '',
         title: '',
         contents: '',
-        thumbnailFile: '',
         thumbnailUrl: '',
       },
 
@@ -47,18 +48,16 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
       },
       validate: values => {
         const newErrors = {};
-        if (!values.title) {
-          newErrors.title = '제목을 입력해주세요.';
-          alert('제목을 입력해주세요');
+
+        for (const key in values) {
+          if (!values[key]) {
+            newErrors.empty = createEmptyValueMessage(key);
+            alert(newErrors.empty);
+
+            break;
+          }
         }
-        if (!values.contents) {
-          newErrors.contents = '내용을 입력해주세요.';
-          alert('내용을 입력해주세요');
-        }
-        if (!edit && !values.thumbnailFile) {
-          newErrors.thumbnailFile = '이미지를 업로드 해주세요.';
-          alert('이미지를 업로드 해주세요!');
-        }
+
         return newErrors;
       },
     });

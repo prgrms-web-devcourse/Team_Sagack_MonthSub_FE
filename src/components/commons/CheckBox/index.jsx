@@ -6,20 +6,21 @@ import theme from '@styles/theme';
 
 const CheckBox = ({ labels, onChange, checkedInputs, title, ...props }) => {
   const handleChange = e => {
-    onChange && onChange(e.target.checked, e.target.id);
+    onChange && onChange(e);
   };
+
   return (
     <div {...props}>
-      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      {title && <Title name={title} />}
       <Container>
         {labels.map(label => (
           <label key={label} htmlFor={label}>
             <StyledCheckBoxInput
               type="checkbox"
-              name="date"
+              name="uploadDate"
               id={label}
               onChange={handleChange}
-              value=""
+              value={label}
               checked={checkedInputs.includes(label)}
             />
             <StyledButton circle>{label}</StyledButton>

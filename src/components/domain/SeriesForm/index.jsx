@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {
@@ -14,7 +14,7 @@ import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import jsonBlob from '@utils/createJsonBlob';
-import convertSeriesInputName from '@utils/convertSeriesInputName';
+import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
@@ -22,36 +22,31 @@ import SeriesEditor from './SeriesEditor';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
-  const [checkedInputs, setCheckedInputs] = useState([]);
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
+        thumbnailFile: '',
+        category: '',
         title: '',
         introduceText: '',
         introduceSentence: '',
-        price: 0,
         subscribeStartDate: '',
         subscribeEndDate: '',
         seriesStartDate: '',
         seriesEndDate: '',
-        category: '',
         uploadTime: '',
-        articleCount: 0,
-        thumbnailFile: '',
+        articleCount: '',
+        price: '',
+        uploadDate: [],
         thumbnailUrl: '',
       },
 
       onSubmit: async values => {
-        if (checkedInputs.length === 0) {
-          alert('요일을 선택해주세요!');
-          return;
-        }
-
         try {
           const postSeriesForm = async values => {
             const postRequest = {
               ...values,
-              uploadDate: checkedInputs,
+              uploadDate: values.uploadDate,
               articleCount: Number(values.articleCount),
               price: Number(values.price),
             };
@@ -60,7 +55,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
               title: values.title,
               introduceText: values.introduceText,
               introduceSentence: values.introduceSentence,
-              uploadDate: checkedInputs,
+              uploadDate: values.uploadDate,
               uploadTime: values.uploadTime,
             };
 
@@ -90,16 +85,19 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       },
       validate: values => {
         const newErrors = {};
+
         for (const key in values) {
-          if (!values[key]) {
-            newErrors.empty = `${convertSeriesInputName(key)}을 입력해주세요!`;
-            alert(`${convertSeriesInputName(key)}을 입력해주세요!`);
+          if (!values[key] || values[key].length === 0) {
+            newErrors.empty = createEmptyValueMessage(key);
+            alert(newErrors.empty);
+
             break;
           }
         }
-        if (edit && values.uploadDate.length !== checkedInputs.length) {
+
+        if (edit && seriesData.uploadDate.length !== values.uploadDate.length) {
           newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-          alert('요일 수가 일치하지 않습니다!');
+          alert(newErrors.dayLength);
         }
 
         return newErrors;
@@ -109,17 +107,8 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   useEffect(() => {
     if (edit) {
       setValues(seriesData);
-      setCheckedInputs(seriesData.uploadDate);
     }
   }, [seriesData, edit]);
-
-  const handleSelectDays = (checked, value) => {
-    if (checked) {
-      setCheckedInputs([...checkedInputs, value]);
-    } else {
-      setCheckedInputs(checkedInputs.filter(el => el !== value));
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit} {...props}>
@@ -225,8 +214,8 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             'saturday',
             'sunday',
           ]}
-          checkedInputs={checkedInputs}
-          onChange={handleSelectDays}
+          checkedInputs={values.uploadDate}
+          onChange={handleChange}
         />
       </Section>
       <ConfirmCancleButtons confirmName="제출" />

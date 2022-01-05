@@ -19,6 +19,7 @@ const EditSeriesPage = () => {
     seriesEndDate: '',
     category: '',
     uploadTime: '',
+    uploadDate: [],
     articleCount: 0,
     thumbnailFile: '',
     thumbnailUrl: '',
