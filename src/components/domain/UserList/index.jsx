@@ -12,7 +12,7 @@ const UserList = ({ list, title, moreLink, ...props }) => (
     titleItem={
       <div className="seeMore">
         {moreLink ? (
-          list.length > 10 ? (
+          list.length === 10 ? (
             <Link to={moreLink}>
               <Button margin={0} width="6.25rem" height="1.875rem">
                 더보기
