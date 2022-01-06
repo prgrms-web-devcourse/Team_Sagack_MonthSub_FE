@@ -72,7 +72,7 @@ const HomePage = () => {
             itemsCountOnCol={1}
           />
           <Wrapper className="customWrapper">
-            <UserList list={value.popularWriterList} title="인기 작가" />
+            <UserList list={values.popularWriterList} title="인기 작가" />
             
             {hasAuth && values.purChaseSeriesList.length > 0 ? (
               <SectionContainer title="구독중인 시리즈">
