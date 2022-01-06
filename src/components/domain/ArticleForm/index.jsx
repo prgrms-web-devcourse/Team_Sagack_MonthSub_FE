@@ -40,6 +40,7 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
             : await postArticle({
                 data: formData,
               });
+
           response.status === 200 &&
             history.push(`/series/${seriesId}/article/${response.data.id}`);
         } catch (error) {
@@ -54,7 +55,6 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
             if (edit && key === 'thumbnailFile') {
               return;
             }
-
             newErrors.empty = createEmptyValueMessage(key);
             alert(newErrors.empty);
 

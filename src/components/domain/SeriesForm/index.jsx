@@ -91,7 +91,6 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             if (edit && key === 'thumbnailFile') {
               return;
             }
-
             newErrors.empty = createEmptyValueMessage(key);
             alert(newErrors.empty);
 
