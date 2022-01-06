@@ -163,13 +163,12 @@ const SeriesDetailPage = () => {
             </MainArea>
             <ArticleArea>
               <div className="articleAreaHeader">
-                <SectionContainer title="연재 목록">
-                  {detail.isMine ? (
-                    <Link to={`/series/${detail.series.id}/article/write`}>
-                      <AddButton>새 아티클 작성하기</AddButton>
-                    </Link>
-                  ) : null}
-                </SectionContainer>
+                <SectionContainer title="연재 목록" />
+                {detail.isMine ? (
+                  <Link to={`/series/${detail.series.id}/article/write`}>
+                    <AddButton>새 아티클 작성하기</AddButton>
+                  </Link>
+                ) : null}
               </div>
               <SectionContainer>
                 {detail.articleList.length ? (
@@ -290,6 +289,7 @@ const ArticleArea = styled.div`
 
   .articleAreaHeader {
     display: flex;
+    justify-content: space-between;
 
     > *:nth-of-type(2) {
       display: flex;
