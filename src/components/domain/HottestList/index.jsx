@@ -7,7 +7,7 @@ import theme from '@styles/theme';
 const HottestList = ({ list, ...props }) => (
   <ListCardContainer {...props}>
     {list.map(data => (
-      <CardContainer>
+      <CardContainer key={data.seriesId}>
         <Link to={`/series/${data.seriesId}`}>
           <HottestImage src={data.thumbnail} alt="cardThumb" />
           <HottestInfo>
