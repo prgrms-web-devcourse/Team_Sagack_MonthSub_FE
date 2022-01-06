@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 
 const Title = ({
-  name,
-  h1,
+  children,
   h2,
   h3,
   h4,
@@ -15,30 +14,20 @@ const Title = ({
   color,
   weight,
   marginBottom,
+  extraItem,
   ...props
 }) => {
-  const Tag = h1
-    ? 'h1'
-    : h2
-    ? 'h2'
-    : h3
-    ? 'h3'
-    : h4
-    ? 'h4'
-    : h5
-    ? 'h5'
-    : h6
-    ? 'h6'
-    : 'div';
-
+  const Tag = h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : h5 ? 'h5' : h6 ? 'h6' : 'h1';
   const StyledTag = styled(Tag)`
-    font-size: ${({ size }) => (typeof size === 'number' ? `${size}px` : size)};
+    font-size: ${({ size }) =>
+      typeof size === 'number' ? `${size}rem` : size};
     font-weight: ${({ weight }) => weight};
     color: ${({ color }) => color};
     margin-bottom: ${({ marginBottom }) =>
-      typeof marginBottom === 'number' ? `${marginBottom}px` : marginBottom};
+      typeof marginBottom === 'number' ? `${marginBottom}rem` : marginBottom};
+    display: flex;
+    justify-content: space-between;
   `;
-
   return (
     <StyledTag
       size={size}
@@ -47,13 +36,12 @@ const Title = ({
       marginBottom={marginBottom}
       {...props}
     >
-      {name}
+      {children}
+      {extraItem}
     </StyledTag>
   );
 };
-
 Title.defaultProps = {
-  h1: true,
   h2: false,
   h3: false,
   h4: false,
@@ -61,13 +49,13 @@ Title.defaultProps = {
   h6: false,
   marginBottom: '1.5rem',
   weight: 700,
-  size: theme.font.medium,
+  size: 'auto',
   color: theme.color.greyDark,
+  extraItem: null,
 };
-
 Title.propTypes = {
-  name: PropTypes.string.isRequired,
-  h1: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    .isRequired,
   h2: PropTypes.bool,
   h3: PropTypes.bool,
   h4: PropTypes.bool,
@@ -77,6 +65,6 @@ Title.propTypes = {
   marginBottom: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   weight: PropTypes.number,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  extraItem: PropTypes.node,
 };
-
 export default Title;
