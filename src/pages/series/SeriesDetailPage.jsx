@@ -7,7 +7,7 @@ import {
   ArticleList,
   DetailForm,
   Button,
-  AddButton,
+  ContentAddLink,
   Loading,
 } from '@components';
 import { useParams, Link, useHistory } from 'react-router-dom';
@@ -167,9 +167,11 @@ const SeriesDetailPage = () => {
                 <SectionTitle>연재 목록</SectionTitle>
                 <div>
                   {detail.isMine ? (
-                    <Link to={`/series/${detail.series.id}/article/write`}>
-                      <AddButton>새 아티클 작성하기</AddButton>
-                    </Link>
+                    <ContentAddLink
+                      url={`/series/${detail.series.id}/article/write`}
+                    >
+                      새 아티클 작성하기
+                    </ContentAddLink>
                   ) : null}
                 </div>
               </div>

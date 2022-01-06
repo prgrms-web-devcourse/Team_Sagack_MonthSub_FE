@@ -24,6 +24,8 @@ IconWrapper.propTypes = {
 export default IconWrapper;
 
 const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
   color: ${({ color }) => color};
 
   .MuiSvgIcon-root {

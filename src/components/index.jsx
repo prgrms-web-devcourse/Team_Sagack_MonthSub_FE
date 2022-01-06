@@ -31,7 +31,7 @@ export { default as Card } from './domain/Card';
 export { default as PopularSeriesList } from './domain/PopularSeriesList';
 export { default as HottestList } from './domain/HottestList';
 export { default as HottestCard } from './domain/HottestCard';
-export { default as AddButton } from './commons/Button/AddButton';
+export { default as ContentAddLink } from './domain/ContentAddLink';
 export { default as Loading } from './commons/Loading';
 export { default as FollowListItem } from './domain/FollowListItem';
 export { default as SeriesForm } from './domain/SeriesForm';
