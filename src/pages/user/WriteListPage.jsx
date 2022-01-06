@@ -1,48 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Wrapper, CardList, AddButton, Loading } from '@components';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
-
-const initialValues = [
-  {
-    userId: 0,
-    writerId: 0,
-    seriesId: 0,
-    nickname: '',
-    thumbnail: '',
-    title: '',
-    introduceSentence: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    subscribeStatus: '',
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    likes: 0,
-    category: '',
-  },
-];
+import { useFetch } from '@hooks';
 
 const WriteListPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [values, setValues] = useState(initialValues);
-
-  const getInitialData = async () => {
-    const { data } = await getMyWriteSeries();
-
-    if (data) {
-      setValues(data.seriesList);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getInitialData();
-  }, []);
+  const { values, isLoading } = useFetch({
+    initialValues: {},
+    apiName: getMyWriteSeries,
+  });
 
   return (
     <Wrapper>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <Container>

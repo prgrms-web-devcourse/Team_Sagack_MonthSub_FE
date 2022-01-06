@@ -1,47 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Wrapper, CardList, Loading } from '@components';
 import { getMyLikes } from '@apis/user';
 import styled from '@emotion/styled';
-
-const initialValues = [
-  {
-    userId: 0,
-    writerId: 0,
-    seriesId: 0,
-    nickname: '',
-    thumbnail: '',
-    title: '',
-    introduceSentence: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    subscribeStatus: '',
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    likes: 0,
-    category: '',
-  },
-];
+import { useFetch } from '@hooks';
 
 const MyLikeSeriesPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [values, setValues] = useState(initialValues);
-
-  const getInitialData = async () => {
-    const { data } = await getMyLikes();
-
-    if (data) {
-      setValues(data.seriesList);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getInitialData();
-  }, []);
+  const { values, isLoading } = useFetch({
+    initialValues: {},
+    apiName: getMyLikes,
+  });
 
   return (
     <Wrapper>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <Container>

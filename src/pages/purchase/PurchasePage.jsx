@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, Image, Button, Container, Loading } from '@components';
 import { useParams, useHistory } from 'react-router-dom';
@@ -6,33 +6,21 @@ import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
 import convertCategory from '@utils/convertCategory';
-
-const initialData = {
-  email: '',
-  title: '',
-  thumbnail: '',
-  category: '',
-  price: 0,
-  articleCount: 0,
-  startDate: '',
-  endDate: '',
-  date: [],
-  time: '',
-  user: {
-    point: 0,
-  },
-};
+import { useFetch } from '@hooks';
 
 const PurchasePage = () => {
   const { id } = useParams();
+  const { values, setValues, isLoading, setIsLoading } = useFetch({
+    initialValues: {},
+    apiName: getPurchaseInfo,
+    id,
+  });
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
-  const [values, setValues] = useState(initialData);
   const [isPayed, setIsPayed] = useState(false);
 
   const handleSubmit = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const { data } = await postPurchase({ id });
 
       if (!data) {
@@ -42,30 +30,15 @@ const PurchasePage = () => {
 
       setValues(data);
       setIsPayed(true);
-      setLoading(false);
+      setIsLoading(false);
     } catch (error) {
       history.goBack();
     }
   };
 
-  const getInitialData = async () => {
-    const { data } = await getPurchaseInfo({ id });
-    setValues({
-      ...data,
-      user: {
-        point: 0,
-      },
-    });
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getInitialData();
-  }, []);
-
   return (
     <Wrapper>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <Container title="결제">
@@ -178,17 +151,6 @@ const TitleContainer = styled.div`
 const FlexContainer = styled.div`
   width: 100%;
 `;
-
-/* const Label = styled.div`
-  width: 6rem;
-  height: 2rem;
-  font-size: 0.8rem;
-  text-align: center;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  border: 0.1rem ${theme.color.main} solid;
-  color: ${theme.color.main};
-`; */
 
 const Price = styled.h1`
   width: 100%;
