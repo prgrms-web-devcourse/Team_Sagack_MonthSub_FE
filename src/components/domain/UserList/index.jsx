@@ -3,15 +3,16 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Image, Button, SectionTitle } from '@components';
+import { Image, Button, SectionContainer } from '@components';
 
 const UserList = ({ list, title, moreLink, ...props }) => (
-  <UserListContainer {...props}>
-    <SectionTitle>
-      <div className="title">{title}</div>
+  <SectionContainer
+    {...props}
+    title={title}
+    titleItem={
       <div className="seeMore">
         {moreLink ? (
-          list.length < 10 ? (
+          list.length > 10 ? (
             <Link to={moreLink}>
               <Button margin={0} width="6.25rem" height="1.875rem">
                 더보기
@@ -20,7 +21,8 @@ const UserList = ({ list, title, moreLink, ...props }) => (
           ) : null
         ) : null}
       </div>
-    </SectionTitle>
+    }
+  >
     <UserListBody>
       {list.map(item => (
         <UserListWrapper key={item.userId}>
@@ -42,7 +44,7 @@ const UserList = ({ list, title, moreLink, ...props }) => (
         </UserListWrapper>
       ))}
     </UserListBody>
-  </UserListContainer>
+  </SectionContainer>
 );
 
 UserList.defaultProps = {
@@ -58,8 +60,6 @@ UserList.propTypes = {
 };
 
 export default UserList;
-
-const UserListContainer = styled.div``;
 
 const UserListBody = styled.div`
   display: flex;

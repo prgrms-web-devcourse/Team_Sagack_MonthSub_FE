@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Wrapper,
   Image,
-  SectionTitle,
   SectionContainer,
   ArticleList,
   DetailForm,
@@ -164,14 +163,13 @@ const SeriesDetailPage = () => {
             </MainArea>
             <ArticleArea>
               <div className="articleAreaHeader">
-                <SectionTitle>연재 목록</SectionTitle>
-                <div>
+                <SectionContainer title="연재 목록">
                   {detail.isMine ? (
                     <Link to={`/series/${detail.series.id}/article/write`}>
                       <AddButton>새 아티클 작성하기</AddButton>
                     </Link>
                   ) : null}
-                </div>
+                </SectionContainer>
               </div>
               <SectionContainer>
                 {detail.articleList.length ? (
@@ -298,7 +296,6 @@ const ArticleArea = styled.div`
       flex-grow: 1;
       justify-content: flex-end;
       align-items: center;
-      margin-bottom: 1.25rem;
     }
   }
 `;

@@ -4,9 +4,9 @@ import {
   Wrapper,
   CardList,
   CardSlider,
-  SectionTitle,
   Loading,
   UserList,
+  SectionContainer,
 } from '@components';
 import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
@@ -142,25 +142,17 @@ const HomePage = () => {
             itemsCountOnCol={1}
           />
           <Wrapper className="customWrapper">
-            <StyledUserList list={popularWriterList} title="인기 작가" />
+            <UserList list={popularWriterList} title="인기 작가" />
             {hasAuth && purChaseSeriesList.length > 0 ? (
-              <div>
-                <SectionTitle>
-                  <div>구독중인 시리즈</div>
-                </SectionTitle>
-                <RecentSeriesContainer>
-                  <CardList list={purChaseSeriesList} />
-                </RecentSeriesContainer>
-              </div>
+              <SectionContainer title="구독중인 시리즈">
+                <CardList list={purChaseSeriesList} />
+              </SectionContainer>
             ) : (
               ''
             )}
-            <SectionTitle>
-              <div>최신 시리즈</div>
-            </SectionTitle>
-            <RecentSeriesContainer>
+            <SectionContainer title="최신 시리즈">
               <CardList list={recentSeriesList} />
-            </RecentSeriesContainer>
+            </SectionContainer>
           </Wrapper>
         </>
       )}
@@ -174,12 +166,4 @@ const HomepageContainer = styled.div`
   .customWrapper {
     margin-top: 2rem;
   }
-`;
-
-const RecentSeriesContainer = styled.div`
-  margin-bottom: 5rem;
-`;
-
-const StyledUserList = styled(UserList)`
-  margin-bottom: 5rem;
 `;
