@@ -2,13 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
+import { Title } from '@components';
 
 const SectionContainer = ({ title, children, titleItem }) => (
   <>
-    <StyledTitle>
+    <Title size={theme.font.large} extraItem={titleItem} color="#000000">
       {title}
-      {titleItem}
-    </StyledTitle>
+    </Title>
     <StyledContainer>{children}</StyledContainer>
   </>
 );
@@ -33,11 +33,4 @@ const StyledContainer = styled.div`
   &:last-of-type {
     margin-bottom: 0;
   }
-`;
-
-const StyledTitle = styled.div`
-  font-size: ${theme.font.large};
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1.25rem;
 `;
