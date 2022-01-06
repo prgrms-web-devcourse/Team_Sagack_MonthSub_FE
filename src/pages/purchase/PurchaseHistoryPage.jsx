@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Wrapper, CardList, AddButton, Loading } from '@components';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getMyPurchaseSeries } from '@apis/user';
 import { useFetch } from '@hooks';
 
