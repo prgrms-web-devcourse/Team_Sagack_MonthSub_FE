@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, CardList, NoData, Loading } from '@components';
+import { Wrapper, CardList, Loading } from '@components';
 import { getMyLikes } from '@apis/user';
 import styled from '@emotion/styled';
 import { useFetch } from '@hooks';
@@ -19,10 +19,10 @@ const MyLikeSeriesPage = () => {
           <Header>
             <H1>관심 시리즈</H1>
           </Header>
-          {values.seriesList.length ? (
-            <CardList list={values.seriesList} />
+          {values.length ? (
+            <CardList list={values} />
           ) : (
-            <NoData />
+            <p>데이터가 존재하지 않습니다.</p>
           )}
         </Container>
       )}

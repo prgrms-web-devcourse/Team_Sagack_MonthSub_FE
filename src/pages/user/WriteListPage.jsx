@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, CardList, AddButton, NoData, Loading } from '@components';
+import { Wrapper, CardList, AddButton, Loading } from '@components';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { getMyWriteSeries } from '@apis/user';
@@ -23,10 +23,10 @@ const WriteListPage = () => {
               <AddButton>시리즈 작성하기</AddButton>
             </Link>
           </Header>
-          {values.seriesList.length ? (
-            <CardList list={values.seriesList} />
+          {values.length ? (
+            <CardList list={values} />
           ) : (
-            <NoData />
+            <p>데이터가 존재하지 않습니다.</p>
           )}
         </Container>
       )}

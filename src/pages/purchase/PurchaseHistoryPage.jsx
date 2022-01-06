@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, CardList, AddButton, Loading, NoData } from '@components';
-import { Link } from 'react-router-dom';
+import { Wrapper, CardList, AddButton, Loading } from '@components';
+import { Link, useHistory } from 'react-router-dom';
 import { getMyPurchaseSeries } from '@apis/user';
 import { useFetch } from '@hooks';
 
@@ -26,7 +26,7 @@ const PurchaseHistoryPage = () => {
           {values.seriesList.length ? (
             <CardList list={values.seriesList} />
           ) : (
-            <NoData />
+            <p>데이터가 존재하지 않습니다.</p>
           )}
         </Container>
       )}
