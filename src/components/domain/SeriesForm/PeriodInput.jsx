@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@components';
 
-const Period = ({
+const PeriodInput = ({
   title,
   startName,
   startValue,
@@ -12,7 +12,7 @@ const Period = ({
   endValue,
   endMin,
   onChange,
-  pageParam,
+  disabled,
 }) => (
   <div>
     <Title style={{ display: title ? 'block' : 'none' }} name={title} />
@@ -23,7 +23,7 @@ const Period = ({
         value={startValue}
         name={startName}
         onChange={onChange}
-        disabled={!!pageParam}
+        disabled={disabled}
         min={startMin || ''}
       />
       <Line>⎻</Line>
@@ -33,14 +33,14 @@ const Period = ({
         value={endValue}
         name={endName}
         onChange={onChange}
-        disabled={!!pageParam}
+        disabled={disabled}
         min={endMin || ''}
       />
     </Container>
   </div>
 );
 
-Period.defaultProps = {
+PeriodInput.defaultProps = {
   onChange: () => {},
   title: '',
   startName: '',
@@ -49,10 +49,10 @@ Period.defaultProps = {
   endName: '',
   endValue: '',
   endMin: '',
-  pageParam: '',
+  disabled: false,
 };
 
-Period.propTypes = {
+PeriodInput.propTypes = {
   title: PropTypes.string,
   startName: PropTypes.string,
   startValue: PropTypes.string,
@@ -61,10 +61,10 @@ Period.propTypes = {
   endValue: PropTypes.string,
   endMin: PropTypes.string,
   onChange: PropTypes.func,
-  pageParam: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
-export default Period;
+export default PeriodInput;
 
 const Line = styled.span`
   display: flex;
