@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import {
   ImageUpload,
   ConfirmCancleButtons,
-  Radio,
-  CheckBox,
+  ButtonSelect,
   Input,
   Title,
-  List,
+  Flex,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -124,10 +123,11 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
-        <Radio
+        <ButtonSelect
+          name="category"
           labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
-          checkedButton={values.category}
+          checkedItem={values.category}
           title="카테고리"
           disabled={edit}
         />
@@ -140,7 +140,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
-        <StyledList horizen>
+        <StyledFlex horizen>
           <PeriodInput
             title="모집기간"
             startName="subscribeStartDate"
@@ -163,10 +163,10 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             onChange={handleChange}
             disabled={edit}
           />
-        </StyledList>
+        </StyledFlex>
       </Section>
       <Section>
-        <StyledList horizen>
+        <StyledFlex horizen>
           <div>
             <Title name="연재 시간" />
             <Input
@@ -189,7 +189,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
               disabled={edit}
             />
           </div>
-        </StyledList>
+        </StyledFlex>
       </Section>
 
       <Section>
@@ -206,7 +206,9 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
-        <CheckBox
+        <ButtonSelect
+          type="checkbox"
+          name="uploadDate"
           title="연재 요일"
           labels={[
             'monday',
@@ -217,7 +219,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             'saturday',
             'sunday',
           ]}
-          checkedInputs={values.uploadDate}
+          checkedItem={values.uploadDate}
           onChange={handleChange}
         />
       </Section>
@@ -249,7 +251,7 @@ const StyledImageUpload = styled(ImageUpload)`
   margin-left: calc(-50vw + 50%);
 `;
 
-const StyledList = styled(List)`
+const StyledFlex = styled(Flex)`
   & > div {
     margin-right: 1.5rem;
   }
