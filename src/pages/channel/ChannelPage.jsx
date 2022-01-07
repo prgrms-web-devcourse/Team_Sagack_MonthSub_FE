@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import {
   Wrapper,
-  SectionTitle,
   SectionContainer,
   UserProfile,
   CardSlider,
@@ -166,16 +165,13 @@ const ChannelPage = () => {
 
           <Wrapper className="customWrapper">
             {data.followWriterList.length > 0 ? (
-              <SectionContainer>
-                <UserList
-                  list={data.followWriterList}
-                  title="팔로우한 작가들"
-                  moreLink={id ? `/follow/${id}` : '/follow/my'}
-                />
-              </SectionContainer>
+              <UserList
+                list={data.followWriterList}
+                title="팔로우한 작가들"
+                moreLink={id ? `/follow/${id}` : '/follow/my'}
+              />
             ) : !id ? (
-              <SectionContainer>
-                <SectionTitle>팔로우한 작가들</SectionTitle>
+              <SectionContainer title="팔로우한 작가들">
                 <NoContents>
                   팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
                 </NoContents>
@@ -183,13 +179,11 @@ const ChannelPage = () => {
             ) : null}
             {!id ? (
               data.subscribeList.length > 0 ? (
-                <SectionContainer>
-                  <SectionTitle>구독한 시리즈</SectionTitle>
+                <SectionContainer title="구독한 시리즈">
                   <CardSlider list={data.subscribeList} />
                 </SectionContainer>
               ) : (
-                <SectionContainer>
-                  <SectionTitle>구독한 시리즈</SectionTitle>
+                <SectionContainer title="구독한 시리즈">
                   <NoContents>
                     구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
                   </NoContents>
@@ -197,13 +191,11 @@ const ChannelPage = () => {
               )
             ) : null}
             {data.seriesPostList.length > 0 ? (
-              <SectionContainer>
-                <SectionTitle>작성한 시리즈</SectionTitle>
+              <SectionContainer title="작성한 시리즈">
                 <CardSlider list={data.seriesPostList} />
               </SectionContainer>
             ) : !id ? (
-              <SectionContainer>
-                <SectionTitle>작성한 시리즈</SectionTitle>
+              <SectionContainer title="작성한 시리즈">
                 <NoContents>
                   작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
                 </NoContents>
