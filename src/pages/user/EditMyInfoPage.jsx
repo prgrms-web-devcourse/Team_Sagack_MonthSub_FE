@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useForm } from '@hooks';
 import { Input, TextArea, Wrapper, ImageUpload } from '@components';
 import { useHistory } from 'react-router-dom';
-import { getMyInfo, patchMyInfo } from '@apis/user';
+import { getMyInfo, putMyInfo } from '@apis/user';
 import theme from '@styles/theme';
 import jsonBlob from '@utils/createJsonBlob';
 
@@ -32,7 +32,7 @@ const EditMyInfoPage = () => {
         }),
       );
       try {
-        await patchMyInfo(formData);
+        await putMyInfo(formData);
         history.push('/');
       } catch (error) {
         alert(error);

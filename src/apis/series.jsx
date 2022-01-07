@@ -33,9 +33,3 @@ export const putSeries = async ({ data, id }) =>
     data,
     isJsonType: true,
   });
-
-export const putSeriesImage = async ({ data, id }) =>
-  PUT({
-    url: `/series/${id}/thumbnail`,
-    data,
-  });
