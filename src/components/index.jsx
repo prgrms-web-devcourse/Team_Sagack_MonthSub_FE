@@ -34,3 +34,4 @@ export { default as SeriesForm } from './domain/SeriesForm';
 export { default as ArticleForm } from './domain/ArticleForm';
 export { default as ButtonSelect } from './domain/SelectInput/ButtonSelect';
 export { default as DropListSelect } from './domain/SelectInput/DropListSelect';
+export { default as NoData } from './commons/NoData';

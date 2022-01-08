@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, SectionContainer, UserProfile } from '@components';
+import { Button, SectionContainer, UserProfile, NoData } from '@components';
 
 const UserList = ({ list, title, moreLink, ...props }) => (
   <SectionContainer
@@ -22,7 +22,7 @@ const UserList = ({ list, title, moreLink, ...props }) => (
       </div>
     }
   >
-    <UserListBody hasContent={list.length}>
+    <UserListBody>
       {list.length ? (
         list.map(item => (
           <StyledUserProfile
@@ -35,7 +35,7 @@ const UserList = ({ list, title, moreLink, ...props }) => (
           />
         ))
       ) : (
-        <p>데이터가 존재하지 않습니다</p>
+        <NoData>유저 데이터가 존재하지 않습니다</NoData>
       )}
     </UserListBody>
   </SectionContainer>
@@ -58,8 +58,6 @@ export default UserList;
 const UserListBody = styled.div`
   display: flex;
   align-items: center;
-  justify-content: ${({ hasContent }) =>
-    hasContent ? 'flex-start' : 'center'};
   min-height: 6.75rem;
 `;
 

@@ -8,6 +8,7 @@ import {
   CardSlider,
   UserList,
   Loading,
+  NoData,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
@@ -172,9 +173,9 @@ const ChannelPage = () => {
               />
             ) : !id ? (
               <SectionContainer title="팔로우한 작가들">
-                <NoContents>
+                <NoData>
                   팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
-                </NoContents>
+                </NoData>
               </SectionContainer>
             ) : null}
             {!id ? (
@@ -184,9 +185,9 @@ const ChannelPage = () => {
                 </SectionContainer>
               ) : (
                 <SectionContainer title="구독한 시리즈">
-                  <NoContents>
+                  <NoData>
                     구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
-                  </NoContents>
+                  </NoData>
                 </SectionContainer>
               )
             ) : null}
@@ -196,9 +197,9 @@ const ChannelPage = () => {
               </SectionContainer>
             ) : !id ? (
               <SectionContainer title="작성한 시리즈">
-                <NoContents>
+                <NoData>
                   작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
-                </NoContents>
+                </NoData>
               </SectionContainer>
             ) : null}
           </Wrapper>
@@ -294,13 +295,4 @@ const StyledButton = styled(`button`)`
   color: ${({ isFollowed }) => (isFollowed ? '#5cb85c' : `#fff`)};
   font-size: 1rem;
   font-weight: 700;
-`;
-
-const NoContents = styled.div`
-  background-color: ${theme.color.grey};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  height: 160px;
 `;

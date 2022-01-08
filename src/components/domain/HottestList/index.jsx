@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
+import { NoData } from '@components';
 
 const HottestList = ({ list, ...props }) => (
-  <ListCardContainer hasContent={list.length} {...props}>
+  <ListCardContainer {...props}>
     {list.length ? (
       list.map(data => (
         <CardContainer key={data.seriesId}>
@@ -20,7 +21,7 @@ const HottestList = ({ list, ...props }) => (
         </CardContainer>
       ))
     ) : (
-      <p>데이터가 존재하지 않습니다!</p>
+      <NoData backgroundColor="none">인기 시리즈가 존재하지 않습니다!</NoData>
     )}
   </ListCardContainer>
 );
@@ -40,8 +41,6 @@ const ListCardContainer = styled.div`
   height: auto;
   min-height: 30rem;
   display: flex;
-  justify-content: ${({ hasContent }) =>
-    hasContent ? 'flex-start' : 'center'};
   align-items: center;
   flex-flow: row wrap;
   margin-top: ${theme.common.navHeight};

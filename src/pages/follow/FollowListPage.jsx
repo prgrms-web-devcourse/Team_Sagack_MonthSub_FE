@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
-import { Wrapper, FollowListItem } from '@components';
+import { Wrapper, FollowListItem, NoData } from '@components';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
@@ -51,7 +51,7 @@ const FollowListPage = () => {
 
   return (
     <Wrapper whole>
-      <FollowListContainer hasContent={values.length}>
+      <FollowListContainer>
         {values.length ? (
           values.map(element => (
             <FollowListItem
@@ -64,7 +64,7 @@ const FollowListPage = () => {
             />
           ))
         ) : (
-          <p>데이터가 존재하지 않습니다</p>
+          <NoData height="50vh">팔로우 유저 데이터가 존재하지 않습니다.</NoData>
         )}
       </FollowListContainer>
       <div ref={setTarget} />
@@ -77,8 +77,6 @@ export default FollowListPage;
 const FollowListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: ${({ hasContent }) =>
-    hasContent ? 'flex-start' : 'center'};
   align-items: center;
   width: 80%;
   height: 90%;

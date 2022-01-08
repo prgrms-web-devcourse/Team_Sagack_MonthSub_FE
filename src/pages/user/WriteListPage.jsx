@@ -21,11 +21,7 @@ const WriteListPage = () => {
             <H1>연재중인 시리즈</H1>
             <ContentAddLink url="/series/write">시리즈 작성하기</ContentAddLink>
           </Header>
-          {values.length ? (
-            <CardList list={values} />
-          ) : (
-            <p>데이터가 존재하지 않습니다.</p>
-          )}
+          <CardList list={values} />
         </Container>
       )}
     </Wrapper>
