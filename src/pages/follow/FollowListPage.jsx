@@ -51,17 +51,21 @@ const FollowListPage = () => {
 
   return (
     <Wrapper whole>
-      <FollowListContainer>
-        {values.map(element => (
-          <FollowListItem
-            key={element.writerId}
-            src={element.profileImage}
-            nickname={element.nickname}
-            intro={element.profileIntroduce}
-            followCount={element.followCount}
-            writerId={element.writerId}
-          />
-        ))}
+      <FollowListContainer hasContent={values.length}>
+        {values.length ? (
+          values.map(element => (
+            <FollowListItem
+              key={element.writerId}
+              src={element.profileImage}
+              nickname={element.nickname}
+              intro={element.profileIntroduce}
+              followCount={element.followCount}
+              writerId={element.writerId}
+            />
+          ))
+        ) : (
+          <p>데이터가 존재하지 않습니다</p>
+        )}
       </FollowListContainer>
       <div ref={setTarget} />
     </Wrapper>
@@ -71,10 +75,16 @@ const FollowListPage = () => {
 export default FollowListPage;
 
 const FollowListContainer = styled.div`
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ hasContent }) =>
+    hasContent ? 'flex-start' : 'center'};
+  align-items: center;
   width: 80%;
   height: 90%;
+  min-height: 50vh;
   border-radius: 20px;
   margin: 0 auto;
+  background-color: #ffffff;
   box-shadow: ${theme.style.boxShadow};
 `;
