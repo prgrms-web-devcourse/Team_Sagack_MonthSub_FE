@@ -73,7 +73,7 @@ const HomePage = () => {
           />
           <Wrapper className="customWrapper">
             <UserList list={values.popularWriterList} title="인기 작가" />
-            
+
             {hasAuth && values.purChaseSeriesList.length > 0 ? (
               <SectionContainer title="구독중인 시리즈">
                 <CardList list={values.purChaseSeriesList} />
