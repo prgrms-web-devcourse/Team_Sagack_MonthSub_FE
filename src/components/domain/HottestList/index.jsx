@@ -5,19 +5,23 @@ import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
 
 const HottestList = ({ list, ...props }) => (
-  <ListCardContainer {...props}>
-    {list.map(data => (
-      <CardContainer key={data.seriesId}>
-        <Link to={`/series/${data.seriesId}`}>
-          <HottestImage src={data.thumbnail} alt="cardThumb" />
-          <HottestInfo>
-            <div className="title">{data.title}</div>
-            <div className="text">{data.introduceSentence}</div>
-            <div className="nickname">by {data.nickname}</div>
-          </HottestInfo>
-        </Link>
-      </CardContainer>
-    ))}
+  <ListCardContainer hasContent={list.length} {...props}>
+    {list.length ? (
+      list.map(data => (
+        <CardContainer key={data.seriesId}>
+          <Link to={`/series/${data.seriesId}`}>
+            <HottestImage src={data.thumbnail} alt="cardThumb" />
+            <HottestInfo>
+              <div className="title">{data.title}</div>
+              <div className="text">{data.introduceSentence}</div>
+              <div className="nickname">by {data.nickname}</div>
+            </HottestInfo>
+          </Link>
+        </CardContainer>
+      ))
+    ) : (
+      <p>데이터가 존재하지 않습니다!</p>
+    )}
   </ListCardContainer>
 );
 
@@ -34,9 +38,14 @@ export default HottestList;
 const ListCardContainer = styled.div`
   width: 100%;
   height: auto;
+  min-height: 30rem;
   display: flex;
+  justify-content: ${({ hasContent }) =>
+    hasContent ? 'flex-start' : 'center'};
+  align-items: center;
   flex-flow: row wrap;
   margin-top: ${theme.common.navHeight};
+  background-color: ${theme.color.greyMedium};
 `;
 
 const CardContainer = styled.div`
