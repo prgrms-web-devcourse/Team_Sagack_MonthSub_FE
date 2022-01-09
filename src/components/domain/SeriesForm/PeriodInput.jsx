@@ -15,7 +15,7 @@ const PeriodInput = ({
   disabled,
 }) => (
   <div>
-    <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+    <Title size="medium">{title}</Title>
     <Container>
       <Input
         width="10rem"

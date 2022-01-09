@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Flex, Input, Title } from '@components';
+import { Flex, Input } from '@components';
 import theme from '@styles/theme';
 
 const ButtonSelect = ({
@@ -11,7 +11,6 @@ const ButtonSelect = ({
   onChange,
   disabled,
   checkedItem,
-  title,
   ...props
 }) => {
   const handleChange = e => {
@@ -20,7 +19,6 @@ const ButtonSelect = ({
 
   return (
     <div {...props}>
-      {title && <Title name={title} />}
       <Flex horizen justifyContent="flex-start">
         {labels.map(label => (
           <label key={label} htmlFor={label}>
@@ -48,7 +46,6 @@ const ButtonSelect = ({
 ButtonSelect.defaultProps = {
   onChange: () => {},
   checkedItem: [],
-  title: '',
   disabled: false,
   type: 'radio',
   name: '',
@@ -58,7 +55,6 @@ ButtonSelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-  title: PropTypes.string,
   disabled: PropTypes.bool,
   type: PropTypes.string,
   name: PropTypes.string,

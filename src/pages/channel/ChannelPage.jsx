@@ -129,6 +129,7 @@ const ChannelPage = () => {
             <ProfileMain>
               <ProfileContainer>
                 <UserProfile
+                  userId={data.user.userId}
                   src={data.user.profileImage}
                   size={7}
                   nickname={data.user.nickname}

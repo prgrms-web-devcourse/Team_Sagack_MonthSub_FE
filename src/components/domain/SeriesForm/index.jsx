@@ -123,12 +123,12 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
+        <Title size="medium">카테고리</Title>
         <ButtonSelect
           name="category"
           labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
           checkedItem={values.category}
-          title="카테고리"
           disabled={edit}
         />
       </Section>
@@ -168,7 +168,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       <Section>
         <StyledFlex horizen>
           <div>
-            <Title name="연재 시간" />
+            <Title size="medium">연재 시간</Title>
             <Input
               width="22rem"
               type="time"
@@ -178,7 +178,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             />
           </div>
           <div>
-            <Title name="총 회차" />
+            <Title size="medium">총 회차</Title>
             <Input
               width="22rem"
               type="number"
@@ -193,7 +193,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
-        <Title name="구독료" />
+        <Title size="medium">구독료</Title>
         <Input
           width="22rem"
           type="number"
@@ -206,10 +206,10 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
+        <Title size="medium">연재 요일</Title>
         <ButtonSelect
           type="checkbox"
           name="uploadDate"
-          title="연재 요일"
           labels={[
             'monday',
             'tuesday',

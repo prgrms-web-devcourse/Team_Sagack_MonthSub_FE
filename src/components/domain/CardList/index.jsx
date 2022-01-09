@@ -18,7 +18,7 @@ CardList.defaultProps = {
 };
 
 CardList.propTypes = {
-  list: PropTypes.array,
+  list: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 export default CardList;
