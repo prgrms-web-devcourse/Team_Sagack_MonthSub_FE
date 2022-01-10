@@ -10,7 +10,7 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
   };
   return (
     <>
-      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      <Title size="medium">{title}</Title>
       <StyledSection {...props}>
         <StyledInput
           width="100%"

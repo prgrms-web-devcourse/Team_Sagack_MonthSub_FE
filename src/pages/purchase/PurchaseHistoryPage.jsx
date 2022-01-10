@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, CardList, AddButton, Loading } from '@components';
-import { Link } from 'react-router-dom';
+import { Wrapper, CardList, Loading } from '@components';
 import { getMyPurchaseSeries } from '@apis/user';
 import { useFetch } from '@hooks';
 
@@ -19,15 +18,8 @@ const PurchaseHistoryPage = () => {
         <Container>
           <Header>
             <H1>구독중인 시리즈</H1>
-            <Link to="/series">
-              <AddButton>시리즈 구독하기</AddButton>
-            </Link>
           </Header>
-          {values.seriesList.length ? (
-            <CardList list={values.seriesList} />
-          ) : (
-            <p>데이터가 존재하지 않습니다.</p>
-          )}
+          <CardList list={values.seriesList} />
         </Container>
       )}
     </Wrapper>

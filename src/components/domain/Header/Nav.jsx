@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { List } from '@components';
+import { Flex } from '@components';
 import { Link } from 'react-router-dom';
 
 const Nav = ({ maxWidth, items, ...props }) => (
   <StyledNav maxWidth={maxWidth} {...props}>
-    <List horizen justifyContent="space-between">
+    <Flex horizen justifyContent="space-between">
       <li>
         <Link to="/">Home</Link>
       </li>
@@ -16,7 +16,7 @@ const Nav = ({ maxWidth, items, ...props }) => (
       <li>
         <Link to="/channel/my">내 채널</Link>
       </li>
-    </List>
+    </Flex>
   </StyledNav>
 );
 

@@ -6,7 +6,7 @@ import {
   ArticleList,
   DetailForm,
   Button,
-  AddButton,
+  ContentAddLink,
   Loading,
 } from '@components';
 import { useParams, Link, useHistory } from 'react-router-dom';
@@ -166,21 +166,15 @@ const SeriesDetailPage = () => {
                 <SectionContainer title="연재 목록" />
                 {detail.isMine ? (
                   <Link to={`/series/${detail.series.id}/article/write`}>
-                    <AddButton>새 아티클 작성하기</AddButton>
+                    <ContentAddLink>새 아티클 작성하기</ContentAddLink>
                   </Link>
                 ) : null}
               </div>
               <SectionContainer>
-                {detail.articleList.length ? (
-                  <ArticleList
-                    seriesId={detail.series.id}
-                    list={detail.articleList}
-                  />
-                ) : (
-                  <div className="articleListNone">
-                    해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
-                  </div>
-                )}
+                <ArticleList
+                  seriesId={detail.series.id}
+                  list={detail.articleList}
+                />
               </SectionContainer>
             </ArticleArea>
           </Wrapper>
@@ -277,15 +271,6 @@ const SeriesInfoSection = styled.div`
 
 const ArticleArea = styled.div`
   margin-top: 4rem;
-  .articleListNone {
-    background-color: ${theme.color.grey};
-    height: 10rem;
-    border-radius: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${theme.color.greyDark};
-  }
 
   .articleAreaHeader {
     display: flex;

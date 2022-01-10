@@ -9,7 +9,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
   };
   return (
     <>
-      <Title style={{ display: title ? 'block' : 'none' }} name={title} />
+      <Title size="medium">{title}</Title>
       <StyledSection {...props}>
         <StyledTextArea
           width="100%"
