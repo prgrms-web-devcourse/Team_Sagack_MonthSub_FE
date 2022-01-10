@@ -40,7 +40,7 @@ const SearchPage = () => {
   });
 
   return (
-    <Wrapper whole>
+    <Wrapper>
       <div>리스트 검색</div>
       <SearchForm onSubmit={handleSubmit}>
         <div className="optionArea">

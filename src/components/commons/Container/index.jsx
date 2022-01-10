@@ -35,7 +35,7 @@ const H1 = styled.h1`
 const Wrapper = styled.div`
   width: 80%;
   height: 50%;
-  margin: 15rem auto;
+  margin: 0 auto;
   padding: 2rem;
   border-radius: 0.8rem;
   box-shadow: 0 0.25rem 0.375rem rgba(50, 50, 93, 0.11),

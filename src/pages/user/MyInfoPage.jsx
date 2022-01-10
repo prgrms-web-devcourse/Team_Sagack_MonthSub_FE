@@ -15,7 +15,7 @@ const MyInfoPage = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper center>
       <Container title="마이 페이지">
         <StyledLink to="/my/edit">내 정보 수정</StyledLink>
         <StyledLink to="/purchase/info">내 구독 내역</StyledLink>

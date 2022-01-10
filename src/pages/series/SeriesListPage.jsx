@@ -125,7 +125,7 @@ const SeriesListPage = () => {
   };
 
   return (
-    <Wrapper whole>
+    <Wrapper>
       {isLoading ? (
         <Loading />
       ) : (

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Wrapper, Button, Loading } from '@components';
 import { getArticleDetail } from '@apis/article';
 import { useParams, useHistory } from 'react-router-dom';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import replaceEnter from '@utils/replaceEnter';
 
 const ArticleDetailPage = () => {
@@ -43,7 +43,7 @@ const ArticleDetailPage = () => {
   }, []);
 
   return (
-    <Container>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -72,35 +72,25 @@ const ArticleDetailPage = () => {
               </Content>
             </ImageCover>
           </ImageContainer>
-          <Wrapper>
-            <Paragraph
-              dangerouslySetInnerHTML={{
-                __html: replaceEnter(article.contents),
-              }}
-            />
-          </Wrapper>
+          <Paragraph
+            dangerouslySetInnerHTML={{
+              __html: replaceEnter(article.contents),
+            }}
+          />
         </>
       )}
-    </Container>
+    </Wrapper>
   );
 };
 
 export default ArticleDetailPage;
 
-const Container = styled.div`
-  background-color: #fff;
-  min-height: calc(100vh - 5rem);
-  margin-top: 5rem;
-`;
-
 const ImageContainer = styled.div`
-  width: 100%;
+  ${mixin.fullScreen}
   height: 30rem;
-  position: relative;
   background-image: ${({ image }) => `url(${image})`};
   background-position: center;
   background-size: cover;
-  margin: 3rem 0;
 `;
 
 const ImageCover = styled.div`
@@ -158,7 +148,6 @@ const Date = styled.span`
 
 const Paragraph = styled.div`
   width: 100%;
-  height: 100%;
   font-size: 1rem;
   line-height: 1.7rem;
 `;
