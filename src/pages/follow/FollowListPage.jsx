@@ -50,7 +50,7 @@ const FollowListPage = () => {
   }, [target]);
 
   return (
-    <Wrapper whole>
+    <Wrapper>
       <FollowListContainer>
         {values.length ? (
           values.map(element => (

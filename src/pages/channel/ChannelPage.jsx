@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import {
   Wrapper,
   SectionContainer,
@@ -120,7 +120,7 @@ const ChannelPage = () => {
   }, [id, data.isFollowed]);
 
   return (
-    <ChannelContainer>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -165,48 +165,46 @@ const ChannelPage = () => {
             </ProfileBottom>
           </ProfileWrapper>
 
-          <Wrapper className="customWrapper">
-            {data.followWriterList.length > 0 ? (
-              <UserList
-                list={data.followWriterList}
-                title="팔로우한 작가들"
-                moreLink={id ? `/follow/${id}` : '/follow/my'}
-              />
-            ) : !id ? (
-              <SectionContainer title="팔로우한 작가들">
+          {data.followWriterList.length > 0 ? (
+            <UserList
+              list={data.followWriterList}
+              title="팔로우한 작가들"
+              moreLink={id ? `/follow/${id}` : '/follow/my'}
+            />
+          ) : !id ? (
+            <SectionContainer title="팔로우한 작가들">
+              <NoData>
+                팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
+          {!id ? (
+            data.subscribeList.length > 0 ? (
+              <SectionContainer title="구독한 시리즈">
+                <CardSlider list={data.subscribeList} />
+              </SectionContainer>
+            ) : (
+              <SectionContainer title="구독한 시리즈">
                 <NoData>
-                  팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
+                  구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
                 </NoData>
               </SectionContainer>
-            ) : null}
-            {!id ? (
-              data.subscribeList.length > 0 ? (
-                <SectionContainer title="구독한 시리즈">
-                  <CardSlider list={data.subscribeList} />
-                </SectionContainer>
-              ) : (
-                <SectionContainer title="구독한 시리즈">
-                  <NoData>
-                    구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
-                  </NoData>
-                </SectionContainer>
-              )
-            ) : null}
-            {data.seriesPostList.length > 0 ? (
-              <SectionContainer title="작성한 시리즈">
-                <CardSlider list={data.seriesPostList} />
-              </SectionContainer>
-            ) : !id ? (
-              <SectionContainer title="작성한 시리즈">
-                <NoData>
-                  작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
-                </NoData>
-              </SectionContainer>
-            ) : null}
-          </Wrapper>
+            )
+          ) : null}
+          {data.seriesPostList.length > 0 ? (
+            <SectionContainer title="작성한 시리즈">
+              <CardSlider list={data.seriesPostList} />
+            </SectionContainer>
+          ) : !id ? (
+            <SectionContainer title="작성한 시리즈">
+              <NoData>
+                작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
         </>
       )}
-    </ChannelContainer>
+    </Wrapper>
   );
 };
 
@@ -214,19 +212,9 @@ export default ChannelPage;
 
 const ProfileAreaHeight = '27rem';
 
-const ChannelContainer = styled.div`
-  .customWrapper {
-    margin-top: calc(${ProfileAreaHeight} + ${theme.common.navHeight});
-  }
-`;
-
 const ProfileWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  ${mixin.fullScreen}
   height: ${ProfileAreaHeight};
-  margin-top: ${theme.common.navHeight};
   background-image: url(${cover});
   background-repeat: no-repeat;
   background-size: 100% auto;

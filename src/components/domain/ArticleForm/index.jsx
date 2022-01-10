@@ -74,7 +74,7 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
 
   return (
     <Form onSubmit={handleSubmit} {...props}>
-      <StyledImageUpload
+      <ImageUpload
         onChange={handleImageUpload}
         name="thumbnail"
         src={values.thumbnailUrl}
@@ -102,11 +102,6 @@ export default ArticleForm;
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
-`;
-
-const StyledImageUpload = styled(ImageUpload)`
-  width: 100vw;
-  margin: 0 0 3rem calc(-50vw + 50%);
 `;
 
 const Buttons = styled(ConfirmCancleButtons)`

@@ -114,14 +114,13 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
   return (
     <form onSubmit={handleSubmit} {...props}>
-      <Section>
-        <StyledImageUpload
-          onChange={handleImageUpload}
-          name="thumbnail"
-          src={values.thumbnailUrl}
-          wide={+true}
-        />
-      </Section>
+      <ImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide={+true}
+      />
+
       <Section>
         <Title size="medium">카테고리</Title>
         <ButtonSelect
@@ -244,11 +243,6 @@ export default SeriesForm;
 
 const Section = styled.section`
   margin-bottom: 3rem;
-`;
-
-const StyledImageUpload = styled(ImageUpload)`
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
 `;
 
 const StyledFlex = styled(Flex)`

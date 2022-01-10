@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import theme from '@styles/theme';
+import { css } from '@emotion/react';
 
-const Wrapper = ({ children, width, section, ...props }) => (
-  <StyledDiv width={width} section={section} {...props}>
+const Wrapper = ({ children, width, center, ...props }) => (
+  <StyledDiv width={width} center={center} {...props}>
     {children}
   </StyledDiv>
 );
@@ -13,6 +13,7 @@ const Wrapper = ({ children, width, section, ...props }) => (
 Wrapper.defaultProps = {
   width: '71.25rem',
   section: false,
+  center: false,
 };
 
 Wrapper.propTypes = {
@@ -22,6 +23,7 @@ Wrapper.propTypes = {
   ]).isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   section: PropTypes.bool,
+  center: PropTypes.bool,
 };
 
 export default Wrapper;
@@ -31,18 +33,20 @@ const StyledDiv = styled.div`
   max-width: ${props => props.width || '71.25rem'};
   margin: 0 auto;
   padding: 3rem 0;
-  ${({ section }) =>
-    !section &&
+  margin: 5rem auto 0;
+  ${({ center }) =>
+    center &&
     css`
-      margin: 5rem auto 0;
-      @media ${theme.device.tablet} {
-        max-width: 100%;
-        padding: 3rem 2.5rem;
-      }
-
-      @media ${theme.device.mobile} {
-        max-width: 100%;
-        padding: 3rem 1rem;
-      }
+      display: flex;
+      height: calc(100vh - ${theme.common.navHeight});
+      align-items: center;
     `}
+  @media ${theme.device.tablet} {
+    max-width: 100%;
+    padding: 3rem 2.5rem;
+  }
+  @media ${theme.device.mobile} {
+    max-width: 100%;
+    padding: 3rem 1rem;
+  }
 `;

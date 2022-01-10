@@ -2,7 +2,7 @@ import React from 'react';
 import { Wrapper } from '@components';
 
 const ServerErrorPage = () => (
-  <Wrapper whole>
+  <Wrapper>
     <h1>500 Server Error Page</h1>
   </Wrapper>
 );
