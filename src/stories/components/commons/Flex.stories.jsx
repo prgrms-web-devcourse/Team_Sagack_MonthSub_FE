@@ -1,9 +1,9 @@
 import React from 'react';
-import { List, Button } from '@components';
+import { Flex, Button } from '@components';
 
 export default {
-  title: 'Component/commons/List',
-  component: List,
+  title: 'Component/commons/Flex',
+  component: Flex,
   argTypes: {
     width: {
       control: { type: 'range', min: 200, max: 600 },
@@ -20,9 +20,9 @@ export default {
 };
 
 export const Default = args => (
-  <List {...args}>
+  <Flex {...args}>
     <Button />
     <Button />
     <Button />
-  </List>
+  </Flex>
 );

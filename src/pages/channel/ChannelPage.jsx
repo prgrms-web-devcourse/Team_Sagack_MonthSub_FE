@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import {
   Wrapper,
   SectionContainer,
@@ -8,6 +8,7 @@ import {
   CardSlider,
   UserList,
   Loading,
+  NoData,
 } from '@components';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
@@ -119,7 +120,7 @@ const ChannelPage = () => {
   }, [id, data.isFollowed]);
 
   return (
-    <ChannelContainer>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -128,6 +129,7 @@ const ChannelPage = () => {
             <ProfileMain>
               <ProfileContainer>
                 <UserProfile
+                  userId={data.user.userId}
                   src={data.user.profileImage}
                   size={7}
                   nickname={data.user.nickname}
@@ -163,48 +165,46 @@ const ChannelPage = () => {
             </ProfileBottom>
           </ProfileWrapper>
 
-          <Wrapper className="customWrapper">
-            {data.followWriterList.length > 0 ? (
-              <UserList
-                list={data.followWriterList}
-                title="팔로우한 작가들"
-                moreLink={id ? `/follow/${id}` : '/follow/my'}
-              />
-            ) : !id ? (
-              <SectionContainer title="팔로우한 작가들">
-                <NoContents>
-                  팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
-                </NoContents>
+          {data.followWriterList.length > 0 ? (
+            <UserList
+              list={data.followWriterList}
+              title="팔로우한 작가들"
+              moreLink={id ? `/follow/${id}` : '/follow/my'}
+            />
+          ) : !id ? (
+            <SectionContainer title="팔로우한 작가들">
+              <NoData>
+                팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
+          {!id ? (
+            data.subscribeList.length > 0 ? (
+              <SectionContainer title="구독한 시리즈">
+                <CardSlider list={data.subscribeList} />
               </SectionContainer>
-            ) : null}
-            {!id ? (
-              data.subscribeList.length > 0 ? (
-                <SectionContainer title="구독한 시리즈">
-                  <CardSlider list={data.subscribeList} />
-                </SectionContainer>
-              ) : (
-                <SectionContainer title="구독한 시리즈">
-                  <NoContents>
-                    구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
-                  </NoContents>
-                </SectionContainer>
-              )
-            ) : null}
-            {data.seriesPostList.length > 0 ? (
-              <SectionContainer title="작성한 시리즈">
-                <CardSlider list={data.seriesPostList} />
+            ) : (
+              <SectionContainer title="구독한 시리즈">
+                <NoData>
+                  구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
+                </NoData>
               </SectionContainer>
-            ) : !id ? (
-              <SectionContainer title="작성한 시리즈">
-                <NoContents>
-                  작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
-                </NoContents>
-              </SectionContainer>
-            ) : null}
-          </Wrapper>
+            )
+          ) : null}
+          {data.seriesPostList.length > 0 ? (
+            <SectionContainer title="작성한 시리즈">
+              <CardSlider list={data.seriesPostList} />
+            </SectionContainer>
+          ) : !id ? (
+            <SectionContainer title="작성한 시리즈">
+              <NoData>
+                작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
         </>
       )}
-    </ChannelContainer>
+    </Wrapper>
   );
 };
 
@@ -212,19 +212,9 @@ export default ChannelPage;
 
 const ProfileAreaHeight = '27rem';
 
-const ChannelContainer = styled.div`
-  .customWrapper {
-    margin-top: calc(${ProfileAreaHeight} + ${theme.common.navHeight});
-  }
-`;
-
 const ProfileWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  ${mixin.fullScreen}
   height: ${ProfileAreaHeight};
-  margin-top: ${theme.common.navHeight};
   background-image: url(${cover});
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -294,13 +284,4 @@ const StyledButton = styled(`button`)`
   color: ${({ isFollowed }) => (isFollowed ? '#5cb85c' : `#fff`)};
   font-size: 1rem;
   font-weight: 700;
-`;
-
-const NoContents = styled.div`
-  background-color: ${theme.color.grey};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  height: 160px;
 `;

@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import {
   ImageUpload,
   ConfirmCancleButtons,
-  Radio,
-  CheckBox,
+  ButtonSelect,
   Input,
   Title,
-  List,
+  Flex,
 } from '@components';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -115,20 +114,20 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
   return (
     <form onSubmit={handleSubmit} {...props}>
+      <ImageUpload
+        onChange={handleImageUpload}
+        name="thumbnail"
+        src={values.thumbnailUrl}
+        wide={+true}
+      />
+
       <Section>
-        <StyledImageUpload
-          onChange={handleImageUpload}
-          name="thumbnail"
-          src={values.thumbnailUrl}
-          wide={+true}
-        />
-      </Section>
-      <Section>
-        <Radio
+        <Title size="medium">카테고리</Title>
+        <ButtonSelect
+          name="category"
           labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
-          checkedButton={values.category}
-          title="카테고리"
+          checkedItem={values.category}
           disabled={edit}
         />
       </Section>
@@ -140,7 +139,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
-        <StyledList horizen>
+        <StyledFlex horizen>
           <PeriodInput
             title="모집기간"
             startName="subscribeStartDate"
@@ -163,12 +162,12 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             onChange={handleChange}
             disabled={edit}
           />
-        </StyledList>
+        </StyledFlex>
       </Section>
       <Section>
-        <StyledList horizen>
+        <StyledFlex horizen>
           <div>
-            <Title name="연재 시간" />
+            <Title size="medium">연재 시간</Title>
             <Input
               width="22rem"
               type="time"
@@ -178,7 +177,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             />
           </div>
           <div>
-            <Title name="총 회차" />
+            <Title size="medium">총 회차</Title>
             <Input
               width="22rem"
               type="number"
@@ -189,11 +188,11 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
               disabled={edit}
             />
           </div>
-        </StyledList>
+        </StyledFlex>
       </Section>
 
       <Section>
-        <Title name="구독료" />
+        <Title size="medium">구독료</Title>
         <Input
           width="22rem"
           type="number"
@@ -206,8 +205,10 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
-        <CheckBox
-          title="연재 요일"
+        <Title size="medium">연재 요일</Title>
+        <ButtonSelect
+          type="checkbox"
+          name="uploadDate"
           labels={[
             'monday',
             'tuesday',
@@ -217,7 +218,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             'saturday',
             'sunday',
           ]}
-          checkedInputs={values.uploadDate}
+          checkedItem={values.uploadDate}
           onChange={handleChange}
         />
       </Section>
@@ -244,12 +245,7 @@ const Section = styled.section`
   margin-bottom: 3rem;
 `;
 
-const StyledImageUpload = styled(ImageUpload)`
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-`;
-
-const StyledList = styled(List)`
+const StyledFlex = styled(Flex)`
   & > div {
     margin-right: 1.5rem;
   }

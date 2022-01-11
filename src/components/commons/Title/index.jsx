@@ -20,7 +20,19 @@ const Title = ({
   const Tag = h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : h5 ? 'h5' : h6 ? 'h6' : 'h1';
   const StyledTag = styled(Tag)`
     font-size: ${({ size }) =>
-      typeof size === 'number' ? `${size}rem` : size};
+      size === 'small'
+        ? theme.font.small
+        : size === 'base'
+        ? theme.font.base
+        : size === 'medium'
+        ? theme.font.medium
+        : size === 'large'
+        ? theme.font.large
+        : size === 'xLarge'
+        ? theme.font.xLarge
+        : typeof size === 'number'
+        ? `${size}rem`
+        : size};
     font-weight: ${({ weight }) => weight};
     color: ${({ color }) => color};
     margin-bottom: ${({ marginBottom }) =>
@@ -49,7 +61,7 @@ Title.defaultProps = {
   h6: false,
   marginBottom: '1.5rem',
   weight: 700,
-  size: 'auto',
+  size: 'large',
   color: theme.color.greyDark,
   extraItem: null,
 };

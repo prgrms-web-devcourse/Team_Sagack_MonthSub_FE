@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Upload, Button } from '@components';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import { css } from '@emotion/react';
 
 const ImageUpload = ({
@@ -51,12 +51,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  ${({ wide }) =>
-    wide &&
-    css`
-      position: relative;
-      width: 100%;
-    `}
+  ${({ wide }) => wide && mixin.fullScreen}
 `;
 
 const StyledUpload = styled(Upload)`
@@ -64,7 +59,6 @@ const StyledUpload = styled(Upload)`
     wide &&
     css`
       position: absolute;
-      top: 50%;
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;

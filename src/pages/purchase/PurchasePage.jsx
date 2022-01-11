@@ -37,7 +37,7 @@ const PurchasePage = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper center>
       {isLoading ? (
         <Loading />
       ) : (

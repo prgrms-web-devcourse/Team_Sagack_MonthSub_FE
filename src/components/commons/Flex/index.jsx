@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-const List = ({
+const Flex = ({
   children,
   width,
   height,
@@ -13,7 +13,7 @@ const List = ({
   alignItems,
   ...props
 }) => (
-  <StyledList
+  <StyledFlex
     width={width}
     height={height}
     horizen={horizen}
@@ -22,10 +22,10 @@ const List = ({
     {...props}
   >
     {children}
-  </StyledList>
+  </StyledFlex>
 );
 
-List.defaultProps = {
+Flex.defaultProps = {
   width: '100%',
   height: '100%',
   color: 'inherit',
@@ -35,7 +35,7 @@ List.defaultProps = {
   alignItems: 'center',
 };
 
-List.propTypes = {
+Flex.propTypes = {
   children: PropTypes.node.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -46,9 +46,9 @@ List.propTypes = {
   alignItems: PropTypes.string,
 };
 
-export default List;
+export default Flex;
 
-const StyledList = styled.ul`
+const StyledFlex = styled.ul`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};

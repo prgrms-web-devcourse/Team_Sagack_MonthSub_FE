@@ -1,56 +1,68 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Input, Title } from '@components';
+import { Flex, Input } from '@components';
 import theme from '@styles/theme';
 
-const CheckBox = ({ labels, onChange, checkedInputs, title, ...props }) => {
+const ButtonSelect = ({
+  type,
+  name,
+  labels,
+  onChange,
+  disabled,
+  checkedItem,
+  ...props
+}) => {
   const handleChange = e => {
     onChange && onChange(e);
   };
 
   return (
     <div {...props}>
-      {title && <Title name={title} />}
-      <Container>
+      <Flex horizen justifyContent="flex-start">
         {labels.map(label => (
           <label key={label} htmlFor={label}>
-            <StyledCheckBoxInput
-              type="checkbox"
-              name="uploadDate"
+            <StyledInput
+              type={type}
+              name={name}
               id={label}
               onChange={handleChange}
               value={label}
-              checked={checkedInputs.includes(label)}
+              checked={
+                typeof checkedItem === 'object'
+                  ? checkedItem.includes(label)
+                  : checkedItem.toLowerCase() === label.toLowerCase()
+              }
+              disabled={disabled}
             />
             <StyledButton circle>{label}</StyledButton>
           </label>
         ))}
-      </Container>
+      </Flex>
     </div>
   );
 };
 
-CheckBox.defaultProps = {
+ButtonSelect.defaultProps = {
   onChange: () => {},
-  checkedInputs: [],
-  title: '',
+  checkedItem: [],
+  disabled: false,
+  type: 'radio',
+  name: '',
 };
 
-CheckBox.propTypes = {
+ButtonSelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  checkedInputs: PropTypes.array,
-  title: PropTypes.string,
+  checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  disabled: PropTypes.bool,
+  type: PropTypes.string,
+  name: PropTypes.string,
 };
 
-export default CheckBox;
+export default ButtonSelect;
 
-const Container = styled.div`
-  display: flex;
-`;
-
-const StyledCheckBoxInput = styled(Input)`
+const StyledInput = styled(Input)`
   display: none;
   &:checked + div {
     background-color: ${theme.color.main};

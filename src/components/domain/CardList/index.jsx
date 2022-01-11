@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Card } from '@components';
+import { Card, NoData } from '@components';
 
 const CardList = ({ list, ...props }) => (
-  <CardContainer {...props}>
-    {list.map(item => (
-      <Card key={item.seriesId} data={item} {...props} />
-    ))}
+  <CardContainer hasContent={list.length} {...props}>
+    {list.length ? (
+      list.map(item => <Card key={item.seriesId} data={item} {...props} />)
+    ) : (
+      <NoData height="20vh">시리즈가 존재하지 않습니다</NoData>
+    )}
   </CardContainer>
 );
 
@@ -16,7 +18,7 @@ CardList.defaultProps = {
 };
 
 CardList.propTypes = {
-  list: PropTypes.array,
+  list: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 export default CardList;
@@ -24,6 +26,8 @@ export default CardList;
 const CardContainer = styled.div`
   width: 100%;
   height: auto;
+  min-height: 20vh;
   display: flex;
+  align-items: center;
   flex-flow: row wrap;
 `;

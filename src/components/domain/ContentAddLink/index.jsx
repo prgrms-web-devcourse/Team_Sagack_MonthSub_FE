@@ -1,29 +1,32 @@
 import React from 'react';
 import { IconWrapper, Icons } from '@components';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
 import PropTypes from 'prop-types';
 
-const AddButton = ({ children }) => (
-  <Container>
+const ContentAddLink = ({ children, url }) => (
+  <StyledLink to={url}>
     <IconWrapper color={theme.color.main} fontSize="2rem">
       <Icons.AddCircle />
     </IconWrapper>
     <Text>{children}</Text>
-  </Container>
+  </StyledLink>
 );
 
-AddButton.defaultProps = {
+ContentAddLink.defaultProps = {
   children: '',
+  url: '',
 };
 
-AddButton.propTypes = {
+ContentAddLink.propTypes = {
   children: PropTypes.string,
+  url: PropTypes.string,
 };
 
-export default AddButton;
+export default ContentAddLink;
 
-const Container = styled.div`
+const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
