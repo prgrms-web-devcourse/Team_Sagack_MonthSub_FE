@@ -27,7 +27,6 @@ export { default as LikeToggle } from './commons/LikeToggle';
 export { default as DetailForm } from './domain/DetailForm';
 export { default as UserList } from './domain/UserList';
 export { default as Card } from './domain/Card';
-export { default as PopularSeriesList } from './domain/PopularSeriesList';
 export { default as HottestList } from './domain/HottestList';
 export { default as AddButton } from './commons/Button/AddButton';
 export { default as Loading } from './commons/Loading';
