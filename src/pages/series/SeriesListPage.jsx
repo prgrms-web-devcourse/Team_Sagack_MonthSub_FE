@@ -149,10 +149,8 @@ const SeriesListPage = () => {
         entries => {
           if (entries[0].isIntersecting) {
             // 현재 lastId와 업데이트 하려는 lastId가 다를 때만 무한스크롤 작동
-            if (setSeriesId.current !== currentParams.current['lastSeriesId']) {
-              currentParams.current['lastSeriesId'] = setSeriesId.current;
-              updateParams('scroll');
-            }
+            currentParams.current['lastSeriesId'] = setSeriesId.current;
+            updateParams('scroll');
           }
         },
         { threshold: 1 },
@@ -265,7 +263,7 @@ const SeriesListPage = () => {
           <CardList list={list} />
         </>
       )}
-      <div ref={pageEnd}>로딩</div>
+      <div ref={pageEnd} />
     </Wrapper>
   );
 };
