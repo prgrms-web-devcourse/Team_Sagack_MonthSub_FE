@@ -34,6 +34,7 @@ const deviceSizes = {
 const device = {
   mobile: `screen and (max-width: ${deviceSizes.tablet})`,
   tablet: `screen and (max-width: ${deviceSizes.laptop})`,
+  laptop: `screen and (min-width: ${deviceSizes.laptop}}`,
 };
 
 const theme = {

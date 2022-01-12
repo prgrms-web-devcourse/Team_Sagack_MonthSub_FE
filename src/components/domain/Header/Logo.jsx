@@ -15,9 +15,9 @@ Logo.defaultProps = {
   alt: 'Logo',
 };
 
-export default Logo;
-
 Logo.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
 };
+
+export default Logo;
