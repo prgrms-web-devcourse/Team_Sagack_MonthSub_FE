@@ -56,11 +56,18 @@ const ResponsiveHeader = ({ userId }) => {
               </Link>
             </li>
             {userId ? (
-              <li>
-                <Link to="/my/info" onClick={handleMenuClick}>
-                  내 정보
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/my/info" onClick={handleMenuClick}>
+                    내 정보
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/writes" onClick={handleMenuClick}>
+                    글쓰기
+                  </Link>
+                </li>
+              </>
             ) : (
               <LoginLi>
                 <Link to="/signin" onClick={handleMenuClick}>
