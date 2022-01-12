@@ -28,7 +28,7 @@ const common = {
 const deviceSizes = {
   mobile: '375px',
   tablet: '768px',
-  laptop: '1024px',
+  laptop: '1140px',
 };
 
 const device = {

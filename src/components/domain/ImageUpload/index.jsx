@@ -104,8 +104,8 @@ const UploadImage = styled.div`
   ${({ wide }) =>
     wide &&
     css`
-      margin-top: 0;
-      height: 30rem;
+      margin: 0;
+      height: 100%;
     `}
 `;
 
@@ -117,7 +117,7 @@ const ImageCover = styled.div`
       position: absolute;
       display: block;
       width: 100%;
-      height: 30rem;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       z-index: 1;
     `}

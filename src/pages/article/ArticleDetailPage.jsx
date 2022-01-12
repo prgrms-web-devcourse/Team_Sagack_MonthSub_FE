@@ -87,7 +87,6 @@ export default ArticleDetailPage;
 
 const ImageContainer = styled.div`
   ${mixin.fullScreen}
-  height: 30rem;
   background-image: ${({ image }) => `url(${image})`};
   background-position: center;
   background-size: cover;
@@ -98,7 +97,7 @@ const ImageCover = styled.div`
   display: flex;
   align-items: flex-end;
   width: 100%;
-  height: 30rem;
+  height: 100%;
   padding: 2rem 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
@@ -111,6 +110,14 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   color: rgba(255, 255, 255, 0.8);
+  @media ${theme.device.tablet} {
+    max-width: 100%;
+    padding: 0 2.5rem;
+  }
+  @media ${theme.device.mobile} {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -133,21 +140,23 @@ const Title = styled.h1`
   width: 80%;
   height: 100%;
   font-weight: 400;
-  font-size: 2.5rem;
+  font-size: ${theme.font.xLarge};
   margin-bottom: 1.7rem;
 `;
 
 const Nickname = styled.div`
-  font-size: 1.5rem;
+  font-size: ${theme.font.medium};
   margin-bottom: 0.7rem;
 `;
 
 const Date = styled.span`
   color: rgba(255, 255, 255, 0.5);
+  font-size: ${theme.font.small};
 `;
 
 const Paragraph = styled.div`
   width: 100%;
+  min-height: 40vh;
   font-size: 1rem;
   line-height: 1.7rem;
 `;

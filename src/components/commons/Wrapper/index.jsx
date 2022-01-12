@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
-const Wrapper = ({ children, width, center, ...props }) => (
-  <StyledDiv width={width} center={center} {...props}>
+const Wrapper = ({ children, width, center, section, ...props }) => (
+  <StyledDiv width={width} center={center} section={section} {...props}>
     {children}
   </StyledDiv>
 );
@@ -30,10 +30,10 @@ export default Wrapper;
 
 const StyledDiv = styled.div`
   height: auto;
+  width: 100%;
   max-width: ${props => props.width || '71.25rem'};
-  margin: 0 auto;
   padding: 3rem 0;
-  margin: 5rem auto 0;
+  margin: ${({ section }) => (section ? '0 auto' : '5rem auto 0')};
   ${({ center }) =>
     center &&
     css`
