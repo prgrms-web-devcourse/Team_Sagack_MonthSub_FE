@@ -9,7 +9,6 @@ const Header = () => {
     <>
       <LaptopHeader userId={userInfo.userId} />
       <ResponsiveHeader userId={userInfo.userId} />
-      {userInfo.userId}
     </>
   );
 };
