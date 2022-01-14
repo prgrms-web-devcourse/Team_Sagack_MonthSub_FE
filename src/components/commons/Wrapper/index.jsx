@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
-const Wrapper = ({ children, width, center, ...props }) => (
-  <StyledDiv width={width} center={center} {...props}>
+const Wrapper = ({ children, width, center, section, ...props }) => (
+  <StyledDiv width={width} center={center} section={section} {...props}>
     {children}
   </StyledDiv>
 );
@@ -30,9 +30,9 @@ export default Wrapper;
 
 const StyledDiv = styled.div`
   height: auto;
-  max-width: ${props => props.width || '71.25rem'};
+  max-width: 100%;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: 2rem 1rem;
   margin: 5rem auto 0;
   ${({ center }) =>
     center &&
@@ -41,12 +41,11 @@ const StyledDiv = styled.div`
       height: calc(100vh - ${theme.common.navHeight});
       align-items: center;
     `}
-  @media ${theme.device.tablet} {
-    max-width: 100%;
-    padding: 3rem 2.5rem;
+  @media ${theme.device.laptop} {
+    max-width: ${props => props.width || '71.25rem'};
+    padding: 3rem 0rem;
   }
-  @media ${theme.device.mobile} {
-    max-width: 100%;
-    padding: 3rem 1rem;
+  @media ${theme.device.tablet} {
+    padding: 3rem 2.5rem;
   }
 `;

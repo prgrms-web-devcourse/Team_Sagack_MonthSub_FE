@@ -7,6 +7,7 @@ import { postArticle, putArticle } from '@apis/article';
 import jsonBlob from '@utils/createJsonBlob';
 import { useHistory } from 'react-router-dom';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
+import theme from '@styles/theme';
 import ArticleEditor from './ArticleEditor';
 
 const ArticleForm = ({ edit, param, articleData, ...props }) => {
@@ -102,6 +103,9 @@ export default ArticleForm;
 const Form = styled.form`
   width: 80%;
   margin: 0 auto;
+  @media ${theme.device.tablet} {
+    width: 100%;
+  }
 `;
 
 const Buttons = styled(ConfirmCancleButtons)`
