@@ -26,15 +26,20 @@ const common = {
 };
 
 const deviceSizes = {
-  mobile: '375px',
+  mobile: '480px',
   tablet: '768px',
   laptop: '1140px',
 };
 
 const device = {
-  mobile: `screen and (max-width: ${deviceSizes.tablet})`,
-  tablet: `screen and (max-width: ${deviceSizes.laptop})`,
   laptop: `screen and (min-width: ${deviceSizes.laptop}}`,
+  tablet: `screen and (min-width:${deviceSizes.tablet}) and (max-width: ${
+    deviceSizes.laptop - 1
+  })`,
+  mobileL: `screen and (min-width:${deviceSizes.mobile}) and (max-width: ${
+    deviceSizes.tablet - 1
+  })`,
+  mobileS: `screen and (max-width: ${deviceSizes.mobile - 1}}`,
 };
 
 const theme = {
