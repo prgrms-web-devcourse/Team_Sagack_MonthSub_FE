@@ -9,6 +9,7 @@ import {
   Title,
   Flex,
 } from '@components';
+import theme from '@styles/theme';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
@@ -165,11 +166,11 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         </StyledFlex>
       </Section>
       <Section>
-        <StyledFlex horizen>
+        <StyledFlex horizen justifyContent="space-between">
           <div>
             <Title size="medium">연재 시간</Title>
             <Input
-              width="22rem"
+              width="100%"
               type="time"
               name="uploadTime"
               value={values.uploadTime}
@@ -179,7 +180,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
           <div>
             <Title size="medium">총 회차</Title>
             <Input
-              width="22rem"
+              width="100%"
               type="number"
               name="articleCount"
               value={values.articleCount}
@@ -192,16 +193,20 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
-        <Title size="medium">구독료</Title>
-        <Input
-          width="22rem"
-          type="number"
-          value={values.price}
-          name="price"
-          onChange={handleChange}
-          min={0}
-          disabled={edit}
-        />
+        <StyledFlex horizen>
+          <div>
+            <Title size="medium">구독료</Title>
+            <Input
+              width="50%"
+              type="number"
+              value={values.price}
+              name="price"
+              onChange={handleChange}
+              min={0}
+              disabled={edit}
+            />
+          </div>
+        </StyledFlex>
       </Section>
 
       <Section>
@@ -247,6 +252,18 @@ const Section = styled.section`
 
 const StyledFlex = styled(Flex)`
   & > div {
-    margin-right: 1.5rem;
+    width: 100%;
+  }
+  @media ${theme.device.tablet} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  & > div:first-child {
+    margin-right: 4rem;
+    @media ${theme.device.tablet} {
+      margin-right: 0;
+      margin-bottom: 3rem;
+    }
   }
 `;
