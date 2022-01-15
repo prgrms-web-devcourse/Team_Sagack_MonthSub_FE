@@ -36,6 +36,8 @@ HottestList.propTypes = {
 
 export default HottestList;
 
+const { top, tab, mobL, mobS } = theme.standardValues.banner.maxCount;
+
 const ListCardContainer = styled.div`
   width: 100%;
   height: auto;
@@ -48,9 +50,24 @@ const ListCardContainer = styled.div`
 `;
 
 const CardContainer = styled.div`
-  width: 20%;
   height: 30rem;
   position: relative;
+
+  @media ${theme.device.laptop} {
+    width: calc(100% / ${top});
+  }
+
+  @media ${theme.detailedMobile.tablet} {
+    width: calc(100% / ${tab});
+  }
+
+  @media ${theme.detailedMobile.mobileL} {
+    width: calc(100% / ${mobL});
+  }
+
+  @media ${theme.detailedMobile.mobileS} {
+    width: calc(100% / ${mobS});
+  }
 `;
 
 const HottestImage = styled.img`
