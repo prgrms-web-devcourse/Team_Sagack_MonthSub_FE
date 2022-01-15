@@ -22,6 +22,7 @@ html {
 body {
   font-family: 'Eulyoo1945', serif;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #f2f2f2;
 }
 

@@ -40,9 +40,7 @@ ArticleList.propTypes = {
 
 export default ArticleList;
 
-const ArticleListContainer = styled.div`
-  min-height: 20vh;
-`;
+const ArticleListContainer = styled.div``;
 
 const Article = styled.div`
   width: 100%;
@@ -75,13 +73,3 @@ const Article = styled.div`
     }
   }
 `;
-
-// const NoArticle = styled.div`
-//   background-color: ${theme.color.grey};
-//   height: 10rem;
-//   border-radius: 1rem;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   color: ${theme.color.greyDark};
-// `;

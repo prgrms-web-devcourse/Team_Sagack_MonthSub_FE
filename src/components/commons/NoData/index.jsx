@@ -33,4 +33,5 @@ const Container = styled.div`
   align-items: center;
   color: ${theme.color.greyDark};
   background-color: ${({ backgroundColor }) => backgroundColor};
+  padding: 1.25rem;
 `;

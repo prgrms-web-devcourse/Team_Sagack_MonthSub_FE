@@ -31,7 +31,6 @@ export default Wrapper;
 const StyledDiv = styled.div`
   height: auto;
   max-width: ${props => props.width || '71.25rem'};
-  margin: 0 auto;
   padding: 3rem 0;
   margin: 5rem auto 0;
   ${({ center }) =>
@@ -47,6 +46,6 @@ const StyledDiv = styled.div`
   }
   @media ${theme.device.mobile} {
     max-width: 100%;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
   }
 `;
