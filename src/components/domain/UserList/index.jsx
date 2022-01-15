@@ -3,43 +3,50 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, SectionContainer, UserProfile, NoData } from '@components';
+import { theme, mixin } from '@styles';
 
-const UserList = ({ list, title, moreLink, ...props }) => (
-  <SectionContainer
-    {...props}
-    title={title}
-    titleItem={
-      <div className="seeMore">
-        {moreLink ? (
-          list.length === 10 ? (
-            <Link to={moreLink}>
-              <Button margin={0} width="6.25rem" height="1.875rem">
-                더보기
-              </Button>
-            </Link>
-          ) : null
-        ) : null}
-      </div>
-    }
-  >
-    <UserListBody>
-      {list.length ? (
-        list.map(item => (
-          <StyledUserProfile
-            src={item.profileImage}
-            size={5}
-            userId={item.userId}
-            nickname={item.nickname}
-            key={item.userId}
-            isSubscribeable={item.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'}
-          />
-        ))
-      ) : (
-        <NoData>유저 데이터가 존재하지 않습니다</NoData>
-      )}
-    </UserListBody>
-  </SectionContainer>
-);
+const UserList = ({ list, title, moreLink, ...props }) => {
+  const { maxCount, size } = theme.standardValues.userList;
+
+  return (
+    <SectionContainer
+      {...props}
+      title={title}
+      titleItem={
+        <div className="seeMore">
+          {moreLink ? (
+            list.length === maxCount ? (
+              <Link to={moreLink}>
+                <Button margin={0} width="6.25rem" height="1.875rem">
+                  더보기
+                </Button>
+              </Link>
+            ) : null
+          ) : null}
+        </div>
+      }
+    >
+      <UserListBody>
+        {list.length ? (
+          list.map(item => (
+            <StyledUserProfile
+              src={item.profileImage}
+              size={size}
+              userId={item.userId}
+              nickname={item.nickname}
+              key={item.userId}
+              isSubscribeable={
+                item.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
+              }
+            />
+          ))
+        ) : (
+          <NoData>유저 데이터가 존재하지 않습니다</NoData>
+        )}
+      </UserListBody>
+    </SectionContainer>
+  );
+};
 
 UserList.defaultProps = {
   list: [],
@@ -57,10 +64,15 @@ export default UserList;
 
 const UserListBody = styled.div`
   display: flex;
-  align-items: center;
-  min-height: 6.75rem;
+  overflow: hidden;
+  overflow-x: scroll;
+  padding-bottom: 1.25rem;
+  ${mixin.invisibleScrollBar};
 `;
 
 const StyledUserProfile = styled(UserProfile)`
-  margin-right: 1.75rem;
+  padding-right: 2.3606875rem;
+  &:last-of-type {
+    padding-right: 0;
+  }
 `;
