@@ -88,25 +88,62 @@ Card.propTypes = {
 
 export default Card;
 
-const margin = '1.25rem';
-const contentsMaxCount = 4;
+const { margin, maxWidth, maxCount } = theme.standardValues.card;
+
 const Container = styled.div`
-  width: calc(
-    (100% - (${margin} * ${contentsMaxCount - 1})) / ${contentsMaxCount}
-  );
   margin-right: ${margin};
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0.2rem 0.625rem 0 rgba(50, 50, 93, 0.2);
-  // border: 1px solid #ccd3e2;
+  max-width: ${maxWidth};
 
-  &:nth-of-type(-n + 4) {
-    margin-top: 0;
+  @media ${theme.device.laptop} {
+    width: calc((100% - (${margin} * ${maxCount.top - 1})) / ${maxCount.top});
+
+    &:nth-of-type(-n + ${maxCount.top}) {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(${maxCount.top}n) {
+      margin-right: 0;
+    }
   }
 
-  &:nth-of-type(${contentsMaxCount}n) {
-    margin-right: 0;
+  @media ${theme.detailedMobile.tablet} {
+    width: calc((100% - (${margin} * ${maxCount.tab - 1})) / ${maxCount.tab});
+
+    &:nth-of-type(-n + ${maxCount.tab}) {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(${maxCount.tab}n) {
+      margin-right: 0;
+    }
+  }
+
+  @media ${theme.detailedMobile.mobileL} {
+    width: calc((100% - (${margin} * ${maxCount.mobL - 1})) / ${maxCount.mobL});
+
+    &:nth-of-type(-n + ${maxCount.mobL}) {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(${maxCount.mobL}n) {
+      margin-right: 0;
+    }
+  }
+
+  @media ${theme.detailedMobile.mobileS} {
+    width: calc((100% - (${margin} * ${maxCount.mobS - 1})) / ${maxCount.mobS});
+
+    &:nth-of-type(-n + ${maxCount.mobS}) {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(${maxCount.mobS}n) {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -114,6 +151,10 @@ const CardImageArea = styled.div`
   height: 11rem;
   background-color: ${theme.color.grey};
   position: relative;
+
+  > a > img {
+    object-fit: cover;
+  }
 `;
 
 const CardStatusTag = styled.div`
@@ -160,7 +201,7 @@ const TextMain = styled.div`
   .intro {
     line-height: 1rem;
     height: 2.2rem;
-    max-height: 2.2rem;
+    max-height: 2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
