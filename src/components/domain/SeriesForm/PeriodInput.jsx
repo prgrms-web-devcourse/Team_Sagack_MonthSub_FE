@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Input, Title } from '@components';
+import { Input, Title, Flex } from '@components';
 
 const PeriodInput = ({
   title,
@@ -14,11 +14,11 @@ const PeriodInput = ({
   onChange,
   disabled,
 }) => (
-  <div>
+  <Container>
     <Title size="medium">{title}</Title>
-    <Container>
+    <Flex horizen justifyContent="space-between">
       <Input
-        width="10rem"
+        width="100%"
         type="date"
         value={startValue}
         name={startName}
@@ -28,7 +28,7 @@ const PeriodInput = ({
       />
       <Line>⎻</Line>
       <Input
-        width="10rem"
+        width="100%"
         type="date"
         value={endValue}
         name={endName}
@@ -36,8 +36,8 @@ const PeriodInput = ({
         disabled={disabled}
         min={endMin || ''}
       />
-    </Container>
-  </div>
+    </Flex>
+  </Container>
 );
 
 PeriodInput.defaultProps = {
@@ -70,9 +70,7 @@ const Line = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2rem;
+  width: 5rem;
 `;
 
-const Container = styled.div`
-  display: flex;
-`;
+const Container = styled.div``;

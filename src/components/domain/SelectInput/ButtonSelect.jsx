@@ -19,7 +19,7 @@ const ButtonSelect = ({
 
   return (
     <div {...props}>
-      <Flex horizen justifyContent="flex-start">
+      <StyledFlex horizen justifyContent="flex-start">
         {labels.map(label => (
           <label key={label} htmlFor={label}>
             <StyledInput
@@ -35,10 +35,10 @@ const ButtonSelect = ({
               }
               disabled={disabled}
             />
-            <StyledButton circle>{label}</StyledButton>
+            <StyledButton>{label}</StyledButton>
           </label>
         ))}
-      </Flex>
+      </StyledFlex>
     </div>
   );
 };
@@ -62,6 +62,10 @@ ButtonSelect.propTypes = {
 
 export default ButtonSelect;
 
+const StyledFlex = styled(Flex)`
+  flex-wrap: wrap;
+`;
+
 const StyledInput = styled(Input)`
   display: none;
   &:checked + div {
@@ -77,6 +81,7 @@ const StyledButton = styled.div`
   user-select: none;
   border-radius: 50px;
   margin-right: 1.5rem;
+  margin-bottom: 1rem;
   color: ${theme.color.main};
   background-color: #fff;
   box-shadow: ${theme.style.boxShadow};

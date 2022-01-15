@@ -71,7 +71,7 @@ const standardValues = {
       mobS: 1,
     },
   },
-};
+}
 
 const theme = {
   color,

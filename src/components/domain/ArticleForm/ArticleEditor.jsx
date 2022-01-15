@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea, Input, Title } from '@components';
+import { TextArea, Input } from '@components';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
@@ -9,32 +9,29 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
     onChange && onChange(e);
   };
   return (
-    <>
-      <Title size="medium">{title}</Title>
-      <StyledSection {...props}>
-        <StyledInput
-          width="100%"
-          height="2rem"
-          name="title"
-          value={value.title || ''}
-          onChange={handleInputChange}
-          disabled={disabled && disabled}
-          placeholder="제목을 입력해주세요"
-          maxlength="300"
-        />
-        <Line />
-        <StyledTextArea
-          width="100%"
-          height="100%"
-          name="contents"
-          value={value.contents || ''}
-          onInput={handleInputChange}
-          disabled={disabled && disabled}
-          placeholder="내용을 입력해주세요"
-          maxlength="5000"
-        />
-      </StyledSection>
-    </>
+    <StyledSection {...props}>
+      <StyledInput
+        width="100%"
+        height="2rem"
+        name="title"
+        value={value.title || ''}
+        onChange={handleInputChange}
+        disabled={disabled && disabled}
+        placeholder="제목을 입력해주세요"
+        maxlength="300"
+      />
+      <Line />
+      <StyledTextArea
+        width="100%"
+        height="100%"
+        name="contents"
+        value={value.contents || ''}
+        onInput={handleInputChange}
+        disabled={disabled && disabled}
+        placeholder="내용을 입력해주세요"
+        maxlength="5000"
+      />
+    </StyledSection>
   );
 };
 
@@ -57,12 +54,12 @@ export default ArticleEditor;
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  min-height: 50vh;
 `;
 
 const StyledInput = styled(Input)`
   border: none;
-  font-size: 3rem;
+  font-size: ${theme.font.xLarge};
   height: 4rem;
   &:focus {
     border: none;

@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import { css } from '@emotion/react';
 
-const Wrapper = ({ children, width, center, ...props }) => (
-  <StyledDiv width={width} center={center} {...props}>
+const Wrapper = ({ children, width, center, section, ...props }) => (
+  <StyledDiv width={width} center={center} section={section} {...props}>
     {children}
   </StyledDiv>
 );
