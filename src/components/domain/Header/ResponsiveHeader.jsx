@@ -103,6 +103,10 @@ const Header = styled.header`
   z-index: 1;
   background-color: #fff;
   box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
+  a:hover {
+    color: ${theme.color.main};
+    transition: all 200ms ease-out;
+  }
 
   justify-content: center;
 
