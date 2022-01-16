@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Card, NoData } from '@components';
-import theme from '@styles/theme';
+import { theme, standardValues } from '@styles';
 
 const CardList = ({ list, ...props }) => (
   <CardContainer hasContent={list.length} {...props}>
@@ -24,7 +24,7 @@ CardList.propTypes = {
 
 export default CardList;
 
-const { maxWidth, margin, maxCount } = theme.standardValues.card;
+const { maxWidth, margin, maxCount } = standardValues.card;
 const CardContainer = styled.div`
   width: 100%;
   height: auto;

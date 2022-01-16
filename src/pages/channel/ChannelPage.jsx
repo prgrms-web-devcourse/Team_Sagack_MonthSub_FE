@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { theme, mixin } from '@styles';
+import { theme, mixin, standardValues } from '@styles';
 import {
   Wrapper,
   SectionContainer,
@@ -128,7 +128,7 @@ const ChannelPage = () => {
   const isTablet = useMediaQuery(theme.detailedMobile.tablet);
   const isMobile = useMediaQuery(theme.detailedMobile.mobileS);
   const isMobileS = useMediaQuery(theme.detailedMobile.mobileL);
-  const { maxCount } = theme.standardValues.card;
+  const { maxCount } = standardValues.card;
 
   const callSlide = getList => (
     <CardSlider

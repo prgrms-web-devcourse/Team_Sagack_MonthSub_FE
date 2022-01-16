@@ -48,31 +48,6 @@ const detailedMobile = {
   mobileS: `screen and (max-width: ${deviceSizes.mobile - 0.1}px)`,
 };
 
-const standardValues = {
-  card: {
-    maxWidth: '330px',
-    margin: '20px',
-    maxCount: {
-      top: 4,
-      tab: 3,
-      mobL: 2,
-      mobS: 1,
-    },
-  },
-  userList: {
-    maxCount: 10,
-    size: '5rem',
-  },
-  banner: {
-    maxCount: {
-      top: 5,
-      tab: 3,
-      mobL: 2,
-      mobS: 1,
-    },
-  },
-};
-
 const theme = {
   color,
   font,
@@ -80,7 +55,6 @@ const theme = {
   common,
   device,
   detailedMobile,
-  standardValues,
 };
 
 export default theme;

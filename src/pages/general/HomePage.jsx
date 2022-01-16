@@ -12,7 +12,7 @@ import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
 import { getPopularSeries, getRecentSeries } from '@apis/series';
 import { useMediaQuery } from '@material-ui/core';
-import theme from '@styles/theme';
+import { theme, standardValues } from '@styles';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const HomePage = () => {
   const isTablet = useMediaQuery(theme.detailedMobile.tablet);
   const isMobile = useMediaQuery(theme.detailedMobile.mobileL);
   const isMobileS = useMediaQuery(theme.detailedMobile.mobileS);
-  const { maxCount } = theme.standardValues.banner;
+  const { maxCount } = standardValues.banner;
 
   return (
     <HomepageContainer>
