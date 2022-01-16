@@ -66,9 +66,9 @@ Button.propTypes = {
 };
 
 const StyledButton = styled.button`
-  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
-    typeof height === 'number' ? `${height}px` : height};
+    typeof height === 'number' ? `${height}rem` : height};
   border: 0.0625rem solid ${theme.color.main};
   border-radius: ${({ round }) => (round ? '0.25rem' : 'none')};
   padding: 0.5rem;
@@ -80,7 +80,6 @@ const StyledButton = styled.button`
     background-color: ${theme.color.main};
     transition: all 200ms ease-out;
   }
-
   ${({ circle }) =>
     circle &&
     css`

@@ -26,7 +26,6 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
           });
       return;
     }
-
     setValues({ ...values, [name]: value });
   };
 
