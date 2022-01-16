@@ -3,12 +3,6 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { theme, mixin } from '@styles';
 
-/*
- primaryKey: 한 페이지 내에서 두 번 이상의 호출 시 정상적인 작동을 위해
-  id를 구분 할 필요가 있다.
-  ex) 1페이지의 1카테고리 리스트(6개): id = checkedBtn1-1~6
-  ex) 1페이지의 2카테고리 리스트(3개): id = checkedBtn2-1~3
- */
 const CheckedButtonList = ({
   list,
   type,
@@ -24,7 +18,6 @@ const CheckedButtonList = ({
   const checkedCount = useRef(0);
   const formRef = useRef();
 
-  // 반전 기능은 다중 선택일 때만 필요하므로 type이 radio일 땐 사용되지 않는다.
   const reverseChecked = e => {
     const { value, checked } = e.target;
 

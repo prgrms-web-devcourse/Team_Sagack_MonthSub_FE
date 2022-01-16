@@ -1,4 +1,4 @@
-const standardValues = {
+const constants = {
   card: {
     maxWidth: '330px',
     margin: '20px',
@@ -23,4 +23,4 @@ const standardValues = {
   },
 };
 
-export default standardValues;
+export default constants;

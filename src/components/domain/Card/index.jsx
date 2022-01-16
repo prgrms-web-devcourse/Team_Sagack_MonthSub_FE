@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
 import { LikeToggle, Image } from '@components';
-import { theme, standardValues } from '@styles';
+import { theme, constants } from '@styles';
 
 const Card = ({ data, ...props }) => (
   <Container {...props}>
@@ -88,7 +88,7 @@ Card.propTypes = {
 
 export default Card;
 
-const { margin, maxWidth, maxCount } = standardValues.card;
+const { margin, maxWidth, maxCount } = constants.card;
 
 const Container = styled.div`
   margin-right: ${margin};

@@ -5,8 +5,6 @@ import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const SeriesListPage = () => {
-  // state
-  // 공통
   const size = 16;
   const [list, setList] = useState([]);
   const [params, setParams] = useState({
@@ -23,14 +21,12 @@ const SeriesListPage = () => {
   });
   const requestType = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory(); // 에러페이지
+  const history = useHistory();
 
-  // 무한스크롤
   const [loading, setLoading] = useState(false);
   const setSeriesId = useRef(null);
   const pageEnd = useRef();
 
-  // 카테고라이징
   const [rowCategories, setRowCategories] = useState([
     { key: 'NOVEL', value: false },
     { key: 'POEM', value: false },
@@ -86,10 +82,8 @@ const SeriesListPage = () => {
     },
   ];
 
-  // 스테이터스
   const [status, setStatus] = useState('');
 
-  // Function
   const afterMount = () => {
     if (list.length === 0) {
       return false;
@@ -144,8 +138,6 @@ const SeriesListPage = () => {
     setStatus(value);
   };
 
-  // useEffect
-  // 파라미터
   useEffect(() => {
     getListUpdate();
   }, [params]);
@@ -162,13 +154,11 @@ const SeriesListPage = () => {
     requestType.current = type;
   };
 
-  // 무한스크롤
   useEffect(() => {
     if (loading) {
       const observer = new IntersectionObserver(
         entries => {
           if (entries[0].isIntersecting) {
-            // 현재 lastId와 업데이트 하려는 lastId가 다를 때만 무한스크롤 작동
             currentParams.current['lastSeriesId'] = setSeriesId.current;
             updateParams('scroll');
           }
@@ -179,7 +169,6 @@ const SeriesListPage = () => {
     }
   }, [loading]);
 
-  // 카테고라이징
   useEffect(() => {
     if (afterMount()) {
       let result = '';
@@ -194,7 +183,6 @@ const SeriesListPage = () => {
     }
   }, [rowCategories]);
 
-  // 스테이터스
   useEffect(() => {
     currentParams.current['status'] = status;
     updateParams('status');

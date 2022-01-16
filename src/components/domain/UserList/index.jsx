@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, SectionContainer, UserProfile, NoData } from '@components';
-import { mixin, standardValues } from '@styles';
+import { mixin, constants } from '@styles';
 
 const UserList = ({ list, title, moreLink, ...props }) => {
-  const { maxCount, size } = standardValues.userList;
+  const { maxCount, size } = constants.userList;
 
   return (
     <SectionContainer

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { theme, standardValues } from '@styles';
+import { theme, constants } from '@styles';
 import { NoData } from '@components';
 
 const HottestList = ({ list, ...props }) => (
@@ -36,7 +36,7 @@ HottestList.propTypes = {
 
 export default HottestList;
 
-const { top, tab, mobL, mobS } = standardValues.banner.maxCount;
+const { top, tab, mobL, mobS } = constants.banner.maxCount;
 
 const ListCardContainer = styled.div`
   width: 100%;
