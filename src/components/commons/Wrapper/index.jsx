@@ -30,10 +30,9 @@ export default Wrapper;
 
 const StyledDiv = styled.div`
   height: auto;
-  width: 100%;
   max-width: ${props => props.width || '71.25rem'};
   padding: 3rem 0;
-  margin: ${({ section }) => (section ? '0 auto' : '5rem auto 0')};
+  margin: 5rem auto 0;
   ${({ center }) =>
     center &&
     css`

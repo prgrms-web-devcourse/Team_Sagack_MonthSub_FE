@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import MenuIcon from '@material-ui/icons/Menu';
-import { IconWrapper, Flex } from '@components';
+import { IconWrapper, Flex, Icons } from '@components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useClickAway } from '@hooks';
+import { lighten } from 'polished';
 import Logo from './Logo';
 
 const logo = require('./logo_whiteBackboard.svg');
@@ -34,6 +35,11 @@ const ResponsiveHeader = ({ userId }) => {
       {isOpened && (
         <NavContainer ref={ref} onClick={handleBackgroundClick}>
           <StyledFlex width="100%" justifyContent="center">
+            <Link to="/search" islogin={userId} onClick={handleMenuClick}>
+              <SearchBox>
+                <StyledSearchIcon />
+              </SearchBox>
+            </Link>
             <li>
               <Link to="/" onClick={handleMenuClick}>
                 Home
@@ -50,17 +56,24 @@ const ResponsiveHeader = ({ userId }) => {
               </Link>
             </li>
             {userId ? (
-              <li>
-                <Link to="/my/info" onClick={handleMenuClick}>
-                  내 정보
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/my/info" onClick={handleMenuClick}>
+                    내 정보
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/writes" onClick={handleMenuClick}>
+                    글쓰기
+                  </Link>
+                </li>
+              </>
             ) : (
-              <li>
+              <LoginLi>
                 <Link to="/signin" onClick={handleMenuClick}>
                   로그인
                 </Link>
-              </li>
+              </LoginLi>
             )}
           </StyledFlex>
         </NavContainer>
@@ -114,7 +127,7 @@ const StyledFlex = styled(Flex)`
   height: 15rem;
   animation: fadeIn 1s;
   li {
-    height: 3rem;
+    margin-top: 1rem;
 
     &:hover {
       color: ${theme.color.main};
@@ -138,4 +151,29 @@ const NavContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
+`;
+
+const StyledSearchIcon = styled(Icons.Search)`
+  margin-right: 0.3rem;
+`;
+
+const SearchBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 20rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: ${theme.color.greyLight};
+  &:hover {
+    outline: 0.0625rem solid ${theme.color.main};
+    background-color: ${lighten(0.01, theme.color.greyLight)};
+    ${StyledSearchIcon} {
+      color: ${theme.color.main};
+    }
+  }
+`;
+
+const LoginLi = styled.li`
+  padding-top: 1.5rem;
 `;
