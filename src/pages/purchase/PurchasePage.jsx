@@ -49,12 +49,14 @@ const PurchasePage = () => {
             </PurchaseResult>
           )}
           <PurchaseSeries>
-            <Image
-              alt="시리즈썸네일"
-              width="30%"
-              height="30%"
-              src={values.thumbnail}
-            />
+            <ImageCover>
+              <Image
+                alt="시리즈썸네일"
+                width="100%"
+                height="auto"
+                src={values.thumbnail}
+              />
+            </ImageCover>
             <Content>
               <TitleContainer>
                 <H2>{values.title}</H2>
@@ -129,13 +131,30 @@ const PurchaseSeries = styled.div`
   display: flex;
   width: 100%;
   margin: 1rem 0;
+  @media ${theme.device.tablet} {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const ImageCover = styled.div`
+  width: 30%;
+  margin: 1rem 0;
+  @media ${theme.device.tablet} {
+    width: 100%;
+  }
+  @media ${theme.device.mobile} {
+    width: 100%;
+  }
 `;
 
 const Content = styled.div`
   width: 100%;
   padding: 0 0.5rem;
   margin-left: 1.25rem;
-
+  @media ${theme.device.tablet} {
+    margin-left: 0;
+  }
   div {
     margin-bottom: 1rem;
   }
@@ -146,6 +165,18 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 1rem 0;
+  @media ${theme.device.tablet} {
+    flex-direction: column;
+  }
+  & > h2 {
+    @media ${theme.device.tablet} {
+      margin-bottom: 1rem;
+    }
+    @media ${theme.device.mobile} {
+      font-size: ${theme.font.large};
+      line-height: 2.1rem;
+    }
+  }
 `;
 
 const FlexContainer = styled.div`

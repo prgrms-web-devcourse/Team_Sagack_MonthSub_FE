@@ -47,7 +47,7 @@ Button.defaultProps = {
   name: '',
   value: '',
   children: 'text',
-  margin: 1,
+  margin: 0,
   round: true,
 };
 
