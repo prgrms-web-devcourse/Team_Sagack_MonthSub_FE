@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { theme, mixin } from '@styles';
+import { theme, mixin, constants } from '@styles';
 import {
   Wrapper,
   SectionContainer,
@@ -13,6 +13,7 @@ import {
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
+import { useMediaQuery } from '@material-ui/core';
 import cover from './channel_cover.jpg';
 
 const initialData = {
@@ -103,6 +104,7 @@ const ChannelPage = () => {
         setData(data);
       }
     }
+    setLoading(false);
   };
 
   const handleClick = () => {
@@ -116,8 +118,33 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
-    setLoading(false);
-  }, [id, data.isFollowed]);
+  }, [id]);
+
+  useEffect(() => {
+    getInitialData();
+  }, [data.isFollowed]);
+
+  const isLaptop = useMediaQuery(theme.device.laptop);
+  const isTablet = useMediaQuery(theme.detailedMobile.tablet);
+  const isMobile = useMediaQuery(theme.detailedMobile.mobileS);
+  const isMobileS = useMediaQuery(theme.detailedMobile.mobileL);
+  const { maxCount } = constants.card;
+
+  const callSlide = getList => (
+    <CardSlider
+      list={getList}
+      itemsCountOnRow={
+        isMobileS
+          ? maxCount.mobS
+          : isMobile
+          ? maxCount.mobL
+          : isTablet
+          ? maxCount.tab
+          : maxCount.top
+      }
+      itemsCountOnCol={isLaptop ? 2 : isTablet ? 2 : 1}
+    />
+  );
 
   return (
     <Wrapper>
@@ -181,7 +208,7 @@ const ChannelPage = () => {
           {!id ? (
             data.subscribeList.length > 0 ? (
               <SectionContainer title="구독한 시리즈">
-                <CardSlider list={data.subscribeList} />
+                {callSlide(data.subscribeList)}
               </SectionContainer>
             ) : (
               <SectionContainer title="구독한 시리즈">
@@ -193,7 +220,7 @@ const ChannelPage = () => {
           ) : null}
           {data.seriesPostList.length > 0 ? (
             <SectionContainer title="작성한 시리즈">
-              <CardSlider list={data.seriesPostList} />
+              {callSlide(data.seriesPostList)}
             </SectionContainer>
           ) : !id ? (
             <SectionContainer title="작성한 시리즈">
@@ -217,13 +244,12 @@ const ProfileWrapper = styled.div`
   height: ${ProfileAreaHeight};
   background-image: url(${cover});
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   display: flex;
   flex-direction: column;
 `;
 
 const ProfileContainer = styled.div`
-  width: 71.25rem;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -238,18 +264,18 @@ const UserInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   .nickname {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 1.25rem;
+    margin-bottom: 0.625rem;
   }
 
   .intro {
     max-width: 70%;
-    height: 80px;
+    height: 5rem;
     line-height: 1rem;
   }
 `;
@@ -259,7 +285,7 @@ const ProfileMain = styled.div`
 `;
 
 const ProfileBottom = styled.div`
-  height: 50px;
+  height: 3.125rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -268,7 +294,7 @@ const ProfileBottom = styled.div`
   background: rgba(0, 0, 0, 0.1);
 
   > div {
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
   > div:last-of-type {
     margin-right: 0;
@@ -276,9 +302,9 @@ const ProfileBottom = styled.div`
 `;
 
 const StyledButton = styled(`button`)`
-  height: 30px;
-  width: 90px;
-  border-radius: 30px;
+  height: 1.875rem;
+  width: 5.625rem;
+  border-radius: 1.875rem;
   border: 0.13rem solid #5cb85c;
   background-color: ${({ bgColor }) => bgColor};
   color: ${({ isFollowed }) => (isFollowed ? '#5cb85c' : `#fff`)};

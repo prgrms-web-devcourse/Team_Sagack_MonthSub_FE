@@ -11,6 +11,8 @@ import {
 import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
 import { getPopularSeries, getRecentSeries } from '@apis/series';
+import { useMediaQuery } from '@material-ui/core';
+import { theme, constants } from '@styles';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -59,6 +61,11 @@ const HomePage = () => {
     getInitialData();
   }, []);
 
+  const isTablet = useMediaQuery(theme.detailedMobile.tablet);
+  const isMobile = useMediaQuery(theme.detailedMobile.mobileL);
+  const isMobileS = useMediaQuery(theme.detailedMobile.mobileS);
+  const { maxCount } = constants.banner;
+
   return (
     <HomepageContainer>
       {loading ? (
@@ -68,7 +75,15 @@ const HomePage = () => {
           <CardSlider
             list={values.popularSeriesList}
             parentOf="main"
-            itemsCountOnRow={5}
+            itemsCountOnRow={
+              isMobileS
+                ? maxCount.mobS
+                : isMobile
+                ? maxCount.mobL
+                : isTablet
+                ? maxCount.tab
+                : maxCount.top
+            }
             itemsCountOnCol={1}
           />
           <Wrapper className="customWrapper">

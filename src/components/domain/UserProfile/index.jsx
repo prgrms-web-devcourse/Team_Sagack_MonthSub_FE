@@ -46,14 +46,12 @@ UserProfile.propTypes = {
 
 export default UserProfile;
 
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const ProfileContainer = styled.div``;
 
 const Nickname = styled.span`
+  display: inline-block;
+  width: 100%;
+  text-align: center;
   font-size: ${({ fontSize }) =>
     typeof fontSize === 'number' ? `${fontSize}rem` : fontSize};
   margin-top: 0.75rem;
@@ -62,9 +60,6 @@ const Nickname = styled.span`
 const ProfileWrapper = styled.div`
   width: ${({ size }) => (typeof size === 'number' ? `${size}rem` : size)};
   height: ${({ size }) => (typeof size === 'number' ? `${size}rem` : size)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: ${({ size }) =>
     typeof size === 'number' ? `${size}rem` : size};
   overflow: hidden;

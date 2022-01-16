@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Card, NoData } from '@components';
+import { theme, constants } from '@styles';
 
 const CardList = ({ list, ...props }) => (
   <CardContainer hasContent={list.length} {...props}>
@@ -23,11 +24,26 @@ CardList.propTypes = {
 
 export default CardList;
 
+const { maxWidth, margin, maxCount } = constants.card;
 const CardContainer = styled.div`
   width: 100%;
   height: auto;
-  min-height: 20vh;
   display: flex;
-  align-items: center;
   flex-flow: row wrap;
+  margin: 0 auto;
+
+  @media ${theme.device.laptop} {
+    max-width: 100%;
+  }
+  @media ${theme.detailedMobile.tablet} {
+    max-width: calc(
+      (${maxWidth} * ${maxCount.tab}) + (${margin} * ${maxCount.tab - 1})
+    );
+  }
+  @media ${theme.detailedMobile.mobileL} {
+    max-width: calc((${maxWidth} * ${maxCount.mobL}) + ${margin});
+  }
+  @media ${theme.detailedMobile.mobileS} {
+    max-width: ${maxWidth};
+  }
 `;

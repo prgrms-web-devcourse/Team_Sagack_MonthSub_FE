@@ -46,6 +46,6 @@ const StyledDiv = styled.div`
   }
   @media ${theme.device.mobile} {
     max-width: 100%;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
   }
 `;

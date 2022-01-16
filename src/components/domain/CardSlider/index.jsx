@@ -13,6 +13,10 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, parentOf }) => {
   const newList = [];
   const slideFullRef = useRef(null);
 
+  if (list.length > 0) {
+    // console.log(itemsCountOnRow);
+  }
+
   const divideList = () => {
     for (let i = 0; i <= list.length; i += 1) {
       if (i === 0 || i % howManyItemsAre === 0) {
@@ -28,6 +32,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, parentOf }) => {
     for (let i = 0; i <= lastSlideIndex; i += 1) {
       result.push(
         <SlideSectionArea
+          id={`slide-${i + 1}`}
           key={`slide-${i}`}
           ref={el => {
             slideRef.current[i] = el;
@@ -92,7 +97,7 @@ const CardSlider = ({ list, itemsCountOnRow, itemsCountOnCol, parentOf }) => {
 CardSlider.defaultProps = {
   list: [],
   itemsCountOnRow: 4,
-  itemsCountOnCol: 2,
+  itemsCountOnCol: 1,
   parentOf: '',
 };
 

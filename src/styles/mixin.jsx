@@ -15,6 +15,14 @@ const fullScreen = css`
   }
 `;
 
-const mixin = { fullScreen };
+const invisibleScrollBar = css`
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+`;
+
+const mixin = { fullScreen, invisibleScrollBar };
 
 export default mixin;
