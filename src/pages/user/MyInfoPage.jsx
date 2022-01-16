@@ -34,7 +34,7 @@ const MyInfoPage = () => {
 export default MyInfoPage;
 
 const StyledContainer = styled(Container)`
-  @media ${theme.device.tablete} {
+  @media ${theme.device.tablet} {
     height: 50vh;
     display: flex;
     flex-direction: column;
@@ -43,10 +43,10 @@ const StyledContainer = styled(Container)`
 `;
 
 const LinkList = styled.div`
-  @media ${theme.device.tablete} {
+  @media ${theme.device.tablet} {
     flex-grow: 1;
     align-self: flex-start;
-    margin-top: 2rem;
+    margin-top: 0;
   }
   @media ${theme.device.mobile} {
     margin-top: 0;
@@ -63,7 +63,7 @@ const StyledLink = styled(Link)`
   align-items: center;
   padding: 1rem;
   box-shadow: 0 0.25rem 0.25rem -0.25rem #f5f5f5;
-  @media ${theme.device.tablete} {
+  @media ${theme.device.tablet} {
     justify-content: center;
   }
 `;
@@ -71,7 +71,7 @@ const StyledLink = styled(Link)`
 const StyledButton = styled(Button)`
   width: 100%;
   margin-top: 3rem;
-  @media ${theme.device.tablete} {
+  @media ${theme.device.tablet} {
     margin-top: 1rem;
   }
 `;
