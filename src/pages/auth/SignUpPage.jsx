@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input, Wrapper } from '@components';
+import { Input } from '@atom';
+import { Wrapper } from '@templates';
 import validationEmail from '@utils/validationEmail';
 import validationPassword from '@utils/validationPassword';
 import { useHistory } from 'react-router-dom';

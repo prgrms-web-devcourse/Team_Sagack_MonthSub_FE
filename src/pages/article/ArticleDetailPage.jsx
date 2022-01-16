@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Button, Loading } from '@components';
+import { Button, Loading } from '@atom';
+import { Wrapper } from '@templates';
 import { getArticleDetail } from '@apis/article';
 import { useParams, useHistory } from 'react-router-dom';
 import { theme, mixin } from '@styles';

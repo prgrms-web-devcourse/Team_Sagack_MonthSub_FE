@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '@components';
+import { Header } from '@organisms';
 import { Route, Switch } from 'react-router-dom';
 import {
   ArticleDetailPage,

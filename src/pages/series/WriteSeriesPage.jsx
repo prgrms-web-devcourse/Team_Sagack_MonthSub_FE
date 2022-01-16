@@ -1,5 +1,6 @@
 import React from 'react';
-import { Wrapper, SeriesForm } from '@components';
+import { Wrapper } from '@templates';
+import { SeriesForm } from '@organisms';
 
 const WriteSeriesPage = () => (
   <Wrapper>

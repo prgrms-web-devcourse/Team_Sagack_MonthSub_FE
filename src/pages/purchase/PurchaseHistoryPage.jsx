@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, CardList, Loading } from '@components';
+import { Loading } from '@atom';
+import { CardList } from '@organisms';
+import { Wrapper } from '@templates';
+
 import { getMyPurchaseSeries } from '@apis/user';
 import { useFetch } from '@hooks';
 

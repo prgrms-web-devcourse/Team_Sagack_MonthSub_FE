@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, ArticleForm, Loading } from '@components';
+import { Loading } from '@atom';
+import { ArticleForm } from '@organisms';
+import { Wrapper } from '@templates';
 import { getArticleDetail } from '@apis/article';
 import styled from '@emotion/styled';
 import { useParams, useHistory } from 'react-router-dom';

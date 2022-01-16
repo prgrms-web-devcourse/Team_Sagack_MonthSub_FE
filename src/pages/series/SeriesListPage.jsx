@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Wrapper, CardList, Loading, CheckedButtonList } from '@components';
+import { CheckedButtonList } from '@mocules';
+import { Loading } from '@atom';
+import { CardList } from '@organisms';
+import { Wrapper } from '@templates';
 import { getSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';

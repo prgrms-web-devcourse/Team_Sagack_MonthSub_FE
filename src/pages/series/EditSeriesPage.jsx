@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Wrapper, SeriesForm, Loading } from '@components';
+import { Loading } from '@atom';
+import { SeriesForm } from '@organisms';
+import { Wrapper } from '@templates';
 import { getSeriesDetail } from '@apis/series';
 import { useHistory, useParams } from 'react-router-dom';
 

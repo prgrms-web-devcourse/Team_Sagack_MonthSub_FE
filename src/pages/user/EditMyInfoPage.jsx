@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input, TextArea, Wrapper, ImageUpload } from '@components';
+import { ImageUpload } from '@mocules';
+import { Input, TextArea } from '@atom';
+import { Wrapper } from '@templates';
 import { useHistory } from 'react-router-dom';
 import { getMyInfo, patchMyInfo } from '@apis/user';
 import theme from '@styles/theme';

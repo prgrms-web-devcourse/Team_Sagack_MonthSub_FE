@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
-import { Wrapper, FollowListItem, NoData } from '@components';
+import { NoData } from '@mocules';
+import { FollowListItem } from '@organisms';
+import { Wrapper } from '@templates';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
