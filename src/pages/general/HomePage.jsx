@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import {
-  Wrapper,
-  CardList,
-  CardSlider,
-  Loading,
-  UserList,
-  SectionContainer,
-} from '@components';
+import { Loading } from '@atom';
+import { UserList, CardSlider, CardList } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
 import { getPopularSeries, getRecentSeries } from '@apis/series';

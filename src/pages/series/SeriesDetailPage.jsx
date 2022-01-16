@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Wrapper,
-  Image,
-  SectionContainer,
-  ArticleList,
-  DetailForm,
-  Button,
-  ContentAddLink,
-  Loading,
-} from '@components';
+import { Loading, Image, Button } from '@atom';
+import { ContentAddLink } from '@mocules';
+import { ArticleList, DetailForm } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
 import styled from '@emotion/styled';

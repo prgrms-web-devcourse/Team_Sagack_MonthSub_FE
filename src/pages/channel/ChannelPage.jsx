@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme, mixin, constants } from '@styles';
-import {
-  Wrapper,
-  SectionContainer,
-  UserProfile,
-  CardSlider,
-  UserList,
-  Loading,
-  NoData,
-} from '@components';
+import { Loading } from '@atom';
+import { NoData, UserProfile } from '@mocules';
+import { CardSlider, UserList } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';

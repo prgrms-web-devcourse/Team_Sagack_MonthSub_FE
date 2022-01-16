@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Image, Button, Container, Loading } from '@components';
+import { Image, Button, Loading } from '@atom';
+import { Wrapper, Container } from '@templates';
 import { useParams, useHistory } from 'react-router-dom';
 import { getPurchaseInfo, postPurchase } from '@apis/purchase';
 import theme from '@styles/theme';

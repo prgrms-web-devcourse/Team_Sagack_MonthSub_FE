@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Container, Button } from '@components';
+import { Button } from '@atom';
+import { Wrapper, Container } from '@templates';
 import { Link, useHistory } from 'react-router-dom';
 import { useUser } from '@contexts/UserProvider';
 import theme from '@styles/theme';

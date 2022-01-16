@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Input, Button, CardList, Wrapper, Icons } from '@components';
+import { Input, Button, Icon } from '@atom';
+import { CardList } from '@organisms';
+import { Wrapper } from '@templates';
 import { getSearchWithTitle } from '@apis/search';
 import { useForm } from '@hooks';
 import theme from '@styles/theme';
@@ -80,7 +82,7 @@ const SearchPage = () => {
             focus={false}
           />
           <StyledButton type="submit" margin={0} round={false}>
-            <Icons.Search />
+            <Icon.Search />
           </StyledButton>
         </div>
         <ErrorMessage>{errors.error}&nbsp;</ErrorMessage>
