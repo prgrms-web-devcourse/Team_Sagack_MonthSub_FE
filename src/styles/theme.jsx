@@ -25,11 +25,36 @@ const common = {
   navHeight: '5rem',
 };
 
+const deviceSizes = {
+  mobile: 480,
+  tablet: 768,
+  laptop: 1140,
+};
+
+const device = {
+  laptop: `screen and (min-width: ${deviceSizes.laptop}px)`,
+  tablet: `screen and (max-width: ${deviceSizes.laptop - 0.1}px)`,
+  mobile: `screen and (max-width: ${deviceSizes.tablet - 0.1}px)`,
+  mobileS: `screen and (max-width: ${deviceSizes.mobile - 0.1}px)`,
+};
+
+const detailedMobile = {
+  tablet: `screen and (max-width: ${
+    deviceSizes.laptop - 0.1
+  }px) and (min-width: ${deviceSizes.tablet}px)`,
+  mobileL: `screen and (max-width: ${
+    deviceSizes.tablet - 0.1
+  }px) and (min-width: ${deviceSizes.mobile}px)`,
+  mobileS: `screen and (max-width: ${deviceSizes.mobile - 0.1}px)`,
+};
+
 const theme = {
   color,
   font,
   style,
   common,
+  device,
+  detailedMobile,
 };
 
 export default theme;

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useForm, useSessionStorage } from '@hooks';
 import { postSignIn } from '@apis/auth';
-import { Input, Wrapper } from '@components';
+import { Input } from '@atom';
+import { Wrapper } from '@templates';
 import validationEmail from '@utils/validationEmail';
 import { Link, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
@@ -45,7 +46,7 @@ const SignInPage = () => {
   });
 
   return (
-    <StyledWrapper whole>
+    <Wrapper center>
       <Form onSubmit={handleSubmit}>
         <H1>로그인</H1>
         <Input
@@ -74,15 +75,11 @@ const SignInPage = () => {
         </Span>
         <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
       </Form>
-    </StyledWrapper>
+    </Wrapper>
   );
 };
 
 export default SignInPage;
-
-const StyledWrapper = styled(Wrapper)`
-  height: calc(100vh - 5rem);
-`;
 
 const H1 = styled.h1`
   font-size: 2rem;
@@ -92,7 +89,6 @@ const H1 = styled.h1`
 
 const Form = styled.form`
   width: 60%;
-  height: 100%;
   padding: 10rem 0;
   margin: 0 auto;
   text-align: center;

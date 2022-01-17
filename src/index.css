@@ -13,9 +13,16 @@ html {
   font-family: 'Eulyoo1945', serif;
 }
 
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
+
 body {
   font-family: 'Eulyoo1945', serif;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #f2f2f2;
 }
 

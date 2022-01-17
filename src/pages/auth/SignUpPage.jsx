@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { Input, Wrapper } from '@components';
+import { Input } from '@atom';
+import { Wrapper } from '@templates';
 import validationEmail from '@utils/validationEmail';
 import validationPassword from '@utils/validationPassword';
 import { useHistory } from 'react-router-dom';
@@ -41,7 +42,7 @@ const SignUpPage = () => {
   });
 
   return (
-    <StyledWrapper whole>
+    <Wrapper center>
       <Form onSubmit={handleSubmit}>
         <H1>회원가입</H1>
         <Input
@@ -87,15 +88,11 @@ const SignUpPage = () => {
         <SubmitButton type="submit">회원가입</SubmitButton>
         <ErrorMessage>{errors.resError}&nbsp;</ErrorMessage>
       </Form>
-    </StyledWrapper>
+    </Wrapper>
   );
 };
 
 export default SignUpPage;
-
-const StyledWrapper = styled(Wrapper)`
-  height: calc(100vh - 5rem);
-`;
 
 const H1 = styled.h1`
   font-size: 2rem;
@@ -105,7 +102,6 @@ const H1 = styled.h1`
 
 const Form = styled.form`
   width: 60%;
-  height: 100%;
   padding: 5rem 0;
   margin: 0 auto;
   text-align: center;

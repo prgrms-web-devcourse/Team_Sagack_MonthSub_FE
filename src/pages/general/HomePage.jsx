@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import {
-  Wrapper,
-  CardList,
-  CardSlider,
-  Loading,
-  UserList,
-  SectionContainer,
-} from '@components';
+import { Loading } from '@atom';
+import { UserList, CardSlider, CardList } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { getMyPurchaseSeries } from '@apis/user';
 import { getPopularWriters } from '@apis/auth';
 import { getPopularSeries, getRecentSeries } from '@apis/series';
+import { useMediaQuery } from '@material-ui/core';
+import { theme, constants } from '@styles';
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -59,6 +56,11 @@ const HomePage = () => {
     getInitialData();
   }, []);
 
+  const isTablet = useMediaQuery(theme.detailedMobile.tablet);
+  const isMobile = useMediaQuery(theme.detailedMobile.mobileL);
+  const isMobileS = useMediaQuery(theme.detailedMobile.mobileS);
+  const { maxCount } = constants.banner;
+
   return (
     <HomepageContainer>
       {loading ? (
@@ -68,12 +70,20 @@ const HomePage = () => {
           <CardSlider
             list={values.popularSeriesList}
             parentOf="main"
-            itemsCountOnRow={5}
+            itemsCountOnRow={
+              isMobileS
+                ? maxCount.mobS
+                : isMobile
+                ? maxCount.mobL
+                : isTablet
+                ? maxCount.tab
+                : maxCount.top
+            }
             itemsCountOnCol={1}
           />
           <Wrapper className="customWrapper">
             <UserList list={values.popularWriterList} title="인기 작가" />
-            
+
             {hasAuth && values.purChaseSeriesList.length > 0 ? (
               <SectionContainer title="구독중인 시리즈">
                 <CardList list={values.purChaseSeriesList} />

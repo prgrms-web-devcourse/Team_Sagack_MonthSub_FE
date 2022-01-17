@@ -1,5 +1,6 @@
 import React from 'react';
-import { Wrapper, ArticleForm } from '@components';
+import { ArticleForm } from '@organisms';
+import { Wrapper } from '@templates';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 

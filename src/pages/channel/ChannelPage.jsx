@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import theme from '@styles/theme';
-import {
-  Wrapper,
-  SectionContainer,
-  UserProfile,
-  CardSlider,
-  UserList,
-  Loading,
-} from '@components';
+import { theme, mixin, constants } from '@styles';
+import { Loading } from '@atom';
+import { NoData, UserProfile } from '@mocules';
+import { CardSlider, UserList } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
+import { useMediaQuery } from '@material-ui/core';
 import cover from './channel_cover.jpg';
 
 const initialData = {
@@ -102,6 +99,7 @@ const ChannelPage = () => {
         setData(data);
       }
     }
+    setLoading(false);
   };
 
   const handleClick = () => {
@@ -115,11 +113,36 @@ const ChannelPage = () => {
 
   useEffect(() => {
     getInitialData();
-    setLoading(false);
-  }, [id, data.isFollowed]);
+  }, [id]);
+
+  useEffect(() => {
+    getInitialData();
+  }, [data.isFollowed]);
+
+  const isLaptop = useMediaQuery(theme.device.laptop);
+  const isTablet = useMediaQuery(theme.detailedMobile.tablet);
+  const isMobile = useMediaQuery(theme.detailedMobile.mobileS);
+  const isMobileS = useMediaQuery(theme.detailedMobile.mobileL);
+  const { maxCount } = constants.card;
+
+  const callSlide = getList => (
+    <CardSlider
+      list={getList}
+      itemsCountOnRow={
+        isMobileS
+          ? maxCount.mobS
+          : isMobile
+          ? maxCount.mobL
+          : isTablet
+          ? maxCount.tab
+          : maxCount.top
+      }
+      itemsCountOnCol={isLaptop ? 2 : isTablet ? 2 : 1}
+    />
+  );
 
   return (
-    <ChannelContainer>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -128,6 +151,7 @@ const ChannelPage = () => {
             <ProfileMain>
               <ProfileContainer>
                 <UserProfile
+                  userId={data.user.userId}
                   src={data.user.profileImage}
                   size={7}
                   nickname={data.user.nickname}
@@ -163,48 +187,46 @@ const ChannelPage = () => {
             </ProfileBottom>
           </ProfileWrapper>
 
-          <Wrapper className="customWrapper">
-            {data.followWriterList.length > 0 ? (
-              <UserList
-                list={data.followWriterList}
-                title="팔로우한 작가들"
-                moreLink={id ? `/follow/${id}` : '/follow/my'}
-              />
-            ) : !id ? (
-              <SectionContainer title="팔로우한 작가들">
-                <NoContents>
-                  팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
-                </NoContents>
+          {data.followWriterList.length > 0 ? (
+            <UserList
+              list={data.followWriterList}
+              title="팔로우한 작가들"
+              moreLink={id ? `/follow/${id}` : '/follow/my'}
+            />
+          ) : !id ? (
+            <SectionContainer title="팔로우한 작가들">
+              <NoData>
+                팔로우한 작가가 없습니다. 마음에 드는 작가를 팔로우 해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
+          {!id ? (
+            data.subscribeList.length > 0 ? (
+              <SectionContainer title="구독한 시리즈">
+                {callSlide(data.subscribeList)}
               </SectionContainer>
-            ) : null}
-            {!id ? (
-              data.subscribeList.length > 0 ? (
-                <SectionContainer title="구독한 시리즈">
-                  <CardSlider list={data.subscribeList} />
-                </SectionContainer>
-              ) : (
-                <SectionContainer title="구독한 시리즈">
-                  <NoContents>
-                    구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
-                  </NoContents>
-                </SectionContainer>
-              )
-            ) : null}
-            {data.seriesPostList.length > 0 ? (
-              <SectionContainer title="작성한 시리즈">
-                <CardSlider list={data.seriesPostList} />
+            ) : (
+              <SectionContainer title="구독한 시리즈">
+                <NoData>
+                  구독한 시리즈가 없습니다. 마음에 드는 시리즈를 찾아보세요.
+                </NoData>
               </SectionContainer>
-            ) : !id ? (
-              <SectionContainer title="작성한 시리즈">
-                <NoContents>
-                  작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
-                </NoContents>
-              </SectionContainer>
-            ) : null}
-          </Wrapper>
+            )
+          ) : null}
+          {data.seriesPostList.length > 0 ? (
+            <SectionContainer title="작성한 시리즈">
+              {callSlide(data.seriesPostList)}
+            </SectionContainer>
+          ) : !id ? (
+            <SectionContainer title="작성한 시리즈">
+              <NoData>
+                작성한 시리즈가 없습니다. 새로운 시리즈를 작성해보세요.
+              </NoData>
+            </SectionContainer>
+          ) : null}
         </>
       )}
-    </ChannelContainer>
+    </Wrapper>
   );
 };
 
@@ -212,28 +234,17 @@ export default ChannelPage;
 
 const ProfileAreaHeight = '27rem';
 
-const ChannelContainer = styled.div`
-  .customWrapper {
-    margin-top: calc(${ProfileAreaHeight} + ${theme.common.navHeight});
-  }
-`;
-
 const ProfileWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  ${mixin.fullScreen}
   height: ${ProfileAreaHeight};
-  margin-top: ${theme.common.navHeight};
   background-image: url(${cover});
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   display: flex;
   flex-direction: column;
 `;
 
 const ProfileContainer = styled.div`
-  width: 71.25rem;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -248,18 +259,18 @@ const UserInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   .nickname {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 1.25rem;
+    margin-bottom: 0.625rem;
   }
 
   .intro {
     max-width: 70%;
-    height: 80px;
+    height: 5rem;
     line-height: 1rem;
   }
 `;
@@ -269,7 +280,7 @@ const ProfileMain = styled.div`
 `;
 
 const ProfileBottom = styled.div`
-  height: 50px;
+  height: 3.125rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -278,7 +289,7 @@ const ProfileBottom = styled.div`
   background: rgba(0, 0, 0, 0.1);
 
   > div {
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
   > div:last-of-type {
     margin-right: 0;
@@ -286,21 +297,12 @@ const ProfileBottom = styled.div`
 `;
 
 const StyledButton = styled(`button`)`
-  height: 30px;
-  width: 90px;
-  border-radius: 30px;
+  height: 1.875rem;
+  width: 5.625rem;
+  border-radius: 1.875rem;
   border: 0.13rem solid #5cb85c;
   background-color: ${({ bgColor }) => bgColor};
   color: ${({ isFollowed }) => (isFollowed ? '#5cb85c' : `#fff`)};
   font-size: 1rem;
   font-weight: 700;
-`;
-
-const NoContents = styled.div`
-  background-color: ${theme.color.grey};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  height: 160px;
 `;

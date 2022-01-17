@@ -1,8 +1,8 @@
 import React from 'react';
-import { Wrapper } from '@components';
+import { Wrapper } from '@templates';
 
 const NotFoundPage = () => (
-  <Wrapper whole>
+  <Wrapper>
     <h1>404 Not Found</h1>
   </Wrapper>
 );

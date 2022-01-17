@@ -1,5 +1,7 @@
 import React from 'react';
-import { Wrapper, CardList, Loading } from '@components';
+import { Loading } from '@atom';
+import { CardList } from '@organisms';
+import { Wrapper } from '@templates';
 import { getMyLikes } from '@apis/user';
 import styled from '@emotion/styled';
 import { useFetch } from '@hooks';
@@ -19,11 +21,7 @@ const MyLikeSeriesPage = () => {
           <Header>
             <H1>관심 시리즈</H1>
           </Header>
-          {values.length ? (
-            <CardList list={values} />
-          ) : (
-            <p>데이터가 존재하지 않습니다.</p>
-          )}
+          <CardList list={values} />
         </Container>
       )}
     </Wrapper>

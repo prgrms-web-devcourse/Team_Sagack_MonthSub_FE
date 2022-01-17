@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Wrapper, Button, Loading } from '@components';
+import { Button, Loading } from '@atom';
+import { Wrapper } from '@templates';
 import { getArticleDetail } from '@apis/article';
 import { useParams, useHistory } from 'react-router-dom';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import replaceEnter from '@utils/replaceEnter';
 
 const ArticleDetailPage = () => {
@@ -43,7 +44,7 @@ const ArticleDetailPage = () => {
   }, []);
 
   return (
-    <Container>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -72,35 +73,24 @@ const ArticleDetailPage = () => {
               </Content>
             </ImageCover>
           </ImageContainer>
-          <Wrapper>
-            <Paragraph
-              dangerouslySetInnerHTML={{
-                __html: replaceEnter(article.contents),
-              }}
-            />
-          </Wrapper>
+          <Paragraph
+            dangerouslySetInnerHTML={{
+              __html: replaceEnter(article.contents),
+            }}
+          />
         </>
       )}
-    </Container>
+    </Wrapper>
   );
 };
 
 export default ArticleDetailPage;
 
-const Container = styled.div`
-  background-color: #fff;
-  min-height: calc(100vh - 5rem);
-  margin-top: 5rem;
-`;
-
 const ImageContainer = styled.div`
-  width: 100%;
-  height: 30rem;
-  position: relative;
+  ${mixin.fullScreen}
   background-image: ${({ image }) => `url(${image})`};
   background-position: center;
   background-size: cover;
-  margin: 3rem 0;
 `;
 
 const ImageCover = styled.div`
@@ -108,7 +98,7 @@ const ImageCover = styled.div`
   display: flex;
   align-items: flex-end;
   width: 100%;
-  height: 30rem;
+  height: 100%;
   padding: 2rem 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
@@ -121,6 +111,14 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   color: rgba(255, 255, 255, 0.8);
+  @media ${theme.device.tablet} {
+    max-width: 100%;
+    padding: 0 2.5rem;
+  }
+  @media ${theme.device.mobile} {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -143,22 +141,23 @@ const Title = styled.h1`
   width: 80%;
   height: 100%;
   font-weight: 400;
-  font-size: 2.5rem;
+  font-size: ${theme.font.xLarge};
   margin-bottom: 1.7rem;
 `;
 
 const Nickname = styled.div`
-  font-size: 1.5rem;
+  font-size: ${theme.font.medium};
   margin-bottom: 0.7rem;
 `;
 
 const Date = styled.span`
   color: rgba(255, 255, 255, 0.5);
+  font-size: ${theme.font.small};
 `;
 
 const Paragraph = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 40vh;
   font-size: 1rem;
   line-height: 1.7rem;
 `;

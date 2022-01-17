@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFollowList } from '@apis/follow';
-import { Wrapper, FollowListItem } from '@components';
+import { NoData } from '@mocules';
+import { FollowListItem } from '@organisms';
+import { Wrapper } from '@templates';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
@@ -50,18 +52,22 @@ const FollowListPage = () => {
   }, [target]);
 
   return (
-    <Wrapper whole>
+    <Wrapper>
       <FollowListContainer>
-        {values.map(element => (
-          <FollowListItem
-            key={element.writerId}
-            src={element.profileImage}
-            nickname={element.nickname}
-            intro={element.profileIntroduce}
-            followCount={element.followCount}
-            writerId={element.writerId}
-          />
-        ))}
+        {values.length ? (
+          values.map(element => (
+            <FollowListItem
+              key={element.writerId}
+              src={element.profileImage}
+              nickname={element.nickname}
+              intro={element.profileIntroduce}
+              followCount={element.followCount}
+              writerId={element.writerId}
+            />
+          ))
+        ) : (
+          <NoData height="50vh">팔로우 유저 데이터가 존재하지 않습니다.</NoData>
+        )}
       </FollowListContainer>
       <div ref={setTarget} />
     </Wrapper>
@@ -71,10 +77,14 @@ const FollowListPage = () => {
 export default FollowListPage;
 
 const FollowListContainer = styled.div`
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 80%;
   height: 90%;
+  min-height: 50vh;
   border-radius: 20px;
   margin: 0 auto;
+  background-color: #ffffff;
   box-shadow: ${theme.style.boxShadow};
 `;

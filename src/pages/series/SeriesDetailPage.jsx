@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Wrapper,
-  Image,
-  SectionContainer,
-  ArticleList,
-  DetailForm,
-  Button,
-  AddButton,
-  Loading,
-} from '@components';
+import { Loading, Image, Button } from '@atom';
+import { ContentAddLink } from '@mocules';
+import { ArticleList, DetailForm } from '@organisms';
+import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
 import styled from '@emotion/styled';
-import theme from '@styles/theme';
+import { theme, mixin } from '@styles';
 import convertDay from '@utils/convertDay';
 
 export const initialData = {
@@ -82,7 +76,7 @@ const SeriesDetailPage = () => {
   }, []);
 
   return (
-    <Container>
+    <Wrapper>
       {loading ? (
         <Loading />
       ) : (
@@ -95,119 +89,107 @@ const SeriesDetailPage = () => {
               height="auto"
             />
           </ImageArea>
-          <Wrapper>
-            <MainArea>
-              <div>
-                <DetailForm
-                  previousRoot="/series"
-                  previousRootText="구독 모집"
-                  parentId={detail.series.id}
-                  title={detail.series.title}
-                  writerId={detail.writer.userId}
-                  writerProfileImage={detail.writer.profileImage}
-                  writerNickname={detail.writer.nickname}
-                  postDate={detail.subscribe.startDate}
-                  likes={detail.series.likes}
-                  bodyText={detail.series.introduceText}
-                  isMine={detail.isMine}
-                  isLiked={detail.isLiked}
-                />
-              </div>
-              <InfoArea>
-                <SeriesInfoHead>INFORMATION</SeriesInfoHead>
-                <SeriesInfo>
-                  <SeriesInfoSection>
-                    <div>구독 정보</div>
-                    <div className="seriesInfoBlock">
-                      <div>모집일</div>
-                      {detail.subscribe.startDate} ~ {detail.subscribe.endDate}
-                    </div>
-                    <div className="seriesInfoBlock">
-                      <div>구독료</div>
-                      {detail.series.price} 원
-                    </div>
-                  </SeriesInfoSection>
-                  <SeriesInfoSection>
-                    <div>연재 정보</div>
-                    <div className="seriesInfoBlock">
-                      <div>연재 일</div>
-                      {detail.series.startDate} ~ {detail.series.endDate}
-                    </div>
-                    <div className="seriesInfoBlock">
-                      <div>연재 주기</div>
-                      {convertDay(detail.upload.date).join(', ')}
-                      &nbsp;{detail.upload.time} 시
-                    </div>
-                    <div className="seriesInfoBlock">
-                      <div>총 회차</div>
-                      {detail.series.articleCount} 회
-                    </div>
-                  </SeriesInfoSection>
-                  <SeriesInfoSection>
-                    <Link to={`/purchase/${detail.series.id}`}>
-                      {sessionStorage.getItem('authorization') &&
-                      !detail.isMine ? (
-                        <Button
-                          className="seriesPurchase"
-                          width="100%"
-                          height="2.8125rem"
-                          margin={0}
-                        >
-                          결제하기
-                        </Button>
-                      ) : null}
-                    </Link>
-                  </SeriesInfoSection>
-                </SeriesInfo>
-              </InfoArea>
-            </MainArea>
-            <ArticleArea>
-              <div className="articleAreaHeader">
-                <SectionContainer title="연재 목록" />
-                {detail.isMine ? (
-                  <Link to={`/series/${detail.series.id}/article/write`}>
-                    <AddButton>새 아티클 작성하기</AddButton>
-                  </Link>
-                ) : null}
-              </div>
-              <SectionContainer>
-                {detail.articleList.length ? (
-                  <ArticleList
-                    seriesId={detail.series.id}
-                    list={detail.articleList}
-                  />
-                ) : (
-                  <div className="articleListNone">
-                    해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
+          <InfoArea>
+            <SeriesInfo>
+              <div>작품 정보</div>
+              <SeriesInfoSection>
+                <div className="seriesInfoBlock">
+                  <div>모집일</div>
+                  <div>
+                    {detail.subscribe.startDate} ~ {detail.subscribe.endDate}
                   </div>
-                )}
-              </SectionContainer>
-            </ArticleArea>
-          </Wrapper>
+                </div>
+                <div className="seriesInfoBlock">
+                  <div>구독료</div>
+                  <div>{detail.series.price} 원</div>
+                </div>
+                <div className="seriesInfoBlock">
+                  <div>연재 일</div>
+                  <div>
+                    {detail.series.startDate} ~ {detail.series.endDate}
+                  </div>
+                </div>
+                <div className="seriesInfoBlock">
+                  <div>연재 주기</div>
+                  <div>
+                    {convertDay(detail.upload.date).join(', ')}
+                    &nbsp;{detail.upload.time} 시
+                  </div>
+                </div>
+                <div className="seriesInfoBlock">
+                  <div>총 회차</div>
+                  <div>{detail.series.articleCount} 회</div>
+                </div>
+              </SeriesInfoSection>
+              {sessionStorage.getItem('authorization') && !detail.isMine ? (
+                <Link to={`/purchase/${detail.series.id}`}>
+                  <SeriesInfoSection>
+                    <Button
+                      className="seriesPurchase"
+                      width="100%"
+                      height="2.8125rem"
+                      margin={0}
+                    >
+                      결제하기
+                    </Button>
+                  </SeriesInfoSection>
+                </Link>
+              ) : null}
+            </SeriesInfo>
+          </InfoArea>
+          <MainArea>
+            <div>
+              <DetailForm
+                previousRoot="/series"
+                previousRootText="구독 모집"
+                parentId={detail.series.id}
+                title={detail.series.title}
+                writerId={detail.writer.userId}
+                writerProfileImage={detail.writer.profileImage}
+                writerNickname={detail.writer.nickname}
+                postDate={detail.subscribe.startDate}
+                likes={detail.series.likes}
+                bodyText={detail.series.introduceText}
+                isMine={detail.isMine}
+                isLiked={detail.isLiked}
+              />
+            </div>
+          </MainArea>
+          <ArticleArea>
+            <div className="articleAreaHeader">
+              <SectionContainer title="연재 목록" />
+              {detail.isMine ? (
+                <ContentAddLink
+                  url={`/series/${detail.series.id}/article/write`}
+                >
+                  새 아티클 작성하기
+                </ContentAddLink>
+              ) : null}
+            </div>
+            <SectionContainer>
+              <ArticleList
+                seriesId={detail.series.id}
+                list={detail.articleList}
+              />
+            </SectionContainer>
+          </ArticleArea>
         </>
       )}
-    </Container>
+    </Wrapper>
   );
 };
 
 export default SeriesDetailPage;
 
-const Container = styled.div`
-  background-color: #fff;
-`;
-
 const ImageArea = styled.div`
-  width: 100%;
+  ${mixin.fullScreen}
   height: 30rem;
-  position: relative;
   overflow: hidden;
-  margin-top: 5rem;
 
   > * {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -226,21 +208,7 @@ const MainArea = styled.div`
 `;
 
 const InfoArea = styled.div`
-  border-radius: 1rem 1rem 0 0;
-  box-shadow: ${theme.style.boxShadow};
-  margin-left: 3rem;
-`;
-
-const SeriesInfoHead = styled.div`
-  border-radius: 1rem 1rem 0 0;
-  background-color: orange;
-  height: 3.125rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  font-size: ${theme.font.medium};
-  font-weight: bold;
+  margin-bottom: 2.5rem;
 `;
 
 const SeriesInfo = styled.div`
@@ -248,25 +216,39 @@ const SeriesInfo = styled.div`
   height: auto;
   padding: 2rem 1.5rem;
   background-color: #ffffff;
+  border-radius: 0.625rem;
+  box-shadow: ${theme.style.boxShadow};
+
   > div:nth-of-type(1) {
-    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: ${theme.font.large};
+    margin-bottom: 1.25rem;
   }
 `;
 
 const SeriesInfoSection = styled.div`
-  > div:nth-of-type(1) {
-    font-weight: bold;
-    font-size: ${theme.font.medium};
-    margin-bottom: 0.5rem;
-  }
+  display: flex;
+  flex-wrap: wrap;
 
   .seriesInfoBlock {
-    margin-top: 1rem;
+    display: flex;
+    padding-left: 0.625rem;
+    margin: 0.125rem 0;
+    margin-right: 0.625rem;
+    border-left: 2px solid ${theme.color.grey};
 
     > div:nth-of-type(1) {
+      margin-right: 0.625rem;
       font-weight: 700;
-      margin: 0 1rem 0.5rem 0;
+      margin-bottom: 0.5rem;
       color: ${theme.color.main};
+    }
+
+    > div:nth-of-type(2) {
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
     }
   }
 
@@ -277,15 +259,6 @@ const SeriesInfoSection = styled.div`
 
 const ArticleArea = styled.div`
   margin-top: 4rem;
-  .articleListNone {
-    background-color: ${theme.color.grey};
-    height: 10rem;
-    border-radius: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${theme.color.greyDark};
-  }
 
   .articleAreaHeader {
     display: flex;
