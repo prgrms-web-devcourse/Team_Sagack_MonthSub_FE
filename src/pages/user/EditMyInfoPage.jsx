@@ -5,7 +5,7 @@ import { ImageUpload } from '@mocules';
 import { Input, TextArea } from '@atom';
 import { Wrapper } from '@templates';
 import { useHistory } from 'react-router-dom';
-import { getMyInfo, patchMyInfo } from '@apis/user';
+import { getMyInfo, putMyInfo } from '@apis/user';
 import theme from '@styles/theme';
 import jsonBlob from '@utils/createJsonBlob';
 
@@ -34,7 +34,7 @@ const EditMyInfoPage = () => {
         }),
       );
       try {
-        await patchMyInfo(formData);
+        await putMyInfo(formData);
         history.push('/');
       } catch (error) {
         alert(error);
