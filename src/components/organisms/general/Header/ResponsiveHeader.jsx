@@ -10,7 +10,7 @@ import { useClickAway } from '@hooks';
 import { lighten } from 'polished';
 import Logo from './Logo';
 
-const logo = require('./logo_whiteBackboard.svg');
+const logo = require('@images/logo_whiteBackboard.svg');
 
 const ResponsiveHeader = ({ userId }) => {
   const [isOpened, setIsOpened] = useState(false);

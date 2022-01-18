@@ -9,7 +9,7 @@ import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
 import { useMediaQuery } from '@material-ui/core';
-import cover from './channel_cover.jpg';
+import cover from '@images/channel_cover.jpg';
 
 const initialData = {
   user: {
