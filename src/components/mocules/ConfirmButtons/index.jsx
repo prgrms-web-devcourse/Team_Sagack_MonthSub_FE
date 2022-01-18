@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ConfirmCancleButtons = ({ cancleName, confirmName, ...props }) => {
+const ConfirmButtons = ({ cancleName, confirmName, ...props }) => {
   const history = useHistory();
   return (
     <ButtonWrapper {...props}>
@@ -18,20 +18,22 @@ const ConfirmCancleButtons = ({ cancleName, confirmName, ...props }) => {
   );
 };
 
-ConfirmCancleButtons.defaultProps = {
+ConfirmButtons.defaultProps = {
   cancleName: '취소',
   confirmName: '확인',
 };
 
-ConfirmCancleButtons.propTypes = {
+ConfirmButtons.propTypes = {
   cancleName: PropTypes.string,
   confirmName: PropTypes.string,
 };
 
-export default ConfirmCancleButtons;
+export default ConfirmButtons;
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  width: 100%;
+  max-width: 19rem;
+  justify-content: space-between;
   margin: 0 auto;
 `;

@@ -7,4 +7,4 @@ export { default as ButtonSelect } from './SelectInput/ButtonSelect';
 export { default as DropListSelect } from './SelectInput/DropListSelect';
 export { default as UserProfile } from './UserProfile';
 export { default as ContentAddLink } from './ContentAddLink';
-export { default as ConfirmCancleButtons } from './ConfirmCancleButtons';
+export { default as ConfirmButtons } from './ConfirmButtons';

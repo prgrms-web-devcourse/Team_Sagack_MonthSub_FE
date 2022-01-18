@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ImageUpload, ConfirmCancleButtons } from '@mocules';
+import { ImageUpload, ConfirmButtons } from '@mocules';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
@@ -100,7 +100,7 @@ ArticleForm.propTypes = {
 
 export default ArticleForm;
 
-const Buttons = styled(ConfirmCancleButtons)`
+const Buttons = styled(ConfirmButtons)`
   margin-top: 2rem;
 `;
 

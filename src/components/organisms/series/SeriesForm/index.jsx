@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@atom';
-import { ImageUpload, ButtonSelect, ConfirmCancleButtons } from '@mocules';
+import { ImageUpload, ButtonSelect, ConfirmButtons } from '@mocules';
 import { Flex } from '@templates';
 
 import theme from '@styles/theme';
@@ -223,7 +223,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
           onChange={handleChange}
         />
       </Section>
-      <ConfirmCancleButtons confirmName="제출" />
+      <ConfirmButtons confirmName="제출" />
     </form>
   );
 };
