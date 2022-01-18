@@ -136,29 +136,33 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
-        <StyledFlex horizen>
-          <PeriodInput
-            title="모집기간"
-            startName="subscribeStartDate"
-            startValue={values.subscribeStartDate}
-            startMin={getToday()}
-            endName="subscribeEndDate"
-            endValue={values.subscribeEndDate}
-            endMin={calculateLaterDate(values.subscribeStartDate, 1)}
-            onChange={handleChange}
-            disabled={edit}
-          />
-          <PeriodInput
-            title="연재기간"
-            startName="seriesStartDate"
-            startValue={values.seriesStartDate}
-            startMin={calculateLaterDate(values.subscribeEndDate, 1)}
-            endName="seriesEndDate"
-            endValue={values.seriesEndDate}
-            endMin={calculateLaterDate(values.seriesStartDate, 1)}
-            onChange={handleChange}
-            disabled={edit}
-          />
+        <StyledFlex horizen justifyContent="space-between">
+          <div>
+            <Title size="medium">모집 기간</Title>
+            <PeriodInput
+              startName="subscribeStartDate"
+              startValue={values.subscribeStartDate}
+              startMin={getToday()}
+              endName="subscribeEndDate"
+              endValue={values.subscribeEndDate}
+              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
+              onChange={handleChange}
+              disabled={edit}
+            />
+          </div>
+          <div>
+            <Title size="medium">연재 기간</Title>
+            <PeriodInput
+              startName="seriesStartDate"
+              startValue={values.seriesStartDate}
+              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+              endName="seriesEndDate"
+              endValue={values.seriesEndDate}
+              endMin={calculateLaterDate(values.seriesStartDate, 1)}
+              onChange={handleChange}
+              disabled={edit}
+            />
+          </div>
         </StyledFlex>
       </Section>
       <Section>
@@ -192,7 +196,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <StyledFlex horizen>
           <div>
             <Title size="medium">구독료</Title>
-            <Input
+            <PayInput
               width="50%"
               type="number"
               value={values.price}
@@ -250,16 +254,22 @@ const StyledFlex = styled(Flex)`
   & > div {
     width: 100%;
   }
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileS} {
     flex-direction: column;
     align-items: flex-start;
   }
 
   & > div:first-child {
     margin-right: 4rem;
-    @media ${theme.device.tablet} {
+    @media ${theme.device.mobileS} {
       margin-right: 0;
       margin-bottom: 3rem;
     }
+  }
+`;
+
+const PayInput = styled(Input)`
+  @media ${theme.device.mobileS} {
+    width: 100%;
   }
 `;
