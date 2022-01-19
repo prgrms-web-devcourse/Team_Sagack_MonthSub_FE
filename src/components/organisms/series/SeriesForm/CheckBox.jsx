@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const CheckBox = ({ dataList }) => {
+const CheckBox = ({ dataList, initialData, onChange }) => {
   // 상태는 렌더링에 쓰인다.. === checked에 쓰임
-  const [checkedList, setCheckedList] = useState([]);
+  const [checkedList, setCheckedList] = useState(initialData);
 
   const handleCheckedAll = e => {
     const { checked } = e.target;
@@ -15,10 +15,7 @@ const CheckBox = ({ dataList }) => {
     }
   };
 
-  console.log(checkedList);
-
   const handelCheckedElement = e => {
-    // 체크된 것들의 값들을 가져와 상태를 구성하는 로직
     const { value, checked } = e.target;
     if (checked) {
       checkedList.length === dataList.length
@@ -29,14 +26,18 @@ const CheckBox = ({ dataList }) => {
     }
   };
 
+  useEffect(() => {
+    onChange && onChange(checkedList);
+  }, [checkedList]);
+
   return (
     <div>
-      <label label htmlFor="all">
+      <label htmlFor="all">
         <input
           type="checkbox"
           id="all"
           onChange={handleCheckedAll}
-          checked={checkedList.length === dataList.length ? true : null}
+          checked={checkedList.length === dataList.length}
         />
         all
       </label>
@@ -51,9 +52,7 @@ const CheckBox = ({ dataList }) => {
             checked={
               checkedList.length === dataList.length
                 ? false
-                : checkedList[0] === value
-                ? true
-                : null
+                : !!checkedList.includes(value)
             }
           />
           {value}
@@ -63,8 +62,18 @@ const CheckBox = ({ dataList }) => {
   );
 };
 
+CheckBox.defaultProps = {
+  initialData: [],
+  onChange: () => {},
+};
+
 CheckBox.propTypes = {
   dataList: PropTypes.array.isRequired,
+  initialData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  onChange: PropTypes.func,
 };
 
 export default CheckBox;
+
+// checked의 초기값과
+// 부모에게 상태를 전달해줄 때 매번 변화하는 상태를 전달해야해서 useEffect에 의존성을 걸어줬다

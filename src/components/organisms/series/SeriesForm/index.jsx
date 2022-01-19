@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@atom';
@@ -14,11 +14,12 @@ import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
-import ButtonSelect from './ButtonSelect';
+import RadioButton from './RadioButton';
 import CheckBox from './CheckBox';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
+  const [dayValues, setDayValues] = useState([]);
   const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
     useForm({
       initialValues: {
@@ -34,7 +35,6 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         uploadTime: '',
         articleCount: '',
         price: '',
-        uploadDate: [],
         thumbnailUrl: '',
       },
 
@@ -43,7 +43,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
           const postSeriesForm = async values => {
             const postRequest = {
               ...values,
-              uploadDate: values.uploadDate,
+              uploadDate: dayValues,
               articleCount: Number(values.articleCount),
               price: Number(values.price),
             };
@@ -52,7 +52,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
               title: values.title,
               introduceText: values.introduceText,
               introduceSentence: values.introduceSentence,
-              uploadDate: values.uploadDate,
+              uploadDate: dayValues,
               uploadTime: values.uploadTime,
             };
 
@@ -84,7 +84,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         const newErrors = {};
 
         for (const key in values) {
-          if (!values[key] || values[key].length === 0) {
+          if (!values[key]) {
             if (edit && key === 'thumbnailFile') {
               return;
             }
@@ -95,7 +95,11 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
           }
         }
 
-        if (edit && seriesData.uploadDate.length !== values.uploadDate.length) {
+        if (dayValues.length === 0) {
+          newErrors.dayLength = '요일을 선택해주세요!';
+          alert(newErrors.dayLength);
+        }
+        if (edit && seriesData.uploadDate.length !== dayValues.length) {
           newErrors.dayLength = '요일 수가 일치하지 않습니다!';
           alert(newErrors.dayLength);
         }
@@ -121,7 +125,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">카테고리</Title>
-        <ButtonSelect
+        <RadioButton
           name="category"
           labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
@@ -212,22 +216,8 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">연재 요일</Title>
-        {/* <ButtonSelect
-          type="checkbox"
-          name="uploadDate"
-          labels={[
-            'monday',
-            'tuesday',
-            'wednesday',
-            'thursday',
-            'friday',
-            'saturday',
-            'sunday',
-          ]}
-          checkedItem={values.uploadDate}
-          onChange={handleChange}
-        /> */}
         <CheckBox
+          initialData={seriesData.uploadDate || []}
           dataList={[
             { id: 1, value: 'monday' },
             { id: 2, value: 'tuesday' },
@@ -237,6 +227,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             { id: 6, value: 'saturday' },
             { id: 7, value: 'sunday' },
           ]}
+          onChange={checkedList => setDayValues(checkedList)}
         />
       </Section>
       <ConfirmButtons confirmName="제출" />
@@ -271,7 +262,7 @@ const StyledFlex = styled(Flex)`
     align-items: flex-start;
   }
 
-  & > div:first-child {
+  & > div:first-of-type {
     margin-right: 4rem;
     @media ${theme.device.mobileS} {
       margin-right: 0;
