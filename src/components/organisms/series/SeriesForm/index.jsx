@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@atom';
@@ -19,100 +19,90 @@ import CheckBox from './CheckBox';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
-  const [dayValues, setDayValues] = useState([]);
-  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
-    useForm({
-      initialValues: {
-        thumbnailFile: '',
-        category: '',
-        title: '',
-        introduceText: '',
-        introduceSentence: '',
-        subscribeStartDate: '',
-        subscribeEndDate: '',
-        seriesStartDate: '',
-        seriesEndDate: '',
-        uploadTime: '',
-        articleCount: '',
-        price: '',
-        thumbnailUrl: '',
-      },
+  const [dayValues, setDayValues] = useState(seriesData.uploadDate || []);
+  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
+    initialValues: {
+      thumbnailFile: seriesData.thumbnailFile || '',
+      category: seriesData.category || '',
+      title: seriesData.title || '',
+      introduceText: seriesData.introduceText || '',
+      introduceSentence: seriesData.introduceSentence || '',
+      subscribeStartDate: seriesData.subscribeStartDate || '',
+      subscribeEndDate: seriesData.subscribeEndDate || '',
+      seriesStartDate: seriesData.seriesStartDate || '',
+      seriesEndDate: seriesData.seriesEndDate || '',
+      uploadTime: seriesData.uploadTime || '',
+      articleCount: seriesData.articleCount || '',
+      price: seriesData.price || '',
+      thumbnailUrl: seriesData.thumbnailUrl || '',
+    },
 
-      onSubmit: async values => {
-        try {
-          const postSeriesForm = async values => {
-            const postRequest = {
-              ...values,
-              uploadDate: dayValues,
-              articleCount: Number(values.articleCount),
-              price: Number(values.price),
-            };
-            const putRequest = {
-              writeId: values.writeId,
-              title: values.title,
-              introduceText: values.introduceText,
-              introduceSentence: values.introduceSentence,
-              uploadDate: dayValues,
-              uploadTime: values.uploadTime,
-            };
-
-            const formData = new FormData();
-            formData.append('file', values.thumbnailFile);
-            formData.append(
-              'request',
-              jsonBlob(edit ? putRequest : postRequest),
-            );
-            const response = edit
-              ? await putSeries({
-                  id: param,
-                  data: formData,
-                })
-              : await postSeries({
-                  data: formData,
-                });
-
-            const { seriesId } = response.data;
-            seriesId && history.push(`/series/${seriesId}`);
+    onSubmit: async values => {
+      try {
+        const postSeriesForm = async values => {
+          const postRequest = {
+            ...values,
+            uploadDate: dayValues,
+            articleCount: Number(values.articleCount),
+            price: Number(values.price),
+          };
+          const putRequest = {
+            writeId: values.writeId,
+            title: values.title,
+            introduceText: values.introduceText,
+            introduceSentence: values.introduceSentence,
+            uploadDate: dayValues,
+            uploadTime: values.uploadTime,
           };
 
-          postSeriesForm(values);
-        } catch (error) {
-          alert(error);
-        }
-      },
-      validate: values => {
-        const newErrors = {};
+          const formData = new FormData();
+          formData.append('file', values.thumbnailFile);
+          formData.append('request', jsonBlob(edit ? putRequest : postRequest));
+          const response = edit
+            ? await putSeries({
+                id: param,
+                data: formData,
+              })
+            : await postSeries({
+                data: formData,
+              });
 
-        for (const key in values) {
-          if (!values[key]) {
-            if (edit && key === 'thumbnailFile') {
-              return;
-            }
-            newErrors.empty = createEmptyValueMessage(key);
-            alert(newErrors.empty);
+          const { seriesId } = response.data;
+          seriesId && history.push(`/series/${seriesId}`);
+        };
 
-            break;
+        postSeriesForm(values);
+      } catch (error) {
+        alert(error);
+      }
+    },
+    validate: values => {
+      const newErrors = {};
+
+      for (const key in values) {
+        if (!values[key]) {
+          if (edit && key === 'thumbnailFile') {
+            return;
           }
-        }
+          newErrors.empty = createEmptyValueMessage(key);
+          alert(newErrors.empty);
 
-        if (dayValues.length === 0) {
-          newErrors.dayLength = '요일을 선택해주세요!';
-          alert(newErrors.dayLength);
+          break;
         }
-        if (edit && seriesData.uploadDate.length !== dayValues.length) {
-          newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-          alert(newErrors.dayLength);
-        }
+      }
 
-        return newErrors;
-      },
-    });
+      if (dayValues.length === 0) {
+        newErrors.dayLength = '요일을 선택해주세요!';
+        alert(newErrors.dayLength);
+      }
+      if (edit && seriesData.uploadDate.length !== dayValues.length) {
+        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+        alert(newErrors.dayLength);
+      }
 
-  useEffect(() => {
-    if (edit) {
-      setValues(seriesData);
-    }
-  }, [seriesData, edit]);
+      return newErrors;
+    },
+  });
 
   return (
     <form onSubmit={handleSubmit} {...props}>
@@ -217,7 +207,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       <Section>
         <Title size="medium">연재 요일</Title>
         <CheckBox
-          initialData={seriesData.uploadDate || []}
+          initialData={dayValues}
           dataList={[
             { id: 1, value: 'monday' },
             { id: 2, value: 'tuesday' },

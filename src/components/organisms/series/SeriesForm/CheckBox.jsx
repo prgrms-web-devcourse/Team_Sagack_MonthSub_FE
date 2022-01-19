@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+// useCheckBox 훅만들고
+// checkbox, radioButton 이름 변경하기
+// 체크박스 디자인
+
 const CheckBox = ({ dataList, initialData, onChange }) => {
-  // 상태는 렌더링에 쓰인다.. === checked에 쓰임
   const [checkedList, setCheckedList] = useState(initialData);
 
   const handleCheckedAll = e => {

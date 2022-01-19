@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ImageUpload, ConfirmButtons } from '@mocules';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
@@ -13,65 +13,61 @@ import ArticleEditor from './ArticleEditor';
 const ArticleForm = ({ edit, param, articleData, ...props }) => {
   const history = useHistory();
   const { seriesId, articleId } = param;
-  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
-    useForm({
-      initialValues: {
-        thumbnailFile: '',
-        title: '',
-        contents: '',
-        thumbnailUrl: '',
-      },
+  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
+    initialValues: {
+      thumbnailFile: articleData.thumbnailFile || '',
+      title: articleData.title || '',
+      contents: articleData.contents || '',
+      thumbnailUrl: articleData.thumbnailUrl || '',
+    },
 
-      onSubmit: async values => {
-        try {
-          const request = {
-            ...values,
-            seriesId,
-          };
+    onSubmit: async values => {
+      try {
+        const request = {
+          ...values,
+          seriesId,
+        };
 
-          const formData = new FormData();
-          formData.append('file', values.thumbnailFile);
-          formData.append('request', jsonBlob(request));
+        const formData = new FormData();
+        formData.append('file', values.thumbnailFile);
+        formData.append('request', jsonBlob(request));
 
-          const response = edit
-            ? await putArticle({
-                id: articleId,
-                data: formData,
-              })
-            : await postArticle({
-                data: formData,
-              });
+        const response = edit
+          ? await putArticle({
+              id: articleId,
+              data: formData,
+            })
+          : await postArticle({
+              data: formData,
+            });
 
-          response.status === 200 &&
-            history.push(`/series/${seriesId}/article/${response.data.id}`);
-        } catch (error) {
-          alert(error);
+        if (response.status === 200) {
+          edit
+            ? history.push(`/series/${seriesId}/article/${response.data.id}`)
+            : history.push(`/series/${seriesId}`);
         }
-      },
-      validate: values => {
-        const newErrors = {};
+      } catch (error) {
+        alert(error);
+      }
+    },
+    validate: values => {
+      const newErrors = {};
 
-        for (const key in values) {
-          if (!values[key]) {
-            if (edit && key === 'thumbnailFile') {
-              return;
-            }
-            newErrors.empty = createEmptyValueMessage(key);
-            alert(newErrors.empty);
-
-            break;
+      for (const key in values) {
+        if (!values[key]) {
+          if (edit && key === 'thumbnailFile') {
+            return;
           }
+          newErrors.empty = createEmptyValueMessage(key);
+          alert(newErrors.empty);
+
+          break;
         }
+      }
 
-        return newErrors;
-      },
-    });
-
-  useEffect(() => {
-    if (edit) {
-      setValues(articleData);
-    }
-  }, [articleData, edit]);
+      return newErrors;
+    },
+  });
 
   return (
     <Form onSubmit={handleSubmit} {...props}>
