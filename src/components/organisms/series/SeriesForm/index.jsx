@@ -207,8 +207,8 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       <Section>
         <Title size="medium">연재 요일</Title>
         <CheckBox
-          initialData={dayValues}
-          dataList={[
+          initialCheckeds={dayValues}
+          valueList={[
             { id: 1, value: 'monday' },
             { id: 2, value: 'tuesday' },
             { id: 3, value: 'wednesday' },
