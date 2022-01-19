@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@atom';
-import { ImageUpload, ButtonSelect, ConfirmButtons } from '@mocules';
+import { ImageUpload, ConfirmButtons } from '@mocules';
 import { Flex } from '@templates';
-
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -15,6 +14,7 @@ import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
+import ButtonSelect from './ButtonSelect';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
