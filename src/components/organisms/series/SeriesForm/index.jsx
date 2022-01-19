@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import ButtonSelect from './ButtonSelect';
+import CheckBox from './CheckBox';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
@@ -211,7 +212,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">연재 요일</Title>
-        <ButtonSelect
+        {/* <ButtonSelect
           type="checkbox"
           name="uploadDate"
           labels={[
@@ -225,6 +226,17 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
           ]}
           checkedItem={values.uploadDate}
           onChange={handleChange}
+        /> */}
+        <CheckBox
+          dataList={[
+            { id: 1, value: 'monday' },
+            { id: 2, value: 'tuesday' },
+            { id: 3, value: 'wednesday' },
+            { id: 4, value: 'thursday' },
+            { id: 5, value: 'friday' },
+            { id: 6, value: 'saturday' },
+            { id: 7, value: 'sunday' },
+          ]}
         />
       </Section>
       <ConfirmButtons confirmName="제출" />
