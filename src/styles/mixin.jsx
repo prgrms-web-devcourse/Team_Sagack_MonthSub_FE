@@ -23,6 +23,18 @@ const invisibleScrollBar = css`
   }
 `;
 
-const mixin = { fullScreen, invisibleScrollBar };
+const header = css`
+  position: fixed;
+  display: flex;
+  padding: 0 3rem;
+  top: 0;
+  height: ${theme.common.navHeight};
+  width: 100%;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
+`;
+
+const mixin = { header, fullScreen, invisibleScrollBar };
 
 export default mixin;

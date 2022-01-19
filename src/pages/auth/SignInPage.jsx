@@ -4,7 +4,7 @@ import { useForm, useSessionStorage } from '@hooks';
 import { postSignIn } from '@apis/auth';
 import { Input } from '@atom';
 import { Wrapper } from '@templates';
-import validationEmail from '@utils/validationEmail';
+import { validationEmail } from '@utils/validation';
 import { Link, useHistory } from 'react-router-dom';
 import theme from '@styles/theme';
 import { useUser } from '@contexts/UserProvider';
