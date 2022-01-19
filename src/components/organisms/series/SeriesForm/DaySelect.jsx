@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
 
-const CheckBox = ({ valueList, initialCheckeds, onChange }) => {
+const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
   const { checkedList, handleCheckedAll, handelCheckedElement } = useCheckBox({
     initialCheckeds,
     valueList,
@@ -44,15 +44,15 @@ const CheckBox = ({ valueList, initialCheckeds, onChange }) => {
   );
 };
 
-CheckBox.defaultProps = {
+DaySelect.defaultProps = {
   initialCheckeds: [],
   onChange: () => {},
 };
 
-CheckBox.propTypes = {
+DaySelect.propTypes = {
   valueList: PropTypes.array.isRequired,
   initialCheckeds: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   onChange: PropTypes.func,
 };
 
-export default CheckBox;
+export default DaySelect;

@@ -5,7 +5,7 @@ import { Input } from '@atom';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 
-const RadioButton = ({
+const CategorySelect = ({
   name,
   labels,
   onChange,
@@ -39,14 +39,14 @@ const RadioButton = ({
   );
 };
 
-RadioButton.defaultProps = {
+CategorySelect.defaultProps = {
   onChange: () => {},
   checkedItem: [],
   disabled: false,
   name: '',
 };
 
-RadioButton.propTypes = {
+CategorySelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
@@ -54,7 +54,7 @@ RadioButton.propTypes = {
   name: PropTypes.string,
 };
 
-export default RadioButton;
+export default CategorySelect;
 
 const StyledFlex = styled(Flex)`
   flex-wrap: wrap;

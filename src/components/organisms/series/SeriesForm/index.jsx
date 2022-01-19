@@ -14,8 +14,8 @@ import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
-import RadioButton from './RadioButton';
-import CheckBox from './CheckBox';
+import CategorySelect from './CategorySelect';
+import DaySelect from './DaySelect';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
@@ -115,7 +115,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">카테고리</Title>
-        <RadioButton
+        <CategorySelect
           name="category"
           labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
           onChange={handleChange}
@@ -206,7 +206,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">연재 요일</Title>
-        <CheckBox
+        <DaySelect
           initialCheckeds={dayValues}
           valueList={[
             { id: 1, value: 'monday' },
