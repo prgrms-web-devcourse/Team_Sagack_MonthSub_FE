@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
 
 const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
-  const { checkedList, handleCheckedAll, handelCheckedElement } = useCheckBox({
+  const { checkedList, handleCheckedAll, handleCheckedElement } = useCheckBox({
     initialCheckeds,
     valueList,
   });
@@ -26,11 +26,10 @@ const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
       {valueList.map(({ id, value }) => (
         <label key={id} htmlFor={value}>
           <input
-            key={id}
             id={value}
             type="checkbox"
             value={value}
-            onChange={handelCheckedElement}
+            onChange={handleCheckedElement}
             checked={
               checkedList.length === valueList.length
                 ? false
