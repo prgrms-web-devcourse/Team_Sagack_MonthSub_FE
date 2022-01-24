@@ -23,8 +23,8 @@ const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
         />
         all
       </label>
-      {valueList.map(({ id, value }) => (
-        <label key={id} htmlFor={value}>
+      {valueList.map(value => (
+        <label key={value} htmlFor={value}>
           <input
             id={value}
             type="checkbox"

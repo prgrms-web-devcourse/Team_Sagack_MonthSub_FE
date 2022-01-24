@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 const useCheckBox = ({ valueList, initialCheckeds, filterMode }) => {
   const [checkedList, setCheckedList] = useState(initialCheckeds);
-  const ALL_VALUES = valueList.map(({ value }) => value);
 
   const handleCheckedAll = e => {
     const { checked } = e.target;
     if (checked) {
-      setCheckedList(ALL_VALUES);
+      setCheckedList(valueList);
     } else {
       !filterMode && setCheckedList([]);
     }
@@ -18,10 +17,10 @@ const useCheckBox = ({ valueList, initialCheckeds, filterMode }) => {
     if (checked) {
       checkedList.length === valueList.length
         ? setCheckedList([value])
-        : setCheckedList([...checkedList, value]);
+        : setCheckedList([...checkedList, value])
     } else {
       if (filterMode && checkedList.length === 1) {
-        setCheckedList(ALL_VALUES);
+        setCheckedList(valueList);
         return;
       }
       setCheckedList(checkedList.filter(checkedItem => checkedItem !== value));

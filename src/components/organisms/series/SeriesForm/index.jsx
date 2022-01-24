@@ -209,13 +209,13 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <DaySelect
           initialCheckeds={dayValues}
           valueList={[
-            { id: 1, value: 'monday' },
-            { id: 2, value: 'tuesday' },
-            { id: 3, value: 'wednesday' },
-            { id: 4, value: 'thursday' },
-            { id: 5, value: 'friday' },
-            { id: 6, value: 'saturday' },
-            { id: 7, value: 'sunday' },
+            'monday' ,
+            'tuesday' ,
+            'wednesday' ,
+            'thursday',
+            'friday' ,
+            'saturday',
+            'sunday'
           ]}
           onChange={checkedList => setDayValues(checkedList)}
         />
