@@ -1,8 +1,8 @@
 import React from 'react';
-import { SeriesEditor } from '@components';
+import SeriesEditor from '@organisms/series/SeriesForm/SeriesEditor';
 
 export default {
-  title: 'Component/domain/SeriesEditor',
+  title: 'Component/mocules/SeriesEditor',
   component: SeriesEditor,
 };
 

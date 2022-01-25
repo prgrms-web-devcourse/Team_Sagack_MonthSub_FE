@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input } from '@components';
+import { Input } from '@atom';
 
 export default {
-  title: 'Component/Input',
+  title: 'Component/atom/Input',
   component: Input,
   argTypes: {
     name: {

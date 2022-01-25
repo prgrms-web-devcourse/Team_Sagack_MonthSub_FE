@@ -1,8 +1,8 @@
 import React from 'react';
-import Icons from '@components/commons/Icon';
+import { Icons } from '@atom';
 
 export default {
-  title: 'Component/Icon',
+  title: 'Component/atom/Icon',
   component: Icons,
 };
 

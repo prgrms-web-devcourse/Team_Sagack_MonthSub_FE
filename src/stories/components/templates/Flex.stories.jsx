@@ -1,8 +1,9 @@
 import React from 'react';
-import { Flex, Button } from '@components';
+import { Flex } from '@templates';
+import { Button } from '@atom';
 
 export default {
-  title: 'Component/commons/Flex',
+  title: 'Component/templates/Flex',
   component: Flex,
   argTypes: {
     width: {

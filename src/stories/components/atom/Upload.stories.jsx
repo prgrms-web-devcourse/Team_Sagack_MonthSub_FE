@@ -1,8 +1,8 @@
 import React from 'react';
-import Upload from '@components/commons/Upload';
+import { Upload } from '@atom';
 
 export default {
-  title: 'Component/Upload',
+  title: 'Component/atom/Upload',
   component: Upload,
 };
 

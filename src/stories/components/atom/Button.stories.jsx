@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@components/commons/Button';
+import { Button } from '@atom';
 
 export default {
-  title: 'Component/commons/Button',
+  title: 'Component/atom/Button',
   component: Button,
 };
 

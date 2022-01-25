@@ -1,8 +1,8 @@
 import React from 'react';
-import TextArea from '@components/commons/TextArea';
+import { TextArea } from '@atom';
 
 export default {
-  title: 'Component/TextArea',
+  title: 'Component/atom/TextArea',
   component: TextArea,
   argTypes: {
     width: {

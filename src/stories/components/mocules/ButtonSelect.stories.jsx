@@ -1,8 +1,8 @@
 import React from 'react';
-import { ButtonSelect } from '@components';
+import { ButtonSelect } from '@mocules';
 
 export default {
-  title: 'Component/domain/ButtonSelect',
+  title: 'Component/mocules/ButtonSelect',
   component: ButtonSelect,
 };
 

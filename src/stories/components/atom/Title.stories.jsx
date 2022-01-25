@@ -1,8 +1,8 @@
 import React from 'react';
-import { Title } from '@components';
+import { Title } from '@atom';
 
 export default {
-  title: 'Component/commons/Title',
+  title: 'Component/atom/Title',
   component: Title,
   argTypes: {
     h2: {

@@ -1,9 +1,9 @@
 import React from 'react';
-import LikeToggle from '@components/commons/LikeToggle';
+import { LikeToggle } from '@mocules';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Component/LikeToggle',
+  title: 'Component/mocules/LikeToggle',
   component: LikeToggle,
   argTypes: {
     disabled: { control: 'boolean' },
