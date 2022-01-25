@@ -2,7 +2,7 @@ export { default as ArticleList } from './article/ArticleList';
 export { default as CardList } from './general/CardList';
 export { default as CardSlider } from './general/CardSlider';
 export { default as CommentList } from './series/CommentList';
-export { default as DetailForm } from './series/DetailForm';
+export { default as DetailBody } from './series/DetailBody';
 export { default as Header } from './general/Header';
 export { default as HottestList } from './general/HottestList';
 export { default as UserList } from './user/UserList';
