@@ -12,6 +12,7 @@ import jsonBlob from '@utils/createJsonBlob';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
+import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import CategorySelect from './CategorySelect';
@@ -117,7 +118,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <Title size="medium">카테고리</Title>
         <CategorySelect
           name="category"
-          labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+          labels={SERIES_CATEGORY}
           onChange={handleChange}
           checkedItem={values.category}
           disabled={edit}
@@ -208,15 +209,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <Title size="medium">연재 요일</Title>
         <DaySelect
           initialCheckeds={dayValues}
-          valueList={[
-            'monday' ,
-            'tuesday' ,
-            'wednesday' ,
-            'thursday',
-            'friday' ,
-            'saturday',
-            'sunday'
-          ]}
+          valueList={UPLOAD_DATES}
           onChange={checkedList => setDayValues(checkedList)}
         />
       </Section>
