@@ -5,8 +5,7 @@ import { Input } from '@atom';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 
-const ButtonSelect = ({
-  type,
+const CategorySelect = ({
   name,
   labels,
   onChange,
@@ -24,16 +23,12 @@ const ButtonSelect = ({
         {labels.map(label => (
           <label key={label} htmlFor={label}>
             <StyledInput
-              type={type}
+              type="radio"
               name={name}
               id={label}
               onChange={handleChange}
               value={label}
-              checked={
-                typeof checkedItem === 'object'
-                  ? checkedItem.includes(label)
-                  : checkedItem.toLowerCase() === label.toLowerCase()
-              }
+              checked={checkedItem.includes(label)}
               disabled={disabled}
             />
             <StyledButton>{label}</StyledButton>
@@ -44,24 +39,22 @@ const ButtonSelect = ({
   );
 };
 
-ButtonSelect.defaultProps = {
+CategorySelect.defaultProps = {
   onChange: () => {},
   checkedItem: [],
   disabled: false,
-  type: 'radio',
   name: '',
 };
 
-ButtonSelect.propTypes = {
+CategorySelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   disabled: PropTypes.bool,
-  type: PropTypes.string,
   name: PropTypes.string,
 };
 
-export default ButtonSelect;
+export default CategorySelect;
 
 const StyledFlex = styled(Flex)`
   flex-wrap: wrap;

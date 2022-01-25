@@ -3,31 +3,31 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 
-const DropListSelect = ({ name, onChange, options, ...props }) => (
-  <StyledDropListSelect name={name} onChange={onChange} {...props}>
+const Select = ({ name, onChange, options, ...props }) => (
+  <StyledSelect name={name} onChange={onChange} {...props}>
     {options.map(option => (
       <option key={option} value={option}>
         {option}
       </option>
     ))}
-  </StyledDropListSelect>
+  </StyledSelect>
 );
 
-DropListSelect.defaultProps = {
+Select.defaultProps = {
   name: '',
   onChange: () => {},
   options: [],
 };
 
-DropListSelect.propTypes = {
+Select.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.array,
 };
 
-export default DropListSelect;
+export default Select;
 
-const StyledDropListSelect = styled.select`
+const StyledSelect = styled.select`
   width: 10rem;
   height: 1.875rem;
   border: 0.0625rem solid ${theme.color.sub};

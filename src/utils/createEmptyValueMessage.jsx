@@ -26,8 +26,6 @@ const createEmptyValueMessage = name => {
       return '총 회차를 입력해주세요!';
     case 'thumbnailFile':
       return '이미지 파일을 업로드해주세요!';
-    case 'uploadDate':
-      return '연재 요일을 선택해주세요!';
     default:
       return '존재하지 않는 값입니다!';
   }
