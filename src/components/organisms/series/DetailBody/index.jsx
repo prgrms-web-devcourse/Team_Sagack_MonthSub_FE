@@ -7,7 +7,7 @@ import { Button, Image } from '@atom';
 import { LikeToggle } from '@mocules';
 import replaceEnter from '@utils/replaceEnter';
 
-const DetailForm = ({
+const DetailBody = ({
   previousRoot,
   previousRootText,
   parentId,
@@ -49,7 +49,7 @@ const DetailForm = ({
         </div>
       )}
     </DetailInfo>
-    <DetailBody>
+    <DetailMain>
       <InnerText
         dangerouslySetInnerHTML={{
           __html: replaceEnter(bodyText),
@@ -64,11 +64,11 @@ const DetailForm = ({
           </Link>
         ) : null}
       </div>
-    </DetailBody>
+    </DetailMain>
   </div>
 );
 
-DetailForm.defaultProps = {
+DetailBody.defaultProps = {
   previousRoot: '',
   previousRootText: '',
   parentId: -1,
@@ -83,7 +83,7 @@ DetailForm.defaultProps = {
   isLiked: false,
 };
 
-DetailForm.propTypes = {
+DetailBody.propTypes = {
   previousRoot: PropTypes.string,
   previousRootText: PropTypes.string,
   parentId: PropTypes.number,
@@ -98,7 +98,7 @@ DetailForm.propTypes = {
   isLiked: PropTypes.bool,
 };
 
-export default DetailForm;
+export default DetailBody;
 
 const DetailRoot = styled.div`
   font-size: ${theme.font.small};
@@ -160,7 +160,7 @@ const DetailWriterInfo = styled.div`
   }
 `;
 
-const DetailBody = styled.div`
+const DetailMain = styled.div`
   border-top: 0.0625rem solid ${theme.color.grey};
   min-height: 12.6rem;
   display: flex;

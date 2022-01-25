@@ -87,13 +87,6 @@ const SeriesListPage = () => {
 
   const [status, setStatus] = useState('');
 
-  const afterMount = () => {
-    if (list.length === 0) {
-      return false;
-    }
-    return true;
-  };
-
   const getListUpdate = async () => {
     const { data } = await getSeries(params);
 
@@ -173,7 +166,7 @@ const SeriesListPage = () => {
   }, [loading]);
 
   useEffect(() => {
-    if (afterMount()) {
+    if (loading) {
       let result = '';
 
       result = rowCategories

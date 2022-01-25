@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Nav from './Nav';
 import Logo from './Logo';
 
-const logo = require('./logo_whiteBackboard.svg');
+const logo = require('@images/logo_whiteBackboard.svg');
 
 const LaptopHeader = ({ userId }) => (
   <StyledHeader>

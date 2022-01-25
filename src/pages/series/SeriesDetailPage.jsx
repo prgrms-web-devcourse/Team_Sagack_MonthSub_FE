@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Loading, Image, Button } from '@atom';
 import { ContentAddLink } from '@mocules';
-import { ArticleList, DetailForm } from '@organisms';
+import { ArticleList, DetailBody } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { getSeriesDetail } from '@apis/series';
@@ -139,7 +139,7 @@ const SeriesDetailPage = () => {
           </InfoArea>
           <MainArea>
             <div>
-              <DetailForm
+              <DetailBody
                 previousRoot="/series"
                 previousRootText="구독 모집"
                 parentId={detail.series.id}
