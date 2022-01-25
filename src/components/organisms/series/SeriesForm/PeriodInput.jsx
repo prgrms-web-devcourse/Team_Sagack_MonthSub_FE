@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Input, Title } from '@atom';
+import { Input } from '@atom';
 import { Flex } from '@templates';
 
 const PeriodInput = ({
-  title,
   startName,
   startValue,
   startMin,
@@ -15,35 +14,31 @@ const PeriodInput = ({
   onChange,
   disabled,
 }) => (
-  <Container>
-    <Title size="medium">{title}</Title>
-    <Flex horizen justifyContent="space-between">
-      <Input
-        width="100%"
-        type="date"
-        value={startValue}
-        name={startName}
-        onChange={onChange}
-        disabled={disabled}
-        min={startMin || ''}
-      />
-      <Line>⎻</Line>
-      <Input
-        width="100%"
-        type="date"
-        value={endValue}
-        name={endName}
-        onChange={onChange}
-        disabled={disabled}
-        min={endMin || ''}
-      />
-    </Flex>
-  </Container>
+  <Flex horizen justifyContent="space-between">
+    <StyledInput
+      width="0"
+      type="date"
+      value={startValue}
+      name={startName}
+      onChange={onChange}
+      disabled={disabled}
+      min={startMin || ''}
+    />
+    <Line>⎻</Line>
+    <StyledInput
+      width="0"
+      type="date"
+      value={endValue}
+      name={endName}
+      onChange={onChange}
+      disabled={disabled}
+      min={endMin || ''}
+    />
+  </Flex>
 );
 
 PeriodInput.defaultProps = {
   onChange: () => {},
-  title: '',
   startName: '',
   startValue: '',
   startMin: '',
@@ -54,7 +49,6 @@ PeriodInput.defaultProps = {
 };
 
 PeriodInput.propTypes = {
-  title: PropTypes.string,
   startName: PropTypes.string,
   startValue: PropTypes.string,
   startMin: PropTypes.string,
@@ -71,7 +65,9 @@ const Line = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 5rem;
+  width: 6%;
 `;
 
-const Container = styled.div``;
+const StyledInput = styled(Input)`
+  min-width: 47%;
+`;

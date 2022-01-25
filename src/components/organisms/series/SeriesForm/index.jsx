@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, Title } from '@atom';
-import { ImageUpload, ButtonSelect, ConfirmCancleButtons } from '@mocules';
+import { ImageUpload, ConfirmButtons } from '@mocules';
 import { Flex } from '@templates';
-
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
@@ -13,101 +12,98 @@ import jsonBlob from '@utils/createJsonBlob';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { postSeries, putSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
+import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
+import CategorySelect from './CategorySelect';
+import DaySelect from './DaySelect';
 
 const SeriesForm = ({ edit, param, seriesData, ...props }) => {
   const history = useHistory();
-  const { values, setValues, handleChange, handleSubmit, handleImageUpload } =
-    useForm({
-      initialValues: {
-        thumbnailFile: '',
-        category: '',
-        title: '',
-        introduceText: '',
-        introduceSentence: '',
-        subscribeStartDate: '',
-        subscribeEndDate: '',
-        seriesStartDate: '',
-        seriesEndDate: '',
-        uploadTime: '',
-        articleCount: '',
-        price: '',
-        uploadDate: [],
-        thumbnailUrl: '',
-      },
+  const [dayValues, setDayValues] = useState(seriesData.uploadDate || []);
+  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
+    initialValues: {
+      thumbnailFile: seriesData.thumbnailFile || '',
+      category: seriesData.category || '',
+      title: seriesData.title || '',
+      introduceText: seriesData.introduceText || '',
+      introduceSentence: seriesData.introduceSentence || '',
+      subscribeStartDate: seriesData.subscribeStartDate || '',
+      subscribeEndDate: seriesData.subscribeEndDate || '',
+      seriesStartDate: seriesData.seriesStartDate || '',
+      seriesEndDate: seriesData.seriesEndDate || '',
+      uploadTime: seriesData.uploadTime || '',
+      articleCount: seriesData.articleCount || '',
+      price: seriesData.price || '',
+      thumbnailUrl: seriesData.thumbnailUrl || '',
+    },
 
-      onSubmit: async values => {
-        try {
-          const postSeriesForm = async values => {
-            const postRequest = {
-              ...values,
-              uploadDate: values.uploadDate,
-              articleCount: Number(values.articleCount),
-              price: Number(values.price),
-            };
-            const putRequest = {
-              writeId: values.writeId,
-              title: values.title,
-              introduceText: values.introduceText,
-              introduceSentence: values.introduceSentence,
-              uploadDate: values.uploadDate,
-              uploadTime: values.uploadTime,
-            };
-
-            const formData = new FormData();
-            formData.append('file', values.thumbnailFile);
-            formData.append(
-              'request',
-              jsonBlob(edit ? putRequest : postRequest),
-            );
-            const response = edit
-              ? await putSeries({
-                  id: param,
-                  data: formData,
-                })
-              : await postSeries({
-                  data: formData,
-                });
-
-            const { seriesId } = response.data;
-            seriesId && history.push(`/series/${seriesId}`);
+    onSubmit: async values => {
+      try {
+        const postSeriesForm = async values => {
+          const postRequest = {
+            ...values,
+            uploadDate: dayValues,
+            articleCount: Number(values.articleCount),
+            price: Number(values.price),
+          };
+          const putRequest = {
+            writeId: values.writeId,
+            title: values.title,
+            introduceText: values.introduceText,
+            introduceSentence: values.introduceSentence,
+            uploadDate: dayValues,
+            uploadTime: values.uploadTime,
           };
 
-          postSeriesForm(values);
-        } catch (error) {
-          alert(error);
-        }
-      },
-      validate: values => {
-        const newErrors = {};
+          const formData = new FormData();
+          formData.append('file', values.thumbnailFile);
+          formData.append('request', jsonBlob(edit ? putRequest : postRequest));
+          const response = edit
+            ? await putSeries({
+                id: param,
+                data: formData,
+              })
+            : await postSeries({
+                data: formData,
+              });
 
-        for (const key in values) {
-          if (!values[key] || values[key].length === 0) {
-            if (edit && key === 'thumbnailFile') {
-              return;
-            }
-            newErrors.empty = createEmptyValueMessage(key);
-            alert(newErrors.empty);
+          const { seriesId } = response.data;
+          seriesId && history.push(`/series/${seriesId}`);
+        };
 
-            break;
+        postSeriesForm(values);
+      } catch (error) {
+        alert(error);
+      }
+    },
+    validate: values => {
+      const newErrors = {};
+
+      for (const key in values) {
+        if (!values[key]) {
+          if (edit && key === 'thumbnailFile') {
+            return;
           }
+          newErrors.empty = createEmptyValueMessage(key);
+          alert(newErrors.empty);
+
+          break;
         }
+      }
 
-        if (edit && seriesData.uploadDate.length !== values.uploadDate.length) {
-          newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-          alert(newErrors.dayLength);
-        }
+      if (dayValues.length === 0) {
+        newErrors.dayLength = '요일을 선택해주세요!';
+        alert(newErrors.dayLength);
+      }
+      if (edit && seriesData.uploadDate.length !== dayValues.length) {
+        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+        alert(newErrors.dayLength);
+      }
 
-        return newErrors;
-      },
-    });
-
-  useEffect(() => {
-    if (edit) {
-      setValues(seriesData);
-    }
-  }, [seriesData, edit]);
+      return newErrors;
+    },
+  });
 
   return (
     <form onSubmit={handleSubmit} {...props}>
@@ -120,9 +116,9 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">카테고리</Title>
-        <ButtonSelect
+        <CategorySelect
           name="category"
-          labels={['poem', 'novel', 'interview', 'essay', 'critique', 'etc']}
+          labels={SERIES_CATEGORY}
           onChange={handleChange}
           checkedItem={values.category}
           disabled={edit}
@@ -136,29 +132,33 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         />
       </Section>
       <Section>
-        <StyledFlex horizen>
-          <PeriodInput
-            title="모집기간"
-            startName="subscribeStartDate"
-            startValue={values.subscribeStartDate}
-            startMin={getToday()}
-            endName="subscribeEndDate"
-            endValue={values.subscribeEndDate}
-            endMin={calculateLaterDate(values.subscribeStartDate, 1)}
-            onChange={handleChange}
-            disabled={edit}
-          />
-          <PeriodInput
-            title="연재기간"
-            startName="seriesStartDate"
-            startValue={values.seriesStartDate}
-            startMin={calculateLaterDate(values.subscribeEndDate, 1)}
-            endName="seriesEndDate"
-            endValue={values.seriesEndDate}
-            endMin={calculateLaterDate(values.seriesStartDate, 1)}
-            onChange={handleChange}
-            disabled={edit}
-          />
+        <StyledFlex horizen justifyContent="space-between">
+          <div>
+            <Title size="medium">모집 기간</Title>
+            <PeriodInput
+              startName="subscribeStartDate"
+              startValue={values.subscribeStartDate}
+              startMin={getToday()}
+              endName="subscribeEndDate"
+              endValue={values.subscribeEndDate}
+              endMin={calculateLaterDate(values.subscribeStartDate, 1)}
+              onChange={handleChange}
+              disabled={edit}
+            />
+          </div>
+          <div>
+            <Title size="medium">연재 기간</Title>
+            <PeriodInput
+              startName="seriesStartDate"
+              startValue={values.seriesStartDate}
+              startMin={calculateLaterDate(values.subscribeEndDate, 1)}
+              endName="seriesEndDate"
+              endValue={values.seriesEndDate}
+              endMin={calculateLaterDate(values.seriesStartDate, 1)}
+              onChange={handleChange}
+              disabled={edit}
+            />
+          </div>
         </StyledFlex>
       </Section>
       <Section>
@@ -192,7 +192,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <StyledFlex horizen>
           <div>
             <Title size="medium">구독료</Title>
-            <Input
+            <PayInput
               width="50%"
               type="number"
               value={values.price}
@@ -207,23 +207,13 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
       <Section>
         <Title size="medium">연재 요일</Title>
-        <ButtonSelect
-          type="checkbox"
-          name="uploadDate"
-          labels={[
-            'monday',
-            'tuesday',
-            'wednesday',
-            'thursday',
-            'friday',
-            'saturday',
-            'sunday',
-          ]}
-          checkedItem={values.uploadDate}
-          onChange={handleChange}
+        <DaySelect
+          initialCheckeds={dayValues}
+          valueList={UPLOAD_DATES}
+          onChange={checkedList => setDayValues(checkedList)}
         />
       </Section>
-      <ConfirmCancleButtons confirmName="제출" />
+      <ConfirmButtons confirmName="제출" />
     </form>
   );
 };
@@ -250,16 +240,22 @@ const StyledFlex = styled(Flex)`
   & > div {
     width: 100%;
   }
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileS} {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  & > div:first-child {
+  & > div:first-of-type {
     margin-right: 4rem;
-    @media ${theme.device.tablet} {
+    @media ${theme.device.mobileS} {
       margin-right: 0;
       margin-bottom: 3rem;
     }
+  }
+`;
+
+const PayInput = styled(Input)`
+  @media ${theme.device.mobileS} {
+    width: 100%;
   }
 `;

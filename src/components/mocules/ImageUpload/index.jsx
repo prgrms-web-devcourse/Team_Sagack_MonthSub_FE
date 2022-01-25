@@ -61,7 +61,6 @@ const StyledUpload = styled(Upload)`
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 1;
     `}
 `;
 
@@ -119,6 +118,5 @@ const ImageCover = styled.div`
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1;
     `}
 `;
