@@ -22,6 +22,8 @@ module.exports = {
     config.resolve.alias["@styles"] = path.resolve(__dirname, '../src/styles');
     config.resolve.alias["@contexts"] = path.resolve(__dirname, '../src/contexts');
     config.resolve.alias["@apis"] = path.resolve(__dirname, "../src/apis");
+    config.resolve.alias["@images"] = path.resolve(__dirname, "../src/images");
+    config.resolve.alias["@constants"] = path.resolve(__dirname, "../src/constants");
     return config
   }
 }
