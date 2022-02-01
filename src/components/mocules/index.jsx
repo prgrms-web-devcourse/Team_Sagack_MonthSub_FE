@@ -1,7 +1,8 @@
 export { default as Card } from './Card';
 export { default as CheckedButtonList } from './CheckedButtonList';
 export { default as ImageUpload } from './ImageUpload';
-export { default as LikeToggle } from './LikeToggle';
+export { default as Like } from './Like';
+export { default as LikeWrapped } from './Like/Wrapped';
 export { default as NoData } from './NoData';
 export { default as UserProfile } from './UserProfile';
 export { default as ContentAddLink } from './ContentAddLink';

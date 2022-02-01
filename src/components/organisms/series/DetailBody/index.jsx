@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
 import { Button, Image } from '@atom';
-import { LikeToggle } from '@mocules';
+import { LikeWrapped } from '@mocules';
 import replaceEnter from '@utils/replaceEnter';
 
 const DetailBody = ({
@@ -45,7 +45,7 @@ const DetailBody = ({
       </DetailWriterInfo>
       {likes === null ? null : (
         <div className="detailInfoLikes">
-          <LikeToggle id={parentId} likeCount={likes} isLiked={isLiked} />
+          <LikeWrapped id={parentId} likeCount={likes} isLiked={isLiked} />
         </div>
       )}
     </DetailInfo>

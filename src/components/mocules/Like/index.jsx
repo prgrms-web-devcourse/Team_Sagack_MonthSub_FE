@@ -3,42 +3,38 @@ import PropTypes from 'prop-types';
 import { Icon, IconWrapper } from '@atom';
 import { useToggle } from '@hooks';
 import styled from '@emotion/styled';
-import { addLikeSeries, delLikeSeries } from '@apis/like';
 import theme from '@styles/theme';
-import { useUser } from '@contexts/UserProvider';
 
-export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
+export const Like = ({ isLogin, isLiked, likeCount, onClick }) => {
   const [state, toggle] = useToggle();
   const [count, setCount] = useState(0);
-  const { userInfo } = useUser();
 
   useEffect(() => {
     isLiked && toggle();
     setCount(likeCount);
-  }, [likeCount]);
+  }, [likeCount, isLiked]);
 
   const addLike = async () => {
     setCount(count + 1);
-    await addLikeSeries(id);
+    onClick && onClick(state);
   };
 
   const cancleLike = async () => {
     setCount(count - 1);
-    await delLikeSeries(id);
+    onClick && onClick(state);
   };
 
   const handleClick = () => {
-    if (!userInfo.userId) {
+    if (!isLogin) {
       return;
     }
     toggle();
     state ? cancleLike() : addLike();
-    onClick && onClick();
   };
 
   return (
     <Container onClick={handleClick}>
-      <IconWrapper color={userInfo.userId ? theme.color.red : theme.color.gray}>
+      <IconWrapper color={isLogin ? theme.color.red : theme.color.gray}>
         {state ? <Icon.Like /> : <Icon.LikeBorder />}
       </IconWrapper>
       {typeof likeCount === 'boolean' ? '' : <Count>{count}</Count>}
@@ -46,20 +42,20 @@ export const LikeToggle = ({ id, isLiked, likeCount, onClick }) => {
   );
 };
 
-LikeToggle.defaultProps = {
-  id: 1,
+Like.defaultProps = {
   isLiked: false,
   likeCount: false,
   onClick: () => {},
+  isLogin: false,
 };
-LikeToggle.propTypes = {
-  id: PropTypes.number,
+Like.propTypes = {
   isLiked: PropTypes.bool,
+  isLogin: PropTypes.bool,
   onClick: PropTypes.func,
   likeCount: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
-export default LikeToggle;
+export default Like;
 
 const Container = styled.div`
   display: flex;
