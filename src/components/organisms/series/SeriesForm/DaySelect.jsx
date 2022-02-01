@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
 
 const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
   const { checkedList, handleCheckedAll, handleCheckedElement } = useCheckBox({
+    name: 'uploadDate',
     initialCheckeds,
     valueList,
+    onChange,
   });
-
-  useEffect(() => {
-    onChange && onChange(checkedList);
-  }, [checkedList]);
 
   return (
     <div>
