@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Input } from '@atom';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
+import convertCategory from '@utils/convertCategory';
 
 const CategorySelect = ({
   name,
@@ -28,7 +29,7 @@ const CategorySelect = ({
               id={label}
               onChange={handleChange}
               value={label}
-              checked={checkedItem.includes(label)}
+              checked={convertCategory(checkedItem).includes(label)}
               disabled={disabled}
             />
             <StyledButton>{label}</StyledButton>

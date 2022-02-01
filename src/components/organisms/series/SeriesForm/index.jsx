@@ -10,6 +10,7 @@ import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
+import convertCategory from '@utils/convertCategory';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import CategorySelect from './CategorySelect';
@@ -38,6 +39,15 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
           break;
         }
       }
+
+      if (
+        edit &&
+        initialValues.uploadDate.length !== values.uploadDate.length
+      ) {
+        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+        alert(newErrors.dayLength);
+      }
+
       return newErrors;
     },
   });
@@ -55,7 +65,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
         <Title size="medium">카테고리</Title>
         <CategorySelect
           name="category"
-          labels={SERIES_CATEGORY}
+          labels={SERIES_CATEGORY.map(text => convertCategory(text))}
           onChange={handleChange}
           checkedItem={values.category}
           disabled={edit}

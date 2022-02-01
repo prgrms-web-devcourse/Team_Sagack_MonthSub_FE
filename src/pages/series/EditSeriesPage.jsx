@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Loading } from '@atom';
 import { SeriesForm } from '@organisms';
+import jsonBlob from '@utils/createJsonBlob';
 import { Wrapper } from '@templates';
-import { getSeriesDetail } from '@apis/series';
+import { getSeriesDetail, putSeries } from '@apis/series';
 import { useHistory, useParams } from 'react-router-dom';
 
 const EditSeriesPage = () => {
   const { id } = useParams();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [seriesData, setSeriesData] = useState({
+  const [initialValues, setInitialValues] = useState({
     writeId: '',
     title: '',
     introduceText: '',
@@ -33,11 +34,12 @@ const EditSeriesPage = () => {
     });
 
     if (!data) {
-      history.push('/server-error');
+      setLoading(false);
+      return;
     }
 
     const { series, upload, subscribe, category, writer } = data;
-    setSeriesData({
+    setInitialValues({
       writeId: writer.id,
       title: series.title,
       introduceText: series.introduceText,
@@ -61,12 +63,46 @@ const EditSeriesPage = () => {
     id && getInitialData(id);
   }, [id]);
 
+  const handleSubmit = async values => {
+    try {
+      const putSeriesForm = async values => {
+        const putRequest = {
+          writeId: values.writeId,
+          title: values.title,
+          introduceText: values.introduceText,
+          introduceSentence: values.introduceSentence,
+          uploadDate: values.uploadDate,
+          uploadTime: values.uploadTime,
+        };
+
+        const formData = new FormData();
+        formData.append('file', values.thumbnailFile);
+        formData.append('request', jsonBlob(putRequest));
+        const response = await putSeries({
+          id,
+          data: formData,
+        });
+
+        const { seriesId } = response.data;
+        seriesId && history.push(`/series/${seriesId}`);
+      };
+
+      putSeriesForm(values);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <Wrapper>
       {loading ? (
         <Loading />
       ) : (
-        <SeriesForm edit param={id} seriesData={seriesData} />
+        <SeriesForm
+          edit
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+        />
       )}
     </Wrapper>
   );
