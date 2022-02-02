@@ -4,11 +4,27 @@ import { Like } from '@mocules';
 export default {
   title: 'Component/mocules/Like',
   component: Like,
-  argTypes: {
-    isLogin: { defaultValue: true, control: 'boolean' },
-    isLiked: { defaultValue: false, control: 'none' },
-    initialCount: { defaultValue: 0, control: 'number' },
-  },
 };
 
-export const Default = args => <Like {...args} />;
+const Template = args => <Like {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  isLogin: true,
+  isLiked: false,
+  initialCount: 0,
+};
+
+export const IsLiked = Template.bind({});
+IsLiked.args = {
+  isLogin: true,
+  isLiked: true,
+  initialCount: 1,
+};
+
+export const NotLogin = Template.bind({});
+NotLogin.args = {
+  isLogin: false,
+  isLiked: false,
+  initialCount: 0,
+};
