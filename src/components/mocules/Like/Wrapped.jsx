@@ -6,7 +6,7 @@ import { addLikeSeries, delLikeSeries } from '@apis/like';
 import { useUser } from '@contexts/UserProvider';
 import { Like } from '@mocules';
 
-export const LikeWrapped = ({ id, isLiked, likeCount }) => {
+export const LikeWrapped = ({ id, isLiked, initialCount }) => {
   const { userInfo } = useUser();
 
   const handleClick = async state => {
@@ -18,7 +18,7 @@ export const LikeWrapped = ({ id, isLiked, likeCount }) => {
       seriesId={id}
       isLogin={userInfo.userId}
       isLiked={isLiked}
-      likeCount={likeCount}
+      initialCount={initialCount}
       onClick={handleClick}
     />
   );
@@ -27,12 +27,12 @@ export const LikeWrapped = ({ id, isLiked, likeCount }) => {
 LikeWrapped.defaultProps = {
   id: 1,
   isLiked: false,
-  likeCount: false,
+  initialCount: false,
 };
 LikeWrapped.propTypes = {
   id: PropTypes.number,
   isLiked: PropTypes.bool,
-  likeCount: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  initialCount: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
 export default LikeWrapped;

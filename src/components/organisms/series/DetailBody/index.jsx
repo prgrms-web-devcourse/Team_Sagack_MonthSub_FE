@@ -45,7 +45,7 @@ const DetailBody = ({
       </DetailWriterInfo>
       {likes === null ? null : (
         <div className="detailInfoLikes">
-          <LikeWrapped id={parentId} likeCount={likes} isLiked={isLiked} />
+          <LikeWrapped id={parentId} initialCount={likes} isLiked={isLiked} />
         </div>
       )}
     </DetailInfo>

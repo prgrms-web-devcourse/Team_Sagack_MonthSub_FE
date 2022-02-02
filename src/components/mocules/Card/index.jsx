@@ -54,7 +54,7 @@ const Card = ({ data, ...props }) => (
         <div>
           <LikeWrapped
             id={data.seriesId}
-            likeCount={data.likes}
+            initialCount={data.likes}
             isLiked={data.isLiked}
           />
         </div>
