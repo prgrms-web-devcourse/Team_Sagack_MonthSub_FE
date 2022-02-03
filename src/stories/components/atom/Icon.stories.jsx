@@ -1,25 +1,25 @@
 import React from 'react';
-import { Icons } from '@atom';
+import { Icon } from '@atom';
 
 export default {
   title: 'Component/atom/Icon',
-  component: Icons,
+  component: Icon,
 };
 
 export const Like = () => (
-  <Icons>
-    <Icons.Like />
-  </Icons>
+  <Icon>
+    <Icon.Like />
+  </Icon>
 );
 
 export const Home = () => (
-  <Icons>
-    <Icons.Home />
-  </Icons>
+  <Icon>
+    <Icon.Home />
+  </Icon>
 );
 
 export const User = () => (
-  <Icons>
-    <Icons.User />
-  </Icons>
+  <Icon>
+    <Icon.User />
+  </Icon>
 );
