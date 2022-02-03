@@ -5,35 +5,28 @@ export default {
   title: 'Component/atom/Title',
   component: Title,
   argTypes: {
-    h2: {
-      defaultValue: false,
-      control: { type: 'boolean' },
-    },
-    h3: {
-      defaultValue: false,
-      control: { type: 'boolean' },
-    },
-    h4: {
-      defaultValue: false,
-      control: { type: 'boolean' },
-    },
-    h5: {
-      defaultValue: false,
-      control: { type: 'boolean' },
-    },
-    h6: {
-      defaultValue: false,
-      control: { type: 'boolean' },
+    children: {
+      defaultValue: 'Title',
+      control: { type: 'text' },
     },
     size: {
-      defaultValue: 'auto',
-      control: { type: 'number' },
+      options: ['small', 'base', 'medium', 'large', 'xLarge'],
+      control: { type: 'radio' },
+    },
+    color: {
+      control: { type: 'color' },
     },
     weight: {
-      defaultValue: 700,
-      control: { type: 'number' },
+      options: [400, 500, 700],
+      control: { type: 'radio' },
+    },
+    marginBottom: {
+      control: { type: 'none' },
+    },
+    extraItem: {
+      control: { type: 'none' },
     },
   },
 };
 
-export const Default = args => <Title {...args}>제목</Title>;
+export const Default = args => <Title {...args} />;

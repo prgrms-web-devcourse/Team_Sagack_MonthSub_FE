@@ -51,11 +51,12 @@ Like.defaultProps = {
   onClick: () => {},
   isLogin: false,
 };
+
 Like.propTypes = {
   isLiked: PropTypes.bool,
-  isLogin: PropTypes.bool,
+  isLogin: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   onClick: PropTypes.func,
-  initialCount: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  initialCount: PropTypes.number,
 };
 
 export default Like;
