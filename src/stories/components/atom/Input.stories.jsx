@@ -11,15 +11,19 @@ export default {
     },
     width: {
       defaultValue: 200,
-      control: { type: 'range', min: 200, max: 600 },
+      control: { type: 'range', min: 100, max: 500 },
     },
     height: {
-      defaultValue: 200,
-      control: { type: 'range', min: 200, max: 600 },
+      defaultValue: 30,
+      control: { type: 'range', min: 10, max: 100 },
     },
     type: {
       options: ['text', 'password', 'date'],
       control: { type: 'inline-radio' },
+    },
+    placeholder: {
+      defaultValue: '값을 입력해주세요',
+      control: { type: 'text' },
     },
   },
 };
