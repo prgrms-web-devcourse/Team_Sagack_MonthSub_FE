@@ -38,17 +38,16 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   onChange: () => {},
-  name: '',
   round: true,
   focus: true,
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
-  value: PropTypes.isRequired,
+  value: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
@@ -59,9 +58,9 @@ Input.propTypes = {
 export default Input;
 
 const StyledInput = styled.input`
-  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
-    typeof height === 'number' ? `${height}px` : height};
+    typeof height === 'number' ? `${height}rem` : height};
   padding: 0.5rem;
   font-size: 1rem;
   border: 0.063rem solid ${theme.color.greyMedium};

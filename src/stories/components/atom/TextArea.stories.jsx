@@ -6,12 +6,12 @@ export default {
   component: TextArea,
   argTypes: {
     width: {
-      defaultValue: 200,
-      control: { type: 'range', min: 200, max: 600 },
+      defaultValue: 20,
+      control: { type: 'range', min: 10, max: 50 },
     },
     height: {
-      defaultValue: 200,
-      control: { type: 'range', min: 200, max: 600 },
+      defaultValue: 20,
+      control: { type: 'range', min: 10, max: 50 },
     },
   },
 };

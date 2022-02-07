@@ -53,9 +53,9 @@ const Container = styled.div`
   width: ${({ width }) => width};
 `;
 const StyledTextArea = styled.textarea`
-  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
-    typeof height === 'number' ? `${height}px` : height};
+    typeof height === 'number' ? `${height}rem` : height};
   padding: 0.7rem;
   font-size: 1rem;
   border: 0.063rem solid ${theme.color.greyMedium};

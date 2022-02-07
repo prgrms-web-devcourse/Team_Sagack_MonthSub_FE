@@ -5,17 +5,13 @@ export default {
   title: 'Component/atom/Input',
   component: Input,
   argTypes: {
-    name: {
-      defaultValue: '',
-      control: 'string',
-    },
     width: {
-      defaultValue: 200,
-      control: { type: 'range', min: 100, max: 500 },
+      defaultValue: 15,
+      control: { type: 'range', min: 10, max: 50 },
     },
     height: {
-      defaultValue: 30,
-      control: { type: 'range', min: 10, max: 100 },
+      defaultValue: 2,
+      control: { type: 'range', min: 1, max: 50 },
     },
     type: {
       options: ['text', 'password', 'date'],
