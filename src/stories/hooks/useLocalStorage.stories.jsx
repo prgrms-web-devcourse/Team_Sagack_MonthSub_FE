@@ -1,5 +1,5 @@
 import React from 'react';
-import useLocalStorage from '@hooks/useLocalStorage';
+import { useLocalStorage } from '@hooks';
 
 export default {
   title: 'Hook/useLocalStorage',

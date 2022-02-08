@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '@components';
+import { Card } from '@mocules';
 
 export default {
-  title: 'Component/domain/Card',
+  title: 'Component/mocules/Card',
   component: Card,
 };
 

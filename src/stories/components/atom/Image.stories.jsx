@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from '@components/commons/Image';
+import { Image } from '@atom';
 
 export default {
-  title: 'Component/Image',
+  title: 'Component/atom/Image',
   component: Image,
   argTypes: {
     block: {

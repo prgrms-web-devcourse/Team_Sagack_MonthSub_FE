@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Loading } from '@atom';
 import { ArticleForm } from '@organisms';
 import { Wrapper } from '@templates';
-import { getArticleDetail } from '@apis/article';
+import jsonBlob from '@utils/createJsonBlob';
+import { getArticleDetail, putArticle } from '@apis/article';
 import styled from '@emotion/styled';
 import { useParams, useHistory } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const WriteArticlePage = () => {
   const history = useHistory();
   const { seriesId, articleId } = useParams();
   const [loading, setLoading] = useState(true);
-  const [articleData, setArticleData] = useState({
+  const [initialValues, setInitialValues] = useState({
     title: '',
     contents: '',
     thumbnailFile: '',
@@ -24,11 +25,11 @@ const WriteArticlePage = () => {
     });
 
     if (!data) {
-      history.push('/server-error');
+      setLoading(false);
       return;
     }
 
-    setArticleData({
+    setInitialValues({
       title: data.title,
       contents: data.contents,
       thumbnailFile: '',
@@ -42,6 +43,30 @@ const WriteArticlePage = () => {
     seriesId && articleId && getInitialData({ seriesId, articleId });
   }, [seriesId, articleId]);
 
+  const handleSubmit = async values => {
+    try {
+      const request = {
+        ...values,
+        seriesId,
+      };
+
+      const formData = new FormData();
+      formData.append('file', values.thumbnailFile);
+      formData.append('request', jsonBlob(request));
+
+      const response = await putArticle({
+        id: articleId,
+        data: formData,
+      });
+
+      if (response.status === 200) {
+        history.push(`/series/${seriesId}/article/${response.data.id}`);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <Background>
       <Wrapper>
@@ -50,8 +75,8 @@ const WriteArticlePage = () => {
         ) : (
           <ArticleForm
             edit
-            param={{ seriesId, articleId }}
-            articleData={articleData}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
           />
         )}
       </Wrapper>

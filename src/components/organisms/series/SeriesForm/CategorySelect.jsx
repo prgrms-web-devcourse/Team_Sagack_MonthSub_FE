@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Input } from '@atom';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
+import convertCategory from '@utils/convertCategory';
 
 const CategorySelect = ({
   name,
@@ -28,10 +29,10 @@ const CategorySelect = ({
               id={label}
               onChange={handleChange}
               value={label}
-              checked={checkedItem.includes(label)}
+              checked={checkedItem === label}
               disabled={disabled}
             />
-            <StyledButton>{label}</StyledButton>
+            <StyledButton>{convertCategory(label)}</StyledButton>
           </label>
         ))}
       </StyledFlex>
@@ -41,7 +42,7 @@ const CategorySelect = ({
 
 CategorySelect.defaultProps = {
   onChange: () => {},
-  checkedItem: [],
+  checkedItem: '',
   disabled: false,
   name: '',
 };
@@ -49,7 +50,7 @@ CategorySelect.defaultProps = {
 CategorySelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  checkedItem: PropTypes.string,
   disabled: PropTypes.bool,
   name: PropTypes.string,
 };

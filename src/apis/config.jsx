@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 const { REACT_APP_API_END_POINT } = process.env;
-const token = sessionStorage.getItem('authorization');
 
 const request = axios.create({
   baseURL: `${REACT_APP_API_END_POINT}`,
   timeout: 5000,
-  headers: {
-    ...(token && { Authorization: `Bearer ${JSON.parse(token)}` }),
-  },
 });
 
 request.interceptors.request.use(
-  config =>
-    // 이 부분에서 리프레스 토큰 처리해주면 됩니다
-    config,
+  config => {
+    const TOKEN = sessionStorage.getItem('authorization');
+    if (!TOKEN) return config;
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${JSON.parse(TOKEN)}`;
+    return config;
+  },
   error => Promise.reject(error),
 );
 

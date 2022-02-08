@@ -1,5 +1,5 @@
 import React from 'react';
-import useSessionStorage from '@hooks/useSessionStorage';
+import { useSessionStorage } from '@hooks';
 
 export default {
   title: 'Hook/useSessionStorage',
