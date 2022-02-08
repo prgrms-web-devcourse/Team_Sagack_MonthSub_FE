@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
 import { Image } from '@atom';
-import { LikeWrapped } from '@mocules';
+import { SeriesLikeToggle } from '@mocules';
 import { theme, constants } from '@styles';
 
 const Card = ({ data, ...props }) => (
@@ -52,7 +52,7 @@ const Card = ({ data, ...props }) => (
           <Link to={`/channel/${data.userId}`}>{data.nickname}</Link>
         </div>
         <div>
-          <LikeWrapped
+          <SeriesLikeToggle
             id={data.seriesId}
             initialCount={data.likes}
             isLiked={data.isLiked}

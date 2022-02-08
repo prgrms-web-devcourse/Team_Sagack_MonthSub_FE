@@ -5,7 +5,7 @@ import { useToggle } from '@hooks';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 
-export const Like = ({ isLogin, isLiked, initialCount, onClick }) => {
+export const LikeToggle = ({ isLogin, isLiked, initialCount, onClick }) => {
   const [state, setState, toggle] = useToggle(isLiked);
   const [count, setCount] = useState(initialCount);
 
@@ -45,21 +45,21 @@ export const Like = ({ isLogin, isLiked, initialCount, onClick }) => {
   );
 };
 
-Like.defaultProps = {
+LikeToggle.defaultProps = {
   isLiked: false,
   initialCount: 0,
   onClick: () => {},
   isLogin: false,
 };
 
-Like.propTypes = {
+LikeToggle.propTypes = {
   isLiked: PropTypes.bool,
   isLogin: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   onClick: PropTypes.func,
   initialCount: PropTypes.number,
 };
 
-export default Like;
+export default LikeToggle;
 
 const Container = styled.div`
   display: flex;
