@@ -1,8 +1,12 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
+// import { Button } from '@atom';
+import theme from '@styles/theme';
+import convertDay from '@utils/convertDay';
 
-const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
+const DaySelect = ({ valueList, initialCheckeds, onChange, ...props }) => {
   const { checkedList, handleCheckedAll, handleCheckedElement } = useCheckBox({
     name: 'uploadDate',
     initialCheckeds,
@@ -11,19 +15,19 @@ const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
   });
 
   return (
-    <div>
+    <div {...props}>
       <label htmlFor="all">
-        <input
+        <StyledInput
           type="checkbox"
           id="all"
           onChange={handleCheckedAll}
           checked={checkedList.length === valueList.length}
         />
-        all
+        <StyledButton>전체</StyledButton>
       </label>
-      {valueList.map(value => (
+      {convertDay(valueList).map(value => (
         <label key={value} htmlFor={value}>
-          <input
+          <StyledInput
             id={value}
             type="checkbox"
             value={value}
@@ -34,12 +38,20 @@ const DaySelect = ({ valueList, initialCheckeds, onChange }) => {
                 : checkedList.includes(value)
             }
           />
-          {value}
+          <StyledButton>{value}</StyledButton>
         </label>
       ))}
     </div>
   );
 };
+
+const StyledInput = styled.input`
+  display: none;
+  &:checked + div {
+    background-color: ${theme.color.main};
+    color: #fff;
+  }
+`;
 
 DaySelect.defaultProps = {
   initialCheckeds: [],
@@ -53,3 +65,23 @@ DaySelect.propTypes = {
 };
 
 export default DaySelect;
+
+const StyledButton = styled.div`
+  display: inline-block;
+  width: 6.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
+  color: ${theme.color.main};
+  background-color: #fff;
+  box-shadow: ${theme.style.boxShadow};
+  text-align: center;
+  &:hover {
+    color: #fff;
+    background-color: ${theme.color.main};
+    transition: all 200ms ease-out;
+  }
+`;

@@ -5,6 +5,5 @@ export { default as Image } from './Image';
 export { default as Input } from './Input';
 export { default as Loading } from './Loading';
 export { default as TextArea } from './TextArea';
-export { default as Title } from './Title';
 export { default as SectionTitle } from './SectionTitle';
 export { default as Upload } from './Upload';
