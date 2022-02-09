@@ -1,32 +1,31 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Title } from '@atom';
+import { SectionTitle } from '@atom';
 
-const SectionContainer = ({ title, children, titleItem }) => (
-  <>
-    <Title extraItem={titleItem} color="#000000">
-      {title}
-    </Title>
-    <StyledContainer>{children}</StyledContainer>
-  </>
+const SectionContainer = ({ title, children, ...props }) => (
+  <Section {...props}>
+    <SectionTitle>{title}</SectionTitle>
+    <div>{children}</div>
+  </Section>
 );
 
 SectionContainer.defaultProps = {
   title: '',
-  titleItem: null,
   children: '',
 };
 
 SectionContainer.propTypes = {
   title: PropTypes.string,
-  titleItem: PropTypes.node,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 export default SectionContainer;
 
-const StyledContainer = styled.div`
+const Section = styled.section`
   margin-bottom: 80px;
 
   &:last-of-type {

@@ -11,23 +11,7 @@ const UserList = ({ list, title, moreLink, ...props }) => {
   const { maxCount, size } = constants.userList;
 
   return (
-    <SectionContainer
-      {...props}
-      title={title}
-      titleItem={
-        <div className="seeMore">
-          {moreLink ? (
-            list.length === maxCount ? (
-              <Link to={moreLink}>
-                <Button margin={0} width="6.25rem" height="1.875rem">
-                  더보기
-                </Button>
-              </Link>
-            ) : null
-          ) : null}
-        </div>
-      }
-    >
+    <SectionContainer title={title} style={{ position: 'relative' }} {...props}>
       <UserListBody>
         {list.length ? (
           list.map(item => (
@@ -46,6 +30,17 @@ const UserList = ({ list, title, moreLink, ...props }) => {
           <NoData>유저 데이터가 존재하지 않습니다</NoData>
         )}
       </UserListBody>
+      <More className="seeMore">
+        {moreLink ? (
+          list.length === maxCount ? (
+            <Link to={moreLink}>
+              <Button margin={0} width="6.25rem" height="1.875rem">
+                더보기
+              </Button>
+            </Link>
+          ) : null
+        ) : null}
+      </More>
     </SectionContainer>
   );
 };
@@ -68,8 +63,7 @@ const UserListBody = styled.div`
   display: flex;
   overflow: hidden;
   overflow-x: scroll;
-  padding-bottom: 1.25rem;
-  ${mixin.invisibleScrollBar};
+  ${mixin.invisibleScrollBar}
 `;
 
 const StyledUserProfile = styled(UserProfile)`
@@ -77,4 +71,10 @@ const StyledUserProfile = styled(UserProfile)`
   &:last-of-type {
     padding-right: 0;
   }
+`;
+
+const More = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
