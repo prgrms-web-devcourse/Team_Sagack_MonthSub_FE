@@ -21,6 +21,9 @@ const constants = {
       mobS: 1,
     },
   },
+  text: {
+    blank: /^\s+|\s+$/g,
+  },
 };
 
 export default constants;

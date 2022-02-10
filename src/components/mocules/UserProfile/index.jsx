@@ -10,60 +10,65 @@ const UserProfile = ({
   size,
   userId,
   nickname,
-  fontSize,
   imageOnly,
   isSubscribeable,
+  useType,
   ...props
-}) => (
-  <Link to={`/channel/${userId}`} {...props}>
-    <ProfileContainer>
-      <ProfileWrapper size={size} isSubscribeable={isSubscribeable}>
-        <Image src={src} width="auto" height="100%" alt="user-profile" />
-      </ProfileWrapper>
-      {!imageOnly ? <Nickname fontSize={fontSize}>{nickname}</Nickname> : null}
-    </ProfileContainer>
-  </Link>
-);
+}) => {
+  const processedSize = typeof size === 'number' ? `${size}rem` : size;
+
+  return (
+    <Link to={`/channel/${userId}`} {...props}>
+      <ProfileContainer useType={useType}>
+        <ProfileWrapper
+          size={processedSize}
+          isSubscribeable={isSubscribeable}
+          useType={useType}
+        >
+          <Image src={src} width="auto" height="100%" alt="user-profile" />
+        </ProfileWrapper>
+        {!imageOnly ? <Nickname useType={useType}>{nickname}</Nickname> : null}
+      </ProfileContainer>
+    </Link>
+  );
+};
 
 UserProfile.defaultProps = {
-  src: '이미지 경로',
+  src: 'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/defaultProfile.jpg',
   size: 1,
   nickname: '닉네임이 출력됩니다.',
-  fontSize: theme.font.base,
   imageOnly: false,
   isSubscribeable: false,
+  useType: 'list',
 };
 
 UserProfile.propTypes = {
   src: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   nickname: PropTypes.string,
-  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   imageOnly: PropTypes.bool,
   userId: PropTypes.number.isRequired,
   isSubscribeable: PropTypes.bool,
+  useType: PropTypes.string,
 };
 
 export default UserProfile;
 
-const ProfileContainer = styled.div``;
-
-const Nickname = styled.span`
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  font-size: ${({ fontSize }) =>
-    typeof fontSize === 'number' ? `${fontSize}rem` : fontSize};
-  margin-top: 0.75rem;
+const ProfileContainer = styled.div`
+  display: ${({ useType }) =>
+    useType === 'profile' ? 'inline-flex' : 'block'};
 `;
 
 const ProfileWrapper = styled.div`
-  width: ${({ size }) => (typeof size === 'number' ? `${size}rem` : size)};
-  height: ${({ size }) => (typeof size === 'number' ? `${size}rem` : size)};
-  border-radius: ${({ size }) =>
-    typeof size === 'number' ? `${size}rem` : size};
-  overflow: hidden;
   background-color: ${theme.color.grey};
+  overflow: hidden;
+
+  ${({ size, useType }) => `
+      width: ${size};
+      height: ${size};
+      border-radius: ${size};
+      margin-right: ${useType === 'profile' ? `calc(${size} / 4)` : null};
+    `};
 
   ${({ isSubscribeable }) =>
     isSubscribeable
@@ -75,4 +80,19 @@ const ProfileWrapper = styled.div`
         background-clip: content-box, border-box;
       `
       : 'none'};
+`;
+
+const Nickname = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.75rem;
+
+  ${({ useType }) =>
+    useType === 'profile'
+      ? `
+      margin-top: 0;
+        width: auto;
+      `
+      : null};
 `;

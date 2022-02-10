@@ -134,10 +134,6 @@ const SeriesListPage = () => {
     setStatus(value);
   };
 
-  useEffect(() => {
-    getListUpdate();
-  }, [params]);
-
   const updateParams = type => {
     setParams({
       ...params,
@@ -149,6 +145,18 @@ const SeriesListPage = () => {
 
     requestType.current = type;
   };
+
+  useEffect(() => {
+    getListUpdate();
+  }, []);
+
+  useEffect(() => {}, [list]);
+
+  useEffect(() => {
+    if (loading) {
+      getListUpdate();
+    }
+  }, [params]);
 
   useEffect(() => {
     if (loading) {
@@ -180,8 +188,10 @@ const SeriesListPage = () => {
   }, [rowCategories]);
 
   useEffect(() => {
-    currentParams.current['status'] = status;
-    updateParams('status');
+    if (loading) {
+      currentParams.current['status'] = status;
+      updateParams('status');
+    }
   }, [status]);
 
   return (

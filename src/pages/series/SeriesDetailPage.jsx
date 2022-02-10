@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Loading, Image, Button } from '@atom';
 import { ContentAddLink } from '@mocules';
-import { ArticleList, DetailBody } from '@organisms';
+import { ArticleList, DetailBody, Comment } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
-import { getSeriesDetail } from '@apis/series';
+import {
+  getSeriesDetail,
+  postSeriesComment,
+  getSeriesComment,
+  putSeriesComment,
+  deleteSeriesComment,
+} from '@apis/series';
 import styled from '@emotion/styled';
 import { theme, mixin } from '@styles';
 import convertDay from '@utils/convertDay';
 
-export const initialData = {
+const initialData = {
   isMine: false,
   isLiked: false,
   series: {
@@ -53,13 +59,21 @@ export const initialData = {
   ],
 };
 
+const APIUrl = {
+  create: postSeriesComment,
+  read: getSeriesComment,
+  update: putSeriesComment,
+  delete: deleteSeriesComment,
+};
+
 const SeriesDetailPage = () => {
+  const history = useHistory();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [detail, setDetail] = useState(initialData);
-  const history = useHistory();
 
-  const getInitialData = async () => {
+  const [detail, setDetail] = useState(initialData);
+
+  const readSeriesDetail = async () => {
     const { data } = await getSeriesDetail({ id });
 
     if (!data) {
@@ -72,7 +86,7 @@ const SeriesDetailPage = () => {
   };
 
   useEffect(() => {
-    getInitialData();
+    readSeriesDetail();
   }, []);
 
   return (
@@ -173,6 +187,9 @@ const SeriesDetailPage = () => {
               />
             </SectionContainer>
           </ArticleArea>
+          <CommentArea>
+            <Comment API={APIUrl} pageId={id} />
+          </CommentArea>
         </>
       )}
     </Wrapper>
@@ -271,4 +288,8 @@ const ArticleArea = styled.div`
       align-items: center;
     }
   }
+`;
+
+const CommentArea = styled.div`
+  margin-top: 4rem;
 `;
