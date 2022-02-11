@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
-// import { Button } from '@atom';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
 

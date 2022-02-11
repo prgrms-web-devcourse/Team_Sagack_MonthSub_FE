@@ -30,7 +30,7 @@ const UserList = ({ list, title, moreLink, ...props }) => {
           <NoData>유저 데이터가 존재하지 않습니다</NoData>
         )}
       </UserListBody>
-      <More className="seeMore">
+      <More>
         {moreLink ? (
           list.length === maxCount ? (
             <Link to={moreLink}>
