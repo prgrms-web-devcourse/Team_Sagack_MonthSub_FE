@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Input, Title } from '@atom';
+import { Input, SectionTitle } from '@atom';
 import { ImageUpload, ConfirmButtons } from '@mocules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
@@ -61,7 +61,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
       />
 
       <Section>
-        <Title size="medium">카테고리</Title>
+        <SectionTitle size="medium">카테고리</SectionTitle>
         <CategorySelect
           name="category"
           labels={SERIES_CATEGORY}
@@ -74,13 +74,13 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
         <SeriesEditor
           onChange={handleChange}
           value={values}
-          title="시리즈 소개"
+          Sectiontitle="시리즈 소개"
         />
       </Section>
       <Section>
         <StyledFlex horizen justifyContent="space-between">
           <div>
-            <Title size="medium">모집 기간</Title>
+            <SectionTitle size="medium">모집 기간</SectionTitle>
             <PeriodInput
               startName="subscribeStartDate"
               startValue={values.subscribeStartDate}
@@ -93,7 +93,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
             />
           </div>
           <div>
-            <Title size="medium">연재 기간</Title>
+            <SectionTitle size="medium">연재 기간</SectionTitle>
             <PeriodInput
               startName="seriesStartDate"
               startValue={values.seriesStartDate}
@@ -110,7 +110,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
       <Section>
         <StyledFlex horizen justifyContent="space-between">
           <div>
-            <Title size="medium">연재 시간</Title>
+            <SectionTitle size="medium">연재 시간</SectionTitle>
             <Input
               width="100%"
               type="time"
@@ -120,7 +120,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
             />
           </div>
           <div>
-            <Title size="medium">총 회차</Title>
+            <SectionTitle size="medium">총 회차</SectionTitle>
             <Input
               width="100%"
               type="number"
@@ -137,7 +137,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
       <Section>
         <StyledFlex horizen>
           <div>
-            <Title size="medium">구독료</Title>
+            <SectionTitle size="medium">구독료</SectionTitle>
             <PayInput
               width="50%"
               type="number"
@@ -152,7 +152,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
       </Section>
 
       <Section>
-        <Title size="medium">연재 요일</Title>
+        <SectionTitle size="medium">연재 요일</SectionTitle>
         <DaySelect
           initialCheckeds={values.uploadDate}
           valueList={UPLOAD_DATES}

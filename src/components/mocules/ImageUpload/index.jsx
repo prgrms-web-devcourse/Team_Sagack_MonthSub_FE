@@ -31,7 +31,7 @@ ImageUpload.defaultProps = {
   buttonName: 'File Select',
   src: '',
   name: '',
-  wide: false,
+  wide: +false,
 };
 
 ImageUpload.propTypes = {

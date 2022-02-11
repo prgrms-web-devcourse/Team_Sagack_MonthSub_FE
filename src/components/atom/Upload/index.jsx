@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
@@ -12,16 +12,6 @@ const Upload = ({
   ...props
 }) => {
   const inputRef = useRef(null);
-  const [file, setFile] = useState(value);
-
-  const handleFileChange = e => {
-    const { files } = e.target;
-    const changedFile = files[0];
-    setFile(changedFile);
-    if (onChange) {
-      onChange(e);
-    }
-  };
 
   const handleChooseFile = () => {
     inputRef.current.click();
@@ -35,10 +25,10 @@ const Upload = ({
         name={name}
         value={value}
         accept={accept}
-        onChange={handleFileChange}
+        onChange={onChange}
         disabled={disabled && disabled}
       />
-      {typeof children === 'function' ? children(file) : children}
+      {children}
     </div>
   );
 };

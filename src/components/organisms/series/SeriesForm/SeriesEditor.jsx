@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea, Title } from '@atom';
+import { TextArea, SectionTitle } from '@atom';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
   };
   return (
     <>
-      <Title size="medium">{title}</Title>
+      <SectionTitle size="medium">{title}</SectionTitle>
       <StyledSection {...props}>
         <StyledTextArea
           width="100%"

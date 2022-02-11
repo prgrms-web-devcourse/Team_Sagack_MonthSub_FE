@@ -16,7 +16,7 @@ export const Default = () => {
 
     fileReader.readAsDataURL(files[0]);
     fileReader.onload = () => {
-      setFileURL(() => fileReader.result);
+      setFileURL(fileReader.result);
     };
   };
 
