@@ -1,12 +1,12 @@
 import React from 'react';
-import { Like } from '@mocules';
+import { LikeToggle } from '@mocules';
 
 export default {
-  title: 'Component/mocules/Like',
-  component: Like,
+  title: 'Component/mocules/LikeToggle',
+  component: LikeToggle,
 };
 
-const Template = args => <Like {...args} />;
+const Template = args => <LikeToggle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

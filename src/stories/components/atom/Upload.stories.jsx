@@ -1,27 +1,29 @@
 import React from 'react';
+import useState from 'storybook-addon-state';
 import { Upload, Button } from '@atom';
 import styled from '@emotion/styled';
 
 export default {
   title: 'Component/atom/Upload',
   component: Upload,
-  argTypes: {
-    accept: { defaultValue: '.jpg, .png, .jpeg', control: { type: 'text' } },
-    disabled: { defaultValue: false, control: { type: 'boolean' } },
-  },
 };
 
-const FileName = styled.p`
-  margin-top: 0.5rem;
-`;
+export const Default = () => {
+  const [fileURL, setFileURL] = useState();
 
-export const Default = args => (
-  <Upload {...args}>
-    {file => (
-      <>
-        <Button circle>Click me</Button>
-        <FileName>{file ? file.name : '선택된 파일이 없습니다'}</FileName>
-      </>
-    )}
-  </Upload>
-);
+  const handleChange = e => {
+    const { files } = e.target;
+    setFileURL(files[0].name);
+  };
+
+  const FileName = styled.p`
+    margin-top: 0.5rem;
+  `;
+
+  return (
+    <Upload onChange={handleChange}>
+      <Button>click me</Button>
+      <FileName>{fileURL || 'fileName'}</FileName>
+    </Upload>
+  );
+};
