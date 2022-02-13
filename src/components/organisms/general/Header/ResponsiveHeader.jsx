@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useClickAway } from '@hooks';
 import { lighten } from 'polished';
+import { whiteBackLogo } from '@images';
 import Logo from './Logo';
-
-const logo = require('@images/logo_whiteBackboard.svg');
 
 const ResponsiveHeader = ({ userId }) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -29,7 +28,7 @@ const ResponsiveHeader = ({ userId }) => {
 
   return (
     <Header>
-      <Logo src={logo.default} alt="미리보기" />
+      <Logo src={whiteBackLogo} alt="미리보기" />
       <IconWrapper fontSize="2rem">
         <StyledMenuIcon onClick={handleMenuClick} />
       </IconWrapper>

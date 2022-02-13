@@ -6,14 +6,13 @@ import theme from '@styles/theme';
 import { lighten } from 'polished';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
+import { whiteBackLogo } from '@images';
 import Nav from './Nav';
 import Logo from './Logo';
 
-const logo = require('@images/logo_whiteBackboard.svg');
-
 const LaptopHeader = ({ userId }) => (
   <StyledHeader>
-    <Logo src={logo.default} alt="미리보기" />
+    <Logo src={whiteBackLogo} alt="미리보기" />
     <StyledNav items={['Home', '연재하기', '내 채널']} />
     <Utils islogin={userId}>
       <SearchLink to="/search" islogin={userId}>
