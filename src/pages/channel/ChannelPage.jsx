@@ -9,7 +9,7 @@ import { getMyChannel, getChannel } from '@apis/channel';
 import { useParams, useHistory } from 'react-router-dom';
 import { postFollow, deleteFollow } from '@apis/follow';
 import { useMediaQuery } from '@material-ui/core';
-import cover from '@images/channel_cover.jpg';
+import { channelCover } from '@images';
 
 const initialData = {
   user: {
@@ -237,7 +237,7 @@ const ProfileAreaHeight = '27rem';
 const ProfileWrapper = styled.div`
   ${mixin.fullScreen}
   height: ${ProfileAreaHeight};
-  background-image: url(${cover});
+  background-image: url(${channelCover});
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
