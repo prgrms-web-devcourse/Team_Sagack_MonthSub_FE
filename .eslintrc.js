@@ -32,7 +32,9 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-    '@typescript-eslint/no-empty-function': ['off'], // 임시 적용
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
+    '@typescript-eslint/no-empty-function': ['off'],
+    '@typescript-eslint/no-unused-vars': ['off'],
     'no-use-before-define': 'off',
     'object-curly-newline': 0,
     'import/extensions': ['off'],
@@ -71,4 +73,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': ['error'],
+        '@typescript-eslint/no-empty-function': ['error'],
+        '@typescript-eslint/no-unused-vars': ['error'],
+      },
+    },
+  ],
 };
