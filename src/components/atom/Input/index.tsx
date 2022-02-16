@@ -1,7 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { InputHTMLAttributes, ReactElement } from 'react';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  width?: string | number;
+  height?: string | number;
+  round?: boolean;
+  focus?: boolean;
+}
 
 const Input = ({
   name,
@@ -15,7 +22,7 @@ const Input = ({
   round,
   focus,
   ...props
-}) => (
+}: InputProps): ReactElement => (
   <StyledInput
     name={name}
     width={width}
@@ -34,30 +41,13 @@ const Input = ({
 Input.defaultProps = {
   width: 'auto',
   height: 'auto',
-  disabled: false,
-  type: 'text',
-  placeholder: '',
-  onChange: () => {},
   round: true,
   focus: true,
 };
 
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  disabled: PropTypes.bool,
-  value: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-  round: PropTypes.bool,
-  focus: PropTypes.bool,
-};
-
 export default Input;
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<InputProps>`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};

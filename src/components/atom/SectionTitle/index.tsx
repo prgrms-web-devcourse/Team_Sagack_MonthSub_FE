@@ -1,15 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { ReactElement } from 'react';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 
-const SectionTitle = ({ children, size, ...props }) => (
+interface SectionTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode | string;
+  size?: string | number;
+}
+
+const SectionTitle = ({
+  children,
+  size,
+  ...props
+}: SectionTitleProps): ReactElement => (
   <Heading size={size} {...props}>
     {children}
   </Heading>
 );
 
-const Heading = styled.h3`
+const Heading = styled.h3<SectionTitleProps>`
   margin-bottom: 1.8rem;
   font-weight: 700;
   font-size: ${({ size }) =>
@@ -29,14 +38,8 @@ const Heading = styled.h3`
   color: ${theme.color.greyDark};
 `;
 
-export default SectionTitle;
-
 SectionTitle.defaultProps = {
   size: 'large',
 };
 
-SectionTitle.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
-    .isRequired,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
+export default SectionTitle;
