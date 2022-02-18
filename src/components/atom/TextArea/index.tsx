@@ -1,7 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
+import type { TextareaHTMLAttributes, ReactElement } from 'react';
+
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  width?: string | number;
+  height?: string | number;
+}
 
 const TextArea = ({
   width,
@@ -11,13 +16,13 @@ const TextArea = ({
   value,
   onChange,
   ...props
-}) => {
-  const handleChange = () => {
-    onChange && onChange();
+}: TextareaProps): ReactElement => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange && onChange(e);
   };
 
   return (
-    <Container width={width} {...props}>
+    <div>
       <StyledTextArea
         width={width}
         height={height}
@@ -27,32 +32,18 @@ const TextArea = ({
         onChange={handleChange}
         {...props}
       />
-    </Container>
+    </div>
   );
 };
 
 TextArea.defaultProps = {
   width: 'auto',
   height: 'auto',
-  disabled: false,
-  onChange: () => {},
-};
-
-TextArea.propTypes = {
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default TextArea;
 
-const Container = styled.div`
-  width: ${({ width }) => width};
-`;
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.textarea<TextareaProps>`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
