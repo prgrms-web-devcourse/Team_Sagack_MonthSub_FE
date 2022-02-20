@@ -37,19 +37,17 @@ Input.defaultProps = {
   disabled: false,
   type: 'text',
   placeholder: '',
-  value: '',
   onChange: () => {},
-  name: '',
   round: true,
   focus: true,
 };
 
 Input.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   disabled: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,

@@ -3,53 +3,14 @@ import { ImageUpload, ConfirmButtons } from '@mocules';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { postArticle, putArticle } from '@apis/article';
-import jsonBlob from '@utils/createJsonBlob';
-import { useHistory } from 'react-router-dom';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import theme from '@styles/theme';
 import ArticleEditor from './ArticleEditor';
 
-const ArticleForm = ({ edit, param, articleData, ...props }) => {
-  const history = useHistory();
-  const { seriesId, articleId } = param;
+const ArticleForm = ({ edit, initialValues, onSubmit, ...props }) => {
   const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
-    initialValues: {
-      thumbnailFile: articleData.thumbnailFile || '',
-      title: articleData.title || '',
-      contents: articleData.contents || '',
-      thumbnailUrl: articleData.thumbnailUrl || '',
-    },
-
-    onSubmit: async values => {
-      try {
-        const request = {
-          ...values,
-          seriesId,
-        };
-
-        const formData = new FormData();
-        formData.append('file', values.thumbnailFile);
-        formData.append('request', jsonBlob(request));
-
-        const response = edit
-          ? await putArticle({
-              id: articleId,
-              data: formData,
-            })
-          : await postArticle({
-              data: formData,
-            });
-
-        if (response.status === 200) {
-          edit
-            ? history.push(`/series/${seriesId}/article/${response.data.id}`)
-            : history.push(`/series/${seriesId}`);
-        }
-      } catch (error) {
-        alert(error);
-      }
-    },
+    initialValues,
+    onSubmit,
     validate: values => {
       const newErrors = {};
 
@@ -85,13 +46,14 @@ const ArticleForm = ({ edit, param, articleData, ...props }) => {
 
 ArticleForm.defaultProps = {
   edit: false,
-  articleData: {},
+  initialValues: {},
+  onSubmit: () => {},
 };
 
 ArticleForm.propTypes = {
   edit: PropTypes.bool,
-  articleData: PropTypes.object,
-  param: PropTypes.object.isRequired,
+  initialValues: PropTypes.object,
+  onSubmit: PropTypes.func,
 };
 
 export default ArticleForm;

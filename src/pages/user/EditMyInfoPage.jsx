@@ -80,7 +80,6 @@ const EditMyInfoPage = () => {
           circle
           id="profileKey"
           alt="미리보기"
-          wide={+false}
         />
         <Label htmlFor="name">이름</Label>
         <Input

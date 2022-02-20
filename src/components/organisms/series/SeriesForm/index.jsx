@@ -1,102 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { Input, Title } from '@atom';
+import { Input, SectionTitle } from '@atom';
 import { ImageUpload, ConfirmButtons } from '@mocules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
-import jsonBlob from '@utils/createJsonBlob';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
-import { postSeries, putSeries } from '@apis/series';
-import { useHistory } from 'react-router-dom';
 import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import CategorySelect from './CategorySelect';
 import DaySelect from './DaySelect';
 
-const SeriesForm = ({ edit, param, seriesData, ...props }) => {
-  const history = useHistory();
-  const [dayValues, setDayValues] = useState(seriesData.uploadDate || []);
-  const { values, handleChange, handleSubmit, handleImageUpload } = useForm({
-    initialValues: {
-      thumbnailFile: seriesData.thumbnailFile || '',
-      category: seriesData.category || '',
-      title: seriesData.title || '',
-      introduceText: seriesData.introduceText || '',
-      introduceSentence: seriesData.introduceSentence || '',
-      subscribeStartDate: seriesData.subscribeStartDate || '',
-      subscribeEndDate: seriesData.subscribeEndDate || '',
-      seriesStartDate: seriesData.seriesStartDate || '',
-      seriesEndDate: seriesData.seriesEndDate || '',
-      uploadTime: seriesData.uploadTime || '',
-      articleCount: seriesData.articleCount || '',
-      price: seriesData.price || '',
-      thumbnailUrl: seriesData.thumbnailUrl || '',
-    },
-
-    onSubmit: async values => {
-      try {
-        const postSeriesForm = async values => {
-          const postRequest = {
-            ...values,
-            uploadDate: dayValues,
-            articleCount: Number(values.articleCount),
-            price: Number(values.price),
-          };
-          const putRequest = {
-            writeId: values.writeId,
-            title: values.title,
-            introduceText: values.introduceText,
-            introduceSentence: values.introduceSentence,
-            uploadDate: dayValues,
-            uploadTime: values.uploadTime,
-          };
-
-          const formData = new FormData();
-          formData.append('file', values.thumbnailFile);
-          formData.append('request', jsonBlob(edit ? putRequest : postRequest));
-          const response = edit
-            ? await putSeries({
-                id: param,
-                data: formData,
-              })
-            : await postSeries({
-                data: formData,
-              });
-
-          const { seriesId } = response.data;
-          seriesId && history.push(`/series/${seriesId}`);
-        };
-
-        postSeriesForm(values);
-      } catch (error) {
-        alert(error);
-      }
-    },
+const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
+  const {
+    values,
+    handleChange,
+    handleChangeArr,
+    handleSubmit,
+    handleImageUpload,
+  } = useForm({
+    initialValues,
+    onSubmit,
     validate: values => {
       const newErrors = {};
 
       for (const key in values) {
-        if (!values[key]) {
+        if (!values[key] || values[key].length === 0) {
           if (edit && key === 'thumbnailFile') {
             return;
           }
           newErrors.empty = createEmptyValueMessage(key);
           alert(newErrors.empty);
-
           break;
         }
       }
 
-      if (dayValues.length === 0) {
-        newErrors.dayLength = '요일을 선택해주세요!';
-        alert(newErrors.dayLength);
-      }
-      if (edit && seriesData.uploadDate.length !== dayValues.length) {
+      if (
+        edit &&
+        initialValues.uploadDate.length !== values.uploadDate.length
+      ) {
         newErrors.dayLength = '요일 수가 일치하지 않습니다!';
         alert(newErrors.dayLength);
       }
@@ -115,7 +61,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       />
 
       <Section>
-        <Title size="medium">카테고리</Title>
+        <SectionTitle size="medium">카테고리</SectionTitle>
         <CategorySelect
           name="category"
           labels={SERIES_CATEGORY}
@@ -128,13 +74,13 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
         <SeriesEditor
           onChange={handleChange}
           value={values}
-          title="시리즈 소개"
+          Sectiontitle="시리즈 소개"
         />
       </Section>
       <Section>
         <StyledFlex horizen justifyContent="space-between">
           <div>
-            <Title size="medium">모집 기간</Title>
+            <SectionTitle size="medium">모집 기간</SectionTitle>
             <PeriodInput
               startName="subscribeStartDate"
               startValue={values.subscribeStartDate}
@@ -147,7 +93,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             />
           </div>
           <div>
-            <Title size="medium">연재 기간</Title>
+            <SectionTitle size="medium">연재 기간</SectionTitle>
             <PeriodInput
               startName="seriesStartDate"
               startValue={values.seriesStartDate}
@@ -164,7 +110,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       <Section>
         <StyledFlex horizen justifyContent="space-between">
           <div>
-            <Title size="medium">연재 시간</Title>
+            <SectionTitle size="medium">연재 시간</SectionTitle>
             <Input
               width="100%"
               type="time"
@@ -174,7 +120,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
             />
           </div>
           <div>
-            <Title size="medium">총 회차</Title>
+            <SectionTitle size="medium">총 회차</SectionTitle>
             <Input
               width="100%"
               type="number"
@@ -191,7 +137,7 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       <Section>
         <StyledFlex horizen>
           <div>
-            <Title size="medium">구독료</Title>
+            <SectionTitle size="medium">구독료</SectionTitle>
             <PayInput
               width="50%"
               type="number"
@@ -206,11 +152,11 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
       </Section>
 
       <Section>
-        <Title size="medium">연재 요일</Title>
+        <SectionTitle size="medium">연재 요일</SectionTitle>
         <DaySelect
-          initialCheckeds={dayValues}
+          initialCheckeds={values.uploadDate}
           valueList={UPLOAD_DATES}
-          onChange={checkedList => setDayValues(checkedList)}
+          onChange={handleChangeArr}
         />
       </Section>
       <ConfirmButtons confirmName="제출" />
@@ -220,14 +166,14 @@ const SeriesForm = ({ edit, param, seriesData, ...props }) => {
 
 SeriesForm.defaultProps = {
   edit: false,
-  seriesData: {},
-  param: '',
+  initialValues: {},
+  onSubmit: () => {},
 };
 
 SeriesForm.propTypes = {
   edit: PropTypes.bool,
-  seriesData: PropTypes.object,
-  param: PropTypes.string,
+  initialValues: PropTypes.object,
+  onSubmit: PropTypes.func,
 };
 
 export default SeriesForm;

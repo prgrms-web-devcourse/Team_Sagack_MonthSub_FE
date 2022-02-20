@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input } from '@atom';
-import { Flex } from '@templates';
 import theme from '@styles/theme';
+import convertCategory from '@utils/convertCategory';
 
 const CategorySelect = ({
   name,
@@ -19,29 +19,27 @@ const CategorySelect = ({
 
   return (
     <div {...props}>
-      <StyledFlex horizen justifyContent="flex-start">
-        {labels.map(label => (
-          <label key={label} htmlFor={label}>
-            <StyledInput
-              type="radio"
-              name={name}
-              id={label}
-              onChange={handleChange}
-              value={label}
-              checked={checkedItem.includes(label)}
-              disabled={disabled}
-            />
-            <StyledButton>{label}</StyledButton>
-          </label>
-        ))}
-      </StyledFlex>
+      {labels.map(label => (
+        <label key={label} htmlFor={label}>
+          <StyledInput
+            type="radio"
+            name={name}
+            id={label}
+            onChange={handleChange}
+            value={label}
+            checked={checkedItem === label}
+            disabled={disabled}
+          />
+          <StyledButton>{convertCategory(label)}</StyledButton>
+        </label>
+      ))}
     </div>
   );
 };
 
 CategorySelect.defaultProps = {
   onChange: () => {},
-  checkedItem: [],
+  checkedItem: '',
   disabled: false,
   name: '',
 };
@@ -49,16 +47,12 @@ CategorySelect.defaultProps = {
 CategorySelect.propTypes = {
   labels: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  checkedItem: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  checkedItem: PropTypes.string,
   disabled: PropTypes.bool,
   name: PropTypes.string,
 };
 
 export default CategorySelect;
-
-const StyledFlex = styled(Flex)`
-  flex-wrap: wrap;
-`;
 
 const StyledInput = styled(Input)`
   display: none;
@@ -69,6 +63,7 @@ const StyledInput = styled(Input)`
 `;
 
 const StyledButton = styled.div`
+  display: inline-block;
   width: 6.25rem;
   padding: 0.5rem;
   cursor: pointer;

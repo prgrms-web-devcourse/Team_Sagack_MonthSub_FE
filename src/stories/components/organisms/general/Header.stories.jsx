@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header } from '@components';
+import { Header } from '@organisms';
 
 export default {
-  title: 'Component/domain/Header',
+  title: 'Component/organisms/Header',
   component: Header,
 };
 

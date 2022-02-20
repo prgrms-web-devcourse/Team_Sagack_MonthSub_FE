@@ -22,6 +22,8 @@ const createEmptyValueMessage = name => {
       return '카테고리를 선택해주세요!';
     case 'uploadTime':
       return '연재 시간을 설정해주세요!';
+    case 'uploadDate':
+      return '요일을 선택해주세요!';
     case 'articleCount':
       return '총 회차를 입력해주세요!';
     case 'thumbnailFile':

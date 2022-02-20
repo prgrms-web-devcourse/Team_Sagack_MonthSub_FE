@@ -9,10 +9,10 @@ export const UPLOAD_DATES = [
 ];
 
 export const SERIES_CATEGORY = [
-  'poem',
-  'novel',
-  'interview',
-  'essay',
-  'critique',
-  'etc',
+  'POEM',
+  'NOVEL',
+  'INTERVIEW',
+  'ESSAY',
+  'CRITIQUE',
+  'ETC',
 ];
