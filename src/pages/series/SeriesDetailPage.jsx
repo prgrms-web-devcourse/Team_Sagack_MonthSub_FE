@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Loading, Image, Button } from '@atom';
 import { ContentAddLink } from '@mocules';
-import { ArticleList, DetailBody, Comment } from '@organisms';
+import { ArticleList, DetailBody, CommentList } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import {
@@ -95,15 +95,15 @@ const SeriesDetailPage = () => {
         <Loading />
       ) : (
         <>
-          <ImageArea>
+          <ImageSection>
             <Image
               src={detail.series.thumbnail}
               alt="seriesDetailThumbnail"
               width="100%"
               height="auto"
             />
-          </ImageArea>
-          <InfoArea>
+          </ImageSection>
+          <InfoSection>
             <SeriesInfo>
               <div>작품 정보</div>
               <SeriesInfoSection>
@@ -150,8 +150,8 @@ const SeriesDetailPage = () => {
                 </Link>
               ) : null}
             </SeriesInfo>
-          </InfoArea>
-          <MainArea>
+          </InfoSection>
+          <MainSection>
             <div>
               <DetailBody
                 previousRoot="/series"
@@ -168,9 +168,9 @@ const SeriesDetailPage = () => {
                 isLiked={detail.isLiked}
               />
             </div>
-          </MainArea>
-          <ArticleArea>
-            <div className="articleAreaHeader">
+          </MainSection>
+          <ArticleSection>
+            <div className="articleSectionHeader">
               <SectionContainer title="연재 목록" />
               {detail.isMine ? (
                 <ContentAddLink
@@ -186,10 +186,10 @@ const SeriesDetailPage = () => {
                 list={detail.articleList}
               />
             </SectionContainer>
-          </ArticleArea>
-          <CommentArea>
-            <Comment API={APIUrl} pageId={id} />
-          </CommentArea>
+          </ArticleSection>
+          <CommentSection>
+            <CommentList API={APIUrl} />
+          </CommentSection>
         </>
       )}
     </Wrapper>
@@ -198,7 +198,7 @@ const SeriesDetailPage = () => {
 
 export default SeriesDetailPage;
 
-const ImageArea = styled.div`
+const ImageSection = styled.div`
   ${mixin.fullScreen}
   height: 30rem;
   overflow: hidden;
@@ -210,7 +210,7 @@ const ImageArea = styled.div`
   }
 `;
 
-const MainArea = styled.div`
+const MainSection = styled.div`
   display: flex;
   margin: 2.5rem 0;
 
@@ -224,7 +224,7 @@ const MainArea = styled.div`
   }
 `;
 
-const InfoArea = styled.div`
+const InfoSection = styled.div`
   margin-bottom: 2.5rem;
 `;
 
@@ -274,10 +274,10 @@ const SeriesInfoSection = styled.div`
   }
 `;
 
-const ArticleArea = styled.div`
+const ArticleSection = styled.div`
   margin-top: 4rem;
 
-  .articleAreaHeader {
+  .articleSectionHeader {
     display: flex;
     justify-content: space-between;
 
@@ -290,6 +290,6 @@ const ArticleArea = styled.div`
   }
 `;
 
-const CommentArea = styled.div`
+const CommentSection = styled.div`
   margin-top: 4rem;
 `;

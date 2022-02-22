@@ -11,35 +11,37 @@ const UserProfile = ({
   userId,
   nickname,
   imageOnly,
-  isSubscribeable,
-  useType,
+  isSubscribeAble,
+  requestForm,
   ...props
 }) => {
   const processedSize = typeof size === 'number' ? `${size}rem` : size;
 
   return (
     <Link to={`/channel/${userId}`} {...props}>
-      <ProfileContainer useType={useType}>
-        <ProfileWrapper
+      <ProfileContainer requestForm={requestForm}>
+        <ProfileImageWrapper
           size={processedSize}
-          isSubscribeable={isSubscribeable}
-          useType={useType}
+          isSubscribeAble={isSubscribeAble}
+          requestForm={requestForm}
         >
           <Image src={src} width="auto" height="100%" alt="user-profile" />
-        </ProfileWrapper>
-        {!imageOnly ? <Nickname useType={useType}>{nickname}</Nickname> : null}
+        </ProfileImageWrapper>
+        {!imageOnly ? (
+          <Nickname requestForm={requestForm}>{nickname}</Nickname>
+        ) : null}
       </ProfileContainer>
     </Link>
   );
 };
 
 UserProfile.defaultProps = {
-  src: 'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/defaultProfile.jpg',
+  src: '',
   size: 1,
   nickname: '닉네임이 출력됩니다.',
   imageOnly: false,
-  isSubscribeable: false,
-  useType: 'list',
+  isSubscribeAble: false,
+  requestForm: 'list',
 };
 
 UserProfile.propTypes = {
@@ -48,30 +50,30 @@ UserProfile.propTypes = {
   nickname: PropTypes.string,
   imageOnly: PropTypes.bool,
   userId: PropTypes.number.isRequired,
-  isSubscribeable: PropTypes.bool,
-  useType: PropTypes.string,
+  isSubscribeAble: PropTypes.bool,
+  requestForm: PropTypes.string,
 };
 
 export default UserProfile;
 
 const ProfileContainer = styled.div`
-  display: ${({ useType }) =>
-    useType === 'profile' ? 'inline-flex' : 'block'};
+  display: ${({ requestForm }) =>
+    requestForm === 'profile' ? 'inline-flex' : 'block'};
 `;
 
-const ProfileWrapper = styled.div`
+const ProfileImageWrapper = styled.div`
   background-color: ${theme.color.grey};
   overflow: hidden;
 
-  ${({ size, useType }) => `
+  ${({ size, requestForm }) => `
       width: ${size};
       height: ${size};
       border-radius: ${size};
-      margin-right: ${useType === 'profile' ? `calc(${size} / 4)` : null};
+      margin-right: ${requestForm === 'profile' ? `calc(${size} / 4)` : null};
     `};
 
-  ${({ isSubscribeable }) =>
-    isSubscribeable
+  ${({ isSubscribeAble }) =>
+    isSubscribeAble
       ? `
         padding: 0;
         border: 0.25rem solid transparent;
@@ -88,8 +90,8 @@ const Nickname = styled.span`
   align-items: center;
   margin-top: 0.75rem;
 
-  ${({ useType }) =>
-    useType === 'profile'
+  ${({ requestForm }) =>
+    requestForm === 'profile'
       ? `
       margin-top: 0;
         width: auto;

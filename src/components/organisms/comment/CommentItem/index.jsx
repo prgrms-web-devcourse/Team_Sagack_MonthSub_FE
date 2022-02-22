@@ -5,27 +5,28 @@ import { theme } from '@styles';
 import { UserProfile } from '@mocules';
 import { Icon } from '@atom';
 import replaceEnter from '@utils/replaceEnter';
-import CommentForm from './CommentForm';
+import CommentForm from '../CommentForm';
 
 const CommentItem = ({
-  useType,
+  requestForm,
   commentObj,
   userObj,
   childLength,
-  onDelete,
-  onUpdate,
+  parentId,
   postMoreTarget,
   setPostMoreTarget,
   postUpdateTarget,
   setPostUpdateTarget,
   callbackCount,
-  onCommentMoreClick,
+  onDelete,
+  onUpdate,
+  onToggle,
 }) => {
   const [updateDisplay, setUpdateDisplay] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [updateData, setUpdateData] = useState(commentObj.comment);
 
-  const handlePostMoreClick = () => {
+  const handleClickPostMore = () => {
     if (postMoreTarget['target'] === commentObj.commentId) {
       setPostMoreTarget(current => ({
         ...current,
@@ -39,47 +40,40 @@ const CommentItem = ({
     }
   };
 
-  const handleUpdateClick = () => {
+  const handleClickUpdate = () => {
     setPostUpdateTarget({
       target: commentObj.commentId,
       state: true,
     });
   };
 
-  const handleUpdateCancel = () => {
+  const handleCancelUpdate = () => {
+    setUpdateDisplay(false);
+
     setPostUpdateTarget({
       target: commentObj.commentId,
       state: false,
     });
   };
 
-  const handleUpdateConfirm = e => {
-    e.preventDefault();
+  const handleDeletePost = async () => {
+    const result = await onDelete(commentObj.commentId);
 
-    const { value } = e.target.comment;
+    if (result) {
+      setIsDelete(true);
+    }
+  };
 
-    onUpdate({
-      comment: value,
+  const onSubmitComment = async comment => {
+    const result = await onUpdate({
+      comment,
       id: commentObj.commentId,
-    }).then(result => {
-      if (result) {
-        setUpdateData(value);
-        setUpdateDisplay(false);
-      }
     });
-  };
 
-  const handleDeletePost = () => {
-    onDelete(commentObj.commentId).then(result => {
-      if (result) {
-        callbackCount();
-        setIsDelete(true);
-      }
-    });
-  };
-
-  const handleCommentMoreClick = () => {
-    onCommentMoreClick(commentObj.commentId);
+    if (result) {
+      setUpdateData(comment);
+      setUpdateDisplay(false);
+    }
   };
 
   useEffect(() => {
@@ -96,38 +90,45 @@ const CommentItem = ({
     }
   }, [postUpdateTarget]);
 
-  useEffect(() => {}, [isDelete]);
+  useEffect(() => {
+    if (isDelete) callbackCount(parentId);
+  }, [isDelete]);
 
-  const data = (
-    <CommentWrapper key={commentObj.commentId}>
+  return (
+    <CommentWrapper
+      key={commentObj.commentId}
+      isDelete={!!(isDelete && childLength === 0)}
+    >
       {updateDisplay ? (
-        <div className="comment-inner">
+        <div>
           <CommentForm
-            useType="update"
-            onSubmit={handleUpdateConfirm}
-            onCancel={handleUpdateCancel}
+            requestForm="update"
+            onSubmit={onSubmitComment}
+            handleCancelUpdate={handleCancelUpdate}
             defaultValue={updateData}
+            isLogin
           />
         </div>
       ) : (
-        <div className="comment-inner">
-          {commentObj.commentStatus !== 'DELETED' && (
-            <div className="comment-header">
-              <div className="comment-profile">
+        <div>
+          {commentObj.commentStatus !== 'DELETED' && !isDelete && (
+            <CommentHeader>
+              <CommentProfile>
                 <UserProfile
                   userId={userObj.userId}
                   src={userObj.profileImage}
                   nickname={userObj.nickname}
                   size={2.25}
-                  useType="profile"
+                  requestForm="profile"
                 />
                 {commentObj.isMine && <MyCommentLabel>내댓글</MyCommentLabel>}
-              </div>
+                {commentObj.commentId}
+              </CommentProfile>
               {commentObj.isMine && (
-                <div className="comment-vert">
+                <CommentVert>
                   <PostMoreButton
                     id={`postMore-${commentObj.commentId}`}
-                    onClick={handlePostMoreClick}
+                    onClick={handleClickPostMore}
                   >
                     <Icon.MoreVert />
                   </PostMoreButton>
@@ -137,7 +138,7 @@ const CommentItem = ({
                       <ul>
                         <li
                           id={`postUpadate-${commentObj.commentId}`}
-                          onClick={handleUpdateClick}
+                          onClick={handleClickUpdate}
                         >
                           수정
                         </li>
@@ -150,12 +151,14 @@ const CommentItem = ({
                       </ul>
                     </PostMoreModal>
                   ) : null}
-                </div>
+                </CommentVert>
               )}
-            </div>
+            </CommentHeader>
           )}
-          <div className="comment-main">
+          <div>
             {commentObj.commentStatus === 'DELETED' ? (
+              <CommentText>삭제된 댓글입니다.</CommentText>
+            ) : isDelete ? (
               <CommentText>삭제된 댓글입니다.</CommentText>
             ) : (
               <CommentText
@@ -165,61 +168,58 @@ const CommentItem = ({
               />
             )}
           </div>
-          <div className="comment-bottom">
-            <div className="comment-date">
+          <CommentBottom>
+            <CommentDate>
               {commentObj.createdDateTime}
-              <span className="comment-date-label">
+              <span>
                 {commentObj.commentStatus === 'MODIFIED' && ' (수정됨)'}
                 {commentObj.commentStatus === 'DELETED' && ' (삭제됨)'}
               </span>
-            </div>
-            {useType === 'parent' && (
-              <div className="comment-button">
-                <StyledButton onClick={handleCommentMoreClick}>
+            </CommentDate>
+            {requestForm === 'parent' && (
+              <div>
+                <StyledButton onClick={() => onToggle(commentObj.commentId)}>
                   답글 {childLength}
                 </StyledButton>
               </div>
             )}
-          </div>
+          </CommentBottom>
         </div>
       )}
     </CommentWrapper>
   );
-
-  if (isDelete) {
-    return childLength ? data : null;
-  }
-  return data;
 };
 
 CommentItem.defaultProps = {
-  useType: 'parent',
+  requestForm: 'parent',
   commentObj: {},
   userObj: {},
   childLength: 0,
-  onDelete: () => {},
-  onUpdate: () => {},
+  parentId: null,
   postMoreTarget: null,
   setPostMoreTarget: () => {},
   postUpdateTarget: null,
   setPostUpdateTarget: () => {},
   callbackCount: () => {},
-  onCommentMoreClick: () => {},
+  onDelete: () => {},
+  onUpdate: () => {},
+  onToggle: () => {},
 };
 
 CommentItem.propTypes = {
-  useType: PropTypes.string,
+  requestForm: PropTypes.string,
   commentObj: PropTypes.object,
   userObj: PropTypes.object,
   childLength: PropTypes.number,
-  onDelete: PropTypes.func,
-  onUpdate: PropTypes.func,
+  parentId: PropTypes.number,
   postMoreTarget: PropTypes.object,
   setPostMoreTarget: PropTypes.func,
   postUpdateTarget: PropTypes.object,
   setPostUpdateTarget: PropTypes.func,
   callbackCount: PropTypes.func,
-  onCommentMoreClick: PropTypes.func,
+  onDelete: PropTypes.func,
+  onUpdate: PropTypes.func,
+  onToggle: PropTypes.func,
 };
 
 export default CommentItem;
@@ -228,47 +228,28 @@ const CommentWrapper = styled.div`
   border-bottom: 1px solid ${theme.color.grey};
   padding: 1.25rem 0;
 
-  .comment {
-    &-inner {
-      /* > * {
-        border: 1px solid red;
-      } */
-    }
+  display: ${({ isDelete }) => (isDelete ? 'none' : 'block')};
+`;
 
-    &-header {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &-main {
-    }
-
-    &-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &-profile {
-      display: flex;
-      align-items: center;
-    }
-
-    &-vert {
-      position: relative;
-    }
-
-    &-date {
-      font-size: ${theme.font.small};
-      color: ${theme.color.greyDark};
-    }
-
-    &-date-label {
-    }
-
-    &-button {
-    }
-  }
+const CommentHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const CommentBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const CommentProfile = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const CommentVert = styled.div`
+  position: relative;
+`;
+const CommentDate = styled.div`
+  font-size: ${theme.font.small};
+  color: ${theme.color.greyDark};
 `;
 
 const CommentText = styled.div`
@@ -303,7 +284,6 @@ const PostMoreButton = styled.button`
   color: ${theme.color.greyDark};
 `;
 
-// eslint-disable-next-line no-unused-vars
 const PostMoreModal = styled.div`
   position: absolute;
   bottom: 0;
