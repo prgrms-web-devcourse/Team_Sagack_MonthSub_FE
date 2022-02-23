@@ -1,9 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import theme from '@styles/theme';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-const NoData = ({ children, height, backgroundColor }) => (
+interface NoDataProps extends HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode | string;
+  height?: string | number;
+  backgroundColor?: string;
+}
+
+const NoData = ({
+  children,
+  height,
+  backgroundColor,
+}: NoDataProps): ReactElement => (
   <Container height={height} backgroundColor={backgroundColor}>
     <p>{children}</p>
   </Container>
@@ -15,15 +25,9 @@ NoData.defaultProps = {
   backgroundColor: theme.color.grey,
 };
 
-NoData.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  backgroundColor: PropTypes.string,
-};
-
 export default NoData;
 
-const Container = styled.div`
+const Container = styled.div<NoDataProps>`
   width: 100%;
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};
