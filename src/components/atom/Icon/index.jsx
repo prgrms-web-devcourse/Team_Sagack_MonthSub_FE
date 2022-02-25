@@ -11,6 +11,7 @@ import Info from './Info';
 import Tag from './Tag';
 import Change from './Change';
 import AddCircle from './AddCircle';
+import MoreVert from './MoreVert';
 
 const Icons = ({
   fontSize,
@@ -51,6 +52,7 @@ Icons.Info = Info;
 Icons.Tag = Tag;
 Icons.Change = Change;
 Icons.AddCircle = AddCircle;
+Icons.MoreVert = MoreVert;
 
 export default Icons;
 

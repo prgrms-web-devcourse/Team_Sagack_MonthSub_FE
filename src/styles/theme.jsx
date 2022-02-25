@@ -19,6 +19,7 @@ const font = {
 
 const style = {
   boxShadow: '0 0.1875rem 0.3125rem 0 rgba(50, 50, 93, 0.15)',
+  borderRadius: '0.25rem',
 };
 
 const common = {
