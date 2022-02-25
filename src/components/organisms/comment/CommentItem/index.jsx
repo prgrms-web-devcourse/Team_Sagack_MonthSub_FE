@@ -122,7 +122,6 @@ const CommentItem = ({
                   requestForm="profile"
                 />
                 {commentObj.isMine && <MyCommentLabel>내댓글</MyCommentLabel>}
-                {commentObj.commentId}
               </CommentProfile>
               {commentObj.isMine && (
                 <CommentVert>
