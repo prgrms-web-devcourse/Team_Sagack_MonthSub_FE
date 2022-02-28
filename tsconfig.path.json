@@ -3,7 +3,7 @@
     "baseUrl": "./src",
     "paths": {
       "@atom": ["./components/atom"],
-      "@mocules": ["./components/mocules"],
+      "@molecules": ["./components/molecules"],
       "@organisms": ["./components/organisms"],
       "@templates": ["./components/templates"],
       "@hooks": ["./hooks"],

@@ -1,8 +1,8 @@
 import React from 'react';
-import { DropListSelect } from '@mocules';
+import { DropListSelect } from '@molecules';
 
 export default {
-  title: 'Component/mocules/DropListSelect',
+  title: 'Component/molecules/DropListSelect',
   component: DropListSelect,
 };
 

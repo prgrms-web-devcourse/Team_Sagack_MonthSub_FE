@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Input, SectionTitle } from '@atom';
-import { ImageUpload, ConfirmButtons } from '@mocules';
+import { ImageUpload, ConfirmButtons } from '@molecules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 import { useForm } from '@hooks';

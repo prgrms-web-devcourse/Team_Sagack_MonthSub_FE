@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme, mixin, constants } from '@styles';
 import { Loading } from '@atom';
-import { NoData, UserProfile } from '@mocules';
+import { NoData, UserProfile } from '@molecules';
 import { CardSlider, UserList } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { getMyChannel, getChannel } from '@apis/channel';

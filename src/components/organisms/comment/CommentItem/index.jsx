@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { theme } from '@styles';
-import { UserProfile } from '@mocules';
+import { UserProfile } from '@molecules';
 import { Icon } from '@atom';
 import replaceEnter from '@utils/replaceEnter';
 import CommentForm from '../CommentForm';

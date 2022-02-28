@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { UserProfile } from '@mocules';
+import { UserProfile } from '@molecules';
 import theme from '@styles/theme';
 import { Link } from 'react-router-dom';
 

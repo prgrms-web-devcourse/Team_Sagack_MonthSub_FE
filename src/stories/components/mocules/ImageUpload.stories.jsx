@@ -1,9 +1,9 @@
 import React from 'react';
 import useState from 'storybook-addon-state';
-import { ImageUpload } from '@mocules';
+import { ImageUpload } from '@molecules';
 
 export default {
-  title: 'Component/mocules/ImageUpload',
+  title: 'Component/molecules/ImageUpload',
   component: ImageUpload,
 };
 

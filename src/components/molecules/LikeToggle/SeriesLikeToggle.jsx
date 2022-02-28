@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { addLikeSeries, delLikeSeries } from '@apis/like';
 import { useUser } from '@contexts/UserProvider';
-import { LikeToggle } from '@mocules';
+import { LikeToggle } from '@molecules';
 
 export const SeriesLikeToggle = ({ id, isLiked, initialCount }) => {
   const { userInfo } = useUser();

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { NoData, Card } from '@mocules';
+import { NoData, Card } from '@molecules';
 import { theme, constants } from '@styles';
 
 const CardList = ({ list, ...props }) => (

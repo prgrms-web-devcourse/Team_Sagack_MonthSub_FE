@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 import { Link } from 'react-router-dom';
-import { NoData } from '@mocules';
+import { NoData } from '@molecules';
 
 const ArticleList = ({ seriesId, list, ...props }) => (
   <ArticleListContainer {...props}>

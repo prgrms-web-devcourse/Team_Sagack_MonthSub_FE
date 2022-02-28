@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageUpload, ConfirmButtons } from '@mocules';
+import { ImageUpload, ConfirmButtons } from '@molecules';
 import { useForm } from '@hooks';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';

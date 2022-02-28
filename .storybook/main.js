@@ -13,7 +13,7 @@ module.exports = {
   framework: "@storybook/react",
   webpackFinal: async (config) => {
     config.resolve.alias["@atom"] = path.resolve(__dirname, '../src/components/atom');
-    config.resolve.alias["@mocules"] = path.resolve(__dirname, '../src/components/mocules');
+    config.resolve.alias["@molecules"] = path.resolve(__dirname, '../src/components/molecules');
     config.resolve.alias["@organisms"] = path.resolve(__dirname, '../src/components/organisms');
     config.resolve.alias["@templates"] = path.resolve(__dirname, '../src/components/templates');
     config.resolve.alias["@pages"] = path.resolve(__dirname, "../src/pages");

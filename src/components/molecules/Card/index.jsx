@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import convertCategory from '@utils/convertCategory';
 import { Image } from '@atom';
-import { SeriesLikeToggle } from '@mocules';
+import { SeriesLikeToggle } from '@molecules';
 import { theme, constants } from '@styles';
 
 const Card = ({ data, ...props }) => (
