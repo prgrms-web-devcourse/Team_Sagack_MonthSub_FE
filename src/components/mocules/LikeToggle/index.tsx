@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Icon, IconWrapper } from '@atom';
 import { useToggle } from '@hooks';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-export const LikeToggle = ({ isLogin, isLiked, initialCount, onClick }) => {
+interface LikeToggleProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
+  isLogin: boolean | number;
+  isLiked: boolean;
+  initialCount?: number;
+  onClick?: (isToggle: boolean) => void;
+}
+
+export const LikeToggle = ({
+  isLogin,
+  isLiked,
+  initialCount,
+  onClick,
+}: LikeToggleProps): ReactElement => {
   const [state, setState, toggle] = useToggle(isLiked);
-  const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState<number | undefined>(initialCount);
 
   useEffect(() => {
     setCount(initialCount);
@@ -18,12 +31,12 @@ export const LikeToggle = ({ isLogin, isLiked, initialCount, onClick }) => {
   }, [isLiked]);
 
   const addLike = async () => {
-    setCount(count + 1);
+    count && setCount(count + 1);
     onClick && onClick(state);
   };
 
   const cancleLike = async () => {
-    setCount(count - 1);
+    count && setCount(count - 1);
     onClick && onClick(state);
   };
 
@@ -37,7 +50,7 @@ export const LikeToggle = ({ isLogin, isLiked, initialCount, onClick }) => {
 
   return (
     <Container onClick={handleClick}>
-      <IconWrapper color={isLogin ? theme.color.red : theme.color.gray}>
+      <IconWrapper color={isLogin ? theme.color.red : theme.color.grey}>
         {state ? <Icon.Like /> : <Icon.LikeBorder />}
       </IconWrapper>
       {typeof initialCount === 'boolean' ? '' : <Count>{count}</Count>}
@@ -46,17 +59,8 @@ export const LikeToggle = ({ isLogin, isLiked, initialCount, onClick }) => {
 };
 
 LikeToggle.defaultProps = {
-  isLiked: false,
   initialCount: 0,
-  onClick: () => {},
-  isLogin: false,
-};
-
-LikeToggle.propTypes = {
-  isLiked: PropTypes.bool,
-  isLogin: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  onClick: PropTypes.func,
-  initialCount: PropTypes.number,
+  onClick: () => '',
 };
 
 export default LikeToggle;

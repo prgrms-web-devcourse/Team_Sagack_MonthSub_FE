@@ -2,9 +2,18 @@ import React from 'react';
 import { Button } from '@atom';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-const ConfirmButtons = ({ cancleName, confirmName, ...props }) => {
+interface ConfirmButtonsProps extends HTMLAttributes<HTMLDivElement> {
+  cancleName?: string;
+  confirmName?: string;
+}
+
+const ConfirmButtons = ({
+  cancleName,
+  confirmName,
+  ...props
+}: ConfirmButtonsProps): ReactElement => {
   const history = useHistory();
   return (
     <ButtonWrapper {...props}>
@@ -21,11 +30,6 @@ const ConfirmButtons = ({ cancleName, confirmName, ...props }) => {
 ConfirmButtons.defaultProps = {
   cancleName: '취소',
   confirmName: '확인',
-};
-
-ConfirmButtons.propTypes = {
-  cancleName: PropTypes.string,
-  confirmName: PropTypes.string,
 };
 
 export default ConfirmButtons;

@@ -2,8 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Loader from 'react-loader-spinner';
 import theme from '@styles/theme';
+import type { ReactElement } from 'react';
 
-const Loading = () => (
+const Loading = (): ReactElement => (
   <Wrapper>
     <Loader
       type="Oval"
