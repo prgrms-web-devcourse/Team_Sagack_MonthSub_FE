@@ -49,16 +49,8 @@ LaptopHeader.propTypes = {
 export default LaptopHeader;
 
 const StyledHeader = styled.header`
-  position: fixed;
-  display: flex;
+  ${mixin.header}
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: ${theme.common.navHeight};
-  padding: 0 3rem;
-  top: 0;
-  background-color: #fff;
-  box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
   z-index: 2;
   a:hover {
     color: ${theme.color.main};

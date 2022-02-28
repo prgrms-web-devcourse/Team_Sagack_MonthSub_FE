@@ -18,7 +18,7 @@ const FollowListPage = () => {
     const { data } = await getFollowList({
       params: {
         ...(id && { userId: id }),
-        lastId: lastId.current,
+        writerLikesLastId: lastId.current,
         size: 10,
       },
     });
@@ -29,8 +29,10 @@ const FollowListPage = () => {
 
     setValues(prev => [...prev, ...data.writerLikesList]);
 
-    lastId.current =
-      data.writerLikesList[data.writerLikesList.length - 1].writerId;
+    if (data.writerLikesList.length) {
+      lastId.current =
+        data.writerLikesList[data.writerLikesList.length - 1].writerLikesId;
+    }
   };
 
   useEffect(() => {

@@ -21,7 +21,7 @@ const UserList = ({ list, title, moreLink, ...props }) => {
               userId={item.userId}
               nickname={item.nickname}
               key={item.userId}
-              isSubscribeable={
+              isSubscribeAble={
                 item.subscribeStatus === 'SUBSCRIPTION_AVAILABLE'
               }
             />

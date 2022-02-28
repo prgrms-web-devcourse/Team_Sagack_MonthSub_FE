@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Loading, Image, Button } from '@atom';
 import { ContentAddLink } from '@mocules';
-import { ArticleList, DetailBody } from '@organisms';
+import { ArticleList, DetailBody, CommentList } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';
-import { getSeriesDetail } from '@apis/series';
+import {
+  getSeriesDetail,
+  postSeriesComment,
+  getSeriesComment,
+  putSeriesComment,
+  deleteSeriesComment,
+} from '@apis/series';
 import styled from '@emotion/styled';
 import { theme, mixin } from '@styles';
 import convertDay from '@utils/convertDay';
 
-export const initialData = {
+const initialData = {
   isMine: false,
   isLiked: false,
   series: {
@@ -53,13 +59,21 @@ export const initialData = {
   ],
 };
 
+const APIUrl = {
+  create: postSeriesComment,
+  read: getSeriesComment,
+  update: putSeriesComment,
+  delete: deleteSeriesComment,
+};
+
 const SeriesDetailPage = () => {
+  const history = useHistory();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [detail, setDetail] = useState(initialData);
-  const history = useHistory();
 
-  const getInitialData = async () => {
+  const [detail, setDetail] = useState(initialData);
+
+  const readSeriesDetail = async () => {
     const { data } = await getSeriesDetail({ id });
 
     if (!data) {
@@ -72,7 +86,7 @@ const SeriesDetailPage = () => {
   };
 
   useEffect(() => {
-    getInitialData();
+    readSeriesDetail();
   }, []);
 
   return (
@@ -81,15 +95,15 @@ const SeriesDetailPage = () => {
         <Loading />
       ) : (
         <>
-          <ImageArea>
+          <ImageSection>
             <Image
               src={detail.series.thumbnail}
               alt="seriesDetailThumbnail"
               width="100%"
               height="auto"
             />
-          </ImageArea>
-          <InfoArea>
+          </ImageSection>
+          <InfoSection>
             <SeriesInfo>
               <div>작품 정보</div>
               <SeriesInfoSection>
@@ -136,8 +150,8 @@ const SeriesDetailPage = () => {
                 </Link>
               ) : null}
             </SeriesInfo>
-          </InfoArea>
-          <MainArea>
+          </InfoSection>
+          <MainSection>
             <div>
               <DetailBody
                 previousRoot="/series"
@@ -154,9 +168,9 @@ const SeriesDetailPage = () => {
                 isLiked={detail.isLiked}
               />
             </div>
-          </MainArea>
-          <ArticleArea>
-            <div className="articleAreaHeader">
+          </MainSection>
+          <ArticleSection>
+            <div className="articleSectionHeader">
               <SectionContainer title="연재 목록" />
               {detail.isMine ? (
                 <ContentAddLink
@@ -172,7 +186,10 @@ const SeriesDetailPage = () => {
                 list={detail.articleList}
               />
             </SectionContainer>
-          </ArticleArea>
+          </ArticleSection>
+          <CommentSection>
+            <CommentList API={APIUrl} />
+          </CommentSection>
         </>
       )}
     </Wrapper>
@@ -181,7 +198,7 @@ const SeriesDetailPage = () => {
 
 export default SeriesDetailPage;
 
-const ImageArea = styled.div`
+const ImageSection = styled.div`
   ${mixin.fullScreen}
   height: 30rem;
   overflow: hidden;
@@ -193,7 +210,7 @@ const ImageArea = styled.div`
   }
 `;
 
-const MainArea = styled.div`
+const MainSection = styled.div`
   display: flex;
   margin: 2.5rem 0;
 
@@ -207,7 +224,7 @@ const MainArea = styled.div`
   }
 `;
 
-const InfoArea = styled.div`
+const InfoSection = styled.div`
   margin-bottom: 2.5rem;
 `;
 
@@ -257,10 +274,10 @@ const SeriesInfoSection = styled.div`
   }
 `;
 
-const ArticleArea = styled.div`
+const ArticleSection = styled.div`
   margin-top: 4rem;
 
-  .articleAreaHeader {
+  .articleSectionHeader {
     display: flex;
     justify-content: space-between;
 
@@ -271,4 +288,8 @@ const ArticleArea = styled.div`
       align-items: center;
     }
   }
+`;
+
+const CommentSection = styled.div`
+  margin-top: 4rem;
 `;

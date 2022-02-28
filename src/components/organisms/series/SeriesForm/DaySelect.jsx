@@ -24,7 +24,7 @@ const DaySelect = ({ valueList, initialCheckeds, onChange, ...props }) => {
         />
         <StyledButton>전체</StyledButton>
       </label>
-      {convertDay(valueList).map(value => (
+      {valueList.map(value => (
         <label key={value} htmlFor={value}>
           <StyledInput
             id={value}
@@ -37,7 +37,7 @@ const DaySelect = ({ valueList, initialCheckeds, onChange, ...props }) => {
                 : checkedList.includes(value)
             }
           />
-          <StyledButton>{value}</StyledButton>
+          <StyledButton>{convertDay([value])}</StyledButton>
         </label>
       ))}
     </div>
