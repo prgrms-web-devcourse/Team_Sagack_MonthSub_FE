@@ -29,9 +29,8 @@ Monthsub은 월 단위 구독자를 모집하고, 구독한 작품을 제공 받
 </br>
 
 # 📜 프로젝트 문서
-[협업 문서 페이지 - 노션](https://www.notion.so/backend-devcourse/13-7f3fe0d00a2442b490c62a41d85f3dd2)
-</br>
-[프로젝트 이슈 관리 - 지라](https://monthsub.atlassian.net/jira/software/projects/MON/boards/1) 
+- [협업 문서  - 노션](https://www.notion.so/backend-devcourse/13-7f3fe0d00a2442b490c62a41d85f3dd2)
+- [프로젝트 이슈 관리 - 지라](https://monthsub.atlassian.net/jira/software/projects/MON/boards/1) 
 
 # 🗓 개발 일정
 | 단위  | 주요 업무                                                                                                                                                                                                                                                                                                                                                                                    |
