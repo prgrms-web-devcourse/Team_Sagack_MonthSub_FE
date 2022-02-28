@@ -1,8 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import theme from '@styles/theme';
+import type { ButtonHTMLAttributes, ReactElement } from 'react';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  width?: string | number;
+  height?: string | number;
+  circle?: boolean;
+  name?: string;
+  value?: string;
+  margin?: string | number;
+  round?: boolean;
+}
 
 const Button = ({
   type,
@@ -17,7 +28,7 @@ const Button = ({
   margin,
   round,
   ...props
-}) => (
+}: ButtonProps): ReactElement => (
   <StyledButton
     type={type}
     width={width}
@@ -38,34 +49,16 @@ const Button = ({
 export default Button;
 
 Button.defaultProps = {
-  type: 'button',
   width: 'auto',
   height: 'auto',
-  disabled: false,
   circle: false,
-  onClick: () => {},
   name: '',
   value: '',
-  children: 'text',
   margin: 0,
   round: true,
 };
 
-Button.propTypes = {
-  type: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  disabled: PropTypes.bool,
-  circle: PropTypes.bool,
-  onClick: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  name: PropTypes.string,
-  value: PropTypes.string,
-  margin: PropTypes.number,
-  round: PropTypes.bool,
-};
-
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
   width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}rem` : height};

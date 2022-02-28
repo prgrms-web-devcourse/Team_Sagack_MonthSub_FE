@@ -25,6 +25,16 @@ module.exports = {
     config.resolve.alias["@images"] = path.resolve(__dirname, "../src/images");
     config.resolve.alias["@constants"] = path.resolve(__dirname, "../src/constants");
     return config
-  }
+  },
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true
+    }
+  },
 }
 

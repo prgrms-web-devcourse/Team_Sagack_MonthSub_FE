@@ -3,26 +3,25 @@ import { IconWrapper, Icon } from '@atom';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
-import PropTypes from 'prop-types';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-const ContentAddLink = ({ children, url }) => (
-  <StyledLink to={url}>
+interface ContentAddLinkProps extends HTMLAttributes<HTMLElement> {
+  children: React.ReactNode;
+  url: string;
+}
+
+const ContentAddLink = ({
+  children,
+  url,
+  ...props
+}: ContentAddLinkProps): ReactElement => (
+  <StyledLink to={url} {...props}>
     <IconWrapper color={theme.color.main} fontSize="2rem">
       <Icon.AddCircle />
     </IconWrapper>
     <Text>{children}</Text>
   </StyledLink>
 );
-
-ContentAddLink.defaultProps = {
-  children: '',
-  url: '',
-};
-
-ContentAddLink.propTypes = {
-  children: PropTypes.string,
-  url: PropTypes.string,
-};
 
 export default ContentAddLink;
 

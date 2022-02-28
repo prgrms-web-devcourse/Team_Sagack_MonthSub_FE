@@ -1,11 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import type { ImgHTMLAttributes, ReactElement } from 'react';
+
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+  children: React.ReactNode;
+  width?: string | number;
+  height?: string | number;
+  src?: string;
+  placeholder?: string;
+}
 
 const DEFAULT_PROFILE_IMAGE =
   'https://monthsub-image.s3.ap-northeast-2.amazonaws.com/users/default/defaultProfile.jpg';
 
-const Image = ({ src, width, height, alt, placeholder, ...props }) => (
+const Image = ({
+  src,
+  width,
+  height,
+  alt,
+  placeholder,
+  ...props
+}: ImageProps): ReactElement => (
   <StyledImg
     src={src || DEFAULT_PROFILE_IMAGE}
     alt={alt}
@@ -17,18 +32,10 @@ const Image = ({ src, width, height, alt, placeholder, ...props }) => (
 );
 
 Image.defaultProps = {
-  src: DEFAULT_PROFILE_IMAGE,
   width: 0,
   height: 0,
+  src: DEFAULT_PROFILE_IMAGE,
   placeholder: DEFAULT_PROFILE_IMAGE,
-};
-
-Image.propTypes = {
-  src: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  alt: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
 };
 
 export default Image;
