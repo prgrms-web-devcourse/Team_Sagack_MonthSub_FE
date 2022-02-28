@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { useClickAway } from '@hooks';
 import { lighten } from 'polished';
 import { whiteBackLogo } from '@images';
+import mixin from '@styles/mixin';
 import Logo from './Logo';
 
 const ResponsiveHeader = ({ userId }) => {

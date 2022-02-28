@@ -7,6 +7,7 @@ import { lighten } from 'polished';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { whiteBackLogo } from '@images';
+import mixin from '@styles/mixin';
 import Nav from './Nav';
 import Logo from './Logo';
 
