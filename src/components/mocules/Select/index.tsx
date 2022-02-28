@@ -1,9 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import theme from '@styles/theme';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-const Select = ({ name, onChange, options, ...props }) => (
+interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
+  name?: string;
+  options: string[];
+}
+
+const Select = ({
+  name,
+  onChange,
+  options,
+  ...props
+}: SelectProps): ReactElement => (
   <StyledSelect name={name} onChange={onChange} {...props}>
     {options.map(option => (
       <option key={option} value={option}>
@@ -15,14 +25,6 @@ const Select = ({ name, onChange, options, ...props }) => (
 
 Select.defaultProps = {
   name: '',
-  onChange: () => {},
-  options: [],
-};
-
-Select.propTypes = {
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  options: PropTypes.array,
 };
 
 export default Select;

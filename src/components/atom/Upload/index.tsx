@@ -1,6 +1,11 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import type { InputHTMLAttributes, ReactElement } from 'react';
+
+interface UploadProps extends InputHTMLAttributes<HTMLInputElement> {
+  children: React.ReactNode;
+  accept?: string;
+}
 
 const Upload = ({
   children,
@@ -10,11 +15,11 @@ const Upload = ({
   onChange,
   disabled,
   ...props
-}) => {
-  const inputRef = useRef(null);
+}: UploadProps): ReactElement => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChooseFile = () => {
-    inputRef.current.click();
+    inputRef?.current?.click();
   };
 
   return (
@@ -34,21 +39,7 @@ const Upload = ({
 };
 
 Upload.defaultProps = {
-  children: '',
-  name: '',
   accept: '.jpg, .png, .jpeg',
-  disabled: false,
-  value: '',
-  onChange: () => {},
-};
-
-Upload.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  name: PropTypes.string,
-  accept: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  disabled: PropTypes.bool,
 };
 
 export default Upload;
