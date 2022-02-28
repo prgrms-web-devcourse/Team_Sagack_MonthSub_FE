@@ -18,7 +18,7 @@ const ImageUpload = ({
     <UploadImage fileImageUrl={src} circle={circle} wide={wide} />
     <ImageCover wide={wide} />
     <StyledUpload onChange={onChange} name={name} wide={wide}>
-      <StyledButton wide={wide} width="6.25rem">
+      <StyledButton type="button" wide={wide} width="6.25rem">
         file upload
       </StyledButton>
     </StyledUpload>
