@@ -19,6 +19,13 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
+
+    if (name === 'price') {
+      const filteredValue = value.replace(/[^0-9]/g, '').replace(/(^0+)/g, '');
+      setValues({ ...values, [name]: filteredValue });
+      return;
+    }
+
     setValues({ ...values, [name]: value });
   };
 

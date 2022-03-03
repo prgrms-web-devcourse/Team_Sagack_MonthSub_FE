@@ -6,6 +6,7 @@ import { ImageUpload, ConfirmButtons } from '@molecules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
+import { formatPrice } from '@utils/formatPrice';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
@@ -140,8 +141,8 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
             <SectionTitle size="medium">구독료</SectionTitle>
             <PayInput
               width="50%"
-              type="number"
-              value={values.price}
+              type="text"
+              value={formatPrice(values.price)}
               name="price"
               onChange={handleChange}
               min={0}
