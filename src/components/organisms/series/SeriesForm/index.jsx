@@ -6,7 +6,7 @@ import { ImageUpload, ConfirmButtons } from '@molecules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
-import { formatPrice } from '@utils/formatPrice';
+import { formatPrice, formatPriceToText } from '@utils/formatPrice';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
@@ -148,6 +148,7 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
               min={0}
               disabled={edit}
             />
+            <span>{`${formatPriceToText(values.price)}원`}</span>
           </div>
         </StyledFlex>
       </Section>
