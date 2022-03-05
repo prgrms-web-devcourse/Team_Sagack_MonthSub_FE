@@ -1,4 +1,6 @@
-export const formatPrice = input => {
+import { truncateSync } from 'fs';
+
+export const formatPriceAddComma = input => {
   const formatedValue = input
     .split('')
     .reverse()
@@ -33,32 +35,41 @@ const changeNumberToText = value => {
   }
 };
 
-export const formatPriceToText = input => {
-  const formatedValue = input
-    .split('')
-    .reverse()
-    .map((str, index) => {
-      const formattedValue = changeNumberToText(str);
+const addNumberUnit = (str, index) => {
+  const formattedValue = changeNumberToText(str);
+  if (str === '0') {
+    return '';
+  }
+  switch (index % 4) {
+    case 1:
+      return `${formattedValue}십`;
+    case 2:
+      return `${formattedValue}백`;
+    case 3:
+      return `${formattedValue}천`;
+    default:
+      return formattedValue;
+  }
+};
 
-      if (str === '0') {
-        return '';
-      }
+export const formatPriceToText = value => {
+  const reversedValueArr = value.split('').reverse();
 
-      switch (index % 4) {
-        case 1:
-          return `${formattedValue}십`;
-        case 2:
-          return `${formattedValue}백`;
-        case 3:
-          return `${formattedValue}천`;
-        case 0:
-          return index === 0 ? formattedValue : `${formattedValue}만`;
-        default:
-          return formattedValue;
-      }
-    })
+  const thousandUnitValue = reversedValueArr
+    .slice(0, 4)
+    .map((str, index) => addNumberUnit(str, index))
     .reverse()
     .join('');
 
-  return formatedValue;
+  const tenThousandUnitValue =
+    value.length <= 4
+      ? ''
+      : reversedValueArr
+          .slice(4)
+          .map((str, index) => addNumberUnit(str, index))
+          .reverse()
+          .join('')
+          .concat('만');
+
+  return tenThousandUnitValue + thousandUnitValue;
 };

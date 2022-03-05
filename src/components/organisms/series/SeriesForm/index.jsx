@@ -6,7 +6,7 @@ import { ImageUpload, ConfirmButtons } from '@molecules';
 import { Flex } from '@templates';
 import theme from '@styles/theme';
 import { useForm } from '@hooks';
-import { formatPrice, formatPriceToText } from '@utils/formatPrice';
+import { formatPriceAddComma, formatPriceToText } from '@utils/formatPrice';
 import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
@@ -139,16 +139,17 @@ const SeriesForm = ({ edit, initialValues, onSubmit, ...props }) => {
         <StyledFlex horizen>
           <div>
             <SectionTitle size="medium">구독료</SectionTitle>
-            <PayInput
+            <PriceInput
               width="50%"
               type="text"
-              value={formatPrice(values.price)}
+              value={formatPriceAddComma(values.price)}
               name="price"
               onChange={handleChange}
               min={0}
               disabled={edit}
+              maxLength="10"
             />
-            <span>{`${formatPriceToText(values.price)}원`}</span>
+            <PriceText>{`${formatPriceToText(values.price)}원`}</PriceText>
           </div>
         </StyledFlex>
       </Section>
@@ -202,8 +203,15 @@ const StyledFlex = styled(Flex)`
   }
 `;
 
-const PayInput = styled(Input)`
+const PriceInput = styled(Input)`
   @media ${theme.device.mobileS} {
     width: 100%;
   }
+`;
+
+const PriceText = styled.span`
+  display: inline-block;
+  font-size: 1rem;
+  margin: 0 0 0.3rem 0.3rem;
+  vertical-align: bottom;
 `;
