@@ -1,8 +1,8 @@
 import React, { FormEventHandler } from 'react';
 import { TextArea, SectionTitle } from '@atom';
 import styled from '@emotion/styled';
-import type { SeriesFormValueType } from 'types';
 import type { ReactElement, FormEvent } from 'react';
+import type { SeriesFormValueType } from '../../../../types';
 
 interface SeriesEditorProps {
   value: SeriesFormValueType;

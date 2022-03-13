@@ -1,4 +1,4 @@
-const CracoAlias = require('craco-alias');
+import CracoAlias from 'craco-alias';
 
 export const babel = {
   presets: ['@emotion/babel-preset-css-prop'],

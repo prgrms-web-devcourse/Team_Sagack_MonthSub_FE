@@ -11,7 +11,7 @@ import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
-import type { SeriesFormValueType } from 'types';
+import type { SeriesFormValueType } from '../../../../types';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import CategorySelect from './CategorySelect';
