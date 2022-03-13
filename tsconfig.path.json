@@ -18,6 +18,7 @@
       "@images": ["./images"],
       "@images/*": ["./images/*"],
       "@constants": ["./constants"],
+      "@types": ["./types"],
       "@/*": ["./*"]
     }
   }

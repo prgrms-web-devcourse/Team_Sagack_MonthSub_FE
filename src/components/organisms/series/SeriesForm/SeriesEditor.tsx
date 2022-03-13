@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { TextArea, SectionTitle } from '@atom';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
+import type { SeriesFormValueType } from '@types';
+import type { ReactElement, FormEvent } from 'react';
 
-const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
-  const handleInputChange = e => {
+interface SeriesEditorProps {
+  value: SeriesFormValueType;
+  onChange?: (e: FormEvent<HTMLTextAreaElement>) => void;
+  disabled?: boolean;
+  title?: string;
+}
+
+const SeriesEditor = ({
+  value,
+  onChange,
+  disabled,
+  title,
+  ...props
+}: SeriesEditorProps): ReactElement => {
+  const handleInputChange: FormEventHandler<HTMLTextAreaElement> = e => {
     onChange && onChange(e);
   };
   return (
@@ -19,7 +33,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
           onInput={handleInputChange}
           disabled={disabled && disabled}
           placeholder="제목"
-          maxlength="300"
+          maxLength={300}
         />
         <StyledTextArea
           width="100%"
@@ -29,7 +43,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
           onInput={handleInputChange}
           disabled={disabled && disabled}
           placeholder="소개"
-          maxlength="300"
+          maxLength={300}
         />
         <StyledTextArea
           width="100%"
@@ -39,7 +53,7 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
           onInput={handleInputChange}
           disabled={disabled && disabled}
           placeholder="설명"
-          maxlength="5000"
+          maxLength={300}
         />
       </StyledSection>
     </>
@@ -47,16 +61,11 @@ const SeriesEditor = ({ value, onChange, disabled, title, ...props }) => {
 };
 
 SeriesEditor.defaultProps = {
-  onChange: () => {},
+  onChange: () => {
+    return '';
+  },
   disabled: false,
   title: '',
-};
-
-SeriesEditor.propTypes = {
-  value: PropTypes.object.isRequired,
-  onChange: PropTypes.func,
-  disabled: PropTypes.bool,
-  title: PropTypes.string,
 };
 
 export default SeriesEditor;

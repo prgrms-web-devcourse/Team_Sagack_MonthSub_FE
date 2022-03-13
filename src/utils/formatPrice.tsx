@@ -1,6 +1,4 @@
-import { truncateSync } from 'fs';
-
-export const formatPriceAddComma = input => {
+export const formatPriceAddComma = (input: string): string => {
   const formatedValue = input
     .split('')
     .reverse()
@@ -10,7 +8,7 @@ export const formatPriceAddComma = input => {
   return formatedValue;
 };
 
-const changeNumberToText = value => {
+const changeNumberToText = (value: string) => {
   switch (value) {
     case '1':
       return '일';
@@ -35,7 +33,7 @@ const changeNumberToText = value => {
   }
 };
 
-const addNumberUnit = (str, index) => {
+const addNumberUnit = (str: string, index: number) => {
   const formattedValue = changeNumberToText(str);
   if (str === '0') {
     return '';
@@ -52,7 +50,7 @@ const addNumberUnit = (str, index) => {
   }
 };
 
-export const formatPriceToText = value => {
+export const formatPriceToText = (value: string): string => {
   const reversedValueArr = value.split('').reverse();
 
   const thousandUnitValue = reversedValueArr

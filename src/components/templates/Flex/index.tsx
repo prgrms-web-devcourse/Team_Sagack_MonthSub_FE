@@ -1,18 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
+import type {
+  HTMLAttributes,
+  ReactElement,
+  ReactChildren,
+  ReactChild,
+} from 'react';
+
+interface FlexProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
+  width?: string | number;
+  height?: string | number;
+  horizen?: boolean;
+  justifyContent?: string;
+  alignItems?: string;
+}
 
 const Flex = ({
   children,
   width,
   height,
-  color,
-  fontSize,
   horizen,
   justifyContent,
   alignItems,
   ...props
-}) => (
+}: FlexProps): ReactElement => (
   <StyledFlex
     width={width}
     height={height}
@@ -28,27 +40,14 @@ const Flex = ({
 Flex.defaultProps = {
   width: '100%',
   height: '100%',
-  color: 'inherit',
-  fontSize: 'inherit',
   horizen: false,
   justifyContent: 'flex-start',
   alignItems: 'center',
 };
 
-Flex.propTypes = {
-  children: PropTypes.node.isRequired,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  color: PropTypes.string,
-  fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  horizen: PropTypes.bool,
-  justifyContent: PropTypes.string,
-  alignItems: PropTypes.string,
-};
-
 export default Flex;
 
-const StyledFlex = styled.ul`
+const StyledFlex = styled.div<FlexProps>`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};

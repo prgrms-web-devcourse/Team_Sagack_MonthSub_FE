@@ -1,9 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import { Upload, Button } from '@atom';
 import { theme, mixin } from '@styles';
 import { css } from '@emotion/react';
+import type { HTMLAttributes, ReactElement, ChangeEventHandler } from 'react';
+
+interface ImageUploadProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  buttonName?: string;
+  circle?: boolean;
+  src?: string;
+  name?: string;
+  wide?: number;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  fileImageUrl?: string;
+}
 
 const ImageUpload = ({
   onChange,
@@ -13,39 +24,33 @@ const ImageUpload = ({
   name,
   wide,
   ...props
-}) => (
+}: ImageUploadProps): ReactElement => (
   <Container wide={wide} {...props}>
     <UploadImage fileImageUrl={src} circle={circle} wide={wide} />
     <ImageCover wide={wide} />
     <StyledUpload onChange={onChange} name={name} wide={wide}>
       <StyledButton type="button" wide={wide} width="6.25rem">
-        file upload
+        {buttonName}
       </StyledButton>
     </StyledUpload>
   </Container>
 );
 
 ImageUpload.defaultProps = {
-  onChange: () => {},
-  circle: false,
   buttonName: 'File Select',
+  circle: false,
   src: '',
   name: '',
-  wide: +false,
-};
-
-ImageUpload.propTypes = {
-  onChange: PropTypes.func,
-  circle: PropTypes.bool,
-  buttonName: PropTypes.string,
-  src: PropTypes.string,
-  name: PropTypes.string,
-  wide: PropTypes.number,
+  wide: false,
+  onChange: () => {
+    return '';
+  },
+  fileImageUrl: '',
 };
 
 export default ImageUpload;
 
-const Container = styled.div`
+const Container = styled.div<ImageUploadProps>`
   position: relative;
   width: 10rem;
   display: flex;
@@ -54,7 +59,7 @@ const Container = styled.div`
   ${({ wide }) => wide && mixin.fullScreen}
 `;
 
-const StyledUpload = styled(Upload)`
+const StyledUpload = styled(Upload)<ImageUploadProps>`
   ${({ wide }) =>
     wide &&
     css`
@@ -64,7 +69,7 @@ const StyledUpload = styled(Upload)`
     `}
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<ImageUploadProps>`
   width: 8rem;
   padding: 0.5rem 0.2rem;
   font-size: 1rem;
@@ -90,7 +95,7 @@ const StyledButton = styled(Button)`
     `}
 `;
 
-const UploadImage = styled.div`
+const UploadImage = styled.div<ImageUploadProps>`
   width: 100%;
   height: 10rem;
   background-image: url(${({ fileImageUrl }) => fileImageUrl});
@@ -108,7 +113,7 @@ const UploadImage = styled.div`
     `}
 `;
 
-const ImageCover = styled.div`
+const ImageCover = styled.div<ImageUploadProps>`
   display: none;
   ${({ wide }) =>
     wide &&
