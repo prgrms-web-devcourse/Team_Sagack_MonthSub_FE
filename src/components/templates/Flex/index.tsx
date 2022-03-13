@@ -7,7 +7,7 @@ import type {
   ReactChild,
 } from 'react';
 
-interface FlexProps extends HTMLAttributes<HTMLDivElement> {
+interface FlexProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
   width?: string | number;
   height?: string | number;
@@ -47,7 +47,7 @@ Flex.defaultProps = {
 
 export default Flex;
 
-const StyledFlex = styled.div<FlexProps>`
+const StyledFlex = styled.ul<FlexProps>`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};

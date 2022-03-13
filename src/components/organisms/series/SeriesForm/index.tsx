@@ -11,7 +11,7 @@ import calculateLaterDate from '@utils/calculateLaterDate ';
 import getToday from '@utils/getToday';
 import createEmptyValueMessage from '@utils/createEmptyValueMessage';
 import { UPLOAD_DATES, SERIES_CATEGORY } from '@constants';
-import type { SeriesFormValueType } from '@types';
+import type { SeriesFormValueType } from 'types';
 import PeriodInput from './PeriodInput';
 import SeriesEditor from './SeriesEditor';
 import CategorySelect from './CategorySelect';
@@ -42,13 +42,16 @@ const SeriesForm = ({
     validate: (values: SeriesFormValueType) => {
       const newErrors: { [key: string]: string } = {};
       for (const key in values) {
-        if (!values[key] || Object.keys(values[key]).length === 0) {
+        if (!values[key]) {
           if (edit && key === 'thumbnailFile') {
             return;
           }
           newErrors.empty = createEmptyValueMessage(key);
           alert(newErrors.empty);
           break;
+        } else if (key === 'uploadDate' && !Object.keys(values[key]).length) {
+          newErrors.empty = createEmptyValueMessage(key);
+          alert(newErrors.empty);
         }
       }
 
