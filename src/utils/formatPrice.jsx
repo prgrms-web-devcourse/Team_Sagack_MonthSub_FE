@@ -73,3 +73,5 @@ export const formatPriceToText = value => {
 
   return tenThousandUnitValue + thousandUnitValue;
 };
+
+export default formatPriceAddComma;
