@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
@@ -18,6 +19,7 @@
       "@images": ["./images"],
       "@images/*": ["./images/*"],
       "@constants": ["./constants"],
+      "@types": ["./types"],
       "@/*": ["./*"]
     }
   }

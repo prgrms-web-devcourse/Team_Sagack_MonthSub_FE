@@ -1,16 +1,29 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import { useCheckBox } from '@hooks';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
+import type { InputHTMLAttributes, ReactElement } from 'react';
 
-const DaySelect = ({ valueList, initialCheckeds, onChange, ...props }) => {
+interface DaySelectProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  valueList: string[];
+  initialCheckeds: string[];
+  onChange: (name: string, checkedList: string[]) => void;
+}
+
+const DaySelect = ({
+  valueList,
+  initialCheckeds,
+  onChange,
+  ...props
+}: DaySelectProps): ReactElement => {
   const { checkedList, handleCheckedAll, handleCheckedElement } = useCheckBox({
     name: 'uploadDate',
     initialCheckeds,
     valueList,
     onChange,
+    filterMode: false,
   });
 
   return (
@@ -51,17 +64,6 @@ const StyledInput = styled.input`
     color: #fff;
   }
 `;
-
-DaySelect.defaultProps = {
-  initialCheckeds: [],
-  onChange: () => {},
-};
-
-DaySelect.propTypes = {
-  valueList: PropTypes.array.isRequired,
-  initialCheckeds: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  onChange: PropTypes.func,
-};
 
 export default DaySelect;
 

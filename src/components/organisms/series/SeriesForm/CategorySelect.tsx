@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
 import { Input } from '@atom';
 import theme from '@styles/theme';
 import convertCategory from '@utils/convertCategory';
+import type { InputHTMLAttributes, ReactElement, ChangeEvent } from 'react';
+
+interface CategorySelectProps extends InputHTMLAttributes<HTMLInputElement> {
+  name?: string;
+  labels?: string[];
+  disabled?: boolean;
+  checkedItem?: string;
+}
 
 const CategorySelect = ({
   name,
@@ -12,44 +19,37 @@ const CategorySelect = ({
   disabled,
   checkedItem,
   ...props
-}) => {
-  const handleChange = e => {
+}: CategorySelectProps): ReactElement => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);
   };
 
   return (
     <div {...props}>
-      {labels.map(label => (
-        <label key={label} htmlFor={label}>
-          <StyledInput
-            type="radio"
-            name={name}
-            id={label}
-            onChange={handleChange}
-            value={label}
-            checked={checkedItem === label}
-            disabled={disabled}
-          />
-          <StyledButton>{convertCategory(label)}</StyledButton>
-        </label>
-      ))}
+      {labels &&
+        labels.map(label => (
+          <label key={label} htmlFor={label}>
+            <StyledInput
+              type="radio"
+              name={name}
+              id={label}
+              onChange={handleChange}
+              value={label}
+              checked={checkedItem === label}
+              disabled={disabled}
+            />
+            <StyledButton>{convertCategory(label)}</StyledButton>
+          </label>
+        ))}
     </div>
   );
 };
 
 CategorySelect.defaultProps = {
-  onChange: () => {},
+  name: '',
+  labels: [],
   checkedItem: '',
   disabled: false,
-  name: '',
-};
-
-CategorySelect.propTypes = {
-  labels: PropTypes.array.isRequired,
-  onChange: PropTypes.func,
-  checkedItem: PropTypes.string,
-  disabled: PropTypes.bool,
-  name: PropTypes.string,
 };
 
 export default CategorySelect;
