@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CheckedButtonList } from '@mocules';
+import { CheckedButtonList } from '@molecules';
 import { Loading } from '@atom';
 import { CardList } from '@organisms';
 import { Wrapper } from '@templates';
