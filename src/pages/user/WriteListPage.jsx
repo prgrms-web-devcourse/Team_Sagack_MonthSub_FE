@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loading } from '@atom';
-import { ContentAddLink } from '@mocules';
+import { ContentAddLink } from '@molecules';
 import { CardList } from '@organisms';
 import { Wrapper } from '@templates';
 import styled from '@emotion/styled';

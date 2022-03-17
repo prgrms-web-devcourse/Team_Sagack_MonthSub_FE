@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from '@atom';
-import { UserProfile, NoData } from '@mocules';
+import { UserProfile, NoData } from '@molecules';
 import { SectionContainer } from '@templates';
 import { mixin, constants } from '@styles';
 

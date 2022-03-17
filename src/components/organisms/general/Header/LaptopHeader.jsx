@@ -6,14 +6,14 @@ import theme from '@styles/theme';
 import { lighten } from 'polished';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
+import { whiteBackLogo } from '@images';
+import mixin from '@styles/mixin';
 import Nav from './Nav';
 import Logo from './Logo';
 
-const logo = require('@images/logo_whiteBackboard.svg');
-
 const LaptopHeader = ({ userId }) => (
   <StyledHeader>
-    <Logo src={logo.default} alt="미리보기" />
+    <Logo src={whiteBackLogo} alt="미리보기" />
     <StyledNav items={['Home', '연재하기', '내 채널']} />
     <Utils islogin={userId}>
       <SearchLink to="/search" islogin={userId}>
@@ -50,16 +50,8 @@ LaptopHeader.propTypes = {
 export default LaptopHeader;
 
 const StyledHeader = styled.header`
-  position: fixed;
-  display: flex;
+  ${mixin.header}
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: ${theme.common.navHeight};
-  padding: 0 3rem;
-  top: 0;
-  background-color: #fff;
-  box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
   z-index: 2;
   a:hover {
     color: ${theme.color.main};

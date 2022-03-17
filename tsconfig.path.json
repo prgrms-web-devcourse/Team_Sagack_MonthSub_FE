@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@atom": ["./components/atom"],
+      "@molecules": ["./components/molecules"],
+      "@organisms": ["./components/organisms"],
+      "@templates": ["./components/templates"],
+      "@hooks": ["./hooks"],
+      "@pages": ["./pages"],
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@apis": ["./apis"],
+      "@styles": ["./styles"],
+      "@styles/*": ["./styles/*"],
+      "@contexts": ["./contexts"],
+      "@contexts/*": ["./contexts/*"],
+      "@images": ["./images"],
+      "@images/*": ["./images/*"],
+      "@constants": ["./constants"],
+      "@types": ["./types"],
+      "@/*": ["./*"]
+    }
+  }
+}

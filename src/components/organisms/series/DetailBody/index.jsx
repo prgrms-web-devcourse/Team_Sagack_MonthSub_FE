@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import theme from '@styles/theme';
 import { Button, Image } from '@atom';
-import { SeriesLikeToggle } from '@mocules';
+import { SeriesLikeToggle } from '@molecules';
 import replaceEnter from '@utils/replaceEnter';
 
 const DetailBody = ({

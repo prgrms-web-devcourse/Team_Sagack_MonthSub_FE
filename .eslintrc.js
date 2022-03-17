@@ -4,9 +4,38 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['airbnb', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: ['react', '@typescript-eslint'],
+  extends: [
+    'airbnb',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+  ],
   rules: {
-    'react/function-component-definition': 'off',
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
+    '@typescript-eslint/no-empty-function': ['off'],
+    '@typescript-eslint/no-unused-vars': ['off'],
+    'no-use-before-define': 'off',
     'object-curly-newline': 0,
     'import/extensions': ['off'],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
@@ -44,4 +73,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': ['error'],
+        '@typescript-eslint/no-empty-function': ['error'],
+        '@typescript-eslint/no-unused-vars': ['error'],
+      },
+    },
+  ],
 };

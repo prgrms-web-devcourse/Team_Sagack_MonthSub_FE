@@ -1,8 +1,8 @@
 import React from 'react';
-import { LikeToggle } from '@mocules';
+import { LikeToggle } from '@molecules';
 
 export default {
-  title: 'Component/mocules/LikeToggle',
+  title: 'Component/molecules/LikeToggle',
   component: LikeToggle,
 };
 

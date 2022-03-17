@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { theme, constants } from '@styles';
-import { NoData } from '@mocules';
+import { NoData } from '@molecules';
 
 const HottestList = ({ list, ...props }) => (
   <ListCardContainer {...props}>

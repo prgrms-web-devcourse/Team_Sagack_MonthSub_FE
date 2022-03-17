@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Loading, Image, Button } from '@atom';
-import { ContentAddLink } from '@mocules';
+import { ContentAddLink } from '@molecules';
 import { ArticleList, DetailBody, CommentList } from '@organisms';
 import { Wrapper, SectionContainer } from '@templates';
 import { useParams, Link, useHistory } from 'react-router-dom';

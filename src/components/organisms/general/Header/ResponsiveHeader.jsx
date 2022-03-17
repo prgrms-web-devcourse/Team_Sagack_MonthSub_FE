@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useClickAway } from '@hooks';
 import { lighten } from 'polished';
+import { whiteBackLogo } from '@images';
+import mixin from '@styles/mixin';
 import Logo from './Logo';
-
-const logo = require('@images/logo_whiteBackboard.svg');
 
 const ResponsiveHeader = ({ userId }) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -29,7 +29,7 @@ const ResponsiveHeader = ({ userId }) => {
 
   return (
     <Header>
-      <Logo src={logo.default} alt="미리보기" />
+      <Logo src={whiteBackLogo} alt="미리보기" />
       <IconWrapper fontSize="2rem">
         <StyledMenuIcon onClick={handleMenuClick} />
       </IconWrapper>
@@ -94,17 +94,8 @@ ResponsiveHeader.propTypes = {
 export default ResponsiveHeader;
 
 const Header = styled.header`
-  position: fixed;
-  padding: 0 3rem;
-  top: 0;
-  width: 100%;
-  display: flex;
-  height: ${theme.common.navHeight};
-  align-items: center;
+  ${mixin.header}
   z-index: 1;
-  background-color: #fff;
-  box-shadow: 0 0.05rem 0.1rem 0 rgba(50, 50, 93, 0.15);
-
   justify-content: center;
 
   @media ${theme.device.laptop} {

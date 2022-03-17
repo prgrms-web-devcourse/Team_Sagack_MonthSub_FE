@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useForm } from '@hooks';
-import { ImageUpload } from '@mocules';
+import { ImageUpload } from '@molecules';
 import { Input, TextArea } from '@atom';
 import { Wrapper } from '@templates';
 import { useHistory } from 'react-router-dom';
