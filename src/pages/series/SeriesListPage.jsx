@@ -5,6 +5,7 @@ import { CardList } from '@organisms';
 import { Wrapper } from '@templates';
 import { getSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
+import { theme } from '@styles';
 import styled from '@emotion/styled';
 
 const SeriesListPage = () => {
@@ -201,20 +202,23 @@ const SeriesListPage = () => {
       ) : (
         <>
           <StyledContainer>
-            <div>
+            <CategoryWrapper>
+              <div>#장르</div>
               <CheckedButtonList
                 list={ctgrList}
                 onChange={handleCategoriesChange}
               />
-            </div>
-            <div>
+            </CategoryWrapper>
+            <CategoryWrapper>
+              <div>#모집상태</div>
               <CheckedButtonList
                 list={statusList}
                 onChange={handleStatusChange}
                 type="radio"
                 primaryKey={2}
+                colorTheme={[theme.color.main, '#ffffff']}
               />
-            </div>
+            </CategoryWrapper>
           </StyledContainer>
 
           <CardList list={list} />
@@ -229,4 +233,12 @@ export default SeriesListPage;
 
 const StyledContainer = styled.div`
   padding-bottom: 1.25rem;
+`;
+
+const CategoryWrapper = styled.div`
+  div:nth-of-type(1) {
+    width: 80px;
+    font-size: ${theme.font.medium};
+    margin-bottom: 0.3125rem;
+  }
 `;

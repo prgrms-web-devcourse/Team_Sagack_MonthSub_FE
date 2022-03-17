@@ -12,6 +12,7 @@ const CheckedButtonList = ({
   reverseIndex,
   unDefaultChecked,
   frameOnly,
+  colorTheme,
   ...props
 }) => {
   const checkedRef = useRef([]);
@@ -66,6 +67,7 @@ const CheckedButtonList = ({
           primaryKey={primaryKey}
           length={list.length}
           frameOnly={frameOnly}
+          colorTheme={colorTheme}
         >
           <input
             type={type}
@@ -102,6 +104,7 @@ CheckedButtonList.defaultProps = {
   unDefaultChecked: false,
   frameOnly: false,
   onChange: () => {},
+  colorTheme: [theme.color.sub, '#ffffff'],
 };
 
 CheckedButtonList.propTypes = {
@@ -113,17 +116,18 @@ CheckedButtonList.propTypes = {
   unDefaultChecked: PropTypes.bool,
   frameOnly: PropTypes.bool,
   onChange: PropTypes.func,
+  colorTheme: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default CheckedButtonList;
 
-const setCheckedStyle = (primaryKey, length) => {
+const setCheckedStyle = (primaryKey, length, colorTheme) => {
   let styles = '';
 
   for (let i = 0; i < length; i += 1) {
     styles += `#checkedBtn${primaryKey}-${i}:checked ~ .styledTag${primaryKey}-${i} {
-      background-color: ${theme.color.sub};
-      color: #ffffff;
+      background-color: ${colorTheme[0]};
+      color: ${colorTheme[1]};
     }`;
   }
 
@@ -138,7 +142,7 @@ const StyledForm = styled.form`
 `;
 
 const StyledSpan = styled.span`
-  ${({ frameOnly, primaryKey, length }) =>
+  ${({ frameOnly, primaryKey, length, colorTheme }) =>
     frameOnly
       ? `
       margin: 0.625rem;
@@ -162,6 +166,7 @@ const StyledSpan = styled.span`
       > label {
         border-radius: 2.5rem;
         background-color: #ffffff;
+        color: ${colorTheme[0]};
         box-shadow: ${theme.style.boxShadow};
         display: flex;
         justify-content: center;
@@ -177,6 +182,6 @@ const StyledSpan = styled.span`
       > input {
         display: none;
       }
-      ${setCheckedStyle(primaryKey, length)}
+      ${setCheckedStyle(primaryKey, length, colorTheme)}
   `}
 `;
