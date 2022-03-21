@@ -22,17 +22,15 @@ const TextArea = ({
   };
 
   return (
-    <div>
-      <StyledTextArea
-        width={width}
-        height={height}
-        disabled={disabled}
-        value={value}
-        name={name}
-        onChange={handleChange}
-        {...props}
-      />
-    </div>
+    <StyledTextArea
+      width={width}
+      height={height}
+      disabled={disabled}
+      value={value}
+      name={name}
+      onChange={handleChange}
+      {...props}
+    />
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Input, Button, Icon } from '@atom';
+import { Input, Button, Icon, SectionTitle } from '@atom';
 import { CardList } from '@organisms';
 import { Wrapper } from '@templates';
 import { getSearchWithTitle } from '@apis/search';
@@ -43,7 +43,7 @@ const SearchPage = () => {
 
   return (
     <Wrapper>
-      <div>리스트 검색</div>
+      <SectionTitle>리스트 검색</SectionTitle>
       <SearchForm onSubmit={handleSubmit}>
         <div className="optionArea">
           <RadioSpan>

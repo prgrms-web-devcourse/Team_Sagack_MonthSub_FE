@@ -76,7 +76,5 @@ const StyledSection = styled.section`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  &:nth-of-type(1) {
-    margin-bottom: 0.8rem;
-  }
+  margin-bottom: 1rem;
 `;
