@@ -1,7 +1,8 @@
 export { default as ArticleList } from './article/ArticleList';
 export { default as CardList } from './general/CardList';
 export { default as CardSlider } from './general/CardSlider';
-export { default as DetailBody } from './series/DetailBody';
+export { default as DetailContent } from './series/DetailContent';
+export { default as DetailInfo } from './series/DetailInfo';
 export { default as Header } from './general/Header';
 export { default as HottestList } from './general/HottestList';
 export { default as UserList } from './user/UserList';

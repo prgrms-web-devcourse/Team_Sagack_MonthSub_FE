@@ -7,15 +7,15 @@ import type { HTMLAttributes, ReactElement } from 'react';
 
 interface ContentAddLinkProps extends HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
-  url: string;
+  id: string;
 }
 
 const ContentAddLink = ({
   children,
-  url,
+  id,
   ...props
 }: ContentAddLinkProps): ReactElement => (
-  <StyledLink to={url} {...props}>
+  <StyledLink to={`/series/${id}/article/write`} {...props}>
     <IconWrapper color={theme.color.main} fontSize="2rem">
       <Icon.AddCircle />
     </IconWrapper>
