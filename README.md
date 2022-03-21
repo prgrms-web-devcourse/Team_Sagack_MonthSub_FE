@@ -1,5 +1,5 @@
 # 📝 MonthSub
-<img width="30%" src="https://user-images.githubusercontent.com/88189402/146893680-0c14334c-4e23-4164-b0e7-04a608b0971b.jpg"/>
+<img width="20%" src="https://user-images.githubusercontent.com/88189402/146893680-0c14334c-4e23-4164-b0e7-04a608b0971b.jpg"/>
 
 </br>
 
@@ -63,6 +63,78 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 | 배포  | <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=Netlify&logoColor=ffffff"/>                                                                                                                                                                                                                                                                                |
 | ETC   | <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=ffffff"/>                                                                                                                                                                     |
 | Tools | <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=ffffff"/> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=ffffff"/>                                                                                                                                                                             |
+</br>
+
+# 🛠 주요 기능 및 페이지 설명
+
+</br>
+
+**"시리즈"** 
+구독 모집 게시글로 모집 기간엔 결재가 가능하고, 연재 기간엔 아티클 생성, 조회가 가능하다.
+
+**"아티클"** 
+작가가 연재하는 게시글로 해당 시리즈를 구독한 독자만 조회 가능하다.
+
+</br>
+
+### **메인 페이지**
+
+- 인기 작가, 인기 시리즈, 최신 시리즈 조회 가능
+
+</br>
+
+### **시리즈 목록 조회**
+
+- 원하는 카테고리와 게시 상태를 선택해 필터링된 시리즈 조회 가능
+- 무한 스크롤링 기능 구현
+
+</br>
+
+### **시리즈 생성/수정**
+
+- 구독자를 모집해 연재하고 싶은 유저가 작성함
+- 카테고리, 설명, 구독모집 기간, 연재기간, 연재 요일/시간, 가격 등의 정보 기입
+
+</br>
+
+### **시리즈 상세 정보 조회**
+
+- 작가가 생성한 시리즈 정보를 조회할 수 있음
+- 작가가 아티클을 작성해 연재하는 페이지
+- 독자는 시리즈를 구독하고, 연재된 아티클을 조회할 수 있음
+
+</br>
+
+### **시리즈 결제(구독)**
+
+- 모집 기간 내에 결제해 구독할 수 있음
+
+</br>
+
+### **아티클 생성/수정**
+
+- 작가는 연재 기간 동안 설정한 요일, 시간에 아티클을 작성할 수 있음
+
+</br>
+
+### **아티클 조회**
+
+- 구독한 독자에 한하여 작가의 아티클을 조회할 수 있음
+
+
+</br>
+
+### **시리즈 검색**
+
+- 제목 또는 작가 이름으로 시리즈를 검색할 수 있음
+
+</br>
+
+### **채널**
+
+- 모든 유저는 개인 채널을 가지게 됨
+- 본인 채널 - 팔로우한 작가 & 구독한 시리즈 & 작성한 시리즈 조회 가능
+- 작가 또는 다른 유저 채널 - 팔로우한 작가 & 작성한 시리즈 조회 가능
 
 </br>
 
@@ -71,11 +143,8 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 
 </br>
 
-# 🛠 주요 기능
-
-
 # 🧸 팀원 소개
 
 |                                        [박송이](https://github.com/thddlmy)                                         |                                         [양윤](https://github.com/yyoooon)                                          |                                       [박예진](https://github.com/kokoke414)                                        |
 | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
-| ![69751205](https://user-images.githubusercontent.com/88189402/146892679-4aaaf9b4-1412-4cb9-b49f-65b0d92e3d75.jpeg) | ![image (2)](https://user-images.githubusercontent.com/81611808/155938773-ad5b8169-6468-4d95-9824-b0ca2cfe0306.png) | ![bda04f6c4](https://user-images.githubusercontent.com/88189402/146893012-17507821-c407-4a5b-842e-f93792b3889a.png) |
+| <img width="60%" alt="image" src="https://user-images.githubusercontent.com/88189402/146892679-4aaaf9b4-1412-4cb9-b49f-65b0d92e3d75.jpeg"> | <img width="60%" alt="image" src="https://user-images.githubusercontent.com/81611808/155938773-ad5b8169-6468-4d95-9824-b0ca2cfe0306.png"> | <img width="60%" alt="image" src="https://user-images.githubusercontent.com/88189402/146893012-17507821-c407-4a5b-842e-f93792b3889a.png"> |
