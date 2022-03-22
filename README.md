@@ -80,6 +80,7 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 ### **메인 페이지**
 
 - 인기 작가, 인기 시리즈, 최신 시리즈 조회 가능
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159422767-5217f86f-1968-48bb-b9b2-ce3ed32e6584.png"/>
 
 </br>
 
@@ -87,6 +88,8 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 
 - 원하는 카테고리와 게시 상태를 선택해 필터링된 시리즈 조회 가능
 - 무한 스크롤링 기능 구현
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159422822-39e782e6-e297-48e7-a6a8-60bca2561207.png"/>
+
 
 </br>
 
@@ -94,6 +97,8 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 
 - 구독자를 모집해 연재하고 싶은 유저가 작성함
 - 카테고리, 설명, 구독모집 기간, 연재기간, 연재 요일/시간, 가격 등의 정보 기입
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159424983-f4e8f4b3-8375-4c51-85c4-7c5cb1783dd4.png"/>
+
 
 </br>
 
@@ -102,24 +107,29 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 - 작가가 생성한 시리즈 정보를 조회할 수 있음
 - 작가가 아티클을 작성해 연재하는 페이지
 - 독자는 시리즈를 구독하고, 연재된 아티클을 조회할 수 있음
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159424106-02d7a227-28bc-43cb-88a8-acea1d4e5674.png"/>
 
 </br>
 
 ### **시리즈 결제(구독)**
 
-- 모집 기간 내에 결제해 구독할 수 있음
+- 모집 기간 내에 시리즈 페이지에서 결제해 구독할 수 있음
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159449617-51e7b23c-6445-43a9-978a-d0ffd285cbef.gif"/>
 
 </br>
 
 ### **아티클 생성/수정**
 
 - 작가는 연재 기간 동안 설정한 요일, 시간에 아티클을 작성할 수 있음
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159446658-dfa52c5a-8ccd-43c5-84e4-8388a24a206e.png"/>
 
 </br>
 
 ### **아티클 조회**
 
 - 구독한 독자에 한하여 작가의 아티클을 조회할 수 있음
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159431018-40ffa46e-686c-4dd4-bc85-78cdc1f0bdad.png"/>
+
 
 
 </br>
@@ -127,6 +137,7 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 ### **시리즈 검색**
 
 - 제목 또는 작가 이름으로 시리즈를 검색할 수 있음
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159449240-621a94ca-d746-489f-be1f-2154983af3c2.gif"/>
 
 </br>
 
@@ -134,7 +145,10 @@ Monthsub은 개인 작가가 보다 편리하게 구독자를 모집하고, 작�
 
 - 모든 유저는 개인 채널을 가지게 됨
 - 본인 채널 - 팔로우한 작가 & 구독한 시리즈 & 작성한 시리즈 조회 가능
-- 작가 또는 다른 유저 채널 - 팔로우한 작가 & 작성한 시리즈 조회 가능
+- 작가 또는 다른 유저 채널 - 팔로우한 작가 & 작성한 시리즈 조회 가능  
+<img width="50%" src="https://user-images.githubusercontent.com/81611808/159423730-9cbbeba5-baed-40da-9fff-a09190200ded.png"/>
+
+
 
 </br>
 
