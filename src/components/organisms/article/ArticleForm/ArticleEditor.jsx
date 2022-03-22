@@ -5,8 +5,19 @@ import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 
 const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
+  const textRef = React.createRef();
   const handleInputChange = e => {
     onChange && onChange(e);
+  };
+
+  const autoResizeTextarea = () => {
+    const textarea = textRef.current;
+
+    if (textarea) {
+      textarea.style.height = 'auto';
+      const height = textarea.scrollHeight;
+      textarea.style.height = `${height}px`;
+    }
   };
   return (
     <StyledSection {...props}>
@@ -22,14 +33,17 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
       />
       <Line />
       <StyledTextArea
+        textRef={textRef}
         width="100%"
-        height="100%"
+        height="auto"
         name="contents"
         value={value.contents || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="내용을 입력해주세요"
         maxlength="5000"
+        onKeyDown={autoResizeTextarea}
+        onKeyUp={autoResizeTextarea}
       />
     </StyledSection>
   );
@@ -75,8 +89,10 @@ const Line = styled.div`
 const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
-  height: 100%;
   font-size: 1rem;
+  min-height: 5rem;
+  overflow-y: hidden;
+  resize: none;
   &[name='contents'] {
     flex-basis: 1;
   }
