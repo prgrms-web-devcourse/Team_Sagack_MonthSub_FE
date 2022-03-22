@@ -1,5 +1,6 @@
-export const formatPriceAddComma = (input: string): string => {
-  const formatedValue = input
+export const formatPriceAddComma = (input: string | number): string => {
+  const stringValue = typeof input === 'number' ? String(input) : input;
+  const formatedValue = String(stringValue)
     .split('')
     .reverse()
     .map((str, index) => (index > 0 && index % 3 === 0 ? `${str},` : str))
@@ -50,8 +51,9 @@ const addNumberUnit = (str: string, index: number) => {
   }
 };
 
-export const formatPriceToText = (value: string): string => {
-  const reversedValueArr = value.split('').reverse();
+export const formatPriceToText = (value: string | number): string => {
+  const stringValue = typeof value === 'number' ? String(value) : value;
+  const reversedValueArr = stringValue.split('').reverse();
 
   const thousandUnitValue = reversedValueArr
     .slice(0, 4)
@@ -60,7 +62,7 @@ export const formatPriceToText = (value: string): string => {
     .join('');
 
   const tenThousandUnitValue =
-    value.length <= 4
+    stringValue.length <= 4
       ? ''
       : reversedValueArr
           .slice(4)
