@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextArea, Input } from '@atom';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 
 const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
+  const [textAreaHeight, setTextAreaHeight] = useState('auto');
+  const textRef = React.createRef();
   const handleInputChange = e => {
     onChange && onChange(e);
+  };
+
+  useEffect(() => {
+    setTextAreaHeight(textRef.current.scrollHeight);
+  }, [textRef.current]);
+
+  const autoResizeTextarea = () => {
+    const textarea = textRef.current;
+
+    if (textarea) {
+      textarea.style.height = 'auto';
+      const height = textarea.scrollHeight;
+      textarea.style.height = `${height + 24}px`;
+    }
   };
   return (
     <StyledSection {...props}>
@@ -22,14 +38,17 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
       />
       <Line />
       <StyledTextArea
+        textRef={textRef}
         width="100%"
-        height="100%"
+        height={`${textAreaHeight}px`}
         name="contents"
         value={value.contents || ''}
         onInput={handleInputChange}
         disabled={disabled && disabled}
         placeholder="내용을 입력해주세요"
         maxlength="5000"
+        onKeyDown={autoResizeTextarea}
+        onKeyUp={autoResizeTextarea}
       />
     </StyledSection>
   );
@@ -75,8 +94,10 @@ const Line = styled.div`
 const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
-  height: 100%;
   font-size: 1rem;
+  min-height: 5rem;
+  overflow-y: hidden;
+  resize: none;
   &[name='contents'] {
     flex-basis: 1;
   }

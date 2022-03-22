@@ -6,6 +6,7 @@ import type { TextareaHTMLAttributes, ReactElement } from 'react';
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   width?: string | number;
   height?: string | number;
+  textRef?: React.RefObject<HTMLTextAreaElement>;
 }
 
 const TextArea = ({
@@ -15,6 +16,7 @@ const TextArea = ({
   name,
   value,
   onChange,
+  textRef,
   ...props
 }: TextareaProps): ReactElement => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,6 +25,7 @@ const TextArea = ({
 
   return (
     <StyledTextArea
+      ref={textRef}
       width={width}
       height={height}
       disabled={disabled}
@@ -37,6 +40,7 @@ const TextArea = ({
 TextArea.defaultProps = {
   width: 'auto',
   height: 'auto',
+  textRef: undefined,
 };
 
 export default TextArea;
