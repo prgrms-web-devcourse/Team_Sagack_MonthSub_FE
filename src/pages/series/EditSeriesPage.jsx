@@ -10,23 +10,7 @@ const EditSeriesPage = () => {
   const { id } = useParams();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [initialValues, setInitialValues] = useState({
-    writeId: '',
-    title: '',
-    introduceText: '',
-    introduceSentence: '',
-    price: 0,
-    subscribeStartDate: '',
-    subscribeEndDate: '',
-    seriesStartDate: '',
-    seriesEndDate: '',
-    category: '',
-    uploadTime: '',
-    uploadDate: [],
-    articleCount: 0,
-    thumbnailFile: '',
-    thumbnailUrl: '',
-  });
+  const [initialValues, setInitialValues] = useState();
 
   const getInitialData = async id => {
     const { data } = await getSeriesDetail({

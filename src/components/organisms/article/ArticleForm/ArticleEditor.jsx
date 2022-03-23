@@ -11,19 +11,26 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
     onChange && onChange(e);
   };
 
+  const resetTextAreaHeight = () => {
+    const height = textRef.current.scrollHeight;
+    textRef.current.style.height = `${height}px`;
+  };
+
+  const autoResizeTextarea = () => {
+    if (textRef.current) {
+      textRef.current.style.height = 'auto';
+      resetTextAreaHeight();
+    }
+  };
+
   useEffect(() => {
     setTextAreaHeight(textRef.current.scrollHeight);
   }, [textRef.current]);
 
-  const autoResizeTextarea = () => {
-    const textarea = textRef.current;
+  useEffect(() => {
+    resetTextAreaHeight();
+  }, [value.contents]);
 
-    if (textarea) {
-      textarea.style.height = 'auto';
-      const height = textarea.scrollHeight;
-      textarea.style.height = `${height + 24}px`;
-    }
-  };
   return (
     <StyledSection {...props}>
       <StyledInput
@@ -94,6 +101,7 @@ const Line = styled.div`
 const StyledTextArea = styled(TextArea)`
   border: none;
   outline: none;
+  padding: 0;
   font-size: 1rem;
   min-height: 5rem;
   overflow-y: hidden;
@@ -105,4 +113,5 @@ const StyledTextArea = styled(TextArea)`
     border: none;
     outline: none;
   }
+  background-color: aqua;
 `;

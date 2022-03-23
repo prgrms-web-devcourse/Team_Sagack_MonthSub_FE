@@ -29,7 +29,6 @@ const ArticleForm = ({ edit, initialValues, onSubmit, ...props }) => {
       return newErrors;
     },
   });
-
   return (
     <Form onSubmit={handleSubmit} {...props}>
       <ImageUpload
