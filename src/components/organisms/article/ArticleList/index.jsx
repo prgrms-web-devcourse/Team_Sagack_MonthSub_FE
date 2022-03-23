@@ -9,7 +9,9 @@ import { SectionContainer } from '@templates';
 const ArticleList = ({ isMine, seriesId, list, ...props }) => (
   <SectionContainer title="연재 목록">
     {isMine ? (
-      <ContentAddLink id={seriesId}>새 아티클 작성하기</ContentAddLink>
+      <ContentAddLink url={`/series/${seriesId}/article/write`}>
+        새 아티클 작성하기
+      </ContentAddLink>
     ) : null}
     <ArticleListContainer {...props}>
       {list.length ? (
