@@ -29,17 +29,6 @@ import PrivateRoute from './utils/privateRoute';
 import PublicRoute from './utils/publicRoute';
 
 const App = () => {
-  document.addEventListener(
-    'keydown',
-    e => {
-      if (e.key === 'Enter') {
-        if (e.target.tagName === 'INPUT') {
-          e.preventDefault();
-        }
-      }
-    },
-    true,
-  );
   return (
     <>
       <Header />
