@@ -7,7 +7,7 @@ import { Button, Image } from '@atom';
 import { SeriesLikeToggle } from '@molecules';
 import replaceEnter from '@utils/replaceEnter';
 
-const DetailBody = ({
+const DetailContent = ({
   previousRoot,
   previousRootText,
   parentId,
@@ -72,7 +72,7 @@ const DetailBody = ({
   </div>
 );
 
-DetailBody.defaultProps = {
+DetailContent.defaultProps = {
   previousRoot: '',
   previousRootText: '',
   parentId: -1,
@@ -87,7 +87,7 @@ DetailBody.defaultProps = {
   isLiked: false,
 };
 
-DetailBody.propTypes = {
+DetailContent.propTypes = {
   previousRoot: PropTypes.string,
   previousRootText: PropTypes.string,
   parentId: PropTypes.number,
@@ -102,7 +102,7 @@ DetailBody.propTypes = {
   isLiked: PropTypes.bool,
 };
 
-export default DetailBody;
+export default DetailContent;
 
 const DetailRoot = styled.div`
   font-size: ${theme.font.small};
