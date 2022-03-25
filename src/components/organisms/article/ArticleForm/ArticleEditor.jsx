@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TextArea, Input } from '@atom';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 
 const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
-  const textRef = React.createRef();
-
   const handleInputChange = e => {
     onChange && onChange(e);
   };
@@ -25,7 +23,6 @@ const ArticleEditor = ({ value, onChange, disabled, title, ...props }) => {
       />
       <Line />
       <StyledTextArea
-        textRef={textRef}
         width="100%"
         height="60vh"
         name="contents"
