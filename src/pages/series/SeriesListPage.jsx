@@ -5,6 +5,7 @@ import { CardList } from '@organisms';
 import { Wrapper } from '@templates';
 import { getSeries } from '@apis/series';
 import { useHistory } from 'react-router-dom';
+import { theme } from '@styles';
 import styled from '@emotion/styled';
 
 const SeriesListPage = () => {
@@ -201,20 +202,19 @@ const SeriesListPage = () => {
       ) : (
         <>
           <StyledContainer>
-            <div>
+            <CategoryWrapper>
               <CheckedButtonList
                 list={ctgrList}
                 onChange={handleCategoriesChange}
               />
-            </div>
-            <div>
               <CheckedButtonList
                 list={statusList}
                 onChange={handleStatusChange}
                 type="radio"
                 primaryKey={2}
+                frameOnly
               />
-            </div>
+            </CategoryWrapper>
           </StyledContainer>
 
           <CardList list={list} />
@@ -229,4 +229,17 @@ export default SeriesListPage;
 
 const StyledContainer = styled.div`
   padding-bottom: 1.25rem;
+`;
+
+const CategoryWrapper = styled.div`
+  @media ${theme.device.laptop} {
+    display: flex;
+    > *:nth-of-type(2) {
+      width: 400px;
+    }
+  }
+
+  > *:nth-of-type(2) {
+    justify-content: flex-end;
+  }
 `;
