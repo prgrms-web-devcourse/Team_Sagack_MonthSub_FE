@@ -1,5 +1,5 @@
 import React from 'react';
-import type { InputHTMLAttributes, ReactElement } from 'react';
+import type { InputHTMLAttributes, ReactElement, KeyboardEvent } from 'react';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 
@@ -9,6 +9,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   round?: boolean;
   focus?: boolean;
 }
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  e.key === 'Enter' && e.preventDefault();
+};
 
 const Input = ({
   name,
@@ -32,6 +36,7 @@ const Input = ({
     type={type}
     placeholder={placeholder}
     onChange={onChange}
+    onKeyDown={handleKeyDown}
     round={round}
     focus={focus}
     {...props}

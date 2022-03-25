@@ -41,7 +41,7 @@ ImageUpload.defaultProps = {
   circle: false,
   src: '',
   name: '',
-  wide: false,
+  wide: +false,
   onChange: () => {
     return '';
   },
