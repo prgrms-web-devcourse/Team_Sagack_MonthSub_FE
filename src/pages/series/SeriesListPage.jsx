@@ -203,20 +203,16 @@ const SeriesListPage = () => {
         <>
           <StyledContainer>
             <CategoryWrapper>
-              <div>#장르</div>
               <CheckedButtonList
                 list={ctgrList}
                 onChange={handleCategoriesChange}
               />
-            </CategoryWrapper>
-            <CategoryWrapper>
-              <div>#모집상태</div>
               <CheckedButtonList
                 list={statusList}
                 onChange={handleStatusChange}
                 type="radio"
                 primaryKey={2}
-                colorTheme={[theme.color.main, '#ffffff']}
+                frameOnly
               />
             </CategoryWrapper>
           </StyledContainer>
@@ -236,9 +232,14 @@ const StyledContainer = styled.div`
 `;
 
 const CategoryWrapper = styled.div`
-  div:nth-of-type(1) {
-    width: 80px;
-    font-size: ${theme.font.medium};
-    margin-bottom: 0.3125rem;
+  @media ${theme.device.laptop} {
+    display: flex;
+    > *:nth-of-type(2) {
+      width: 400px;
+    }
+  }
+
+  > *:nth-of-type(2) {
+    justify-content: flex-end;
   }
 `;
