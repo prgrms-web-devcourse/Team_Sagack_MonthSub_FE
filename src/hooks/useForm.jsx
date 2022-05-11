@@ -5,16 +5,13 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(
-    () => () => {
-      setErrors({});
-      setIsLoading(false);
-    },
-    [],
-  );
+  useEffect(() => {
+    setErrors({});
+    setIsLoading(false);
+  }, []);
 
   const handleChangeArr = (name, value) => {
-    setValues({ ...values, [name]: value });
+    setValues({ ...values, [name]: value }); // 배열이기 때문에 e.target에서 얻어올 수 없다
   };
 
   const handleChange = e => {

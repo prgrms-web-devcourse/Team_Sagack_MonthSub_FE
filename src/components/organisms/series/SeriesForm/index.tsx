@@ -40,31 +40,32 @@ const SeriesForm = ({
     initialValues,
     onSubmit,
     validate: (values: SeriesFormValueType) => {
-      const newErrors: { [key: string]: string } = {};
-      for (const key in values) {
-        if (!values[key]) {
-          if (edit && key === 'thumbnailFile') {
-            return;
-          }
-          newErrors.empty = createEmptyValueMessage(key);
-          alert(newErrors.empty);
-          break;
-        } else if (key === 'uploadDate' && !Object.keys(values[key]).length) {
-          newErrors.empty = createEmptyValueMessage(key);
-          alert(newErrors.empty);
-        }
-      }
-
-      if (
-        edit &&
-        Object.keys(initialValues.uploadDate).length !==
-          Object.keys(values.uploadDate).length
-      ) {
-        newErrors.dayLength = '요일 수가 일치하지 않습니다!';
-        alert(newErrors.dayLength);
-      }
-
-      return newErrors;
+      return edit
+        ? validationEditSeries(values)
+        : validationWriteSeries(values);
+      // const newErrors: { [key: string]: string } = {};
+      // for (const key in values) {
+      //   if (!values[key]) {
+      //     if (edit && key === 'thumbnailFile') {
+      //       return;
+      //     }
+      //     newErrors.empty = createEmptyValueMessage(key);
+      //     alert(newErrors.empty);
+      //     break;
+      //   } else if (key === 'uploadDate' && !Object.keys(values[key]).length) {
+      //     newErrors.empty = createEmptyValueMessage(key);
+      //     alert(newErrors.empty);
+      //   }
+      // }
+      // if (
+      //   edit &&
+      //   Object.keys(initialValues.uploadDate).length !==
+      //     Object.keys(values.uploadDate).length
+      // ) {
+      //   newErrors.dayLength = '요일 수가 일치하지 않습니다!';
+      //   alert(newErrors.dayLength);
+      // }
+      // return newErrors;
     },
   });
 
