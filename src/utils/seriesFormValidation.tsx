@@ -43,34 +43,42 @@ const isEmptyArrayValue = (value: string[]): boolean => {
   return !!value.length;
 };
 
-const createEmptyValuesArr = (values: SeriesFormValueType) => {
-  const notValidateValues: string[] = [];
+const validateEmptyValues = (
+  values: SeriesFormValueType,
+): { [key: string]: string } => {
+  const errors: { [key: string]: string } = {};
+
   for (const [key, value] of Object.entries(values)) {
     if (value instanceof Array && isEmptyArrayValue(value)) {
-      notValidateValues.push(key);
+      errors[key] = createEmptyValueMessage(key);
     } else if (isEmptyPrimitiveValue(value)) {
-      notValidateValues.push(key);
+      errors[key] = createEmptyValueMessage(key);
     }
   }
-  return notValidateValues;
+  return errors;
 };
 
-const compareUploadDates = (
+const validateUploadDateLength = (
   beforeValue: string[],
-  afterValue: string[],
-): boolean => {
-  return false;
+  newValue: string[],
+): string | null => {
+  const notSameDayLength =
+    Object.keys(beforeValue).length !== Object.keys(newValue).length;
+
+  return notSameDayLength ? '요일 수가 일치하지 않습니다!' : null;
 };
 
-const validationWriteSeries = (values: SeriesFormValueType): string[] => {
-  return createEmptyValuesArr(values);
-};
+// ------------------------------------------------------------------------------
 
-const validationEditSeries = (values: SeriesFormValueType): string[] => {
-  return createEmptyValuesArr(values); // 이미지 파일이 포함되어 있으면 제거한다 필터링
-  // 이미지 파일을 제외하고 빈 값을 체크한다.
-  // 요일 체크의 경우 전 값과 같은 지 체크한다.
-  // 원시 타입의 경우와 참조 타입의 경우가 있다.
-};
+// const validationWriteSeries = (values: SeriesFormValueType): string[] => {
+//   return createEmptyValuesArr(values);
+// };
+
+// const validationEditSeries = (values: SeriesFormValueType): string[] => {
+//   const emptyValues = createEmptyValuesArr(values).filter(
+//     v => v !== 'thumbnailFile',
+//   );
+//   return emptyValues;
+// };
 
 export { validationWriteSeries, validationEditSeries, createEmptyValueMessage };
