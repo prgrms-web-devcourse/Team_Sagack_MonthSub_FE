@@ -14,3 +14,7 @@ export interface SeriesFormValueType {
   price: string;
   thumbnailUrl: string;
 }
+
+export interface ErrorsType {
+  [key: string]: string;
+}

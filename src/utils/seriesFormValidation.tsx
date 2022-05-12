@@ -1,4 +1,4 @@
-import type { SeriesFormValueType } from '@types';
+import type { SeriesFormValueType, ErrorsType } from '@types';
 
 const createEmptyValueMessage = (name: string): string => {
   switch (name) {
@@ -35,50 +35,65 @@ const createEmptyValueMessage = (name: string): string => {
   }
 };
 
-const isEmptyPrimitiveValue = (value: string | number): boolean => {
-  return !!value;
+const checkEmptyPrimitiveValue = (value: string | number): boolean => {
+  return !value;
 };
 
-const isEmptyArrayValue = (value: string[]): boolean => {
-  return !!value.length;
+const checkEmptyArray = (value: string[]): boolean => {
+  const isEmpty = value instanceof Array && !value.length;
+  return isEmpty;
 };
 
-const validateEmptyValues = (
-  values: SeriesFormValueType,
-): { [key: string]: string } => {
-  const errors: { [key: string]: string } = {};
+const getEmptyValues = (values: SeriesFormValueType): ErrorsType => {
+  const errors: ErrorsType = {};
 
   for (const [key, value] of Object.entries(values)) {
-    if (value instanceof Array && isEmptyArrayValue(value)) {
-      errors[key] = createEmptyValueMessage(key);
-    } else if (isEmptyPrimitiveValue(value)) {
+    if (checkEmptyArray(value) || checkEmptyPrimitiveValue(value)) {
       errors[key] = createEmptyValueMessage(key);
     }
   }
   return errors;
 };
 
-const validateUploadDateLength = (
+const compareUploadDateLength = (
   beforeValue: string[],
   newValue: string[],
-): string | null => {
+): ErrorsType => {
+  const errors: ErrorsType = {
+    dayLength: '요일 수가 일치하지 않습니다!',
+  };
+
   const notSameDayLength =
     Object.keys(beforeValue).length !== Object.keys(newValue).length;
 
-  return notSameDayLength ? '요일 수가 일치하지 않습니다!' : null;
+  return notSameDayLength ? errors : {};
 };
 
-// ------------------------------------------------------------------------------
+const alertErrorMessage = (errors: ErrorsType): void => {
+  for (const value of Object.values(errors)) {
+    alert(value);
+  }
+};
 
-// const validationWriteSeries = (values: SeriesFormValueType): string[] => {
-//   return createEmptyValuesArr(values);
-// };
+const validationWriteSeries = (values: SeriesFormValueType): void => {
+  const emptyValues = getEmptyValues(values);
+  Object.keys(emptyValues).length && alertErrorMessage(emptyValues);
+};
 
-// const validationEditSeries = (values: SeriesFormValueType): string[] => {
-//   const emptyValues = createEmptyValuesArr(values).filter(
-//     v => v !== 'thumbnailFile',
-//   );
-//   return emptyValues;
-// };
+const validationEditSeries = (
+  beforeValues: SeriesFormValueType,
+  newValues: SeriesFormValueType,
+): void => {
+  const emptyValues = getEmptyValues(newValues);
+  const notSame = compareUploadDateLength(
+    beforeValues.uploadDate,
+    newValues.uploadDate,
+  );
 
-export { validationWriteSeries, validationEditSeries, createEmptyValueMessage };
+  // emptyValues에서 thumbnailFile 제거하기
+
+  Object.keys(emptyValues).length && alertErrorMessage(emptyValues);
+  Object.keys(notSame).length && alertErrorMessage(notSame);
+};
+
+export { validationWriteSeries, validationEditSeries };

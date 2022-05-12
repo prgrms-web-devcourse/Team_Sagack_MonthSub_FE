@@ -1,1 +1,1 @@
-export type { SeriesFormValueType } from './form';
+export type { SeriesFormValueType, ErrorsType } from './form';
