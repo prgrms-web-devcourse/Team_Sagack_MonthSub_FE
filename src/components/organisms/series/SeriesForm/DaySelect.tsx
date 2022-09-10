@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useCheckBox } from '@hooks';
 import theme from '@styles/theme';
 import convertDay from '@utils/convertDay';
 import type { InputHTMLAttributes, ReactElement } from 'react';
@@ -9,7 +8,10 @@ interface DaySelectProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   valueList: string[];
   initialCheckeds: string[];
-  onChange: (name: string, checkedList: string[]) => void;
+  onChange: {
+    handleCheckbox: (e: any) => void;
+    handleCheckboxAll: (e: any, allValues: string[]) => void;
+  };
 }
 
 const DaySelect = ({
@@ -18,22 +20,17 @@ const DaySelect = ({
   onChange,
   ...props
 }: DaySelectProps): ReactElement => {
-  const { checkedList, handleCheckedAll, handleCheckedElement } = useCheckBox({
-    name: 'uploadDate',
-    initialCheckeds,
-    valueList,
-    onChange,
-    filterMode: false,
-  });
-
   return (
     <div {...props}>
       <label htmlFor="all">
         <StyledInput
           type="checkbox"
           id="all"
-          onChange={handleCheckedAll}
-          checked={checkedList.length === valueList.length}
+          name="uploadDate"
+          onChange={e => {
+            onChange.handleCheckboxAll(e, valueList);
+          }}
+          checked={initialCheckeds.length === valueList.length}
         />
         <StyledButton>전체</StyledButton>
       </label>
@@ -41,14 +38,11 @@ const DaySelect = ({
         <label key={value} htmlFor={value}>
           <StyledInput
             id={value}
+            name="uploadDate"
             type="checkbox"
             value={value}
-            onChange={handleCheckedElement}
-            checked={
-              checkedList.length === valueList.length
-                ? false
-                : checkedList.includes(value)
-            }
+            onChange={onChange.handleCheckbox}
+            checked={initialCheckeds.includes(value)}
           />
           <StyledButton>{convertDay([value])}</StyledButton>
         </label>

@@ -13,23 +13,32 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     [],
   );
 
-  const handleChangeArr = (name, value) => {
-    setValues({ ...values, [name]: value });
-  };
-
   const handleCheckbox = e => {
     const { name, value, checked } = e.target;
-    const checkedValues = [];
-
-    if (!checked) {
-      checkedValues.push(value);
-    }
 
     if (checked) {
-      checkedValues.filter(checkedItem => checkedItem !== value);
+      const checkedValues = [...values[name], value];
+      setValues({ ...values, [name]: checkedValues });
     }
 
-    setValues({ ...values, [name]: checkedValues });
+    if (!checked) {
+      const checkedValues = [
+        ...values[name].filter(checkedItem => checkedItem !== value),
+      ];
+      setValues({ ...values, [name]: checkedValues });
+    }
+  };
+
+  const handleCheckboxAll = (e, allValues) => {
+    const { name, checked } = e.target;
+
+    if (checked) {
+      setValues({ ...values, [name]: allValues });
+    }
+
+    if (!checked) {
+      setValues({ ...values, [name]: [] });
+    }
   };
 
   const handleChange = e => {
@@ -76,9 +85,10 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     isLoading,
     setValues,
     handleChange,
-    handleChangeArr,
-    handleSubmit,
+    handleCheckbox,
+    handleCheckboxAll,
     handleImageUpload,
+    handleSubmit,
   };
 };
 export default useForm;

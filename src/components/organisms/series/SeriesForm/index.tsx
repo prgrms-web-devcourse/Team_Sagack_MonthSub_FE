@@ -33,7 +33,8 @@ const SeriesForm = ({
   const {
     values,
     handleChange,
-    handleChangeArr,
+    handleCheckbox,
+    handleCheckboxAll,
     handleSubmit,
     handleImageUpload,
   } = useForm({
@@ -175,7 +176,7 @@ const SeriesForm = ({
         <DaySelect
           initialCheckeds={values.uploadDate}
           valueList={UPLOAD_DATES}
-          onChange={handleChangeArr}
+          onChange={{ handleCheckbox, handleCheckboxAll }}
         />
       </Section>
       <ConfirmButtons confirmName="제출" />
