@@ -9,8 +9,11 @@ interface DaySelectProps
   valueList: string[];
   initialCheckeds: string[];
   onChange: {
-    handleCheckbox: (e: any) => void;
-    handleCheckboxAll: (e: any, allValues: string[]) => void;
+    handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleCheckboxAll: (
+      e: React.ChangeEvent<HTMLInputElement>,
+      allValues: string[],
+    ) => void;
   };
 }
 
@@ -24,8 +27,8 @@ const DaySelect = ({
     <div {...props}>
       <label htmlFor="all">
         <StyledInput
-          type="checkbox"
           id="all"
+          type="checkbox"
           name="uploadDate"
           onChange={e => {
             onChange.handleCheckboxAll(e, valueList);
@@ -38,8 +41,8 @@ const DaySelect = ({
         <label key={value} htmlFor={value}>
           <StyledInput
             id={value}
-            name="uploadDate"
             type="checkbox"
+            name="uploadDate"
             value={value}
             onChange={onChange.handleCheckbox}
             checked={initialCheckeds.includes(value)}
