@@ -17,6 +17,21 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     setValues({ ...values, [name]: value });
   };
 
+  const handleCheckbox = e => {
+    const { name, value, checked } = e.target;
+    const checkedValues = [];
+
+    if (!checked) {
+      checkedValues.push(value);
+    }
+
+    if (checked) {
+      checkedValues.filter(checkedItem => checkedItem !== value);
+    }
+
+    setValues({ ...values, [name]: checkedValues });
+  };
+
   const handleChange = e => {
     const { name, value } = e.target;
 
