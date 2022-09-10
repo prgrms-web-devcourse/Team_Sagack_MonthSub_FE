@@ -33,6 +33,7 @@ const SeriesForm = ({
   const {
     values,
     handleChange,
+    handlePrice,
     handleCheckbox,
     handleCheckboxAll,
     handleSubmit,
@@ -161,7 +162,7 @@ const SeriesForm = ({
               type="text"
               value={formatPriceAddComma(values.price)}
               name="price"
-              onChange={handleChange}
+              onChange={handlePrice}
               min={0}
               disabled={edit}
               maxLength={10}
