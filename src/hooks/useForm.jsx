@@ -13,31 +13,45 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     [],
   );
 
-  const handleChangeArr = (name, value) => {
-    setValues({ ...values, [name]: value });
-  };
-
   const handleChange = e => {
     const { name, value } = e.target;
 
-    if (name === 'price') {
-      const filteredValue = value.replace(/[^0-9]/g, '').replace(/(^0+)/g, '');
-      setValues({ ...values, [name]: filteredValue });
-      return;
-    }
-
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = async e => {
-    setIsLoading(true);
-    e.preventDefault();
-    const newErrors = validate(values);
-    if (!newErrors || Object.keys(newErrors).length === 0) {
-      await onSubmit(values);
-      setErrors({ newErrors });
-    } else setErrors(newErrors);
-    setIsLoading(false);
+  const handlePrice = e => {
+    const { name, value } = e.target;
+
+    const filteredValue = value.replace(/[^0-9]/g, '').replace(/(^0+)/g, '');
+    setValues({ ...values, [name]: filteredValue });
+  };
+
+  const handleCheckbox = e => {
+    const { name, value, checked } = e.target;
+
+    if (checked) {
+      const checkedValues = [...values[name], value];
+      setValues({ ...values, [name]: checkedValues });
+    }
+
+    if (!checked) {
+      const checkedValues = values[name].filter(
+        checkedItem => checkedItem !== value,
+      );
+      setValues({ ...values, [name]: checkedValues });
+    }
+  };
+
+  const handleCheckboxAll = (e, allValues) => {
+    const { name, checked } = e.target;
+
+    if (checked) {
+      setValues({ ...values, [name]: allValues });
+    }
+
+    if (!checked) {
+      setValues({ ...values, [name]: [] });
+    }
   };
 
   const handleImageUpload = e => {
@@ -55,15 +69,28 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     };
   };
 
+  const handleSubmit = async e => {
+    setIsLoading(true);
+    e.preventDefault();
+    const newErrors = validate(values);
+    if (!newErrors || Object.keys(newErrors).length === 0) {
+      await onSubmit(values);
+      setErrors({ newErrors });
+    } else setErrors(newErrors);
+    setIsLoading(false);
+  };
+
   return {
     values,
     errors,
     isLoading,
     setValues,
     handleChange,
-    handleChangeArr,
-    handleSubmit,
+    handlePrice,
+    handleCheckbox,
+    handleCheckboxAll,
     handleImageUpload,
+    handleSubmit,
   };
 };
 export default useForm;

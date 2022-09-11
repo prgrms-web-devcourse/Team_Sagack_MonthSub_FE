@@ -33,7 +33,9 @@ const SeriesForm = ({
   const {
     values,
     handleChange,
-    handleChangeArr,
+    handlePrice,
+    handleCheckbox,
+    handleCheckboxAll,
     handleSubmit,
     handleImageUpload,
   } = useForm({
@@ -160,7 +162,7 @@ const SeriesForm = ({
               type="text"
               value={formatPriceAddComma(values.price)}
               name="price"
-              onChange={handleChange}
+              onChange={handlePrice}
               min={0}
               disabled={edit}
               maxLength={10}
@@ -175,7 +177,7 @@ const SeriesForm = ({
         <DaySelect
           initialCheckeds={values.uploadDate}
           valueList={UPLOAD_DATES}
-          onChange={handleChangeArr}
+          onChange={{ handleCheckbox, handleCheckboxAll }}
         />
       </Section>
       <ConfirmButtons confirmName="제출" />
