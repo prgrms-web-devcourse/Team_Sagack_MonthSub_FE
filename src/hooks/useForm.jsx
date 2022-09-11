@@ -35,9 +35,9 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
     }
 
     if (!checked) {
-      const checkedValues = [
-        ...values[name].filter(checkedItem => checkedItem !== value),
-      ];
+      const checkedValues = values[name].filter(
+        checkedItem => checkedItem !== value,
+      );
       setValues({ ...values, [name]: checkedValues });
     }
   };
@@ -45,7 +45,6 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
   const handleCheckboxAll = (e, allValues) => {
     const { name, checked } = e.target;
 
-    console.log(name, checked);
     if (checked) {
       setValues({ ...values, [name]: allValues });
     }
