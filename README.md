@@ -1,6 +1,7 @@
 # 📝 MonthSub
 <img width="20%" src="https://user-images.githubusercontent.com/88189402/146893680-0c14334c-4e23-4164-b0e7-04a608b0971b.jpg"/>
 
+*api서버가 중단되었습니다.
 </br>
 
 # 🖼 프로젝트 설명
