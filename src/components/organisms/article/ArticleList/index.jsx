@@ -3,39 +3,49 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import theme from '@styles/theme';
 import { Link } from 'react-router-dom';
-import { NoData } from '@molecules';
+import { NoData, ContentAddLink } from '@molecules';
+import { SectionContainer } from '@templates';
 
-const ArticleList = ({ seriesId, list, ...props }) => (
-  <ArticleListContainer {...props}>
-    {list.length ? (
-      list.map(item => (
-        <Link
-          to={`/series/${seriesId}/article/${item.articleId}`}
-          key={item.articleId}
-        >
-          <Article>
-            <div>{item.round}</div>
-            <div className="title">{item.title}</div>
-            <div>{item.date}</div>
-          </Article>
-        </Link>
-      ))
-    ) : (
-      <NoData>
-        해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
-      </NoData>
-    )}
-  </ArticleListContainer>
+const ArticleList = ({ isMine, seriesId, list, ...props }) => (
+  <SectionContainer title="연재 목록">
+    {isMine ? (
+      <ContentAddLink url={`/series/${seriesId}/article/write`}>
+        새 아티클 작성하기
+      </ContentAddLink>
+    ) : null}
+    <ArticleListContainer {...props}>
+      {list.length ? (
+        list.map(item => (
+          <Link
+            to={`/series/${seriesId}/article/${item.articleId}`}
+            key={item.articleId}
+          >
+            <Article>
+              <div>{item.round}</div>
+              <div className="title">{item.title}</div>
+              <div>{item.date}</div>
+            </Article>
+          </Link>
+        ))
+      ) : (
+        <NoData>
+          해당하는 연재 목록이 없습니다. 연재 시작일을 확인해주세요.
+        </NoData>
+      )}
+    </ArticleListContainer>
+  </SectionContainer>
 );
 
 ArticleList.defaultProps = {
   seriesId: 0,
   list: [],
+  isMine: false,
 };
 
 ArticleList.propTypes = {
   seriesId: PropTypes.number,
   list: PropTypes.array,
+  isMine: PropTypes.bool,
 };
 
 export default ArticleList;

@@ -6,10 +6,16 @@ import { theme } from '@styles';
 import { useParams } from 'react-router-dom';
 import { useUser } from '@contexts/UserProvider';
 import Swal from 'sweetalert2';
+import {
+  postSeriesComment,
+  getSeriesComment,
+  putSeriesComment,
+  deleteSeriesComment,
+} from '@apis/series';
 import CommentItem from '../CommentItem';
 import CommentForm from '../CommentForm';
 
-const CommentList = ({ API }) => {
+const CommentList = () => {
   const { id } = useParams();
   const [commentList, setCommentList] = useState([]);
   const [postMoreTarget, setPostMoreTarget] = useState({
@@ -40,7 +46,7 @@ const CommentList = ({ API }) => {
   };
 
   const getCommentList = async () => {
-    const { data } = await API.read({
+    const { data } = await getSeriesComment({
       seriesId: id,
       size: 100,
       lastId: null,
@@ -82,7 +88,7 @@ const CommentList = ({ API }) => {
   };
 
   const createComment = async (comment, parentId) => {
-    const { data } = await API.create({
+    const { data } = await postSeriesComment({
       comment,
       seriesId: id,
       parentId,
@@ -96,7 +102,7 @@ const CommentList = ({ API }) => {
   };
 
   const updateComment = async updateParams => {
-    const { data } = await API.update(updateParams);
+    const { data } = await putSeriesComment(updateParams);
 
     if (data) {
       return true;
@@ -105,7 +111,7 @@ const CommentList = ({ API }) => {
   };
 
   const deleteComment = async commentId => {
-    const { status } = await API.delete(commentId);
+    const { status } = await deleteSeriesComment(commentId);
 
     if (status === 200) {
       return true;
@@ -251,14 +257,6 @@ const CommentList = ({ API }) => {
       </CommentContainer>
     </SectionContainer>
   );
-};
-
-CommentList.defaultProps = {
-  API: {},
-};
-
-CommentList.propTypes = {
-  API: PropTypes.objectOf(PropTypes.func),
 };
 
 export default CommentList;
